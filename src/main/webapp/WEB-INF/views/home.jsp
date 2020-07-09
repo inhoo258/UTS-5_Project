@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/home.css'/>"/>
+<link rel="stylesheet" href="<c:url value='/resources/css/home.css'/>" />
 </head>
 <body>
 	<jsp:include page="header/header.jsp"/>
 	<section>
 		<div id="imgbox">
-			<img src="resources/test.jpg">
+<!-- 			<img src="resources/test.jpg"> -->
 		</div>
 		<h3>상품1</h3>
 		<div></div>

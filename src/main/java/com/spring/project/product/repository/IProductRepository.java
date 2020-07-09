@@ -2,7 +2,10 @@ package com.spring.project.product.repository;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.product.model.ProductsVO;
@@ -19,10 +22,6 @@ public interface IProductRepository {
 	public ProductsVO getProduct(int product_id);
 	
 	//상품 입고
-	@Insert("insert into products values(products_seq.nextval,#{manager_id},#{product_info},#{product_img},"
-			+ "#{product_name},#{product_count},#{product_price},#{product_weight})")
-	public void insertProduct(String manager_id, String product_info, byte[] product_img,
-			String product_name, int product_count, int product_price, int product_weight);
 	
 	//재고 삭제
 	@Delete("delete from products where product_id=#{product_id}")
@@ -35,4 +34,13 @@ public interface IProductRepository {
 	//물량 증가
 	@Update("update products set product_count=product_count+#{plusCount} where product_id=#{product_id}")
 	public void plusProductCount(int plusCount, int product_id);
+
+	@Select("select nvl(max(product_id),0) from products")
+	public int getMaxProductId();
+	//상품입고
+	@Insert("insert into products "
+			+ "(product_id, member_id, product_info, product_img, product_name, product_count, product_price, product_weight, product_img_name) "
+			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_img}, #{product_name}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
+	public void insertProduct(ProductsVO product);
+
 }

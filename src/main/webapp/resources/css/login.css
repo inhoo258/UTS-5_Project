@@ -4,6 +4,14 @@
 															/*Login CSS Start*/
 /* ==================================================================================================================== */
 
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+/* 수정 바람 */
+
 form>input[type=text] {
 	width: 300px;
 }
@@ -189,15 +197,17 @@ form>input[type=text] {
 	transform:rotate(45deg) scale(1);
 }
 
-/* @keyframes jelly{ */
-/* 	from {transform: scale(1,1);} */
-/* 	30% {transform: scale(1.25,0.75);} */
-/* 	40% {transform: scale(0.75,1.25);} */
-/* 	50% {transform: scale(1.15,0.85);} */
-/* 	65% {transform: scale(0.95,1.05);} */
-/* 	75% {transform: scale(1.05,0.95);} */
-/* 	to {transform: scale(1,1);} */
-/* } */
+@keyframes jelly{
+	from {transform: scale(1,1);}
+	30% {transform: scale(1.25,0.75);}
+	40% {transform: scale(0.75,1.25);}
+	50% {transform: scale(1.15,0.85);}
+	65% {transform: scale(0.95,1.05);}
+	75% {transform: scale(1.05,0.95);}
+	to {transform: scale(1,1);}
+}
+
+
 
 /* ==================================================================================================================== */
 															/*Login CSS End*/

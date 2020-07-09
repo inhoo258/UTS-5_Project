@@ -22,14 +22,32 @@
 	<img alt="" src="<c:url value='/resources/test.jpg'/>" id="bg-img">
 	<header>
 		<div class="se_div">
-			<section  align="center" class="section header-section1">
-				<h1><a href="#"><font id="H-font">Home</font></a></h1>
+			<section align="center" class="section header-section1">
+				<h1>
+					<a href="<c:url value='/'/>"><font id="H-font">Home</font></a>
+				</h1>
 			</section>
-			<section  align="center" class="section header-section2">
-				<nav class="nav-meun1"><h3><a href="#"><font id="H-font">메뉴1</font></a></h3></nav>
-				<nav class="nav-meun2"><h3><a href="#"><font id="H-font">메뉴2</font></a></h3></nav>
-				<nav class="nav-meun3"><h3><a href="#"><font id="H-font">메뉴3</font></a></h3></nav>
-				<nav class="nav-meun4"><h3><a href="#"><font id="H-font">메뉴4</font></a></h3></nav>
+			<section align="center" class="section header-section2">
+				<nav class="nav-meun1">
+					<h3>
+						<a href="#"><font id="H-font">메뉴1</font></a>
+					</h3>
+				</nav>
+				<nav class="nav-meun2">
+					<h3>
+						<a href="#"><font id="H-font">메뉴2</font></a>
+					</h3>
+				</nav>
+				<nav class="nav-meun3">
+					<h3>
+						<a href="#"><font id="H-font">메뉴3</font></a>
+					</h3>
+				</nav>
+				<nav class="nav-meun4">
+					<h3>
+						<a href="#"><font id="H-font">메뉴4</font></a>
+					</h3>
+				</nav>
 			</section>
 			<section class="section header-section3">
 				<input type="checkbox" id="menuicon"> <label for=menuicon
@@ -47,9 +65,9 @@
 						<div class="sidebar-container1">
 							<i id="user-icon" class="fas fa-user-circle"></i> <b
 								id="label-id"> <sec:authentication
-									property="principal.username" />
-							</b> &nbsp;&nbsp;<font>님</font> <br>
+									property="principal.username" /></b>&nbsp;&nbsp;<font>님</font> <br>
 							<br>
+
 						</div>
 					</sec:authorize>
 					<hr id="H_hr">
@@ -76,11 +94,14 @@
 								<li class="animated-button thar-four"><a id="H_a" href="#">주문내역</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasRole('ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a" href="">회원관리</a></li>
+								<li class="animated-button thar-four"><a id="H_a"
+									href='<c:url value="/member/list"/>'>회원관리</a></li>
+								<li class="animated-button thar-four"><a id="H_a"
+									href='<c:url value="/product/list"/>'>상품관리</a></li>
 							</sec:authorize>
 						</ul>
 						<sec:authorize access="isAuthenticated()">
-							<a id="H_a logout_a"
+							<a id="H_a" style="position: absolute; top: 90%; left: 10%;"
 								sidebar-logout" href="<c:url value='/logout'/>">LOGOUT >></a>
 						</sec:authorize>
 					</div>
@@ -103,11 +124,15 @@
 			var maskWidth = $(window).width();
 
 			// 전체화면을 채운다
-			$('#mask' , '#bg-img').css({
+			$('#mask').css({
 				'width' : maskWidth,
 				'height' : maskHeight
 			});
 		});
 	</script>
+
+
+
+
 </body>
 </html>

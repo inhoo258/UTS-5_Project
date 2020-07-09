@@ -1,15 +1,28 @@
 package com.spring.project.product.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
 import com.spring.project.product.service.ProductService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/product")
 public class ProductController {
 	@Autowired
 	CartService cartService;
@@ -94,13 +107,29 @@ public class ProductController {
 //	// =======================================
 //	// -------------Product------------
 //	// 전체 상품 목록
-//	@RequestMapping("")
-//	public String getProductList(Model model) {
-//		ArrayList<ProductsVO> productList = productService.getProductList();
-//		model.addAttribute("product", productList);
-//		return "";
-//	}
-//
+	@RequestMapping("/list")
+	public void getProductList(Model model) {
+		System.out.println("=====product 통과=====");
+		model.addAttribute("productList", productService.getProductList());
+	}
+//	
+	@RequestMapping("/img/{product_id}")
+	public ResponseEntity<byte[]> getImage(@PathVariable("product_id")int product_id){
+		System.out.println("getImage in ! by product id = "+product_id);
+		ProductsVO product = productService.getProduct(product_id);
+//		System.out.println("product_img_name = "+product.getProduct_img_name());
+//		System.out.println("product_img_name size = "+product.getProduct_img_name().split("\\.").length);
+//		System.out.println("product_img_name[0] = "+product.getProduct_img_name().split("\\.")[0]);
+//		System.out.println("product_img_name[1] = "+product.getProduct_img_name().split("\\.")[1]);
+		
+		String product_type = product.getProduct_img_name().split("\\.")[1];
+		byte[] product_img = product.getProduct_img();
+		final HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("image",product_type));
+		header.setContentDispositionFormData("attachment", product.getProduct_img_name());
+		ResponseEntity<byte[]> image = new ResponseEntity<byte[]>(product_img,header,HttpStatus.OK);
+		return image;
+	}
 //	// 한개의 상품 정보
 //	@RequestMapping("")
 //	public String getProduct(@PathVariable int product_id, Model model) {
@@ -109,14 +138,22 @@ public class ProductController {
 //		return "";
 //	}
 //
-//	// 상품 입고
-//	@RequestMapping("")
-//	public String insertProduct(@ModelAttribute("product") @Validated ProductsVO product, Model model) {
-//		productService.insertProduct(product.getMemeber_id(), product.getProduct_info(), product.getProduct_img(),
-//				product.getProduct_name(), product.getProduct_count(), product.getProduct_price(),
-//				product.getProduct_weight());
-//		return "";
-//	}
+	// 상품 입고화면
+	@GetMapping("/upload")
+	public void insertProduct() {}
+	
+	@PostMapping("/upload")
+	public String insertProduct(@RequestParam("file")MultipartFile file, ProductsVO product) {
+		System.out.println("insert start");
+		product.setProduct_img_name(file.getOriginalFilename());
+		try {
+			product.setProduct_img(file.getBytes());
+		} catch (IOException e) {
+			System.out.println("파일이 아니므니다");
+		}
+		productService.insertProduct(product);
+		return "redirect:/product/list";
+	}
 //
 //	// 상품 출고,재고없음
 //	@RequestMapping("")

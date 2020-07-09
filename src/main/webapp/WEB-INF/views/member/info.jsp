@@ -4,12 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="<c:url value='/resources/css/info.css'/>"/>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<c:url value='/resources/css/member/info.css'/>" />
 </head>
 <body>
-	<jsp:include page="../header/header.jsp" />
+<jsp:include page="../header/header.jsp"/>
 ${member }<br>
 ${member.member_id}<br>
 ${member.member_name }<br>

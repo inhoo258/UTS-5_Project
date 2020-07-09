@@ -2,13 +2,21 @@ package com.spring.project.product.model;
 
 public class ProductsVO {
 	private int product_id;
-	private String memeber_id;
+	private String member_id;
 	private String product_info;
 	private byte[] product_img;
 	private String product_name;
 	private int product_count;
 	private int product_price;
 	private int product_weight;
+	private String product_img_name;
+	
+	public String getProduct_img_name() {
+		return product_img_name;
+	}
+	public void setProduct_img_name(String product_img_name) {
+		this.product_img_name = product_img_name;
+	}
 
 	public int getProduct_id() {
 		return product_id;
@@ -18,12 +26,12 @@ public class ProductsVO {
 		this.product_id = product_id;
 	}
 
-	public String getMemeber_id() {
-		return memeber_id;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setMemeber_id(String memeber_id) {
-		this.memeber_id = memeber_id;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 	public String getProduct_info() {

@@ -21,7 +21,7 @@ public class LoginController {
 		System.out.println("===권한===");
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-		return "header/header";
+		return "home";
 		}
 	@RequestMapping("/login")
 	public void login() {
