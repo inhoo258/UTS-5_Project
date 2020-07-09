@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+*{
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+}
+
+.m_find_section{
+	width: 100%;
+}
+

@@ -112,7 +112,7 @@ public class ProductController {
 		System.out.println("=====product 통과=====");
 		model.addAttribute("productList", productService.getProductList());
 	}
-//	
+	
 	@RequestMapping("/img/{product_id}")
 	public ResponseEntity<byte[]> getImage(@PathVariable("product_id")int product_id){
 		System.out.println("getImage in ! by product id = "+product_id);
@@ -137,7 +137,7 @@ public class ProductController {
 //		model.addAttribute("product", product);
 //		return "";
 //	}
-//
+
 	// 상품 입고화면
 	@GetMapping("/upload")
 	public void insertProduct() {}
@@ -154,7 +154,7 @@ public class ProductController {
 		productService.insertProduct(product);
 		return "redirect:/product/list";
 	}
-//
+
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
 //	public String deleteProduct(@PathVariable int product_id) {

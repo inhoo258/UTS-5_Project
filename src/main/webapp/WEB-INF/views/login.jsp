@@ -41,7 +41,7 @@
 					</label>
 					</td>
 					<td colspan="2" id="findidpw">
-						<a href='<c:url value="#"/>'>아이디 찾기</a> | <a href='<c:url value="#"/>'>비밀번호 찾기</a>
+						<a href='<c:url value="member/find"/>'>아이디 찾기</a> | <a href='<c:url value="member/find"/>'>비밀번호 찾기</a>
 					</td>
 				</tr>
 				<tr height="60">
