@@ -37,7 +37,9 @@
 				<tr height="60">
 					<td colspan="1">
 					<label class="checkbox">
-						<input type="checkbox"> <span class="icon"></span> <span class="text">아이디 기억하기</span>
+						<input type="checkbox"> 
+						<span class="icon"></span> 
+						<span class="text">아이디 기억하기</span>
 					</label>
 					</td>
 					<td colspan="2" id="findidpw">
