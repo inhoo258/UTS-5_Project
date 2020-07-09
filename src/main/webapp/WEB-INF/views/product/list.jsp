@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="../header/header.jsp"/>
 	<c:forEach var="product" items="${productList}">
-		${product.product_id}.<br>
+		<a href='<c:url value="/product/${product.product_id}"/>'>${product.product_id}.</a><br>
 		${product.product_name}<br>
 		<img src='<c:url value="/product/img/${product.product_id}"/>' width="50px"><br>
 		${product.product_info}

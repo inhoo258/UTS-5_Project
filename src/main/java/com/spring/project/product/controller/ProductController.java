@@ -130,13 +130,12 @@ public class ProductController {
 		ResponseEntity<byte[]> image = new ResponseEntity<byte[]>(product_img,header,HttpStatus.OK);
 		return image;
 	}
-//	// 한개의 상품 정보
-//	@RequestMapping("")
-//	public String getProduct(@PathVariable int product_id, Model model) {
-//		ProductsVO product = productService.getProduct(product_id);
-//		model.addAttribute("product", product);
-//		return "";
-//	}
+	// 한개의 상품 정보
+	@RequestMapping("{product_id}")
+	public String getProduct(@PathVariable("product_id")int product_id, Model model) {
+		model.addAttribute("product", productService.getProduct(product_id));
+		return "product/view";
+	}
 //
 	// 상품 입고화면
 	@GetMapping("/upload")
