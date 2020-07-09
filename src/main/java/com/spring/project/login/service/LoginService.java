@@ -20,8 +20,8 @@ public class LoginService implements ILoginService{
 	}
 
 	@Override
-	public MemberVO getMember(String member_id) {
-		return memberRepository.getMember(member_id);
+	public MemberVO getMemberInfo(String member_id) {
+		return memberRepository.getMemberInfo(member_id);
 	}
 
 	@Override

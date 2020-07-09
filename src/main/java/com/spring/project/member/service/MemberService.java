@@ -36,11 +36,6 @@ public class MemberService implements IMemberService{
 		memberRepository.authJoin(member.getUsername(),member.getMember_auth());
 	}
 
-	
-	public MemberVO getMember(String member_id) {
-		return memberRepository.getMember(member_id);
-	}
-	
 	public String getPassword(String member_id) {
 		return memberRepository.getPassword(member_id);
 	}

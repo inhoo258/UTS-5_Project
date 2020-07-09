@@ -51,7 +51,7 @@
 			</section>
 			<section class="section header-section3">
 				<input type="checkbox" id="menuicon"> <label for=menuicon
-					id="H-label"> <span></span> <span></span> <span></span>
+					id="H-label" class="h_label"> <span></span> <span></span> <span></span>
 				</label>
 
 				<div class="sidebar">
