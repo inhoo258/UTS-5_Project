@@ -10,8 +10,7 @@
 <title>Insert title here</title>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://kit.fontawesome.com/c2524284bc.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/header.css'/>" />
 </head>
 <body>
@@ -28,22 +27,22 @@
 				</h1>
 			</section>
 			<section align="center" class="section header-section2">
-				<nav class="nav-meun1">
+				<nav class="nav-meun1 h_menu">
 					<h3>
 						<a href="#"><font id="H-font">메뉴1</font></a>
 					</h3>
 				</nav>
-				<nav class="nav-meun2">
+				<nav class="nav-meun2 h_menu">
 					<h3>
 						<a href="#"><font id="H-font">메뉴2</font></a>
 					</h3>
 				</nav>
-				<nav class="nav-meun3">
+				<nav class="nav-meun3 h_menu">
 					<h3>
 						<a href="#"><font id="H-font">메뉴3</font></a>
 					</h3>
 				</nav>
-				<nav class="nav-meun4">
+				<nav class="nav-meun4 h_menu">
 					<h3>
 						<a href="#"><font id="H-font">메뉴4</font></a>
 					</h3>
@@ -51,7 +50,7 @@
 			</section>
 			<section class="section header-section3">
 				<input type="checkbox" id="menuicon"> <label for=menuicon
-					id="H-label"> <span></span> <span></span> <span></span>
+					id="H-label" class="h_label"> <span></span> <span></span> <span></span>
 				</label>
 
 				<div class="sidebar">
@@ -120,7 +119,7 @@
 	<script type="text/javascript">
 		$(function() {
 			// 화면의 높이와 너비 
-			var maskHeight = $(document).height();
+			var maskHeight = $(window).height();
 			var maskWidth = $(window).width();
 
 			// 전체화면을 채운다
