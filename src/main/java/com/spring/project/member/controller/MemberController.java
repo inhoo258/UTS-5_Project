@@ -40,9 +40,9 @@ public class MemberController {
 
 	}
 
-	@RequestMapping("list")
-	public void getMemberList() {
-
+	@RequestMapping("/list")
+	public void getMemberList(Model model) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList());
 	}
 
 	@RequestMapping("/info/{userId}")

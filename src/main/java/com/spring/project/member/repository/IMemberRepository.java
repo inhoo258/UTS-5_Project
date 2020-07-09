@@ -1,6 +1,6 @@
 package com.spring.project.member.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -22,8 +22,9 @@ public interface IMemberRepository {
 	public MemberVO getMemberInfo(String userId);
 
 	// 회원 목록 출력
-	@Select("select * from members")
-	public ArrayList<MemberVO> getMemberList();
+	@Select("select m.member_id as member_id, member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth"
+			+ "from members m join authorities au on m.member_id=au.member_id ")
+	public List<MemberVO> getMemberList();
 
 	// 회원 1명의 정보
 	@Select("select * from members where member_id=#{member_id}")

@@ -1,7 +1,5 @@
 package com.spring.project.login.service;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +12,6 @@ public class LoginService implements ILoginService{
 	@Autowired
 	IMemberRepository memberRepository;
 
-	@Override
-	public ArrayList<MemberVO> getMemberList() {
-		return memberRepository.getMemberList();
-	}
 
 	@Override
 	public MemberVO getMember(String member_id) {
