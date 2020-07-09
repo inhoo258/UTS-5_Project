@@ -138,6 +138,13 @@ public class ProductController {
 //		return "";
 //	}
 
+	// 한개의 상품 정보
+	@RequestMapping("{product_id}")
+	public String getProduct(@PathVariable("product_id")int product_id, Model model) {
+		model.addAttribute("product", productService.getProduct(product_id));
+		return "product/view";
+	}
+//
 	// 상품 입고화면
 	@GetMapping("/upload")
 	public void insertProduct() {}

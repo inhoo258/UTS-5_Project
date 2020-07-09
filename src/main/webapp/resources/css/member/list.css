@@ -1,1 +1,85 @@
 @charset "UTF-8";
+
+
+input[type="radio"]{display: none;}
+input[type="radio"]+label{display: inline-block; padding: 20px; color: #999; font-size: 14px; cursor: pointer; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 2px solid #000;}
+input[type="radio"]:checked +label{color: #000; background: #0066cc; opacity: 0.4;}
+ 
+.conbox{display: none; width: 100%; height: 100%;}
+input[id="tab01"]:checked ~.con1{display: block;}
+input[id="tab02"]:checked ~.con2{display: block;}
+
+.m_background{
+	background: #0066cc;
+	opacity: 0.3;
+	z-index: -4;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+button[type="button"]{border-radius: 20px; width: 100px; height: 40px;}
+
+table{
+	width:1000px; 
+}
+
+
+
+
+.check{
+	display: none;
+}
+
+.check .icon{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	background-color: transparent;
+	border: 10px solid #000;
+	border-radius:5px;
+	position: relative;
+	cursor: pointer;  	
+}
+
+.check .icon::before , .check .icon::after{
+	content: '';
+	display: inline-block;
+	width: 20px;
+	height: 0;
+	background-color: #ff1100;
+	position: absolute;
+	transform-origin:left top;
+	border-radius: 5px;
+}
+
+.check .icon::before {
+	top: 50xp;
+	left: 12px;
+	transform: rotate(-45deg);
+}
+.check .icon::after {
+	top: 85xp;
+	left: 48px;
+	transform: rotate(-135deg);
+}
+.check input:checked ~ .icon{
+	border-color: #ff1100;
+}
+.check input:checked ~ .icon::before{
+	height: 50px;
+	transition:all .35s ease;
+}
+.check input:checked ~ .icon::after{
+	height: 120px;
+	transition:all .35s ease .35s;
+	
+}
+
+
+
+
+
+
+
+

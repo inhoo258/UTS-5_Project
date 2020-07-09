@@ -6,13 +6,7 @@
 *{
 	margin: 0;
 	padding: 0;
-}
-
-/*메인 화면 배경화면*/
-
-.main-img{
-	width: 100%;
-	height: 100%;
+	text-decoration: none;
 }
 
 /*로딩 시 화면 클릭 막음*/
@@ -50,7 +44,7 @@ input[id="menuicon"] {
 	height: 30px;
 }
 
-input[id="menuicon"]+label {
+input[id="menuicon"]+.h_label {
    display: block;
    margin:20px;
    width: 100%;
@@ -61,7 +55,7 @@ input[id="menuicon"]+label {
    cursor: pointer;
 }
 
-input[id="menuicon"]+label span {
+input[id="menuicon"]+.h_label span {
    display: block;
    position: absolute;
    width: 100%;
@@ -71,50 +65,50 @@ input[id="menuicon"]+label span {
    transition: all .35s;
 }
 
-input[id="menuicon"]+label span:nth-child(1) {
+input[id="menuicon"]+.h_label span:nth-child(1) {
    top: 0;
 }
 
-input[id="menuicon"]+label span:nth-child(2) {
+input[id="menuicon"]+.h_label span:nth-child(2) {
    top: 50%;
    transform: translateY(-50%);
 }
 
-input[id="menuicon"]+label span:nth-child(3) {
+input[id="menuicon"]+.h_label span:nth-child(3) {
    bottom: 0;
 }
 
-input[id="menuicon"]:checked+label {
+input[id="menuicon"]:checked+.h_label {
    z-index: 2;
 }
 
-input[id="menuicon"]:checked+label span {
+input[id="menuicon"]:checked+.h_label span {
    background: #fff;
 }
 
-input[id="menuicon"]:checked+label span:nth-child(1) {
+input[id="menuicon"]:checked+.h_label span:nth-child(1) {
    top: 50%;
    transform: translateY(-50%) rotate(45deg);
 }
 
-input[id="menuicon"]:checked+label span:nth-child(2) {
+input[id="menuicon"]:checked+.h_label span:nth-child(2) {
    opacity: 0;
 }
 
-input[id="menuicon"]:checked+label span:nth-child(3) {
+input[id="menuicon"]:checked+.h_label span:nth-child(3) {
    bottom: 50%;
    transform: translateY(50%) rotate(-45deg);
 }
 
 /*움직이는 아이콘 배경 설정*/
-label {
+.h_label {
    width: 50px;
    height: 50px;
    display: block;
    border-radius: 5px;
 }
 /*x*/
-input:checked ~label {
+input:checked ~.h_label {
    background-position: -40px 0;
    background-color: rgba(255, 255, 255, 0.5);
 }
@@ -169,7 +163,7 @@ logout_a{
 }
 /* 여기까지 사이드 바  관련 수정 사항*/
 
-input[id="menuicon"]:checked+label+div {
+input[id="menuicon"]:checked+.h_label+div {
    right: 0;
 }
 
@@ -301,6 +295,7 @@ li.animated-button.thar-four:before {
 }
 .header-section1{
 	width: 20%;
+	margin-top: 15px;
 }
 .header-section2{
 	align-items:center;
@@ -310,6 +305,9 @@ li.animated-button.thar-four:before {
 	width: 10%;
 }
 
+.h_menu{
+	margin-top: 20px;
+}
 .nav-meun1{
 	float: left;
 	width: 25%;
@@ -330,9 +328,9 @@ li.animated-button.thar-four:before {
 #bg-img{
 	position: absolute;
 	z-index: -5;
+	opacity: 0.4;
 	width: 100%;
 	height: 100%;
-	opacity: 0.4;
 }
 
 #H-font{
