@@ -36,6 +36,7 @@ public class MemberController {
 	@PostMapping("/insert")
 	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes) {
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
+		if(member.getMember_auth().equals("ROLE_CUSTOMER"))member.setMember_enabled(1);
 		memberSerivce.memberInsert(member);
 		return "redirect:/";
 

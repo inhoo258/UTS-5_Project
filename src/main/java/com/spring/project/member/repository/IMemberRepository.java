@@ -30,8 +30,8 @@ public interface IMemberRepository {
 	public String getPassword(String member_id);
 
 	// 회원가입 sql
-	@Insert("insert into members (member_id, member_pw, member_name, member_tel, member_addr, member_email) "
-			+ "values(#{member_id},#{member_pw},#{member_name},#{member_tel},#{member_addr},#{member_email})")
+	@Insert("insert into members (member_id, member_pw, member_name, member_tel, member_addr, member_email,member_enabled) "
+			+ "values(#{member_id},#{member_pw},#{member_name},#{member_tel},#{member_addr},#{member_email},#{member_enabled})")
 	public void memberJoin(MemberVO member);
 	
 	@Insert("insert into authorities values(#{0} , #{1})")
