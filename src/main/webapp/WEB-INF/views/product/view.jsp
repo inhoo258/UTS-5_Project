@@ -14,5 +14,9 @@
 	${product.product_name}<br>
 	<img src='<c:url value="/product/img/${product.product_id}"/>' width="50px"><br>
 	${product.product_info}
+	
+	<a href='<c:url value="/product/ordersheet"/>'>주문하기</a> <!-- 힘찬 작업 -->  
+	
+	
 </body>
 </html>

@@ -23,12 +23,12 @@
 			<form action="<c:url value='/loginProcess'/>" method="post">
 				<div class="l_collection_btn">
 					<div class="l_login_inputId">
-						<input type="text" id="l_id_input" name="l_user_id" 
+						<input type="text" id="l_id_input" name="id" 
 						placeholder="아이디를 입력해주세요." autofocus="autofocus" autocomplete="off">
 					</div>
 					
 					<div class="l_login_inputPwd">
-						<input type="password" id="l_pwd_input" name="l_user_pwd" 
+						<input type="password" id="l_pwd_input" name="pw" 
 						placeholder="비밀번호를 입력해주세요.">
 					</div>
 					
