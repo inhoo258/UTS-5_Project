@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.member.model.MemberVO;
@@ -38,7 +37,7 @@ public class MemberController {
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
 		if(member.getMember_auth().equals("ROLE_CUSTOMER"))member.setMember_enabled(1);
 		memberSerivce.memberInsert(member);
-		return "redirect:/";
+		return "/";
 
 	}
 

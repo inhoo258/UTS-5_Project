@@ -71,7 +71,6 @@
 					</sec:authorize>
 					<hr id="H_hr">
 					<div id="sidebar-container2"> 
-<!-- 					style=height 제거 (힘찬) -->
 						<ul>
 							<sec:authorize access="isAnonymous()">
 								<li class="animated-button thar-four"><a id="H_a"
@@ -110,7 +109,7 @@
 			</section>
 		</div>
 	</header>
-
+	<a class="btn-top" href=""><i class="fas fa-arrow-circle-up"></i></a>
 	<script type="text/javascript">
 		$(window).on("load", function() {
 			$(".loader").fadeOut();
@@ -131,9 +130,6 @@
 			});
 		});
 	</script>
-
-
-
 
 </body>
 </html>

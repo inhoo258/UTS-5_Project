@@ -38,7 +38,7 @@
 						<th>
 							<label class="checkbox">
 						<input type="checkbox"> <span class="icon"></span> 
-						<span class="text">아이디 기억하기</span>
+						<span class="text">선택</span>
 					</label>
 						</th>
 						<td>${member.member_id}<br>${member.member_name}<br>${member.member_auth}</td>

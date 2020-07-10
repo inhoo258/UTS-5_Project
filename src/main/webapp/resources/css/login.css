@@ -34,16 +34,8 @@
 #l_login_titlemsg{
 	padding-top: 15px;
 }
-.l_login_inputId{
+.l_login_inputId, .l_login_inputPwd, .l_login_signin,.l_login_checkmsg, .l_login_signup,.l_login_otherfix{
 	width:100%;
-	height: 50px;
-}
-.l_login_inputPwd{
-	width:100%;
-	height: 50px;
-}
-.l_login_signin{
-	width: 100%;
 	height: 50px;
 }
 .l_login_checkmsg{
@@ -54,13 +46,10 @@
 	display: none; /*자바 스크립트 블록으로 변경해야함*/
 }
 .l_login_other{
-	display: inline;
+	display: inline; 
 } 
 .l_login_otherfix{
 	margin-left: 10px; 
-}
-.l_login_signup{
-	height: 50px;
 }
 /*========================================= 각각의 div안에 있는 실제 tag들의 설정*/
 #l_id_input{

@@ -14,6 +14,7 @@
 <body>
 	<jsp:include page="header/header.jsp" />
 	<sec:authorize access="isAnonymous()">
+
 		<section>
 		<div class = "l_login_all">
 		<div class = "l_login_form">
@@ -66,40 +67,6 @@
 		</div>
 		</section>
 		
-<%-- 		<form action="<c:url value='/loginProcess'/>" method="post"> --%>
-<!-- 			<table id="logintable"> -->
-<!-- 				<tr height="60"> -->
-<!-- 					<td colspan="3"></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr height="60"> -->
-<!-- 					<th colspan="3"><br></th> -->
-<!-- 				</tr> -->
-<!-- 				<tr height="60"> -->
-<!-- 					<th colspan="3"><br></th> -->
-<!-- 				</tr> -->
-<!-- 				<tr height="60"> -->
-<!-- 					</th> -->
-<!-- 				</tr> -->
-<%-- 				<tr height="40" id="checkMessage" ${not empty message ? 'style="visibility:visible;"':''}> --%>
-<!-- 					<th colspan="3"></th> -->
-<!-- 				</tr> -->
-<!-- 				<tr height="60"> -->
-<!-- 					<td colspan="1"> -->
-					
-<!-- 					</td> -->
-<!-- 					<td colspan="2" id="findidpw"> -->
-						
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 				<tr height="60"> -->
-<!-- 					<th colspan="3"></th> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-		</form>
-		
-		
-		
-		
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal" />님 안녕하세요.<br>
@@ -109,5 +76,6 @@
 			<input type=submit value="로그아웃">test
 		</form>
 	</sec:authorize>
+	<c:remove var="message" scope="session"/>
 </body>
 </html>

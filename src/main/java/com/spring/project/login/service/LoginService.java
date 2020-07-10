@@ -20,11 +20,6 @@ public class LoginService implements ILoginService{
 		return memberRepository.getMemberInfo(member_id);
 	}
 
-	@Override
-	public String getPassword(String member_id) {
-		return memberRepository.getPassword(member_id);
-	}
-
 
 	@Override
 	public List<MemberVO> getMemberList() {

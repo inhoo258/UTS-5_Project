@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+*{
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+}
+.p_product_main{
+   margin-top: 30px;
+}
+.p_product_collection{
+   margin: 0 auto;
+   width: 1200px;
+   height: 900px;
+}
+.p_product_pic{
+    height: 800px;
+    padding: 50px;
+}
+/*=======================================이미지 크기 조정시 이부분에서 하세요*/
+.p_pic_setting{
+    width: 400px;
+    height: 500px;
+}
+/*=============================================================*/
+.p_pic_setting>img{
+   width: 100%;
+   height: 100%;
+}
+
+.p_product_desc{
+   display: inline;
+   width: 690px;
+   height: 900px;
+   float: right;
+}
+.p_product_explain{
+   margin: 30px;
+   width: 630px;
+   height: 850px;
+}
+.p_product_explain>div{
+    margin: 10px 0;
+}
+.p_product_explain>div>span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.p_product_explain>div>#title{
+    font-size: 30px;
+    width: 600px;
+    height: 70px;
+    display: inline-block;
+    line-height: 20px;
+}
+.p_product_explain>div>span>#titletext{
+    position: relative;
+    top: 25px;
+}
+.p_product_explain>div>#key{
+    font-size: 20px;
+    width: 180px;
+    height: 70px;
+    display: inline-block;
+    line-height: 20px;
+}
+.p_product_explain>div>span>#keytext{
+    position: relative;
+    top: 25px;
+}
+.p_product_explain>div>span>#text{
+    position: relative;
+    top: 23px;
+}
+.p_product_explain>div>#value{
+    width: 420px;
+    height: 70px;
+    font-size: 19px;
+}
+#explain_key{
+    font-size: 20px;
+    width: 180px;
+    height: 70px;
+    vertical-align: top;
+}
+#explain_value{
+    width: 420px;
+    height: 250px;
+    overflow: auto;
+}
+
+#title{
+    font-size: 35px;
+}
