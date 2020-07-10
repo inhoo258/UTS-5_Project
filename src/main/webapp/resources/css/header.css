@@ -6,13 +6,7 @@
 *{
 	margin: 0;
 	padding: 0;
-}
-
-/*메인 화면 배경화면*/
-
-.main-img{
-	width: 100%;
-	height: 100%;
+	text-decoration: none;
 }
 
 /*로딩 시 화면 클릭 막음*/
@@ -301,6 +295,7 @@ li.animated-button.thar-four:before {
 }
 .header-section1{
 	width: 20%;
+	margin-top: 15px;
 }
 .header-section2{
 	align-items:center;
@@ -310,6 +305,9 @@ li.animated-button.thar-four:before {
 	width: 10%;
 }
 
+.h_menu{
+	margin-top: 20px;
+}
 .nav-meun1{
 	float: left;
 	width: 25%;
@@ -330,13 +328,22 @@ li.animated-button.thar-four:before {
 #bg-img{
 	position: absolute;
 	z-index: -5;
+	opacity: 0.4;
 	width: 100%;
 	height: 100%;
-	opacity: 0.4;
 }
 
 #H-font{
 	font-size: 20px;
+	color: white;
+}
+
+/*위로가기 버튼*/
+.btn-top{
+	font-size: 40px;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
 	color: white;
 }
 /* ==================================================================================================================== */

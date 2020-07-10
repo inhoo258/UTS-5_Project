@@ -1,6 +1,6 @@
 package com.spring.project.member.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -16,18 +16,15 @@ public interface IMemberRepository {
 	@Select("select member_pw from members where member_id=#{member_id}")
 	public String getMemberPassword(String member_id);
 
-	@Select("select m.member_id as member_id, member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
+	@Select("select m.member_id as member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
 			+ "from members m " + "join authorities au " + "on m.member_id=au.member_id "
 			+ "where m.member_id=#{member_id}")
 	public MemberVO getMemberInfo(String member_id);
 
 	// 회원 목록 출력
-	@Select("select * from members")
-	public ArrayList<MemberVO> getMemberList();
-
-	// 비밀번호 가져오기
-	@Select("select member_pw from members where member_id=#{member_id}")
-	public String getPassword(String member_id);
+	@Select("select m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth"
+			+ " from members m join authorities au on m.member_id=au.member_id ")
+	public List<MemberVO> getMemberList();
 
 	// 회원가입 sql
 	@Insert("insert into members (member_id, member_pw, member_name, member_tel, member_addr, member_email,member_enabled) "

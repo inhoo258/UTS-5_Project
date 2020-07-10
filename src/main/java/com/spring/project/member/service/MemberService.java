@@ -1,6 +1,6 @@
 package com.spring.project.member.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class MemberService implements IMemberService{
 	}
 	
 	
-	public ArrayList<MemberVO> getMemberList() {
+	public List<MemberVO> getMemberList() {
 		return memberRepository.getMemberList();
 	}
 	@Override
@@ -36,10 +36,6 @@ public class MemberService implements IMemberService{
 		memberRepository.authJoin(member.getUsername(),member.getMember_auth());
 	}
 
-	public String getPassword(String member_id) {
-		return memberRepository.getPassword(member_id);
-	}
-	
 	
 	public void deleteMember(int member_id) {
 		memberRepository.deleteMember(member_id);

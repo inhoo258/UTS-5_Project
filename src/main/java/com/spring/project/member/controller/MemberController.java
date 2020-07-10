@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.member.model.MemberVO;
@@ -42,9 +41,9 @@ public class MemberController {
 
 	}
 
-	@RequestMapping("list")
-	public void getMemberList() {
-
+	@RequestMapping("/list")
+	public void getMemberList(Model model) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList());
 	}
 
 	@RequestMapping("/info/{userId}")
@@ -56,5 +55,9 @@ public class MemberController {
 	public String update(MemberVO member) {
 		memberSerivce.updateMember(member);
 		return "redirect:/member/info/"+member.getMember_id();
+	}
+	
+	@RequestMapping("find")
+	public void findId() {
 	}
 }

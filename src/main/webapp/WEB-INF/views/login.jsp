@@ -14,49 +14,68 @@
 <body>
 	<jsp:include page="header/header.jsp" />
 	<sec:authorize access="isAnonymous()">
-		<form action="<c:url value='/loginProcess'/>" method="post">
-			<table id="logintable">
-				<tr height="60">
-					<td colspan="3"><h2 style="color: #0066cc;">로그인</h2></td>
-				</tr>
-				<tr height="60">
-					<th colspan="3"><input type="text" autocomplete="off" id="id" name="id" placeholder="아이디를 입력해주세요" autofocus="autofocus"
-						required="required"><br></th>
-				</tr>
-				<tr height="60">
-					<th colspan="3"><input type="password" autocomplete="off"
-						id="password" name="pw" placeholder="비밀번호를 입력해주세요"
-						required="required"><br></th>
-				</tr>
-				<tr height="60">
-					<th colspan="3"><input type="submit" id="buttonLg" value="로그인"></th>
-				</tr>
-				<tr height="40" id="checkMessage" ${not empty message ? 'style="visibility:visible;"':''}>
-					<th colspan="3"><label id="showMessage">${message }</label></th>
-				</tr>
-				<tr height="60">
-					<td colspan="1">
-					<label class="checkbox">
-						<input type="checkbox"> <span class="icon"></span> <span class="text">아이디 기억하기</span>
-					</label>
-					</td>
-					<td colspan="2" id="findidpw">
-						<a href='<c:url value="#"/>'>아이디 찾기</a> | <a href='<c:url value="#"/>'>비밀번호 찾기</a>
-					</td>
-				</tr>
-				<tr height="60">
-					<th colspan="3"><input type="button" id="buttonJo" value="회원가입" onclick="location.href='<c:url value='/member/form'/>'"></th>
-				</tr>
-			</table>
-		</form>
+
+		<section>
+		<div class = "l_login_all">
+		<div class = "l_login_form">
+			<div class = "l_login_title">
+				<h1 id= "l_login_titlemsg">로 그 인</h1>
+			</div>
+			<form action="<c:url value='/loginProcess'/>" method="post">
+				<div class="l_collection_btn">
+					<div class="l_login_inputId">
+						<input type="text" id="l_id_input" name="id" 
+						placeholder="아이디를 입력해주세요." autofocus="autofocus" autocomplete="off">
+					</div>
+					
+					<div class="l_login_inputPwd">
+						<input type="password" id="l_pwd_input" name="pw" 
+						placeholder="비밀번호를 입력해주세요.">
+					</div>
+					
+					
+					<div class="l_login_signin">
+						<input type="submit" id="l_signin_button" value="로그인">
+					</div>
+					<div class="l_login_checkmsg">
+						<label id="showMessage">${message }</label>
+					</div>
+					<div class="l_login_other">
+						<div class="l_login_otherfix">
+							<div id="l_collection_checkbox">
+								<label class="checkbox">
+									<input type="checkbox"> 
+									<span class="icon"></span> 
+									<span class="text">아이디 기억하기</span>
+								</label>
+							</div>
+							<div id="l_collection_find">
+								<a href='<c:url value="member/find"/>'>아이디 찾기</a> | 
+								<a href='<c:url value="member/find"/>'>비밀번호 찾기</a>
+							</div>
+						</div>
+					</div>
+					<div class="l_login_signup">
+						<input type="button" id="l_signup_button" 
+						value="회원가입" onclick="location.href='<c:url value='/member/form'/>'">
+					</div>
+					
+					
+				</div>
+			</form>
+		</div>
+		</div>
+		</section>
+		
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal" />님 안녕하세요.<br>
 		<a href="<c:url value="/hr/index" />">메인페이지</a>
 		<form action='<c:url value="/logout"/>' method="post">
 			<sec:csrfInput />
-			<input type=submit value="로그아웃">
+			<input type=submit value="로그아웃">test
 		</form>
 	</sec:authorize>
+	<c:remove var="message" scope="session"/>
 </body>
 </html>
