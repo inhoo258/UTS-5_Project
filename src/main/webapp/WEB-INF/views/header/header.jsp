@@ -70,7 +70,7 @@
 						</div>
 					</sec:authorize>
 					<hr id="H_hr">
-					<div id="sidebar-container2" style="height: 100%">
+					<div id="sidebar-container2"> 
 						<ul>
 							<sec:authorize access="isAnonymous()">
 								<li class="animated-button thar-four"><a id="H_a"
@@ -98,11 +98,12 @@
 								<li class="animated-button thar-four"><a id="H_a"
 									href='<c:url value="/product/list"/>'>상품관리</a></li>
 							</sec:authorize>
-						</ul>
 						<sec:authorize access="isAuthenticated()">
-							<a id="H_a" style="position: absolute; top: 90%; left: 10%;"
-								sidebar-logout" href="<c:url value='/logout'/>">LOGOUT >></a>
+								<li class="animated-button thar-four"><a id="H_a" style="position: absolute; top: 90%; left: 10%;" sidebar-logout" 
+								href="<c:url value='/logout'/>">LOGOUT >></a></li>
 						</sec:authorize>
+						<!-- 로그아웃 위치 변경 이유 : 겹쳐보여서 안에다가 넣었습니다. -->
+						</ul>
 					</div>
 				</div>
 			</section>

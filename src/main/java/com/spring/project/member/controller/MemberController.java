@@ -56,4 +56,8 @@ public class MemberController {
 		memberSerivce.updateMember(member);
 		return "redirect:/member/info/"+member.getMember_id();
 	}
+	
+	@RequestMapping("find")
+	public void findId() {
+	}
 }

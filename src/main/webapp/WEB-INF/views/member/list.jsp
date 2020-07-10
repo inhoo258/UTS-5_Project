@@ -21,8 +21,8 @@
 		<label for="tab02">가입 대기 회원 리스트</label>
 		
 		<div class="conbox con1" align="center">
-			<div class="m_background">
-			</div>
+			<div class="m_background"></div>
+			<div class="m_tablediv">
 				<table border="1" style="z-index: 2; opacity: 1;">
 				<tr>
 					<th><button type="button">모두 선택</button></th>
@@ -36,11 +36,10 @@
 				<c:forEach var="member" items="${memberlist}">
 					<tr>
 						<th>
-						여기 체크박스 만들어줘
-							<label class="check">
-								<input type="checkbox">
-								<span class="icon"></span>
-							</label>
+							<label class="checkbox">
+						<input type="checkbox"> <span class="icon"></span> 
+						<span class="text">선택</span>
+					</label>
 						</th>
 						<td>${member.member_id}<br>${member.member_name}<br>${member.member_auth}</td>
 						<td>**********</td>
@@ -51,6 +50,7 @@
 					</tr>
 				</c:forEach>
 				</table>
+				</div>
 		</div>
 		<div class="conbox con2">2번내용</div>
 	</div>	
