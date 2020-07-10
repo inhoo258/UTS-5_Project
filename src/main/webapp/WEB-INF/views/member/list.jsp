@@ -13,31 +13,33 @@
 	<jsp:include page="../header/header.jsp"/>
 	<div class="container">
 		<div>
-			<h1 id="memberlist_h1">회원리스트</h1>
+			<h1 id="memberlist_h1" style="font-family: italic">회원리스트</h1>
 		</div>
 		<input type="radio" name="tabmenu" id="tab01"checked>
 		<label for="tab01">회원 리스트</label>	
 		<input type="radio" name="tabmenu" id="tab02">
 		<label for="tab02">가입 대기 회원 리스트</label>
-		
+<!-- 		<hr class="m_hr"> -->
 		<div class="conbox con1" align="center">
 			<div class="m_background"></div>
 			<div class="m_tablediv">
 				<table border="1" style="z-index: 2; opacity: 1;">
 				<tr>
-					<th><button type="button">모두 선택</button></th>
+					<th><button type="button" id="checkAll">모두 선택</button></th>
 					<td>ID<br>Name<br>Auth</td>
 					<td>Password</td>
 					<td>Tel</td>
 					<td>Address</td>
 					<td>Email</td>
 					<td>Enabled</td>
+					<th>관리</th>
 				</tr>
 				<c:forEach var="member" items="${memberlist}">
 					<tr>
 						<th>
-							<label class="checkbox">
-						<input type="checkbox"> <span class="icon"></span> 
+						<label class="checkbox">
+						<input type="checkbox" class="checkEach"> 
+						<span class="icon"></span> 
 						<span class="text">선택</span>
 					</label>
 						</th>
@@ -47,6 +49,10 @@
 						<td>${member.member_addr}</td>
 						<td>${member.member_email}</td>
 						<td>${member.member_enabled}</td>
+						<th>
+							<input type="button" value="수정">
+							<input type="button" value="삭제">
+						</th>
 					</tr>
 				</c:forEach>
 				</table>
@@ -56,23 +62,14 @@
 	</div>	
 	
 	<script type="text/javascript">
-		$(function() {
-			// 화면의 높이와 너비 
-			var maskHeight = $(window).height();
-			var maskWidth = $(window).width();
-			console.log(maskHeight)
-			console.log(maskWidth)
-			// 전체화면을 채운다
-// 			$('.conbox').css({
-// 				'width' : maskWidth,
-// 				'height' : maskHeight
-// 			});
-			
-// 			$('.m_background').css({
-// 				'width' : maskWidth,
-// 				'height' : maskHeight
-// 			});
-		});
+	 $(function () {
+         $("#checkAll").click(function () {
+        	 $(".checkEach").prop("checked" , true);
+         })
+         
+         
+         
+     })
 	</script>
 </body>
 </html>

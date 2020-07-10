@@ -19,6 +19,10 @@ public class RequestInterceptor implements HandlerInterceptor {
 		String param = request.getQueryString();
 		//Post 방식 확인 바람
 		
+		if(url.contains("resources")) {
+			url = "/";
+		}
+		
 		System.out.println("===ContextPath===");
 		System.out.println(request.getContextPath());
 		
