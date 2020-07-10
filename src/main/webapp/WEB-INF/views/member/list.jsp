@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/list.css'/>" />
+
+<style type="text/css">
+
+</style>
+
 </head>
 <body>
 	<jsp:include page="../header/header.jsp"/>
@@ -19,11 +24,26 @@
 		<label for="tab01">회원 리스트</label>	
 		<input type="radio" name="tabmenu" id="tab02">
 		<label for="tab02">가입 대기 회원 리스트</label>
-<!-- 		<hr class="m_hr"> -->
+		
+		<hr class="m_hr">
+		
+		
 		<div class="conbox con1" align="center">
 			<div class="m_background"></div>
 			<div class="m_tablediv">
-				<table border="1" style="z-index: 2; opacity: 1;">
+				<table >
+				<tr style="border: none;">
+					<td>
+						<form action="<c:url value='/member/delete'/>" method="POST" onsubmit="return checkedDelete()">
+							<input type="hidden" name="member_ids" id="member_ids">
+							<input type="submit" value="선택 삭제">&nbsp;&nbsp;&nbsp;
+						</form>
+					</td>
+					<td colspan="7" align="right" style="padding-right: 20px">
+						검색 : <input type="text"> <input type="button" value="찾기" onclick="">
+					</td>
+				</tr>
+				
 				<tr>
 					<th><button type="button" id="checkAll">모두 선택</button></th>
 					<td>ID<br>Name<br>Auth</td>
@@ -51,9 +71,9 @@
 						<td>${member.member_enabled}</td>
 						<th>
 							<input type="button" value="수정" onclick="location.href='<c:url value='/member/form/${member.member_id}'/>'">
-							<form action="<c:url value='/member/delete'/>" method="post">
-							<input type="hidden" value="${member.member_id}" name="member_id">
-							<input type="submit" value="삭제">
+							<form action="<c:url value='/member/delete'/>" method="POST">
+								<input type="hidden" value="${member.member_id}" class="id" name="member_id">
+								<input type="submit" value="삭제">
 							</form>
 						</th>
 					</tr>
@@ -65,14 +85,35 @@
 	</div>	
 	
 	<script type="text/javascript">
+     let cnt = 0;
 	 $(function () {
          $("#checkAll").click(function () {
-        	 $(".checkEach").prop("checked" , true);
-         })
-         
-         
-         
-     })
+        	 if(cnt == 0){
+	        	 $(".checkEach").prop("checked" , true);
+	        	 $("#checkAll").text("선택 해제");
+	        	 cnt++;
+        	 } else{
+	        	 $(".checkEach").prop("checked" , false);
+	        	 $("#checkAll").text("모두 선택");
+	        	 cnt--;
+        	 }
+         });
+     });
+     
+	function checkedDelete() {
+		let length = document.getElementsByClassName("checkEach").length;
+		let hidden = []; 
+		for(var i=0; i<length; i++){
+			if(document.getElementsByClassName("checkEach")[i].checked == true){
+			hidden.push(document.getElementsByClassName("id")[i].value)
+		}
+		}
+		if(hidden.length > 0){
+			$("#member_ids").attr("value",hidden);
+			return true;
+		}
+		return false;
+	}
 	</script>
 </body>
 </html>

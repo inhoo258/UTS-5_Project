@@ -35,15 +35,28 @@ public class MemberService implements IMemberService{
 		memberRepository.memberJoin(member);
 		memberRepository.authJoin(member.getUsername(),member.getMember_auth());
 	}
-
-	
-	public void deleteMember(int member_id) {
-		memberRepository.deleteMember(member_id);
-	}
 	
 	@Override
 	public void updateMember(MemberVO member) {
 		memberRepository.updateMember(member);
+	}
+
+	@Override
+	@Transactional(value = "tsManager")
+	public void memberDelete(String member_id) {
+		memberRepository.authDelete(member_id);
+		memberRepository.membersDelete(member_id);
+		
+	}
+
+	@Override
+	@Transactional(value = "tsManager")
+	public void membersDelete(String[] member_ids) {
+		for(int i=0; i<member_ids.length; i++) {
+			memberRepository.authDelete(member_ids[i]);
+			memberRepository.membersDelete(member_ids[i]);
+		}
+		
 	}
 }
 	

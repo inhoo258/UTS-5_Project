@@ -85,12 +85,11 @@
 				</tr>
 			</c:if>
 			<tr>
-				<th colspan="2"><input type="submit" id="okbutton"
-					value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
+				<th colspan="2">
+				<input type="submit" id="okbutton" value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
 			</tr>
 			<tr>
-				<th colspan="2"><input type="button" id="canbutton" value="취소"
-					onclick="location.href='<c:url value='/'/>'"></th>
+				<th colspan="2"><input type="button" id="canbutton" value="취소"	onclick="location.href='<c:url value='/'/>'"></th>
 			</tr>
 
 		</table>
