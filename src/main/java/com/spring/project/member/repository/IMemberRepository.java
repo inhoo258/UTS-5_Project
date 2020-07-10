@@ -16,7 +16,7 @@ public interface IMemberRepository {
 	@Select("select member_pw from members where member_id=#{member_id}")
 	public String getMemberPassword(String member_id);
 
-	@Select("select m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
+	@Select("select m.member_id as member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
 			+ "from members m " + "join authorities au " + "on m.member_id=au.member_id "
 			+ "where m.member_id=#{member_id}")
 	public MemberVO getMemberInfo(String member_id);

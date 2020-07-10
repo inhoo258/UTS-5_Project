@@ -12,7 +12,7 @@
 <h1>상품 정보</h1>
 	${product.product_id}.<br>
 	${product.product_name}<br>
-	<img src='<c:url value="/product/img/${product.product_id}"/>' width="50px"><br>
+	<img src='<c:url value="/product/img/${product.product_id}"/>' width="400"><br>
 	${product.product_info}
 </body>
 </html>
