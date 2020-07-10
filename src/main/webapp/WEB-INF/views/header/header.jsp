@@ -108,7 +108,7 @@
 			</section>
 		</div>
 	</header>
-
+	<a class="btn-top" href=""><i class="fas fa-arrow-circle-up"></i></a>
 	<script type="text/javascript">
 		$(window).on("load", function() {
 			$(".loader").fadeOut();
@@ -129,9 +129,6 @@
 			});
 		});
 	</script>
-
-
-
 
 </body>
 </html>
