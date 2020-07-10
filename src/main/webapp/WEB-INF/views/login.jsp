@@ -20,19 +20,17 @@
 					<td colspan="3"><h2 style="color: #0066cc;">로그인</h2></td>
 				</tr>
 				<tr height="60">
-					<th colspan="3"><input type="text" autocomplete="off" id="id" name="id" placeholder="아이디를 입력해주세요" autofocus="autofocus"
-						required="required"><br></th>
+					<th colspan="3"><input type="text" autocomplete="off" id="id" name="id" placeholder="아이디를 입력해주세요" autofocus="autofocus"><br></th>
 				</tr>
 				<tr height="60">
 					<th colspan="3"><input type="password" autocomplete="off"
-						id="password" name="pw" placeholder="비밀번호를 입력해주세요"
-						required="required"><br></th>
+						id="password" name="pw" placeholder="비밀번호를 입력해주세요"><br></th>
 				</tr>
 				<tr height="60">
 					<th colspan="3"><input type="submit" id="buttonLg" value="로그인"></th>
 				</tr>
 				<tr height="40" id="checkMessage" ${not empty message ? 'style="visibility:visible;"':''}>
-					<th colspan="3"><label id="showMessage">${message }</label></th>
+					<th colspan="3"><label id="showMessage">${message}</label></th>
 				</tr>
 				<tr height="60">
 					<td colspan="1">
@@ -58,5 +56,6 @@
 			<input type=submit value="로그아웃">
 		</form>
 	</sec:authorize>
+	<c:remove var="message" scope="session"/>
 </body>
 </html>

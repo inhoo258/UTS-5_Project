@@ -23,12 +23,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 //		request.getSession().setAttribute("userId", member.getUsername());
 		String url = "/";
 		if(request.getSession().getAttribute("url") != null) {
-			System.out.println("일로 들어왔다 나감");
 			url = (String) request.getSession().getAttribute("url");
 			request.getSession().removeAttribute("url");
 		}
 		response.sendRedirect("/project"+url);
-		System.out.println("url : " + url);
 		
 //		if(request.getSession().getAttribute("param") != null) {
 //			url = (String) request.getSession().getAttribute("param");
