@@ -1,6 +1,7 @@
 package com.spring.project.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +53,9 @@ public class MemberController {
 		return "member/info";
 	}
 	@PostMapping("/update")
-	public String update(MemberVO member) {
+	public String update(MemberVO member ,@AuthenticationPrincipal Object username) {
+		System.out.println("========update=========");
+		System.out.println(username);
 		memberSerivce.updateMember(member);
 		return "redirect:/member/info/"+member.getMember_id();
 	}

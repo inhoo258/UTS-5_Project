@@ -50,8 +50,11 @@
 						<td>${member.member_email}</td>
 						<td>${member.member_enabled}</td>
 						<th>
-							<input type="button" value="수정">
-							<input type="button" value="삭제">
+							<input type="button" value="수정" onclick="location.href='<c:url value='/member/form/${member.member_id}'/>'">
+							<form action="<c:url value='/member/delete'/>" method="post">
+							<input type="hidden" value="${member.member_id}" name="member_id">
+							<input type="submit" value="삭제">
+							</form>
 						</th>
 					</tr>
 				</c:forEach>
