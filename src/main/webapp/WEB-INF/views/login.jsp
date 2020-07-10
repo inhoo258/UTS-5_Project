@@ -53,7 +53,7 @@
 		<a href="<c:url value="/hr/index" />">메인페이지</a>
 		<form action='<c:url value="/logout"/>' method="post">
 			<sec:csrfInput />
-			<input type=submit value="로그아웃">
+			<input type=submit value="로그아웃">test
 		</form>
 	</sec:authorize>
 	<c:remove var="message" scope="session"/>
