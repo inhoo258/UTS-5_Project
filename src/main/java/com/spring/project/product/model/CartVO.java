@@ -7,7 +7,6 @@ public class CartVO {
 	private String product_info;
 	private String product_name;
 	private String product_price;
-	private byte[] product_img;
 	private String seller_name;
 	
 
@@ -41,14 +40,6 @@ public class CartVO {
 
 	public void setProduct_price(String product_price) {
 		this.product_price = product_price;
-	}
-
-	public byte[] getProduct_img() {
-		return product_img;
-	}
-
-	public void setProduct_img(byte[] product_img) {
-		this.product_img = product_img;
 	}
 
 	public String getMember_id() {
