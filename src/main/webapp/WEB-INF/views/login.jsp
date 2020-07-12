@@ -50,8 +50,9 @@
 								</label>
 							</div>
 							<div id="l_collection_find">
-								<a href='<c:url value="member/find"/>'>아이디 찾기</a> | 
-								<a href='<c:url value="member/find"/>'>비밀번호 찾기</a>
+							<!-- url 잘못설정된거 바꿈 -승우 -->
+								<a href='<c:url value="/member/find"/>'>아이디 찾기</a> | 
+								<a href='<c:url value="/member/find"/>'>비밀번호 찾기</a>
 							</div>
 						</div>
 					</div>
