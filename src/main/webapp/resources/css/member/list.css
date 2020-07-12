@@ -1,10 +1,11 @@
 @charset "UTF-8";
 
-
+body{
+	
+}
 input[type="radio"]{display: none;}
-input[type="radio"]+label{display: inline-block; padding: 20px; color: #999; font-size: 14px; cursor: pointer; border-top-left-radius: 10px; 
-border-top-right-radius: 10px; border: 2px solid #000;}
-input[type="radio"]:checked +label{color: white; background: black; opacity: 0.7}
+input[type="radio"]+label{display: inline-block; padding: 20px; color: #00bbff; cursor: pointer; border-top-left-radius: 4px; font-family: italic; border-top-right-radius: 4px; border: 1px solid #999;}
+input[type="radio"]:checked +label{ font-weight: bold; font-size: 20px; border-top-right-radius: 20px;}
  
 .conbox{display: none; width: 100%; height: 100%;}
 input[id="tab01"]:checked ~.con1{ display: block; border-bottom: none;}
@@ -19,12 +20,18 @@ input[id="tab02"]:checked ~.con2{ display: block; }
 	z-index: -5; /* chan : -5를 해야 check박스를 선택할 수가 있더라구요 ㅠㅠ 이건 모르겠습니다.*/
 }
 
+/* 테이블 설정 */
+  th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+  }
 .m_tablediv{ /* chan : table 을 감사고 있는 테이블 */
-	width: 1000px; /* chan : 테이블 크기 조정할 때 여기서 조정해주셔야해요 이유 바로 밑에 table 사이즈를 이 div로 맞춰놨습니다.*/
+	width: 1400px; /*chan : 테이블 크기 조정할 때 여기서 조정해주셔야해요 이유 바로 밑에 table 사이즈를 이 div로 맞춰놨습니다. */
 	background-color: yellow; /* chan : 위와 같이 색상도 동일 */
 }
 .m_tablediv> table{ /* chan : table 설정은 단순하게 했습니다.*/
 	width: 100%;
+	border-collapse: collapse;
 }
 
 button[type="button"]{border-radius: 20px; width: 100px; height: 40px;}
@@ -99,6 +106,7 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	75% {transform: scale(1.05,0.95);}
 	to {transform: scale(1,1);}
 }
+
 
 /* ============================================= Chan : 체스박스 CSS END */
 

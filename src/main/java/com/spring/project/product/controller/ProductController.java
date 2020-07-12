@@ -74,12 +74,16 @@ public class ProductController {
 //	}
 //
 //	// 주문 목록(client용)
-//	@RequestMapping("")
-//	public String getOrder(@PathVariable String member_id, Model model) {
+	@PostMapping("/ordersheet")
+	public String getOrder(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
+			@RequestParam("product_count")int product_count, Model model) {
+		System.out.println("product_id : "+product_id);
+		System.out.println("member_id : "+member_id);
+		System.out.println("product_count : "+product_count);
 //		OrdersVO order = orderService.getOrder(member_id);
 //		model.addAttribute("order", order);
-//		return "";
-//	}
+		return "product/ordersheet";
+	}
 //
 //	// 장바구니>>주문목록
 //	@RequestMapping("")

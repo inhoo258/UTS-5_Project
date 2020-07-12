@@ -10,4 +10,6 @@ public interface IMemberService {
 	public void memberInsert(MemberVO member);
 	public void updateMember(MemberVO member);
 	public List<MemberVO> getMemberList();
+	public void memberDelete(String member_id);
+	public void membersDelete(String[] member_ids);
 }

@@ -8,10 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/header.css'/>" />
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -20,6 +21,7 @@
 	<div class="loader"></div>
 	<img alt="" src="<c:url value='/resources/test.jpg'/>" id="bg-img">
 	<header>
+		<div class="h_parent">
 		<div class="se_div">
 			<section align="center" class="section header-section1">
 				<h1>
@@ -99,8 +101,8 @@
 									href='<c:url value="/product/list"/>'>상품관리</a></li>
 							</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-								<li class="animated-button thar-four"><a id="H_a" style="position: absolute; top: 90%; left: 10%;" sidebar-logout" 
-								href="<c:url value='/logout'/>">LOGOUT >></a></li>
+								<a id="H_a" style="position: absolute; top: 90%; left: 10%;" sidebar-logout" 
+								href="<c:url value='/logout'/>">LOGOUT >></a>
 						</sec:authorize>
 						<!-- 로그아웃 위치 변경 이유 : 겹쳐보여서 안에다가 넣었습니다. -->
 						</ul>
@@ -108,8 +110,9 @@
 				</div>
 			</section>
 		</div>
+		</div>
 	</header>
-	<a class="btn-top" href=""><i class="fas fa-arrow-circle-up"></i></a>
+	<a class="btn-top" href="#"><i class="fas fa-arrow-circle-up"></i></a>
 	<script type="text/javascript">
 		$(window).on("load", function() {
 			$(".loader").fadeOut();
@@ -129,7 +132,17 @@
 				'height' : maskHeight
 			});
 		});
+		$(function() {
+	        $(".btn-top").click(function() {
+	            $('html, body').animate({
+	                scrollTop : 0
+	            }, 400);
+	            return false;
+	        });
+	    });
 	</script>
+	
+    
 
 </body>
 </html>

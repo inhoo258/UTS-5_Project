@@ -44,6 +44,14 @@ public interface IMemberRepository {
 			+ "where member_id=#{member_id}")
 	public void updateMember(MemberVO member);
 
+	//회원 권한 삭제
+	@Delete("delete from authorities where member_id=#{member_id}")
+	public void authDelete(String member_id);
+
+	//회원 정보 삭제
+	@Delete("delete from members where member_id=#{member_id}")
+	public void membersDelete(String member_id);
+
 
 
 
