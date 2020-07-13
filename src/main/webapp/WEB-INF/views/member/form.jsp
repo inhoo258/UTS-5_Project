@@ -15,7 +15,8 @@
 <body>
 	<jsp:include page="../header/header.jsp" />
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
+	<form action='<c:url value="/member/${message}"/>' method="post"
+		onsubmit="return inputCheck()">
 		<!-- -------------- formtag  -->
 		<table id="logintable">
 			<tr>
@@ -70,7 +71,8 @@
 			<tr>
 				<th colspan="2"><input type="text"
 					value="${member.member_email}" class="id" name="member_email"
-					id="member_email" autocomplete="off" placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'></th>
+					id="member_email" autocomplete="off"
+					placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'></th>
 			</tr>
 			<tr>
 				<td colspan="2"><font id="email_check"></font></td>
@@ -85,16 +87,19 @@
 				</tr>
 			</c:if>
 			<tr>
-				<th colspan="2">
-				<input type="submit" id="okbutton" value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
+				<th colspan="2"><input type="submit" id="okbutton"
+					value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
 			</tr>
 			<tr>
-				<th colspan="2"><input type="button" id="canbutton" value="취소"	onclick="location.href='<c:url value='/'/>'"></th>
+				<th colspan="2"><input type="button" id="canbutton" value="취소"
+					onclick="window.history.back()"></th>
 			</tr>
 
 		</table>
 	</form>
 	<script type="text/javascript">
+	let member = '${member}';
+	console.log("member : " + member);
     let id_check=false;
     let pw_check=false;
     let pw_ok_check=false;
@@ -102,36 +107,40 @@
     let tel_check=false;
     let addr_check=false;
     let email_check=false;
+    //컴트롤러로부터 넘겨받는 member가 비어있지 않은 경우 아래의 값들을 true로 초기화하여 수정을 하지 않고 수정완료를 누르더라도 수정될 수 있도록.
+    if(member!=""){
+    	id_check=true;
+    	name_check=true;
+    	tel_check=true;
+    	addr_check=true;
+    	email_check=true;
+    }
     $(document).ready(function(){
         //inputCheck : 모든 필수입력 확인 및 데이터 형식 확인 후 if(inputCheck){회원가입버튼활성화}else{회원가입버튼 비활성화유지}
         let member_pw="";
         let member_pw_ok="";
-        let member_id='${member.member_id}';
-        console.log(member_id);
         $("#member_id").blur(function(){
-            if(member_id.length==0){
                 let member_id = document.getElementById("member_id").value;
-                if(member_id.length==0){
-                    document.getElementById("id_check").innerText="필수 항목입니다.";
-                    id_check=false;
-                }else{
-                    $.ajax({
-                        url:'<c:url value="/member/rest/memberCheck?member_id="/>'+member_id,
-                        type:'POST',
-                        success:function(result){
-                            if(result==1){
-                                document.getElementById("id_check").innerText="이미 가입된 아이디 입니다.";
-                                id_check=false;
-                            }else{
-                                document.getElementById("id_check").innerText="사용 가능한 아이디 입니다.";
-                                id_check=true;
-                            }
-                        }
-                    });
+                if(member==""){
+	                if(member_id.length==0){
+	                    document.getElementById("id_check").innerText="필수 항목입니다.";
+	                    id_check=false;
+	                }else{
+	                    $.ajax({
+	                        url:'<c:url value="/member/rest/memberCheck?member_id="/>'+member_id,
+	                        type:'POST',
+	                        success:function(result){
+	                            if(result==1){
+	                                document.getElementById("id_check").innerText="이미 가입된 아이디 입니다.";
+	                                id_check=false;
+	                            }else{
+	                                document.getElementById("id_check").innerText="사용 가능한 아이디 입니다.";
+	                                id_check=true;
+	                            }
+	                        }
+	                    });
+	                }
                 }
-            }else{
-                id_check=true;
-            }
         });
         $("#member_pw").blur(function(){
             member_pw = document.getElementById("member_pw").value;
@@ -168,7 +177,11 @@
             if(member_name.length==0){
                 document.getElementById("name_check").innerText="필수 항목입니다.";
                 name_check=false;
-            }else{
+                
+            }else if(!/^[가-힣]+$/.test(member_name)){
+                document.getElementById("name_check").innerText="한글만 입력 가능합니다.";
+            }
+            else{
                 document.getElementById("name_check").innerText="";
                 name_check=true;
             }
@@ -220,7 +233,17 @@
             console.log(addr_check);
             console.log(email_check);
             return true;
-        }else return false;
+        }else {
+        	//내용이 입력되어 있지 않은 위치로 focus
+        	if(!email_check){document.getElementById("member_email").focus();console.log("member_email focused");}
+        	if(!addr_check){document.getElementById("member_addr").focus();console.log("member_addr focused");}
+        	if(!tel_check){document.getElementById("member_tel").focus();console.log("member_tel focused");}
+        	if(!name_check){document.getElementById("member_name").focus();console.log("member_name focused");}
+        	if(!pw_ok_check){document.getElementById("member_pw_ok").focus();console.log("member_pw_ok focused");}
+        	if(!pw_check){document.getElementById("member_pw").focus();console.log("member_pw focused");}
+        	if(!id_check){document.getElementById("member_id").focus();console.log("member_id focused");}
+        	return false;
+        }
     }
     </script>
 </body>
