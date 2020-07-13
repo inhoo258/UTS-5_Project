@@ -19,7 +19,7 @@
 	<!--로딩화면 -->
 	<div id="mask"></div>
 	<div class="loader"></div>
-	<img alt="" src="<c:url value='/resources/test.jpg'/>" id="bg-img">
+<%-- 	<img alt="" src="<c:url value='/resources/test.jpg'/>" id="bg-img"> --%>
 	<header>
 		<div class="h_parent">
 		<div class="se_div">

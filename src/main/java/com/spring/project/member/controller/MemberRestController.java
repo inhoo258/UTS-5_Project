@@ -13,13 +13,17 @@ import com.spring.project.member.service.IMemberService;
 @RequestMapping("/member/rest")
 public class MemberRestController {
 	@Autowired
-	IMemberService memberServ;
+	IMemberService memberSerivce;
 	@PostMapping("/memberCheck")
 	public int memberCheck(@RequestParam("member_id")String member_id) {
 		System.out.println("request member_id : "+member_id);
-		MemberVO member=memberServ.getMemberInfo(member_id);
+		MemberVO member=memberSerivce.getMemberInfo(member_id + "=============================111");
 		System.out.println("result member : "+member);
-		if(memberServ.getMemberInfo(member_id)==null)return 0;
+		if(memberSerivce.getMemberInfo(member_id)==null)return 0;
 		else return 1;
 	}
+	
+	
+	
+	
 }
