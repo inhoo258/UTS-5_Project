@@ -53,12 +53,27 @@
                                                                     되려나?작성 되려나</span>
                         </div>
                         <div>
-                            <span id="">
-	                            <span id="">안내사항</span>
-	                            </span>
-	                            <span id="">
-	                            </span>
+                           	<span id="key"><span id="keytext">구매수량</span></span>
+                           	<span id="value">
+                           		<span id="text">
+		                            <input id="p_minus_btn" type="button" value ="-" onclick="p_count_minus()" disabled="disabled">
+									<label id="p_count_num">0</label>
+									<input type="button" value ="+" onclick="p_count_plus()">
+								</span>
+							</span>
                         </div>
+                        <div>
+                        	<label id="p_tprice_key">총 가격 :</label><label id="p_tprice_value"></label>
+                        </div>
+						<div>
+							<form action='<c:url value="/product/ordersheet"/>' method="post" onsubmit="return p_send_order()">
+								<input type="hidden" name="product_id" value="${product.product_id}">
+								<input type="hidden" id="product_count" name="product_count" value="">
+								<input type="hidden" name="member_id" value="<sec:authentication property="principal.username"/>">
+								<input type="button" value ="주문하기" onclick=""> 
+								<input type="button" value ="장바구니담기" onclick="">  
+							</form>
+						</div>
                     </div>
                 </div>
                 <div class="p_product_pic">
@@ -66,41 +81,43 @@
                         <img src='<c:url value="/product/img/${product.product_id}"/>'>
                     </div>
                 </div>
-
             </div>
+        </div>
+			
+		<div class= "p_product_explain2">
+			<nav class="container">
+			   <ul class="tab">
+			      <li><a href="#tab1" class="on">상품 설명</a></li>
+			      <li><a href="#tab2" >상품 이미지</a></li>
+			      <li><a href="#tab3">상세 정보</a></li>
+			      <li><a href="#tab4">고객 후기()</a></li>
+			      <li><a href="#tab5">상품 문의()</a></li>
+			   </ul>
+			   <ul class="panel">
+			         <li id="tab1"> 탭메뉴1 내용 </li>
+			         <li id="tab2"> 탭메뉴2 내용 </li>
+			         <li id="tab3"> 탭메뉴3 내용 </li>
+			         <li id="tab4"> 탭메뉴4 내용 </li>
+			         <li id="tab5"> 탭메뉴5 내용 </li>
+			   </ul>
+			</nav>
         </div>
     </section>
 <hr>
-		
-<!-- 		<div> -->
-<!-- 		</div> -->
-		
-			
 	
-<%-- 	${product.product_id}.<br> --%>
-<%-- 	${product.product_name}<br> --%>
-<%-- 	${product.product_count }<br> --%>
+	${product.product_id}.<br>
+	${product.product_name}<br>
+	${product.product_count }<br>
 	
-<!-- 	<div> -->
-		
-<!-- 	</div> -->
-<!-- 	<div> -->
-<!-- 		<input id="p_minus_btn" type="button" value ="-" onclick="p_count_minus()" disabled="disabled"> -->
-<!-- 		<label id="p_count_num">0</label> -->
-<!-- 		<input type="button" value ="+" onclick="p_count_plus()"><br> -->
-<!-- 	</div> -->
-<%-- 	${product.product_info} --%>
-<!-- 	총 가격 : <label id="p_total_price"></label> -->
-<!-- 	<div> -->
-<%-- 		<form action='<c:url value="/product/ordersheet"/>' method="post" onsubmit="return p_send_order()"> --%>
-<%-- 			<input type="hidden" name="product_id" value="${product.product_id}"> --%>
-<!-- 			<input type="hidden" id="product_count" name="product_count" value=""> -->
-<%-- 			<input type="hidden" name="member_id" value="<sec:authentication property="principal.username"/>"> --%>
-<!-- 			<input type="submit" value ="주문하기">   -->
-<!-- 		</form> -->
-<!-- 	</div> -->
+	<div>
+		<br>
+	</div>
+	${product.product_info}
+	
+	
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function p_count_plus() {
 		let p_num = parseInt(document.getElementById("p_count_num").innerText)
@@ -129,5 +146,17 @@
 			return false;
 		}
 	}
+	
+	$(function(){
+		   $("ul.panel li:not("+$("ul.tab li a.on").attr("href")+")").hide() //class 속성에 on이 설정되어 있는 a태그의 href 속성을 가져오고 이 이외의 패널은 숨김.
+		   $("ul.tab li a").click(function(){  // ul에 a를 클릭 했을 때 
+		      $("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
+		      $(this).addClass("on");  // 그리고 현재 요소에만 on 클래스 추가 
+		      $("ul.panel li").slideUp("fast"); // 모든 패널 비표시
+		      $($(this).attr("href")).slideDown("fast"); // 클릭된 a태그의 href의 속성을 가져와 같은 id 속성을 가진 패널 보여줌
+		      return false; // 탭에 a요소로 되어 있어서 클릭했을 때 발생하는 click 이벤트 설정. 이동하지 못하게 함.
+		   });
+		});
+
 </script>
 </html>
