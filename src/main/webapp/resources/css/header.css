@@ -7,6 +7,8 @@
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
+	font-family: 'Noto Sans KR', sans-serif;
+	list-style: none;
 }
 
 /*로딩 시 화면 클릭 막음*/
@@ -283,12 +285,24 @@ li.animated-button.thar-four:before {
 	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
 	0s;
 }
+.h_parent{
+	position: relative;
+	height: 70px;
+	width: 100%;
+	
+}
+
 .se_div{
+	width:100%;
 	height: 70px;
 	background: black;
 	color: white;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 9;
 }
-
+	
 .section{
 	float:left;
 	
@@ -340,11 +354,12 @@ li.animated-button.thar-four:before {
 
 /*위로가기 버튼*/
 .btn-top{
-	font-size: 40px;
-	position: fixed;
-	right: 20px;
-	bottom: 20px;
-	color: white;
+   font-size: 40px;
+   position: fixed;
+   right: 20px;
+   bottom: 20px;
+   color: lightgray;
+   z-index: 5;
 }
 /* ==================================================================================================================== */
 															/*Header CSS End*/

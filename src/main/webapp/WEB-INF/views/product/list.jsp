@@ -13,7 +13,7 @@
 	<c:forEach var="product" items="${productList}">
 		<a href='<c:url value="/product/${product.product_id}"/>'>${product.product_id}.</a><br>
 		${product.product_name}<br>
-		<img src='<c:url value="/product/img/${product.product_id}"/>' width="50px"><br>
+		<img src='<c:url value="/product/img/${product.product_id}"/>' width="500px" height="500px"><br>
 		${product.product_info}
 		<hr>
 	</c:forEach>

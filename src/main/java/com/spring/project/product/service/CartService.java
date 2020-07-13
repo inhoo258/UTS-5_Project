@@ -1,6 +1,6 @@
 package com.spring.project.product.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ public class CartService implements IProductService{
 	@Autowired
 	ICartRepository cartRepository;
 	
-	public ArrayList<CartVO> getCartList(){
-		return cartRepository.getCartList();
-	}
+//	public ArrayList<CartVO> getCartList(){
+//		return cartRepository.getCartList();
+//	}
 	
-	public CartVO getCart(String member_id) {
+	public List<CartVO> getCart(String member_id) {
 		return cartRepository.getCart(member_id);
 	}
 	

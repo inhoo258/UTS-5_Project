@@ -16,19 +16,15 @@ public interface IMemberRepository {
 	@Select("select member_pw from members where member_id=#{member_id}")
 	public String getMemberPassword(String member_id);
 
-	@Select("select m.member_id as member_id, member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
+	@Select("select m.member_id as member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
 			+ "from members m " + "join authorities au " + "on m.member_id=au.member_id "
 			+ "where m.member_id=#{member_id}")
 	public MemberVO getMemberInfo(String member_id);
 
 	// 회원 목록 출력
-	@Select("select m.member_id as member_id, member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth"
-			+ " from members m join authorities au on m.member_id=au.member_id ")
-	public List<MemberVO> getMemberList();
-
-	// 비밀번호 가져오기
-	@Select("select member_pw from members where member_id=#{member_id}")
-	public String getPassword(String member_id);
+	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth"
+			+ " from members m join authorities au on m.member_id=au.member_id) where rn between #{0} and #{1}")
+	public List<MemberVO> getMemberList(int start, int end);
 
 	// 회원가입 sql
 	@Insert("insert into members (member_id, member_pw, member_name, member_tel, member_addr, member_email,member_enabled) "
@@ -47,6 +43,27 @@ public interface IMemberRepository {
 	@Update("update members set member_pw=#{member_pw},member_name=#{member_name}, member_tel=#{member_tel}, member_addr=#{member_addr}, member_email=#{member_email} "
 			+ "where member_id=#{member_id}")
 	public void updateMember(MemberVO member);
+
+	//회원 권한 삭제
+	@Delete("delete from authorities where member_id=#{member_id}")
+	public void authDelete(String member_id);
+
+	//회원 정보 삭제
+	@Delete("delete from members where member_id=#{member_id}")
+	public void membersDelete(String member_id);
+
+	@Select("select m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
+			+ "from members m join authorities au on m.member_id=au.member_id where member_enabled = 0") 
+	public List<MemberVO> getMemberPermission();
+
+	@Update("update members set member_enabled='1' where member_id = #{permission_ids}")
+	public void permission(String permission_ids);
+	
+	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id")
+	public int getMemberCount();
+	
+	
+	
 
 
 

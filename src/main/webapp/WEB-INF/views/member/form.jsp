@@ -15,7 +15,8 @@
 <body>
 	<jsp:include page="../header/header.jsp" />
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
+	<form action='<c:url value="/member/${message}"/>' method="post"
+		onsubmit="return inputCheck()">
 		<!-- -------------- formtag  -->
 		<table id="logintable">
 			<tr>
@@ -70,7 +71,8 @@
 			<tr>
 				<th colspan="2"><input type="text"
 					value="${member.member_email}" class="id" name="member_email"
-					id="member_email" autocomplete="off" placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'></th>
+					id="member_email" autocomplete="off"
+					placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'></th>
 			</tr>
 			<tr>
 				<td colspan="2"><font id="email_check"></font></td>
@@ -90,117 +92,159 @@
 			</tr>
 			<tr>
 				<th colspan="2"><input type="button" id="canbutton" value="취소"
-					onclick="location.href='<c:url value='/'/>'"></th>
+					onclick="window.history.back()"></th>
 			</tr>
 
 		</table>
 	</form>
 	<script type="text/javascript">
-	let valueCheck=[];
-$(document).ready(function(){
-	//inputCheck : 모든 필수입력 확인 및 데이터 형식 확인 후 if(inputCheck){회원가입버튼활성화}else{회원가입버튼 비활성화유지}
-	let member_pw="";
-	let member_pw_ok="";
-	let member_id='${member.member_id}';
-	console.log(member_id);
-	$("#member_id").blur(function(){
-		if(member_id.length==0){
-			let member_id = document.getElementById("member_id").value;
-			if(member_id.length==0){
-				document.getElementById("id_check").innerText="필수 항목입니다.";
-			}else{
-				$.ajax({
-					url:'<c:url value="/member/rest/memberCheck?member_id="/>'+member_id,
-					type:'POST',
-					success:function(result){
-						if(result==1){
-							document.getElementById("id_check").innerText="이미 가입된 아이디 입니다.";
-						}else{
-							document.getElementById("id_check").innerText="사용 가능한 아이디 입니다.";
-							valueCheck.push(member_id);
-						}
-					}
-				});
-			}
-		}else{
-			valueCheck.push(member_id);
-		}
-	});
-	$("#member_pw").blur(function(){
-		member_pw = document.getElementById("member_pw").value;
-		if(member_pw.length==0){
-			document.getElementById("pw_check").innerText="필수 항목입니다.";
-		}else if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#]).{10,15}$/.test(member_pw)){
-// 			alert("fail")
-			document.getElementById("pw_check").innerText="10~15자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
-		}else{
-// 			alert("pass")
-			document.getElementById("pw_check").innerText="";
-			valueCheck.push(member_pw);
-		}
-	});
-	$("#member_pw_ok").blur(function(){
-		member_pw_ok = document.getElementById("member_pw_ok").value
-			if(member_pw_ok.length==0){
-				document.getElementById("pw_check_msg").innerText="비밀번호를 일치시켜주세요.";
-			}
-			else if(member_pw != member_pw_ok){
-				document.getElementById("pw_check_msg").innerText="비밀번호가 일치하지 않습니다.";
-			}else{
-				document.getElementById("pw_check_msg").innerText="";
-				valueCheck.push(member_pw_ok);
-			}
-	});
-	
-	$("#member_name").blur(function(){
-		let member_name = document.getElementById("member_name").value
-		if(member_name.length==0){
-			document.getElementById("name_check").innerText="필수 항목입니다.";
-		}else{
-			document.getElementById("name_check").innerText="";
-			valueCheck.push(member_name);
-		}
-	});
-	$("#member_tel").blur(function(){
-		let member_tel= document.getElementById("member_tel").value
-		if(member_tel.length==0){
-			document.getElementById("tel_check").innerText="필수 항목입니다.";
-		}else if(!/^[0][1]\d{1}\d{3,4}\d{4}$/.test(member_tel)){ //------------------------------------------------**
-			document.getElementById("tel_check").innerText="잘못된 형식입니다.";
-		}else{
-			document.getElementById("tel_check").innerText="";
-			valueCheck.push(member_tel);
-		}
-	});
-	$("#member_addr").blur(function(){
-		let member_addr = document.getElementById("member_addr").value
-		if(member_addr.length==0){
-			document.getElementById("addr_check").innerText="필수 항목입니다.";
-		}else{
-			document.getElementById("addr_check").innerText="";
-			valueCheck.push(member_addr);
-		}
-	});
-	$("#member_email").blur(function(){
-		let member_email = document.getElementById("member_email").value
-		if(member_email.length==0){
-			document.getElementById("email_check").innerText="필수 항목입니다.";
-		}else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/.test(member_email)){//------------------------------------------------**
-			document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
-		}else{
-			document.getElementById("email_check").innerText="";
-			valueCheck.push(member_email);
-		}
-	});
-});
-function inputCheck(){
-	console.log(valueCheck);
-	if(valueCheck.length!=7){
-		valueCheck=[];
-		return false;
-	}
-	else return true;
-}
-</script>
+	let member = '${member}';
+	console.log("member : " + member);
+    let id_check=false;
+    let pw_check=false;
+    let pw_ok_check=false;
+    let name_check=false;
+    let tel_check=false;
+    let addr_check=false;
+    let email_check=false;
+    //컴트롤러로부터 넘겨받는 member가 비어있지 않은 경우 아래의 값들을 true로 초기화하여 수정을 하지 않고 수정완료를 누르더라도 수정될 수 있도록.
+    if(member!=""){
+    	id_check=true;
+    	name_check=true;
+    	tel_check=true;
+    	addr_check=true;
+    	email_check=true;
+    }
+    $(document).ready(function(){
+        //inputCheck : 모든 필수입력 확인 및 데이터 형식 확인 후 if(inputCheck){회원가입버튼활성화}else{회원가입버튼 비활성화유지}
+        let member_pw="";
+        let member_pw_ok="";
+        $("#member_id").blur(function(){
+                let member_id = document.getElementById("member_id").value;
+                if(member==""){
+	                if(member_id.length==0){
+	                    document.getElementById("id_check").innerText="필수 항목입니다.";
+	                    id_check=false;
+	                }else{
+	                    $.ajax({
+	                        url:'<c:url value="/member/rest/memberCheck?member_id="/>'+member_id,
+	                        type:'POST',
+	                        success:function(result){
+	                            if(result==1){
+	                                document.getElementById("id_check").innerText="이미 가입된 아이디 입니다.";
+	                                id_check=false;
+	                            }else{
+	                                document.getElementById("id_check").innerText="사용 가능한 아이디 입니다.";
+	                                id_check=true;
+	                            }
+	                        }
+	                    });
+	                }
+                }
+        });
+        $("#member_pw").blur(function(){
+            member_pw = document.getElementById("member_pw").value;
+            if(member_pw.length==0){
+                document.getElementById("pw_check").innerText="필수 항목입니다.";
+                pw_check=false;
+            }else if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#]).{10,15}$/.test(member_pw)){
+    // 			alert("fail")
+                document.getElementById("pw_check").innerText="10~15자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
+                pw_check=false;
+            }else{
+    // 			alert("pass")
+                document.getElementById("pw_check").innerText="";
+                pw_check=true;
+            }
+        });
+        $("#member_pw_ok").blur(function(){
+            member_pw_ok = document.getElementById("member_pw_ok").value
+                if(member_pw_ok.length==0){
+                    document.getElementById("pw_check_msg").innerText="비밀번호를 일치시켜주세요.";
+                    pw_ok_check=false;
+                }
+                else if(member_pw != member_pw_ok){
+                    document.getElementById("pw_check_msg").innerText="비밀번호가 일치하지 않습니다.";
+                    pw_ok_check=false;
+                }else{
+                    document.getElementById("pw_check_msg").innerText="";
+                    pw_ok_check=true;
+                }
+        });
+        
+        $("#member_name").blur(function(){
+            let member_name = document.getElementById("member_name").value
+            if(member_name.length==0){
+                document.getElementById("name_check").innerText="필수 항목입니다.";
+                name_check=false;
+                
+            }else if(!/^[가-힣]+$/.test(member_name)){
+                document.getElementById("name_check").innerText="한글만 입력 가능합니다.";
+            }
+            else{
+                document.getElementById("name_check").innerText="";
+                name_check=true;
+            }
+        });
+        $("#member_tel").blur(function(){
+            let member_tel= document.getElementById("member_tel").value
+            if(member_tel.length==0){
+                document.getElementById("tel_check").innerText="필수 항목입니다.";
+                tel_check=false;
+            }else if(!/^[0][1]\d{1}\d{3,4}\d{4}$/.test(member_tel)){ //------------------------------------------------**
+                document.getElementById("tel_check").innerText="잘못된 형식입니다.";
+                tel_check=false;
+            }else{
+                document.getElementById("tel_check").innerText="";
+                tel_check=true;
+            }
+        });
+        $("#member_addr").blur(function(){
+            let member_addr = document.getElementById("member_addr").value
+            if(member_addr.length==0){
+                document.getElementById("addr_check").innerText="필수 항목입니다.";
+                addr_check=false;
+            }else{
+                document.getElementById("addr_check").innerText="";
+                addr_check=true;
+            }
+        });
+        $("#member_email").blur(function(){
+            let member_email = document.getElementById("member_email").value
+            if(member_email.length==0){
+                document.getElementById("email_check").innerText="필수 항목입니다.";
+                email_check=false;
+            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/.test(member_email)){//------------------------------------------------**
+                document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
+                email_check=false;
+            }else{
+                document.getElementById("email_check").innerText="";
+                email_check=true;
+            }
+        });
+    });
+    function inputCheck(){
+        if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check){
+            console.log(id_check);
+            console.log(pw_check);
+            console.log(pw_ok_check);
+            console.log(name_check);
+            console.log(name_check);
+            console.log(addr_check);
+            console.log(email_check);
+            return true;
+        }else {
+        	//내용이 입력되어 있지 않은 위치로 focus
+        	if(!email_check){document.getElementById("member_email").focus();console.log("member_email focused");}
+        	if(!addr_check){document.getElementById("member_addr").focus();console.log("member_addr focused");}
+        	if(!tel_check){document.getElementById("member_tel").focus();console.log("member_tel focused");}
+        	if(!name_check){document.getElementById("member_name").focus();console.log("member_name focused");}
+        	if(!pw_ok_check){document.getElementById("member_pw_ok").focus();console.log("member_pw_ok focused");}
+        	if(!pw_check){document.getElementById("member_pw").focus();console.log("member_pw focused");}
+        	if(!id_check){document.getElementById("member_id").focus();console.log("member_id focused");}
+        	return false;
+        }
+    }
+    </script>
 </body>
 </html>

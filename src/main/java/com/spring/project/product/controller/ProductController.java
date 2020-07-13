@@ -40,13 +40,12 @@ public class ProductController {
 //		return "";
 //	}
 //
-//	// 개인 장바구니 조회
-//	@RequestMapping("")
-//	public String getCart(@PathVariable String member_id, Model model) {
-//		CartVO cart = cartService.getCart(member_id);
-//		model.addAttribute("cart", cart);
-//		return "";
-//	}
+	// 개인의 장바구니 목록 조회
+	@RequestMapping("/cart/{member_id}")
+	public String getCart(@PathVariable("member_id")String member_id, Model model) {
+		model.addAttribute("cartList", cartService.getCart(member_id));
+		return "product/cart";
+	}
 //
 //	// 장바구니 담기
 //	@PostMapping("")
@@ -74,12 +73,16 @@ public class ProductController {
 //	}
 //
 //	// 주문 목록(client용)
-//	@RequestMapping("")
-//	public String getOrder(@PathVariable String member_id, Model model) {
+	@PostMapping("/ordersheet")
+	public String getOrder(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
+			@RequestParam("product_count")int product_count, Model model) {
+		System.out.println("product_id : "+product_id);
+		System.out.println("member_id : "+member_id);
+		System.out.println("product_count : "+product_count);
 //		OrdersVO order = orderService.getOrder(member_id);
 //		model.addAttribute("order", order);
-//		return "";
-//	}
+		return "product/ordersheet";
+	}
 //
 //	// 장바구니>>주문목록
 //	@RequestMapping("")
@@ -99,8 +102,8 @@ public class ProductController {
 //
 //	// 배송 전/중/완료
 //	@RequestMapping("")
-//	public String deliveryOrder(@PathVariable String member_id, int product_id, String delivery) {
-//		orderService.deliveryOrder(member_id, product_id, delivery);
+//	public String deliveryOrder(@PathVariable String member_id, int product_id, String order_status) {
+//		orderService.deliveryOrder(member_id, product_id, order_status);
 //		return "";
 //	}
 //
@@ -112,7 +115,7 @@ public class ProductController {
 		System.out.println("=====product 통과=====");
 		model.addAttribute("productList", productService.getProductList());
 	}
-//	
+	
 	@RequestMapping("/img/{product_id}")
 	public ResponseEntity<byte[]> getImage(@PathVariable("product_id")int product_id){
 		System.out.println("getImage in ! by product id = "+product_id);
@@ -130,6 +133,14 @@ public class ProductController {
 		ResponseEntity<byte[]> image = new ResponseEntity<byte[]>(product_img,header,HttpStatus.OK);
 		return image;
 	}
+//	// 한개의 상품 정보
+//	@RequestMapping("")
+//	public String getProduct(@PathVariable int product_id, Model model) {
+//		ProductsVO product = productService.getProduct(product_id);
+//		model.addAttribute("product", product);
+//		return "";
+//	}
+
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
 	public String getProduct(@PathVariable("product_id")int product_id, Model model) {
@@ -153,7 +164,7 @@ public class ProductController {
 		productService.insertProduct(product);
 		return "redirect:/product/list";
 	}
-//
+
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
 //	public String deleteProduct(@PathVariable int product_id) {
