@@ -30,7 +30,7 @@ public class OrderService implements IProductService{
 	public void deleteOrder(String member_id, int product_id) {
 		orderRepository.deleteOrder(member_id, product_id);
 	}
-	public void deliveryOrder(String member_id, int product_id, String delivery) {
-		orderRepository.deliveryOrder(member_id, product_id, delivery);
+	public void deliveryOrder(String member_id, int product_id, String order_status) {
+		orderRepository.deliveryOrder(member_id, product_id, order_status);
 	}
 }
