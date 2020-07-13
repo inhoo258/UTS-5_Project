@@ -40,13 +40,12 @@ public class ProductController {
 //		return "";
 //	}
 //
-//	// 개인 장바구니 조회
-//	@RequestMapping("")
-//	public String getCart(@PathVariable String member_id, Model model) {
-//		CartVO cart = cartService.getCart(member_id);
-//		model.addAttribute("cart", cart);
-//		return "";
-//	}
+	// 개인의 장바구니 목록 조회
+	@RequestMapping("/cart/{member_id}")
+	public String getCart(@PathVariable("member_id")String member_id, Model model) {
+		model.addAttribute("cartList", cartService.getCart(member_id));
+		return "product/cart";
+	}
 //
 //	// 장바구니 담기
 //	@PostMapping("")
