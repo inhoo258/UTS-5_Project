@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
@@ -72,17 +73,22 @@ public class ProductController {
 //		return "";
 //	}
 //
-//	// 주문 목록(client용)
+	// 주문서 최종 주문하기전에 실행하는 코드(client용)
 	@PostMapping("/ordersheet")
-	public String getOrder(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
+	public String getOrderSheet(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
 			@RequestParam("product_count")int product_count, Model model) {
-		System.out.println("product_id : "+product_id);
-		System.out.println("member_id : "+member_id);
-		System.out.println("product_count : "+product_count);
-//		OrdersVO order = orderService.getOrder(member_id);
-//		model.addAttribute("order", order);
+		OrdersVO orderSheet = orderService.getOrderSheet(member_id);
+		model.addAttribute("orderSheet", orderSheet);
 		return "product/ordersheet";
 	}
+//	// 주문서 최종 주문 후 실행하는 코드(client용)
+//	@PostMapping("/ordersheet")
+//	public String getOrder(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
+//			@RequestParam("product_count")int product_count, Model model) {
+//		OrdersVO order = orderService.getOrder(member_id);
+//		model.addAttribute("orderSheet", order);
+//	return "product/ordersheet";
+//}
 //
 //	// 장바구니>>주문목록
 //	@RequestMapping("")

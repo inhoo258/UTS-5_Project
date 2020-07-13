@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class OrdersVO {
 	private String member_id;
-	private int product_id;
+	private int product_id; 
 	private Date order_date;
 	private String order_receiver_addr;
 	private String order_receiver_name;
@@ -12,6 +12,135 @@ public class OrdersVO {
 	private int order_product_count;
 	private int order_price;
 	private String order_request;
+
+	//주문서 작성(회원정보)를 가져오기 위한 변수 설정
+	private String member_name;  
+	private String member_tel; 
+	private String member_addr;
+	private String member_email;
+	
+	//주문서 작성(회원장바구니 정보)를 가져오기 위한 변수 설정
+	private int cart_product_count;
+
+
+	private String product_info;
+	private String product_name;
+	private String product_price;
+	private String seller_name;
+	
+	//주문서 작성 (바로구매 정보)를 가져오기 위한 변수 설정
+	private byte[] product_img;
+	
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getMember_tel() {
+		return member_tel;
+	}
+
+	public void setMember_tel(String member_tel) {
+		this.member_tel = member_tel;
+	}
+
+	public String getMember_addr() {
+		return member_addr;
+	}
+
+	public void setMember_addr(String member_addr) {
+		this.member_addr = member_addr;
+	}
+
+	public int getCart_product_count() {
+		return cart_product_count;
+	}
+
+	public void setCart_product_count(int cart_product_count) {
+		this.cart_product_count = cart_product_count;
+	}
+
+	public String getProduct_info() {
+		return product_info;
+	}
+
+	public void setProduct_info(String product_info) {
+		this.product_info = product_info;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
+	public String getProduct_price() {
+		return product_price;
+	}
+
+	public void setProduct_price(String product_price) {
+		this.product_price = product_price;
+	}
+
+	public String getSeller_name() {
+		return seller_name;
+	}
+
+	public void setSeller_name(String seller_name) {
+		this.seller_name = seller_name;
+	}
+
+	public byte[] getProduct_img() {
+		return product_img;
+	}
+
+	public void setProduct_img(byte[] product_img) {
+		this.product_img = product_img;
+	}
+
+	public int getProduct_count() {
+		return product_count;
+	}
+
+	public void setProduct_count(int product_count) {
+		this.product_count = product_count;
+	}
+
+	public int getProduct_weight() {
+		return product_weight;
+	}
+
+	public void setProduct_weight(int product_weight) {
+		this.product_weight = product_weight;
+	}
+
+	public String getProduct_img_name() {
+		return product_img_name;
+	}
+
+	public void setProduct_img_name(String product_img_name) {
+		this.product_img_name = product_img_name;
+	}
+
+	private int product_count;
+	private int product_weight;
+	private String product_img_name;
+	
+	
+	
+	
 
 	public String getMember_id() {
 		return member_id;
