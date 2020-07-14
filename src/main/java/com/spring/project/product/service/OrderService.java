@@ -19,6 +19,10 @@ public class OrderService implements IProductService{
 		return orderRepository.getOrderList();
 	}
 	
+	public OrdersVO getOrderSheet(String member_id) {
+		return orderRepository.getOrderSheet(member_id);
+	}
+	
 	public OrdersVO getOrder(String member_id) {
 		return orderRepository.getOrder(member_id);
 	}

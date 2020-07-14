@@ -52,9 +52,10 @@ public interface IMemberRepository {
 	@Delete("delete from members where member_id=#{member_id}")
 	public void membersDelete(String member_id);
 
+	///여기
 	@Select("select m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
 			+ "from members m join authorities au on m.member_id=au.member_id where member_enabled = 0") 
-	public List<MemberVO> getMemberPermission();
+	public List<MemberVO> getMemberPermission(int start , int end);
 
 	@Update("update members set member_enabled='1' where member_id = #{permission_ids}")
 	public void permission(String permission_ids);
