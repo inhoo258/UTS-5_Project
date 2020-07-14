@@ -37,7 +37,6 @@
 			<div>
 				배송정보<br>
 				${orderSheet.member_addr }
-				
 			</div>
 		<hr>
 		<hr>
