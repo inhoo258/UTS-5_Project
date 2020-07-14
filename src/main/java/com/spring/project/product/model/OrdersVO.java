@@ -12,6 +12,16 @@ public class OrdersVO {
 	private int order_product_count;
 	private int order_price;
 	private String order_request;
+	private String order_status;
+	
+
+	public String getOrder_status() {
+		return order_status;
+	}
+
+	public void setOrder_status(String order_status) {
+		this.order_status = order_status;
+	}
 
 	//주문서 작성(회원정보)를 가져오기 위한 변수 설정
 	private String member_name;  

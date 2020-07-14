@@ -43,6 +43,6 @@ public interface IOrderRepository {
 	public void deleteOrder(String member_id, int product_id);
 	
 	//배송전/중/완료 수정
-	@Update("update orders set 배송column=#{delivery}")
-	public void deliveryOrder(String member_id, int product_id, String delivery);
+	@Update("update orders set order_status=#{order_status}")
+	public void deliveryOrder(String member_id, int product_id, String order_status);
 }

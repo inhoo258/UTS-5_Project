@@ -108,8 +108,8 @@ public class ProductController {
 //
 //	// 배송 전/중/완료
 //	@RequestMapping("")
-//	public String deliveryOrder(@PathVariable String member_id, int product_id, String delivery) {
-//		orderService.deliveryOrder(member_id, product_id, delivery);
+//	public String deliveryOrder(@PathVariable String member_id, int product_id, String order_status) {
+//		orderService.deliveryOrder(member_id, product_id, order_status);
 //		return "";
 //	}
 //

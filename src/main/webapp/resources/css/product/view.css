@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-* {
-	margin: 0;
-	padding: 0;
-	text-decoration: none;
-	list-style: none;
-}
 
 .p_product_main {
 	margin-top: 30px;
@@ -125,6 +119,7 @@
 } /*flex를 사용하기 위해서는 부모가 flex여야한다.*/
 .container ul.tab li {
 	flex: 1;
+	
 } /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
 .container ul.tab li:first-child {
 	border-left: 1px solid #ddd;
