@@ -26,7 +26,7 @@
 			<nav class="container">
 				<ul class="tab">
 					<li><a href="#tab1" class="on">회원 리스트</a></li>
-					<li><a href="#tab2">승인대기 리스트</a></li>
+					<li><a href="#tab2" id=alist>승인대기 리스트</a></li>
 				</ul>
 				<ul class="panel">
 					<li id="tab1">
@@ -82,15 +82,16 @@
 							</table>
 						</div>
 
-						<hr> [<a href="list?page=1">처음</a>] <c:if
-							test="${pageManager.nowBlock > 1}">
-				[<a href="list?page=${pageManager.startPage-1}">이전</a>]
-			</c:if> <c:forEach var="cnt" begin="${pageManager.startPage}"
-							end="${pageManager.endPage}" step="1">
-				[<a href="list?page=${cnt}">${cnt}</a>]
-			</c:forEach> <c:if test="${pageManager.nowBlock < pageManager.totalBlock}">
-				[<a href="list?page=${pageManager.endPage+1}">다음</a>]
-			</c:if>
+						<hr> [<a href="list?memberpage=1">처음</a>] 
+						<c:if test="${pageManager.nowBlock > 1}">
+							[<a href="list?memberpage=${pageManager.startPage-1}">이전</a>]
+						</c:if> 
+						<c:forEach var="cnt" begin="${pageManager.startPage}" end="${pageManager.endPage}" step="1">
+							[<a href="list?memberpage=${cnt}">${cnt}</a>]
+						</c:forEach>
+						<c:if test="${pageManager.nowBlock < pageManager.totalBlock}">
+							[<a href="list?memberpage=${pageManager.endPage+1}">다음</a>]
+						</c:if>
 
 					</li>
 					<li id="tab2">
@@ -148,11 +149,31 @@
 								</c:forEach>
 							</table>
 						</div>
+						
+						<hr> [<a href="list?permissionpage=1">처음</a>] 
+						<c:if test="${pageManager.nowBlock > 1}">
+							[<a href="list?permissionpage=${pageManager.startPage-1}">이전</a>]
+						</c:if> 
+						<c:forEach var="cnt" begin="${pageManager.startPage}" end="${pageManager.endPage}" step="1">
+							[<a href="list?permissionpage=${cnt}">${cnt}</a>]
+						</c:forEach>
+						<c:if test="${pageManager.nowBlock < pageManager.totalBlock}">
+							[<a href="list?permissionpage=${pageManager.endPage+1}">다음</a>]
+						</c:if>
+						
 					</li>
 				</ul>
 			</nav>
 		</div>
 	</sec:authorize>
+	<script type="text/javascript">
+		if(${sessionScope.message eq '승인완료'}){
+			  $("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
+			  $("#alist").addClass("on");  // 그리고 현재 요소에만 on 클래스 추가
+		}
+
+	</script>	
+	
 	<script type="text/javascript">
      let member_cnt = 0;
 	 $(function () {
@@ -225,6 +246,8 @@
 		      return false; // 탭에 a요소로 되어 있어서 클릭했을 때 발생하는 click 이벤트 설정. 이동하지 못하게 함.
 		   });
 		});
+	
+	
 	
 	</script>
 </body>

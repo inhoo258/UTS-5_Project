@@ -1,18 +1,18 @@
 @charset "UTF-8";
 
-input[type="radio"]{display: none;}
-input[type="radio"]+label{display: inline-block; padding: 20px; color: #00bbff; cursor: pointer; border-top-left-radius: 4px;  border-top-right-radius: 4px; border: 1px solid #999;}
-input[type="radio"]:checked +label{ font-weight: bold; font-size: 20px; border-top-right-radius: 20px;}
+/* input[type="radio"]{display: none;} */
+/* input[type="radio"]+label{display: inline-block; padding: 20px; color: #00bbff; cursor: pointer; border-top-left-radius: 4px;  border-top-right-radius: 4px; border: 1px solid #999;} */
+/* input[type="radio"]:checked +label{ font-weight: bold; font-size: 20px; border-top-right-radius: 20px;} */
  
-.conbox{display: none; width: 100%; height: 100%;}
-input[id="tab01"]:checked ~.con1{ display: block; }
-input[id="tab02"]:checked ~.con2{ display: block; }
+/* .conbox{display: none; width: 100%; height: 100%;} */
+/* input[id="tab01"]:checked ~.con1{ display: block; } */
+/* input[id="tab02"]:checked ~.con2{ display: block; } */
 
-input[type="submit"]{width: 100px; height: 30px;}
-input[type="button"]{width: 100px; height: 30px;}
+/* input[type="submit"]{width: 100px; height: 30px;} */
+/* input[type="button"]{width: 100px; height: 30px;} */
 
 .m_background{ /* chan : table 을 감사고 있는 테이블 */
-	background-color: black; /* chan : 테이블 놓여져 있는 색상을 선택 하는 거고, 7번줄 에서 radio를 설정 할 수가 있습니다. */
+/* 	background-color: black; chan : 테이블 놓여져 있는 색상을 선택 하는 거고, 7번줄 에서 radio를 설정 할 수가 있습니다. */
 	position: absolute;
 	width: 1600px;
 	height: 100%; 
@@ -27,7 +27,7 @@ input[type="button"]{width: 100px; height: 30px;}
   }
 .m_tablediv{ /* chan : table 을 감사고 있는 테이블 */
 	width: 1600px; /*chan : 테이블 크기 조정할 때 여기서 조정해주셔야해요 이유 바로 밑에 table 사이즈를 이 div로 맞춰놨습니다. */
-	background-color: black; /* chan : 위와 같이 색상도 동일 */
+	background-color: black; /*chan : 위와 같이 색상도 동일*/
 	opacity: 0.5;
 }
 .m_tablediv> table{ /* chan : table 설정은 단순하게 했습니다.*/
