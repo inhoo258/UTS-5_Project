@@ -49,7 +49,10 @@
 				개인정보 수집/제공*
 			</div>
 			<div>
+				<form action='<c:url value = "/product/payment"/>' method="post">
+				<input type = "hidden" name="" value="">
 				<input type="button" value = "결제하기">
+				</form>
 			</div>
 		<hr>
 		
@@ -65,8 +68,6 @@
 </section>
 </body>
 <script type="text/javascript">
-	// 제이쿼리로 장바구니 불러와야하고
-	// 제이쿼리로 바로구매 품목 불러와야함.
 
 </script>
 </html>

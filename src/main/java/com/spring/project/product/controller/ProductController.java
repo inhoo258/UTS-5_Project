@@ -81,14 +81,14 @@ public class ProductController {
 		model.addAttribute("orderSheet", orderSheet);
 		return "product/ordersheet";
 	}
-//	// 주문서 최종 주문 후 실행하는 코드(client용)
-//	@PostMapping("/ordersheet")
-//	public String getOrder(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
-//			@RequestParam("product_count")int product_count, Model model) {
-//		OrdersVO order = orderService.getOrder(member_id);
-//		model.addAttribute("orderSheet", order);
-//	return "product/ordersheet";
-//}
+	// 주문서 최종 주문 후 실행하는 코드(client용)
+	@PostMapping("/payment")
+	public String payment(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
+			@RequestParam("product_count")int product_count, Model model) {
+		OrdersVO order = orderService.paymentInOrder(member_id);
+		model.addAttribute("payment", order);
+	return "product/payment";
+}
 //
 //	// 장바구니>>주문목록
 //	@RequestMapping("")

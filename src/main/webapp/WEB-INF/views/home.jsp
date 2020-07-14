@@ -16,8 +16,8 @@
 		<div id="imgbox">
 <!-- 			<img src="resources/test.jpg"> -->
 		</div>
-		<h3>상품1</h3>
-		<div></div>
+		<div><h3><a href='<c:url value="/product/upload"/>'>upload 화면</a></h3></div>
+		<div><h3><a href='<c:url value="/product/list"/>'>list 화면</a></h3></div>
 	</section>
 </body>
 </html>
