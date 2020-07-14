@@ -51,7 +51,7 @@
 			<div>
 				<form action='<c:url value = "/product/payment"/>' method="post">
 				<input type = "hidden" name="" value="">
-				<input type="button" value = "결제하기">
+				<input type="submit" value="결제하기">
 				</form>
 			</div>
 		<hr>

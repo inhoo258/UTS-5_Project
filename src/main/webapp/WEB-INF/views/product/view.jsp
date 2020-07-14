@@ -52,7 +52,7 @@
                            	<span id="value">
                            		<span id="text">
 		                            <input id="p_minus_btn" type="button" value ="-" onclick="p_count_minus()" disabled="disabled">
-									<label id="p_count_num">0</label>
+									<label id="p_count_num">1</label>
 									<input type="button" value ="+" onclick="p_count_plus()">
 								</span>
 							</span>
@@ -110,28 +110,20 @@
 	}
 	function p_count_minus() {
 		let p_num = parseInt(document.getElementById("p_count_num").innerText)
-		if(p_num > 0){
+		if(p_num > 1){
 			p_num -= 1;
-			if(p_num == 0){
+			if(p_num == 1){
 			document.getElementById("p_minus_btn").disabled="disabled";
 			}
 		}
 		document.getElementById("p_count_num").innerText=p_num;
 	}
-	function p_send_order(){
-		
-		
-	}
 	function redirectOrder(){
 //	 	주문서로 이동하는 JS 메도스|
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
-		if (p_num > 0) {
-			document.getElementById("product_count").value = p_num;
-			document.myForm.action = '<c:url value="/product/ordersheet"/>'; 
-			document.myForm.submit();
-		}else {
-			alert("수량이 0");
-		}
+		document.getElementById("product_count").value = p_num;
+		document.myForm.action = '<c:url value="/product/ordersheet"/>'; 
+		document.myForm.submit();
 	}
 	
 // 	function redirectCart(){

@@ -11,6 +11,7 @@
 			classpath:app-config.xml
 			classpath:mybatis-config.xml
 			classpath:security-config.xml
+			classpath:email-config.xml
 		</param-value>
 	</context-param>
 
