@@ -1,5 +1,7 @@
 package com.spring.project.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.service.IMemberService;
 
@@ -46,8 +49,10 @@ public class MemberController {
 	}
 
 	@RequestMapping("/list")
-	public void getMemberList(Model model) {
-		model.addAttribute("memberlist" , memberSerivce.getMemberList());
+	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, @RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage));
+		model.addAttribute("pageManager",new PagingManager(memberSerivce.getMemberCount(),memberpage));
+		model.addAttribute("permission" , memberSerivce.getMemberPermission(permissionpage));
 	}
 
 	@RequestMapping("/info/{userId}")
@@ -68,9 +73,6 @@ public class MemberController {
 		return "redirect:/member/info/"+member.getMember_id();
 	}
 	
-	@RequestMapping("find")
-	public void findId() {
-	}
 	
 	@PostMapping("/delete")
 	public String delete(@RequestParam(required = false) String member_id ,@RequestParam(required = false)String[] member_ids ) {
@@ -87,5 +89,19 @@ public class MemberController {
 		}
 		return "redirect:/logout";
 	}
+	
+	@PostMapping("/permission")
+	public String permission(@RequestParam(required = false) String permission_id ,@RequestParam(required = false)String[] permission_ids , HttpServletRequest request ) {
+		if(permission_ids !=null && permission_id==null) {
+			memberSerivce.multi_permission(permission_ids);
+		}
+		if(permission_id !=null) {
+			memberSerivce.permission(permission_id);
+		}
+			request.getSession().setAttribute("message", "승인완료");
+			
+//			redirectAttributes.addFlashAttribute("message" , "승인완료");
+			return "redirect:/member/list";
+		}
 
 }

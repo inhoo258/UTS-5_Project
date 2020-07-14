@@ -8,6 +8,7 @@
 	padding: 0;
 	text-decoration: none;
 	font-family: 'Noto Sans KR', sans-serif;
+	list-style: none;
 }
 
 /*로딩 시 화면 클릭 막음*/
@@ -299,6 +300,7 @@ li.animated-button.thar-four:before {
 	position: fixed;
 	left: 0;
 	top: 0;
+	z-index: 9;
 }
 	
 .section{

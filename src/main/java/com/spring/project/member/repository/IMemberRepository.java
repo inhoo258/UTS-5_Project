@@ -22,9 +22,9 @@ public interface IMemberRepository {
 	public MemberVO getMemberInfo(String member_id);
 
 	// 회원 목록 출력
-	@Select("select m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth"
-			+ " from members m join authorities au on m.member_id=au.member_id ")
-	public List<MemberVO> getMemberList();
+	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth"
+			+ " from members m join authorities au on m.member_id=au.member_id) where rn between #{0} and #{1}")
+	public List<MemberVO> getMemberList(int start, int end);
 
 	// 회원가입 sql
 	@Insert("insert into members (member_id, member_pw, member_name, member_tel, member_addr, member_email,member_enabled) "
@@ -51,6 +51,20 @@ public interface IMemberRepository {
 	//회원 정보 삭제
 	@Delete("delete from members where member_id=#{member_id}")
 	public void membersDelete(String member_id);
+
+	///여기
+	@Select("select m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
+			+ "from members m join authorities au on m.member_id=au.member_id where member_enabled = 0") 
+	public List<MemberVO> getMemberPermission(int start , int end);
+
+	@Update("update members set member_enabled='1' where member_id = #{permission_ids}")
+	public void permission(String permission_ids);
+	
+	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id")
+	public int getMemberCount();
+	
+	
+	
 
 
 
