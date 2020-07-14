@@ -26,14 +26,16 @@ public class MemberService implements IMemberService{
 	}
 	
 	@Override
-	public List<MemberVO> getMemberList(int page) {
-		int start = (page-1)*10+1;
+	public List<MemberVO> getMemberList(int memberPage) {
+		int start = (memberPage-1)*10+1;
 		int end = start+9;
 		return memberRepository.getMemberList(start , end);
 	}
 	@Override
-	public List<MemberVO> getMemberPermission() {
-		return memberRepository.getMemberPermission();
+	public List<MemberVO> getMemberPermission(int permissionPage) {
+		int start = (permissionPage-1)*10+1;
+		int end = start+9;
+		return memberRepository.getMemberPermission(start , end);
 	}
 	
 	@Override

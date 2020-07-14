@@ -1,5 +1,7 @@
 package com.spring.project.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,10 +49,10 @@ public class MemberController {
 	}
 
 	@RequestMapping("/list")
-	public void getMemberList(@RequestParam(required=false, defaultValue="1")int page, @RequestParam(required=false)String word, Model model) {
-		model.addAttribute("memberlist" , memberSerivce.getMemberList(page));
-		model.addAttribute("pageManager",new PagingManager(memberSerivce.getMemberCount(),page));
-		model.addAttribute("permission" , memberSerivce.getMemberPermission());
+	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, @RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage));
+		model.addAttribute("pageManager",new PagingManager(memberSerivce.getMemberCount(),memberpage));
+		model.addAttribute("permission" , memberSerivce.getMemberPermission(permissionpage));
 	}
 
 	@RequestMapping("/info/{userId}")
@@ -89,14 +91,16 @@ public class MemberController {
 	}
 	
 	@PostMapping("/permission")
-	public String permission(@RequestParam(required = false) String permission_id ,@RequestParam(required = false)String[] permission_ids , RedirectAttributes redirectAttributes) {
+	public String permission(@RequestParam(required = false) String permission_id ,@RequestParam(required = false)String[] permission_ids , HttpServletRequest request ) {
 		if(permission_ids !=null && permission_id==null) {
 			memberSerivce.multi_permission(permission_ids);
 		}
 		if(permission_id !=null) {
 			memberSerivce.permission(permission_id);
 		}
-			redirectAttributes.addFlashAttribute("message" , "승인완료");
+			request.getSession().setAttribute("message", "승인완료");
+			
+//			redirectAttributes.addFlashAttribute("message" , "승인완료");
 			return "redirect:/member/list";
 		}
 
