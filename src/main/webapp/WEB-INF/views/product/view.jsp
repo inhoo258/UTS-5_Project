@@ -120,6 +120,7 @@
 	}
 	function redirectOrder(){
 //	 	주문서로 이동하는 JS 메도스|
+// 		주문하기를 클릭하면 
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
 		document.getElementById("product_count").value = p_num;
 		document.myForm.action = '<c:url value="/product/ordersheet"/>'; 
@@ -137,7 +138,6 @@
 	
 	$(function(){
 	   $("ul.panel li:not("+$("ul.tab li a.on").attr("href")+")").hide() //class 속성에 on이 설정되어 있는 a태그의 href 속성을 가져오고 이 이외의 패널은 숨김.
-	   
 	   $("ul.tab li a").click(function(){  // ul에 a를 클릭 했을 때 
 	      $("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
 	      $(this).addClass("on");  // 그리고 현재 요소에만 on 클래스 추가 
