@@ -17,7 +17,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 		System.out.println("===SuccessHandler===");
 		System.out.println("===성공===");
-		
+		System.out.println("판매자");
 		authentication = SecurityContextHolder.getContext().getAuthentication();
 //		MemberVO member = (MemberVO) authentication.getDetails();
 //		request.getSession().setAttribute("userId", member.getUsername());

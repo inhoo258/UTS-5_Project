@@ -52,7 +52,7 @@
                            	<span id="value">
                            		<span id="text">
 		                            <input id="p_minus_btn" type="button" value ="-" onclick="p_count_minus()" disabled="disabled">
-									<label id="p_count_num">0</label>
+									<label id="p_count_num">1</label>
 									<input type="button" value ="+" onclick="p_count_plus()">
 								</span>
 							</span>
@@ -60,13 +60,19 @@
                         <div>
                         	<span id="p_tprice_key">총 상품 금액 :</span><span id="p_tprice_value"></span>
                         </div>
+                        <div>
+                        	<span id="request_key">요청사항</span><span id="request_value"><textarea rows="" cols=""></textarea></span>
+                        </div>
 						<div>
-							<form name='myForm' method="post">
-								<input type="hidden" name="product_id" value="${product.product_id}">
-								<input type="hidden" id="product_count" name="product_count" value="">
-								<input type="hidden" name="member_id" value="<sec:authentication property="principal.username"/>">
+							<form name='myForm'>
+								<input type="hidden" id = "pOrder_productid" name="product_id" value="${product.product_id}">
+								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
+								<input type="hidden" id = "pOrder_memberid" name="member_id" value="<sec:authentication property="principal.username"/>">
 								<input type="button" value ="주문하기" onclick="redirectOrder()"> 
-								<input type="button" value ="장바구니담기" onclick="redirectCart()">  
+								<input type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
+								<input type="button" value ="장바구니보기" onclick="redirectCart()"> 
+							</form>
+							<form action ='<c:url value ="/product/cart/${member_id }"/>'>
 							</form>
 						</div>
                     </div>
@@ -97,6 +103,7 @@
 			   </ul>
 			</nav>
         </div>
+        
     </section>
 <hr>
 </body>
@@ -110,42 +117,59 @@
 	}
 	function p_count_minus() {
 		let p_num = parseInt(document.getElementById("p_count_num").innerText)
-		if(p_num > 0){
+		if(p_num > 1){
 			p_num -= 1;
-			if(p_num == 0){
+			if(p_num == 1){
 			document.getElementById("p_minus_btn").disabled="disabled";
 			}
 		}
 		document.getElementById("p_count_num").innerText=p_num;
 	}
-	function p_send_order(){
-		
-		
-	}
 	function redirectOrder(){
-//	 	주문서로 이동하는 JS 메도스|
+//	 	주문서로 이동하는 JS 메도스
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
-		if (p_num > 0) {
-			document.getElementById("product_count").value = p_num;
-			document.myForm.action = '<c:url value="/product/ordersheet"/>'; 
-			document.myForm.submit();
-		}else {
-			alert("수량이 0");
-		}
+		document.getElementById("pOrder_count").value = p_num;
+		document.myForm.action = '<c:url value="/product/ordersheet"/>';
+		document.myForm.method = 'post';
+		document.myForm.submit();
 	}
 	
-// 	function redirectCart(){
-// //  		장바구니로 이동하는 JS 메소드
-// 		document.myForm.action = <c:url value="/product/ordersheet"/>; 
-// 		document.myForm.submit();
-// 	}
+	function redirectInsertCart(){
+//  	장바구니로 이동하는 JS 메소드
+		let p_num = parseInt(document.getElementById("p_count_num").innerText);
+		document.getElementById("pOrder_count").value = p_num;
+		let productId = document.getElementById("pOrder_productid").value;
+		let memberId = document.getElementById("pOrder_memberid").value;
+		let pOrderCount = document.getElementById("pOrder_count").value;
+		
+		var cartData = $("form[name=myForm]").serialize();
+		$.ajax({
+			url: '<c:url value="/product/rest/insertCart"/>',
+			type : "POST",
+			data : {
+				"memberid" : memberId,
+				"productId" : productId,
+				"pOrderCount" : pOrderCount
+			},
+			success : function(data){
+				alert("장바구니 담기에 성공했습니다.");
+				// 자바스크립트 모션넣어주세요!!
+			},error : function(){
+				alert("장바구니 담기에 실패했습니다.")
+			}
+		});
+	};
 	
+	function redirectCart(){
+//	 	장바구니로 이동하는 JS 메도스
+		let memberId = document.getElementById("pOrder_memberid").value;
+		location.href = '<c:url value="/product/cart/"/>'+memberId;
+	}
 	
 	
 	
 	$(function(){
 	   $("ul.panel li:not("+$("ul.tab li a.on").attr("href")+")").hide() //class 속성에 on이 설정되어 있는 a태그의 href 속성을 가져오고 이 이외의 패널은 숨김.
-	   
 	   $("ul.tab li a").click(function(){  // ul에 a를 클릭 했을 때 
 	      $("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
 	      $(this).addClass("on");  // 그리고 현재 요소에만 on 클래스 추가 

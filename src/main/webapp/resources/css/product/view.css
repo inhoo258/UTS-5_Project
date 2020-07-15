@@ -8,7 +8,7 @@
 .p_product_collection {
 	margin: 0 auto;
 	width: 1200px;
-	height: 1000px;
+	height: 2000px;
 	background-color: pink;
 }
 
@@ -30,7 +30,7 @@
 .p_product_desc {
 	display: inline;
 	width: 690px;
-	height: 900px;
+	height: 100%;
 	float: right;
 	
 }
@@ -38,7 +38,7 @@
 .p_product_explain {
 	margin: 30px;
 	width: 630px;
-	height: 900px;
+	height: 100%;
 	background-color: skyblue;
 }
 

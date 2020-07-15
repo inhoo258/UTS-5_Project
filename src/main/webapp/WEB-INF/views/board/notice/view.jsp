@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1" style="border-collapse:collapse;">
+	<thead>
+		<tr>
+			<th> 제목</th><td colspan="3">${notice.notice_title}</td>
+		</tr>
+		<tr>
+			<th> 작성일</th><td>${notice.notice_date}</td>
+			<th> 조회수</th><td>${notice.notice_views}</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th colspan="4">${notice.notice_content}</th>
+		</tr>
+	</tbody>
+</table>
+<input type="button" onclick='location.href="<c:url value='/board/notice/list'/>"' value="목록">
+<table border="1" style="border-collapse:collapse;">
+	<c:if test="${notice.notice_rn > 1}">
+		<tr>
+			<td><a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>'>이전글</a></td>
+		</tr>
+	</c:if>
+	<c:if test="${notice.notice_rn <listSize}">
+		<tr>
+			<td><a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>다음글</a></td>
+		</tr>
+	</c:if>
+</table>
+</body>
+</html>
