@@ -123,7 +123,7 @@
 									<td>Enabled</td>
 									<th>관리</th>
 								</tr>
-								<c:forEach var="permission" items="${permission}">
+								<c:forEach var="permission" items="${permission}" varStatus="status">
 									<tr>
 										<td>${permission.rn}</td>
 										<th>
@@ -139,8 +139,8 @@
 										<td>${permission.member_email}</td>
 										<td>${permission.member_enabled}</td>
 										<th>
-												<input type="hidden" value="${permission.member_id}" class="permission_id" name="permission_id"> 
-												<input type="button" value="승인" class="permissionBtn">
+											<input type="hidden" value="${permission.member_id}" class="permission_id" name="permission_id"> 
+											<input type="button" value="승인" class="permissionBtn">
 										</th>
 									</tr>
 								</c:forEach>
@@ -148,11 +148,17 @@
 							</table>
 						</div>
 						<div align="center" id=pagemanager>
-						<hr> [<a href="list?permissionpage=1&message=permission">처음</a>] 
+						<hr> 
+						
+						<input type="checkbox" id=firstpage hidden="true">
+						<label for="firstpage">[ 첫 페이지 ]</label>
 						<c:if test="${permissionPage.nowBlock > 1}">
-							[<a href="list?permissionpage=${permissionPage.startPage-1}&message=permission">이전</a>]
+							<input type="checkbox" id=previous hidden="true">
+							<label for="previous">[ 이전 ]</label>
 						</c:if> 
 						<c:forEach var="cnt" begin="${permissionPage.startPage}" end="${permissionPage.endPage}" step="1">
+							<input type="checkbox" hidden="true">
+							<label for="cnt" class="cnt">[ ${cnt} ]</label>
 							[<a href="list?permissionpage=${cnt}&message=permission">${cnt}</a>]
 						</c:forEach>
 						<c:if test="${permissionPage.nowBlock < permissionPage.totalBlock}">
@@ -166,34 +172,43 @@
 	<jsp:include page="../header&footer/footer.jsp"/>
 	</sec:authorize>
 	<script type="text/javascript">
-		$(".permissionBtn").click(function(){
-			var idx = $(".permissionBtn").index(this);
-			
-		$.ajax({
-			type:"POST",
-			url:"<c:url value='/member/rest/permission'/>",
-			data:{
-				permission_id : $(".permission_id").get(idx).value
-				},
-			success:function(){
-				$("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
-	 			$("#permissionlist").addClass("on");
-				$.reload();
+		if(sessionStorage.getItem("message") == "page_2"){
+			$("ul.tab li a").removeClass("on"); 
+			$("#permissionlist").addClass("on");
+			sessionStorage.removeItem("message")
+		}
+	
+		//url파라미터 뽑아오는 메서드
+		function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+		$(".permissionBtn").click(function() {
+			let index = $(".permissionBtn").index(this);
+			let permissionpage = getParameterByName('permissionpage');
+			let permission_id = $(".permission_id").get(index).value;
+			$("body").append("<form>")
+			sessionStorage.setItem("message" , "page_2")
+			$("body").append("<form id=permission_form></form>")
+    		$("#permission_form").attr({"action" : "<c:url value='/member/permission'/>"});
+    		$("#permission_form").attr({"method" : "POST"});
+    		$("#permission_form").css({"display" : "hidden"});
+    		$("#permission_form").append("<input type='hidden' name=permission_id value='"+permission_id+"'>");
+    		if(permissionpage!=""){
+    			if($(".permission_id").length == 1){
+    				permissionpage--;
+    			}
+    			if(permissionpage == 1){
+    				permissionpage = 1
+    			}
+	    		$("#permission_form").append("<input type='hidden' name=permissionpage value='"+permissionpage+"'>");
 			}
-			});
-		});
-		
-// 		if(${sessionScope.message eq 'permission'}){
-// 			console.log("있을때")
-// 			  $("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
-// 			  $("#permissionlist").addClass("on");  // 그리고 현재 요소에만 on 클래스 추가
-// 			  $.ajax({
-// 				  type:"get",
-// 				  url:"<c:url value='/member/rest/paging'/>",
-// 			  });
-// 			  console.log("${sessionScope.message}")
-// 		}
+		    $("#permission_form").submit();
+		})
 	</script>
+
 
 	<script type="text/javascript">
 	
@@ -271,6 +286,28 @@
 		});
 	
 	
+	
+	</script>
+
+	<script type="text/javascript">
+		$("#firstpage").click(function() {
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage=1'/>";
+		})
+		
+		$("#previous").click(function() {
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage=${permissionPage.startPage-1}'/>";
+		})
+		
+		$(".cnt").click(function() {
+			let cnt = $(".cnt").index(this) + 1;
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage="+cnt+"'/>";
+		})
+		
+		//cnt까지 했음
+		
 	
 	</script>
 </body>

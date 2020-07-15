@@ -26,10 +26,6 @@ public class MemberRestController {
 			return 1;
 	}
 
-	@PostMapping("/permission")
-	public void permission(@RequestParam(value = "permission_id") String permission_id) {
-		System.out.println(permission_id + "여기");
-		memberSerivce.permission(permission_id);
-	}
+	
 
 }
