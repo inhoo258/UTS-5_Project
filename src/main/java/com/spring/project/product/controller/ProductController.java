@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-<<<<<<< HEAD
 import com.spring.project.member.service.IMemberService;
-=======
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
@@ -111,15 +108,8 @@ public class ProductController {
 //
 	// 주문서 최종 주문하기전에 실행하는 코드(client용)
 	@PostMapping("/ordersheet")
-<<<<<<< HEAD
-	public String OrderSheet(@RequestParam("member_id")String member_id, @RequestParam(value="product_id",required = false,defaultValue = "0")int product_id, Model model) {
-		model.addAttribute("memberInfo",memberService.getMemberInfo(member_id)); //회원정보 모델
-		if(product_id!=0)model.addAttribute("productInfo", productService.getProduct(product_id)); //바로구매 상품 정보 모델
-		model.addAttribute("cartList",cartService.getCart(member_id));
-=======
 	public String getOrderSheet(@RequestParam("member_id")String member_id,Model model) {
 		model.addAttribute("cartList", cartService.getCart(member_id));
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 		return "product/ordersheet";
 	}
 	

@@ -24,17 +24,8 @@ public class ProductRestController {
 		System.out.println("cart_product_count len : "+cart_product_count);
 		cartService.updateCart(member_id,product_id,cart_product_count);
 	}
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-=======
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id")String member_id,@RequestParam("product_ids[]")List<Integer>product_ids) {
 		cartService.deleteCart(member_id, product_ids);
 	}
-		
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
