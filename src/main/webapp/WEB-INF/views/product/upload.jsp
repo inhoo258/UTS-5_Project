@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/product/upload.css'/>" />
 </head>
 <body>
-	<jsp:include page="../header/header.jsp"/>
+	<jsp:include page="../header&footer/header.jsp"/>
 	<c:set var="member_id">
 		<sec:authentication property="principal.username"/>
 	</c:set>

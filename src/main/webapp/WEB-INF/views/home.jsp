@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/home.css'/>" />
 </head>
 <body>
-	<jsp:include page="header/header.jsp"/>
+	<jsp:include page="header&footer/header.jsp"/>
 	<section>
 		<div id="imgbox">
 <!-- 			<img src="resources/test.jpg"> -->

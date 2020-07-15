@@ -49,12 +49,19 @@ public class MemberController {
 	}
 
 	@RequestMapping("/list")
-	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, @RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage) {
+	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, 
+			@RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage,
+			@RequestParam(value="message" ,required = false)String message , HttpServletRequest request) {
 		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage));
-		model.addAttribute("pageManager",new PagingManager(memberSerivce.getMemberCount(),memberpage));
+		model.addAttribute("memberPage",new PagingManager(memberSerivce.getMemberCount(),memberpage));
 		model.addAttribute("permission" , memberSerivce.getMemberPermission(permissionpage));
+		model.addAttribute("permissionPage",new PagingManager(memberSerivce.getPermissionCount(),memberpage));
+//		System.out.println("list controller message : " + message);
+//		if(message != null) {
+//			request.getSession().setAttribute("message", "permission");
+//		}
 	}
-
+	
 	@RequestMapping("/info/{userId}")
 	public String getMember(@PathVariable("userId")String userId, Model model) {
 		model.addAttribute("member",memberSerivce.getMemberInfo(userId));
@@ -90,18 +97,6 @@ public class MemberController {
 		return "redirect:/logout";
 	}
 	
-	@PostMapping("/permission")
-	public String permission(@RequestParam(required = false) String permission_id ,@RequestParam(required = false)String[] permission_ids , HttpServletRequest request ) {
-		if(permission_ids !=null && permission_id==null) {
-			memberSerivce.multi_permission(permission_ids);
-		}
-		if(permission_id !=null) {
-			memberSerivce.permission(permission_id);
-		}
-			request.getSession().setAttribute("message", "승인완료");
-			
-//			redirectAttributes.addFlashAttribute("message" , "승인완료");
-			return "redirect:/member/list";
-		}
+	
 
 }

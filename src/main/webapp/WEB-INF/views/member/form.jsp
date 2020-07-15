@@ -13,7 +13,7 @@
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 <body>
-	<jsp:include page="../header/header.jsp" />
+	<jsp:include page="../header&footer/header.jsp" />
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<form action='<c:url value="/member/${message}"/>' method="post"
 		onsubmit="return inputCheck()">

@@ -60,7 +60,7 @@ public class MemberService implements IMemberService{
 	@Transactional(value = "tsManager")
 	public void memberDelete(String member_id) {
 		memberRepository.authDelete(member_id);
-		memberRepository.membersDelete(member_id);
+		memberRepository.memberDelete(member_id);
 		
 	}
 
@@ -69,7 +69,7 @@ public class MemberService implements IMemberService{
 	public void membersDelete(String[] member_ids) {
 		for(int i=0; i<member_ids.length; i++) {
 			memberRepository.authDelete(member_ids[i]);
-			memberRepository.membersDelete(member_ids[i]);
+			memberRepository.memberDelete(member_ids[i]);
 		}
 		
 	}
@@ -90,6 +90,11 @@ public class MemberService implements IMemberService{
 	@Override
 	public int getMemberCount() {
 		return memberRepository.getMemberCount();
+	}
+
+	@Override
+	public int getPermissionCount() {
+		return memberRepository.getPermissionCount();
 	}
 
 	
