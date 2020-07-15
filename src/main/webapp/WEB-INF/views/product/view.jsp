@@ -60,10 +60,14 @@
                         <div>
                         	<span id="p_tprice_key">총 상품 금액 :</span><span id="p_tprice_value"></span>
                         </div>
+                        <div>
+                        	<span id="request_key">요청사항</span><span id="request_value"><textarea rows="" cols=""></textarea></span>
+                        </div>
 						<div>
 							<form name='myForm' method="post">
 								<input type="hidden" name="product_id" value="${product.product_id}">
 								<input type="hidden" id="product_count" name="product_count" value="">
+								<input type="hidden" id="product_request" name="product_request" value="">
 								<input type="hidden" name="member_id" value="<sec:authentication property="principal.username"/>">
 								<input type="button" value ="주문하기" onclick="redirectOrder()"> 
 								<input type="button" value ="장바구니담기" onclick="redirectCart()">  
@@ -122,7 +126,9 @@
 //	 	주문서로 이동하는 JS 메도스|
 // 		주문하기를 클릭하면 
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
+		let p_request = parseInt(document.getElementById("product_request").innerText);
 		document.getElementById("product_count").value = p_num;
+		document.getElementById("product_request").value = p_request;
 		document.myForm.action = '<c:url value="/product/ordersheet"/>'; 
 		document.myForm.submit();
 	}
