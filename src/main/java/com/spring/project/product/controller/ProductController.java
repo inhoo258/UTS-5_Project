@@ -2,11 +2,17 @@ package com.spring.project.product.controller;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.project.member.service.IMemberService;
 import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
@@ -30,7 +37,41 @@ public class ProductController {
 	ProductService productService;
 	@Autowired
 	OrderService orderService;
-
+	@Autowired
+	IMemberService memberService;
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	
+	
+	@RequestMapping(value = "/sendMail.do")
+	public String sendMail(HttpServletRequest request) {
+		System.out.println("1");
+		String setFrom = "(주)UTS-5";
+		System.out.println(request.getParameter("tomail"));
+		System.out.println(request.getParameter("title"));
+		System.out.println(request.getParameter("content"));
+		String tomail = request.getParameter("tomail"); //받는 사람 이메일
+		String title = request.getParameter("title"); //제목
+		String content = request.getParameter("content");
+		
+		try {
+			System.out.println("2");
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom(setFrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			message.setText(content);
+			System.out.println("3");
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			System.out.println(e);
+		}
+		return "product/payment";
+	}
+	
+	
+	
 	// -------------cart------------
 	// 전체 장바구니 목록(관리자용)
 //	@RequestMapping("")
@@ -71,14 +112,14 @@ public class ProductController {
 		model.addAttribute("cartList", cartService.getCart(member_id));
 		return "product/ordersheet";
 	}
-//	// 주문서 최종 주문 후 실행하는 코드(client용)
-//	@PostMapping("/ordersheet")
-//	public String getOrder(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
-//			@RequestParam("product_count")int product_count, Model model) {
-//		OrdersVO order = orderService.getOrder(member_id);
-//		model.addAttribute("orderSheet", order);
-//	return "product/ordersheet";
-//}
+	
+	// 주문서 최종 주문 후 실행하는 코드(client용)
+	@PostMapping("/payment")
+	public String payment() {
+//		OrdersVO order = orderService.paymentInOrder(member_id);
+//		model.addAttribute("payment", order);
+	return "product/payment";
+}
 //
 //	// 장바구니>>주문목록
 //	@RequestMapping("")

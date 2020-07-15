@@ -28,5 +28,4 @@ public class ProductRestController {
 	public void deleteFromCart(@RequestParam("member_id")String member_id,@RequestParam("product_ids[]")List<Integer>product_ids) {
 		cartService.deleteCart(member_id, product_ids);
 	}
-		
 }
