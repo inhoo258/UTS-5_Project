@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
@@ -48,13 +47,6 @@ public class ProductController {
 		return "product/cart";
 	}
 //
-//	// 장바구니 담기
-//	@PostMapping("")
-//	public String insertCart(@ModelAttribute("cart") @Validated CartVO cart, Model model) {
-//		cartService.insertCart(cart.getMember_id(), cart.getProduct_id(), cart.getCart_product_count());
-//		model.addAttribute("cart", new CartVO());
-//		return "";
-//	}
 //
 //	// 장바구니 삭제(결제시 or client 삭제)
 //	@RequestMapping("")
@@ -75,10 +67,8 @@ public class ProductController {
 //
 	// 주문서 최종 주문하기전에 실행하는 코드(client용)
 	@PostMapping("/ordersheet")
-	public String getOrderSheet(@RequestParam("product_id")int product_id, @RequestParam("member_id")String member_id,
-			@RequestParam("product_count")int product_count, Model model) {
-		OrdersVO orderSheet = orderService.getOrderSheet(member_id);
-		model.addAttribute("orderSheet", orderSheet);
+	public String getOrderSheet(@RequestParam("member_id")String member_id,Model model) {
+		model.addAttribute("cartList", cartService.getCart(member_id));
 		return "product/ordersheet";
 	}
 //	// 주문서 최종 주문 후 실행하는 코드(client용)
