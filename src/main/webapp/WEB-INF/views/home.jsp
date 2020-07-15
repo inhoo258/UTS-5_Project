@@ -19,5 +19,7 @@
 		<div><h3><a href='<c:url value="/product/upload"/>'>upload 화면</a></h3></div>
 		<div><h3><a href='<c:url value="/product/list"/>'>list 화면</a></h3></div>
 	</section>
+	
+	<jsp:include page="header&footer/header.jsp"/>
 </body>
 </html>

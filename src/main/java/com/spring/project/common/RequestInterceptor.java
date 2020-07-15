@@ -29,8 +29,8 @@ public class RequestInterceptor implements HandlerInterceptor {
 		System.out.println("===requestURI===");
 		System.out.println(request.getRequestURI());
 		
-		System.out.println("===QueryString===");
-		System.out.println(param);
+//		System.out.println("===QueryString===");
+//		System.out.println(param);
 		
 		if (!url.contains("login") && !url.contains("logout")) {
 			session.setAttribute("url", url);

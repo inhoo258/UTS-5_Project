@@ -20,17 +20,16 @@
 <body>
 
 	<sec:authorize access="hasRole('ROLE_MASTER')">
-		<jsp:include page="../header/header.jsp" />
+		<jsp:include page="../header&footer/header.jsp" />
 
 		<div class="p_product_explain2">
 			<nav class="container">
 				<ul class="tab">
-					<li><a href="#tab1" class="on">회원 리스트</a></li>
-					<li><a href="#tab2" id=alist>승인대기 리스트</a></li>
+					<li><a href="#tab1" id=memberlist class="on">회원 리스트</a></li>
+					<li><a href="#tab2" id=permissionlist>승인대기 리스트</a></li>
 				</ul>
 				<ul class="panel">
 					<li id="tab1">
-						<div class="m_background"></div>
 						<div class="m_tablediv">
 							<table>
 								<tr style="border: none;">
@@ -47,11 +46,10 @@
 									</td>
 								</tr>
 								<tr>
-									<th><button type="button" id="member_Checkall">모두
-											선택</button></th>
+									<td>number</td>
+									<th><button type="button" id="member_Checkall">모두 선택</button></th>
 									<td>ID<br>Name<br>Auth
 									</td>
-									<td>Password</td>
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -60,12 +58,13 @@
 								</tr>
 								<c:forEach var="member" items="${memberlist}">
 									<tr>
-										<th><label class="checkbox"> <input
-												type="checkbox" class="member_CheckEach"> <span
-												class="icon"></span> <span class="text">선택</span>
+										<td>${member.rn}</td>
+										<th><label class="checkbox"> 
+										<input type="checkbox" class="member_CheckEach"> 
+										<span class="icon"></span> 
+										<span class="text">선택</span>
 										</label></th>
 										<td>${member.member_id}<br>${member.member_name}<br>${member.member_auth}</td>
-										<td>**********</td>
 										<td>${member.member_tel}</td>
 										<td>${member.member_addr}</td>
 										<td>${member.member_email}</td>
@@ -81,23 +80,23 @@
 								</c:forEach>
 							</table>
 						</div>
-
+						<div align="center" id=pagemanager>
 						<hr> [<a href="list?memberpage=1">처음</a>] 
-						<c:if test="${pageManager.nowBlock > 1}">
-							[<a href="list?memberpage=${pageManager.startPage-1}">이전</a>]
+						<c:if test="${memberPage.nowBlock > 1}">
+							[<a href="list?memberpage=${memberPage.startPage-1}">이전</a>]
 						</c:if> 
-						<c:forEach var="cnt" begin="${pageManager.startPage}" end="${pageManager.endPage}" step="1">
+						<c:forEach var="cnt" begin="${memberPage.startPage}" end="${memberPage.endPage}" step="1">
 							[<a href="list?memberpage=${cnt}">${cnt}</a>]
 						</c:forEach>
-						<c:if test="${pageManager.nowBlock < pageManager.totalBlock}">
-							[<a href="list?memberpage=${pageManager.endPage+1}">다음</a>]
+						<c:if test="${memberPage.nowBlock < memberPage.totalBlock}">
+							[<a href="list?memberpage=${memberPage.endPage+1}">다음</a>]
 						</c:if>
-
+						</div>
 					</li>
 					<li id="tab2">
-						<div class="m_background"></div>
 						<div class="m_tablediv">
 							<table>
+								<tbody>
 								<tr style="border: none;">
 									<td>
 										<form action="<c:url value='/member/permission'/>"
@@ -114,67 +113,105 @@
 								</tr>
 
 								<tr>
-									<th><button type="button" id="permission_Checkall">모두
-											선택</button></th>
+									<td>number</td>
+									<th><button type="button" id="permission_Checkall">모두 선택</button></th>
 									<td>ID<br>Name<br>Auth
 									</td>
-									<td>Password</td>
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
 									<td>Enabled</td>
 									<th>관리</th>
 								</tr>
-								<c:forEach var="permission" items="${permission}">
+								<c:forEach var="permission" items="${permission}" varStatus="status">
 									<tr>
-										<th><label class="checkbox"> <input
-												type="checkbox" class="permission_CheckEach"> <span
-												class="icon"></span> <span class="text">선택</span>
-										</label></th>
+										<td>${permission.rn}</td>
+										<th>
+										<label class="checkbox"> 
+											<input type="checkbox" class="permission_CheckEach"> 
+											<span class="icon"></span>
+											<span class="text">선택</span>
+										</label>
+										</th>
 										<td>${permission.member_id}<br>${permission.member_name}<br>${permission.member_auth}</td>
-										<td>**********</td>
 										<td>${permission.member_tel}</td>
 										<td>${permission.member_addr}</td>
 										<td>${permission.member_email}</td>
 										<td>${permission.member_enabled}</td>
 										<th>
-											<form action="<c:url value='/member/permission'/>"
-												method="POST">
-												<input type="hidden" value="${permission.member_id}"
-													class="permission_id" name="permission_id"> <input
-													type="submit" value="승인">
-											</form>
+											<input type="hidden" value="${permission.member_id}" class="permission_id" name="permission_id"> 
+											<input type="button" value="승인" class="permissionBtn">
 										</th>
 									</tr>
 								</c:forEach>
+								</tbody>
 							</table>
 						</div>
+						<div align="center" id=pagemanager>
+						<hr> 
 						
-						<hr> [<a href="list?permissionpage=1">처음</a>] 
-						<c:if test="${pageManager.nowBlock > 1}">
-							[<a href="list?permissionpage=${pageManager.startPage-1}">이전</a>]
+						<input type="checkbox" id=firstpage hidden="true">
+						<label for="firstpage">[ 첫 페이지 ]</label>
+						<c:if test="${permissionPage.nowBlock > 1}">
+							<input type="checkbox" id=previous hidden="true">
+							<label for="previous">[ 이전 ]</label>
 						</c:if> 
-						<c:forEach var="cnt" begin="${pageManager.startPage}" end="${pageManager.endPage}" step="1">
-							[<a href="list?permissionpage=${cnt}">${cnt}</a>]
+						<c:forEach var="cnt" begin="${permissionPage.startPage}" end="${permissionPage.endPage}" step="1">
+							<input type="checkbox" hidden="true">
+							<label for="cnt" class="cnt">[ ${cnt} ]</label>
+							[<a href="list?permissionpage=${cnt}&message=permission">${cnt}</a>]
 						</c:forEach>
-						<c:if test="${pageManager.nowBlock < pageManager.totalBlock}">
-							[<a href="list?permissionpage=${pageManager.endPage+1}">다음</a>]
+						<c:if test="${permissionPage.nowBlock < permissionPage.totalBlock}">
+							[<a href="list?permissionpage=${permissionPage.endPage+1}&message=permission">다음</a>]
 						</c:if>
-						
+						</div>
 					</li>
-				</ul>
+				</ul>  
 			</nav>
 		</div>
+	<jsp:include page="../header&footer/footer.jsp"/>
 	</sec:authorize>
 	<script type="text/javascript">
-		if(${sessionScope.message eq '승인완료'}){
-			  $("ul.tab li a").removeClass("on"); // a에 있는 모든 클래스 on 삭제
-			  $("#alist").addClass("on");  // 그리고 현재 요소에만 on 클래스 추가
+		if(sessionStorage.getItem("message") == "page_2"){
+			$("ul.tab li a").removeClass("on"); 
+			$("#permissionlist").addClass("on");
+			sessionStorage.removeItem("message")
 		}
-
-	</script>	
 	
+		//url파라미터 뽑아오는 메서드
+		function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+		$(".permissionBtn").click(function() {
+			let index = $(".permissionBtn").index(this);
+			let permissionpage = getParameterByName('permissionpage');
+			let permission_id = $(".permission_id").get(index).value;
+			$("body").append("<form>")
+			sessionStorage.setItem("message" , "page_2")
+			$("body").append("<form id=permission_form></form>")
+    		$("#permission_form").attr({"action" : "<c:url value='/member/permission'/>"});
+    		$("#permission_form").attr({"method" : "POST"});
+    		$("#permission_form").css({"display" : "hidden"});
+    		$("#permission_form").append("<input type='hidden' name=permission_id value='"+permission_id+"'>");
+    		if(permissionpage!=""){
+    			if($(".permission_id").length == 1){
+    				permissionpage--;
+    			}
+    			if(permissionpage == 1){
+    				permissionpage = 1
+    			}
+	    		$("#permission_form").append("<input type='hidden' name=permissionpage value='"+permissionpage+"'>");
+			}
+		    $("#permission_form").submit();
+		})
+	</script>
+
+
 	<script type="text/javascript">
+	
      let member_cnt = 0;
 	 $(function () {
          $("#member_Checkall").click(function () {
@@ -236,6 +273,7 @@
 		return false;
 	}
 	
+	//회원 리스트 , 승인대기 리스트용 스크립트
 	$(function(){
 		   $("ul.panel li:not("+$("ul.tab li a.on").attr("href")+")").hide() //class 속성에 on이 설정되어 있는 a태그의 href 속성을 가져오고 이 이외의 패널은 숨김.
 		   $("ul.tab li a").click(function(){  // ul에 a를 클릭 했을 때 
@@ -248,6 +286,28 @@
 		});
 	
 	
+	
+	</script>
+
+	<script type="text/javascript">
+		$("#firstpage").click(function() {
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage=1'/>";
+		})
+		
+		$("#previous").click(function() {
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage=${permissionPage.startPage-1}'/>";
+		})
+		
+		$(".cnt").click(function() {
+			let cnt = $(".cnt").index(this) + 1;
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage="+cnt+"'/>";
+		})
+		
+		//cnt까지 했음
+		
 	
 	</script>
 </body>
