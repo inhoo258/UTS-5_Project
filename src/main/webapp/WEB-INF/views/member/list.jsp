@@ -159,10 +159,10 @@
 						<c:forEach var="cnt" begin="${permissionPage.startPage}" end="${permissionPage.endPage}" step="1">
 							<input type="checkbox" hidden="true">
 							<label for="cnt" class="cnt">[ ${cnt} ]</label>
-							[<a href="list?permissionpage=${cnt}&message=permission">${cnt}</a>]
 						</c:forEach>
 						<c:if test="${permissionPage.nowBlock < permissionPage.totalBlock}">
-							[<a href="list?permissionpage=${permissionPage.endPage+1}&message=permission">다음</a>]
+							<input type="checkbox" id=next hidden="true">
+							<label for="next">[ 다음 ]</label>
 						</c:if>
 						</div>
 					</li>
@@ -304,6 +304,11 @@
 			let cnt = $(".cnt").index(this) + 1;
 			sessionStorage.setItem("message" , "page_2");
 			location.href="<c:url value='/member/list?permissionpage="+cnt+"'/>";
+		})
+		
+		$("#next").click(function() {
+			sessionStorage.setItem("message" , "page_2");
+			location.href="<c:url value='/member/list?permissionpage=${permissionPage.endPage+1}'/>";
 		})
 		
 		//cnt까지 했음
