@@ -10,7 +10,7 @@ import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.repository.IOrderRepository;
 
 @Service
-public class OrderService implements IProductService{
+public class OrderService{
 	
 	@Autowired
 	IOrderRepository orderRepository;

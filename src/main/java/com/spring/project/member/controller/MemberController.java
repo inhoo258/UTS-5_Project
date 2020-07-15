@@ -66,6 +66,7 @@ public class MemberController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth : " + auth.getAuthorities());
 		System.out.println("auth Id : " + auth.getName());
+		member.setMember_pw(pwEncoder.encode(member.getMember_pw()));
 		memberSerivce.updateMember(member);
 		if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))){
 			return "redirect:/member/list";

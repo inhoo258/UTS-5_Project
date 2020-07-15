@@ -1,38 +1,40 @@
 package com.spring.project.product.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.project.product.service.IProductService;
+import com.spring.project.product.service.CartService;
 
-@Controller
+@RestController
 @RequestMapping("/product/rest")
 public class ProductRestController {
 	@Autowired
-	@Qualifier("cartService")
-	IProductService cartService;
-	@Autowired
-	@Qualifier("productService")
-	IProductService productService;
-	@Autowired
-	@Qualifier("orderService")
-	IProductService orderService;
+	CartService cartService;
+	
 	@PostMapping("/updateCart")
-	public void updateCart(@RequestParam("member_id")String member_id, @RequestParam("product_id")int[] product_id, @RequestParam("cart_product_count")int[]cart_product_count) {
-		System.out.println("update cart in");
-		System.out.println("member id : "+member_id);
-		System.out.println("product id : "+product_id);
-		System.out.println("product length : "+product_id.length);
-		System.out.println("cart product count : "+cart_product_count);
-		System.out.println("cart product count length : "+cart_product_count.length);
+	public void updateCart(String member_id,@RequestParam("product_id[]")List<Integer>product_id,@RequestParam("cart_product_count[]")List<Integer>cart_product_count) {
+		System.out.println("--------------------------------------------------rest update cart in");
+		System.out.println("member_id : "+member_id);
+		System.out.println("product_id len : "+product_id);
+		System.out.println("cart_product_count len : "+cart_product_count);
+		cartService.updateCart(member_id,product_id,cart_product_count);
 	}
+<<<<<<< HEAD
 	
 	
 	
 	
 	
+=======
+	@PostMapping("/deleteFromCart")
+	public void deleteFromCart(@RequestParam("member_id")String member_id,@RequestParam("product_ids[]")List<Integer>product_ids) {
+		cartService.deleteCart(member_id, product_ids);
+	}
+		
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
