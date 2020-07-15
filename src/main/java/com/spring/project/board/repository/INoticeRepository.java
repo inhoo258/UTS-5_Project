@@ -1,8 +1,10 @@
 package com.spring.project.board.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.board.model.NoticeVO;
@@ -11,12 +13,12 @@ import com.spring.project.board.model.NoticeVO;
 public interface INoticeRepository {
 	
 	//전체 공지사항 목록
-	@Select("select * from notice_board order by rownum desc")
-	public ArrayList<NoticeVO> getNoticeList();
+	@Select("select * from(select rownum notice_rn,n.* from (select * from notice_board order by notice_number) n) order by notice_rn desc")
+	public List<NoticeVO> getNoticeList();
 	
 	//공지사항 하나 클릭(제목)
-	@Select("select * from notice_board where notice_title=#{notice_title}")
-	public NoticeVO getNotice(String notice_title);
+	@Select("select * from(select rownum notice_rn,n.* from(select * from notice_board order by notice_number)n)where notice_rn=#{notice_rn}")
+	public NoticeVO getNotice(int notice_rn);
 	
 	//공지사항 등록
 	@Insert("insert into notice_board values(#{notice_content},sysdate,#{notice_title},#{notice_views})")
@@ -27,6 +29,8 @@ public interface INoticeRepository {
 	public void updateNotice(String notice_content);
 	
 	//공지사항 조회수 +1증가
-	@Update("update notice_board set notice_views=notice_views+1")
-	public void updateViews();
+	@Update("update notice_board set notice_views=notice_views+1 where notice_number =#{notice_number}")
+	public void updateViews(int notice_number);
+	@Select("select count(*) from notice_board")
+	public int getListSize();
 }

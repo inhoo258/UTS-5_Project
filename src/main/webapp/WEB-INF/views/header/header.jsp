@@ -31,7 +31,7 @@
 			<section align="center" class="section header-section2">
 				<nav class="nav-meun1 h_menu">
 					<h3>
-						<a href="#"><font id="H-font">메뉴1</font></a>
+						<a href='<c:url value="/board/notice/list"/>'><font id="H-font">갓지사항</font></a>
 					</h3>
 				</nav>
 				<nav class="nav-meun2 h_menu">
