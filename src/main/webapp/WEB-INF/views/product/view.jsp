@@ -75,6 +75,7 @@
 							</form>
 						</div>
                     </div>
+                    
                 </div>
                 <div class="p_product_pic">
                     <div class="p_pic_setting">
