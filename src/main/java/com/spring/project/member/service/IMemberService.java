@@ -17,9 +17,5 @@ public interface IMemberService {
 	public List<MemberVO> getMemberPermission(int permissionPage);
 	public int getMemberCount();
 	public int getPermissionCount();
-<<<<<<< HEAD
 	public void permissions(String[] permission_ids);
-=======
-	void permissions(String[] permission_ids);
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
