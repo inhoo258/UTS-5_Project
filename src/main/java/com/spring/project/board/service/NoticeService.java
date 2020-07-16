@@ -14,8 +14,10 @@ public class NoticeService implements IBoardService{
 	@Autowired
 	INoticeRepository noticeRepository;
 	
-	public List<NoticeVO> getNoticeList(){
-		return noticeRepository.getNoticeList();
+	public List<NoticeVO> getNoticeList(int page){
+		int end = page*10;
+		int start = end-9;
+		return noticeRepository.getNoticeList(start,end);
 	}
 	
 	public void insertNotice(String notice_content, String notice_title, String notice_views) {
@@ -32,7 +34,7 @@ public class NoticeService implements IBoardService{
 		return notice;
 	}
 
-	public int getListSize() {
-		return noticeRepository.getListSize();
+	public int getTotalCount() {
+		return noticeRepository.getTotalCount();
 	}
 }
