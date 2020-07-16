@@ -1,0 +1,187 @@
+@charset "UTF-8";
+
+/* input[type="radio"]{display: none;} */
+/* input[type="radio"]+label{display: inline-block; padding: 20px; color: #00bbff; cursor: pointer; border-top-left-radius: 4px;  border-top-right-radius: 4px; border: 1px solid #999;} */
+/* input[type="radio"]:checked +label{ font-weight: bold; font-size: 20px; border-top-right-radius: 20px;} */
+ 
+/* .conbox{display: none; width: 100%; height: 100%;} */
+/* input[id="tab01"]:checked ~.con1{ display: block; } */
+/* input[id="tab02"]:checked ~.con2{ display: block; } */
+
+input[type="submit"]{width: 100px; height: 30px;}
+input[type="button"]{width: 100px; height: 30px;}
+
+
+#pagemanager>input[type="checkbox"]:checked +label{
+	font-size: 30px;
+}
+
+
+#pagemanager>label{
+	cursor: pointer;
+}
+
+#pagemanager{
+	width: 100%;
+	height: 100px;
+}
+
+#pagemanager>a{
+	
+	font-size: 20px;
+}
+
+.m_background{ /* chan : table 을 감사고 있는 테이블 */
+/* 	background-color: black; chan : 테이블 놓여져 있는 색상을 선택 하는 거고, 7번줄 에서 radio를 설정 할 수가 있습니다. */
+	position: absolute;
+	width: 1600px;
+	height: 100%; 
+	opacity: 0.3; /* chan : 7번 Line에 있는 opacity랑 맞춰주면 radio 이동시 동일한 배경을 정해줄수가 있어요     */
+	z-index: -5; /* chan : -5를 해야 check박스를 선택할 수가 있더라구요 ㅠㅠ 이건 모르겠습니다.*/
+}
+
+/* 테이블 설정 */
+  th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+  }
+.m_tablediv{ /* chan : table 을 감사고 있는 테이블 */
+	width: 1600px; /*chan : 테이블 크기 조정할 때 여기서 조정해주셔야해요 이유 바로 밑에 table 사이즈를 이 div로 맞춰놨습니다. */
+	background-color: black; /*chan : 위와 같이 색상도 동일*/
+	opacity: 0.5;
+}
+.m_tablediv> table{ /* chan : table 설정은 단순하게 했습니다.*/
+	width: 100%;
+	border-collapse: collapse;
+	color: white;
+}
+
+button[type="button"]{border-radius: 20px; width: 100px; height: 40px;}
+button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 쪽에 생기는 선 제거해주는 역할이예요*/
+
+
+/* ================================== Chan : 체스박스 CSS START */
+
+.checkbox{
+	margin-left: 10px;
+	padding-top: 5px;
+	width: 150px;
+	height: 30px;
+	
+}
+.checkbox input {
+	display: none;
+}
+
+.checkbox span {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.text{
+	width: 100px;
+}
+.checkbox .icon {
+	position: relative;
+	width: 17px;
+	height: 17px;
+	border: 1px solid #c8ccd4;
+	border-radius: 3px;
+	transition: background 0.1s ease;
+}
+
+.checkbox .icon::after {
+ 	content:''; 
+	position: absolute;
+	top: 1px;
+	left: 5px;
+	width: 5px;
+	height: 11px;
+	border-right: 2px solid white;
+	border-bottom: 2px solid white;
+	transform:rotate(45) scale(0);
+	transition: all 0.3s ease;
+}
+
+.checkbox .text {
+	margin-left: 5px;
+	width: 120px;
+	font-weight: bold;
+}
+
+.checkbox input:checked ~ .icon {
+	border-color: transparent;
+	background: #0066cc;
+	animation: jelly 0.6s ease;
+}
+.checkbox input:checked ~ .icon::after {
+	opacity:1;
+	transform:rotate(45deg) scale(1);
+}
+
+@keyframes jelly{
+	from {transform: scale(1,1);}
+	30% {transform: scale(1.25,0.75);}
+	40% {transform: scale(0.75,1.25);}
+	50% {transform: scale(1.15,0.85);}
+	65% {transform: scale(0.95,1.05);}
+	75% {transform: scale(1.05,0.95);}
+	to {transform: scale(1,1);}
+}
+
+/*=======================================================지현이 코드*/
+.p_product_explain2{
+	margin-top: 30px;
+	width: 1600px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.container ul.tab {
+	display: flex;
+	height: 60px;
+	border-bottom: 1px solid #5da62b;
+} /*flex를 사용하기 위해서는 부모가 flex여야한다.*/
+.container ul.tab li {
+	flex: 1;
+} /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
+.container ul.tab li:first-child {
+	border-left: 1px solid #ddd;
+} /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
+.container ul.tab li a {
+	/*li가 아닌 a태그에 높이를 줘야 클릭할 수 있는 범위가 넓어진다. a는 인라인요소라서 블록요소로 바꿔줘서 가로세로 100%로 만들어준다. */
+	height: 60px;
+	display: block;
+	font-size: 14px;
+	color: #505050;
+	text-align: center;
+	line-height: 59px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	border-left: none;
+	border-bottom: none;
+}
+
+.container ul.tab li a.on {
+	position: relative;
+	height: 58px;
+	border-color: #5da62b;
+	border-top-width: 2px;
+	line-height: 57px;
+	border-bottom: 1px solid #fff;
+}
+
+.container ul.tab li a.on:before {
+	content: "";
+	position: absolute;
+	left: -1px;
+	top: -2px;
+	width: 1px;
+	height: 100%;
+	background: #5da62b;
+	border-top: 2px solid #5da62b;;
+}
+
+/* ============================================= Chan : 체스박스 CSS END */
+
+
