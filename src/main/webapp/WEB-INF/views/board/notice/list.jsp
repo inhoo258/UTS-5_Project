@@ -12,7 +12,6 @@ ${noticeList}<br>
 <table border="1" style="border-collapse:collapse;">
 	<thead>
 		<tr>
-			<th>rn</th>
 			<th>글번호</th>
 			<th>제목</th>
 			<th>작성일</th>
@@ -23,14 +22,19 @@ ${noticeList}<br>
 <c:forEach var="list" items="${noticeList}" varStatus="status">
 	<tbody>
 		<tr>
-			<td>${list.notice_rn}</td>
 			<td>${list.notice_number}</td>
 			<td><a href='<c:url value="/board/notice/${list.notice_rn}"/>'>${list.notice_title}</a></td>
 			<td>${list.notice_date}</td>
-			<td>${list.notice_views}, idx : ${status.index+1}</td>
+			<td>${list.notice_views}</td>
 		</tr>
 	</tbody>
 </c:forEach>
+<c:if test=${pagingManger.nowBlock gt 1 }>
+<button onclick='location.href="<c:url value='/board/notice/list?page=${pagingManager.nowPage-1}'/>"'>이전</button>
+</c:if>
+<c:if test="${pagingManager.nowBlock lt pagingManager.totalBlock}">
+<button onclick='location.href="<c:url value=''/>"'>다음</button>
+</c:if>
 </table>
 
 </body>

@@ -13,7 +13,7 @@
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 <body>
-	<jsp:include page="../header/header.jsp" />
+	<jsp:include page="../header&footer/header.jsp" />
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<form action='<c:url value="/member/${message}"/>' method="post"
 		onsubmit="return inputCheck()">
@@ -164,6 +164,7 @@
                 document.getElementById("pw_check").innerText="";
                 pw_check=true;
             }
+            $("#member_pw_ok").trigger("blur");
         });
         $("#member_pw_ok").blur(function(){
             member_pw_ok = document.getElementById("member_pw_ok").value
@@ -187,7 +188,7 @@
                 name_check=false;
                 
             }else if(!/^[가-힣]+$/.test(member_name)){
-                document.getElementById("name_check").innerText="한글만 입력 가능합니다.";
+                document.getElementById("name_check").innerText="가 나 다 형식으로 입력해주세요.";
             }
             else{
                 document.getElementById("name_check").innerText="";
@@ -233,23 +234,16 @@
     });
     function inputCheck(){
         if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check){
-            console.log(id_check);
-            console.log(pw_check);
-            console.log(pw_ok_check);
-            console.log(name_check);
-            console.log(name_check);
-            console.log(addr_check);
-            console.log(email_check);
             return true;
         }else {
         	//내용이 입력되어 있지 않은 위치로 focus
-        	if(!email_check){document.getElementById("member_email").focus();console.log("member_email focused");}
-        	if(!addr_check){document.getElementById("member_addr").focus();console.log("member_addr focused");}
-        	if(!tel_check){document.getElementById("member_tel").focus();console.log("member_tel focused");}
-        	if(!name_check){document.getElementById("member_name").focus();console.log("member_name focused");}
-        	if(!pw_ok_check){document.getElementById("member_pw_ok").focus();console.log("member_pw_ok focused");}
-        	if(!pw_check){document.getElementById("member_pw").focus();console.log("member_pw focused");}
-        	if(!id_check){document.getElementById("member_id").focus();console.log("member_id focused");}
+        	if(!email_check){$("#member_email").trigger("blur");}
+        	if(!addr_check){$("#member_addr").trigger("blur");}
+        	if(!tel_check){$("#member_tel").trigger("blur");}
+        	if(!name_check){$("#member_name").trigger("blur");console.log("member_name focused");}
+        	if(!pw_ok_check){$("#member_pw_ok").trigger("blur");console.log("member_pw_ok focused");}
+        	if(!pw_check){$("#member_pw").trigger("blur");console.log("member_pw focused");}
+        	if(!id_check){$("#member_id").trigger("blur");console.log("member_id focused");}
         	return false;
         }
     }

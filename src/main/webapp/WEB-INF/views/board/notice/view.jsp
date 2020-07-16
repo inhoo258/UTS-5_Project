@@ -26,12 +26,12 @@
 </table>
 <input type="button" onclick='location.href="<c:url value='/board/notice/list'/>"' value="목록">
 <table border="1" style="border-collapse:collapse;">
-	<c:if test="${notice.notice_rn > 1}">
+	<c:if test="${notice.notice_rn gt 1}">
 		<tr>
 			<td><a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>'>이전글</a></td>
 		</tr>
 	</c:if>
-	<c:if test="${notice.notice_rn <listSize}">
+	<c:if test="${notice.notice_rn lt totalCount}">
 		<tr>
 			<td><a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>다음글</a></td>
 		</tr>

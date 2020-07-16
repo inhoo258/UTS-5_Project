@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.project.board.service.NoticeService;
+import com.spring.project.common.PagingManager;
 
 @Controller
 @RequestMapping("/board")
@@ -28,15 +30,16 @@ public class BoardController {
 	NoticeService noticeService;
 	
 	@GetMapping("/notice/list")
-	public void noticeList(Model model) {
-		model.addAttribute("noticeList",noticeService.getNoticeList());
+	public void noticeList(@RequestParam(value="page", required = false, defaultValue = "1")int page,Model model) {
+		model.addAttribute("noticeList",noticeService.getNoticeList(page));
+		model.addAttribute("pagingManager",new PagingManager(noticeService.getTotalCount(), page));
 	}
 	@GetMapping("/notice/{notice_rn}")
 	public String noticeView(Model model, @PathVariable("notice_rn")int notice_rn) {
 		model.addAttribute("notice",noticeService.getNotice(notice_rn));
-		int listSize = noticeService.getListSize();
-		model.addAttribute("listSize",listSize);
-		System.out.println("listSize : "+listSize);
+		int totalCount = noticeService.getTotalCount();
+		model.addAttribute("totalCount",totalCount);
+		System.out.println("totalCount : "+totalCount);
 		System.out.println("notice_rn : "+notice_rn);
 		return "board/notice/view";
 	}

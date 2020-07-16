@@ -108,8 +108,11 @@ public class ProductController {
 //
 	// 주문서 최종 주문하기전에 실행하는 코드(client용)
 	@PostMapping("/ordersheet")
-	public String getOrderSheet(@RequestParam("member_id")String member_id,Model model) {
-		model.addAttribute("cartList", cartService.getCart(member_id));
+	public String getOrderSheet(@RequestParam("member_id")String member_id,@RequestParam("product_id")int product_id,@RequestParam("pOrder_count")int pOrder_count,Model model) {
+		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id));
+		model.addAttribute("productInfo", productService.getProduct(product_id));
+		model.addAttribute("productMemInfo", memberService.getMemberInfo(productService.getProduct(product_id).getMember_id()));
+//		model.addAttribute("cartList", cartService.updateCart(member_id, product_id, pOrder_count)); //카트에서 불러올때??
 		return "product/ordersheet";
 	}
 	

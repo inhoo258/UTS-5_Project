@@ -89,15 +89,15 @@
                         <table class="order_info_table" style="padding-left: 20px;">
                             <tr>
                                 <th>보내는 분 *</th>
-                                <th><input type="text" name="name" required style="width: 162px;"value= ${memberInfo.member_name }> </th>
+                                <th><input type="text" name="member_name" required style="width: 162px;"value= ${memberInfo.member_name }> </th>
                             </tr>
                             <tr>
                                 <th>휴대폰 *</th>
-                                <th><input type="text" name="tel" required style="width: 162px;" value=${memberInfo.member_tel }> </th>
+                                <th><input type="text" name="member_tel" required style="width: 162px;" value=${memberInfo.member_tel }> </th>
                             </tr>
                             <tr>
                                 <th>이메일 *</th>
-                                <th><input type="text" name="email" required style="width: 360px;" value=${memberInfo.member_email }> </th>
+                                <th><input type="text" name="member_email" required style="width: 360px;" value=${memberInfo.member_email }> </th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -114,7 +114,6 @@
                 <div class="delivery_info">
                     <h3 class="title_section">배송정보</h3>
                     <div class="inner_show2">
-                        ${memberInfo.member_addr }
                     </div>
                 </div>
                 <div class="payment">
@@ -127,13 +126,55 @@
                 </div>
                 <div>
                     <input type="submit" value="결제하기"  style="width: 200px; height: 48px; background-color: #5f0080; color: white; border: none; display : block; margin : 40px auto;" >
-            </form>
                 </div>
+            </form>
         </div>
         <ul>
             <li>* 직접 주문취소는 <strong style="color: #5f0080;">‘입금확인’</strong> 상태일 경우에만 가능합니다.</li>
             <li>* 미성년자가 결제 시 법정대리인이 그 거래를 취소할 수 있습니다.</li>
         </ul>
     </div>
-</body>    
+    
+    <hr>
+    참고 : 장바구니 불러올때 id index로 받아온것을 출력해주어야합니다. -> cartupdate controller 참고<br>
+    	회원 정보를 상품들의 사장님 혹은 업체들에게 이메일이 갈수 있도록 해주어야합니다. 직접구매는 하나지만 및 장바구니는 여러개가 있을수가 있습니다.<br>
+    	결제 될때 사용자가 수정을 한것 또한 받아와야합니다.<br>
+    	
+    	
+    	구매자 정보 들고오는값<br>
+    	member_id : ${memberInfo.member_id }<br>
+    	member_name : ${memberInfo.member_name }<br>
+    	member_tel : ${memberInfo.member_tel }<br>
+    	member_email : ${memberInfo.member_email }<br>
+    	member_addr : ${memberInfo.member_addr }<br>
+    	상품 정보 들고오는값<br>
+    	product_id : ${productInfo.product_id }<br>
+    	member_id : ${productInfo.member_id }<br>
+    	product_info : ${productInfo.product_info }<br>
+    	product_name : ${productInfo.product_name }<br>
+    	product_count : ${productInfo.product_count }<br>
+    	product_price : ${productInfo.product_price }<br>
+    	product_weight : ${productInfo.product_weight }<br>
+   		판매자 정보 들고오는 값<br>
+   		member_id : ${productMemInfo.member_id }<br>
+   		member_name : ${productMemInfo.member_name }<br>
+   		member_tel : ${productMemInfo.member_tel }<br>
+   		member_email : ${productMemInfo.member_email }<br>
+   		member_addr : ${productMemInfo.member_addr }<br>
+   		
+   		
+   		
+   		
+   		장바구니 인덱스번호<br>
+    
+    
+    
+    
+    
+</body>
+<script type="text/javascript">
+	function payment(){
+		
+	}
+</script>  
 </html>

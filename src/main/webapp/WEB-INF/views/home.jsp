@@ -13,11 +13,13 @@
 <h3></h3>
 	<jsp:include page="header/header.jsp"/>
 	<section>
-		<div id="imgbox">
+<!-- 		<div id="imgbox"> -->
 <!-- 			<img src="resources/test.jpg"> -->
-		</div>
+<!-- 		</div> -->
 		<div><h3><a href='<c:url value="/product/upload"/>'>upload 화면</a></h3></div>
 		<div><h3><a href='<c:url value="/product/list"/>'>list 화면</a></h3></div>
 	</section>
+	
+	<jsp:include page="header&footer/footer.jsp"/>
 </body>
 </html>
