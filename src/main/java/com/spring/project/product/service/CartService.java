@@ -18,9 +18,9 @@ public class CartService{
 		return cartRepository.getCart(member_id);
 	}
 	
-	public void deleteCart(String member_id, int[] product_ids){
-		for (int i = 0; i < product_ids.length; i++) {
-			cartRepository.deleteCart(member_id, product_ids[i]);
+	public void deleteCart(String member_id, List<Integer> product_ids){
+		for (int i = 0; i < product_ids.size(); i++) {
+			cartRepository.deleteCart(member_id, product_ids.get(i));
 		}
 	}
 	public void insertCart(String member_id, int product_id, int cart_product_count) {
