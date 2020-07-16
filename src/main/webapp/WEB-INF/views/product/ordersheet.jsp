@@ -114,6 +114,13 @@
                 <div class="delivery_info">
                     <h3 class="title_section">배송정보</h3>
                     <div class="inner_show2">
+                    	주소 : ${memberInfo.member_addr }
+<!--                     	<input id="addrbtn" type = "button" value ="변경" onclick = "changeAddr()"> -->
+                    </div>
+                    <h3 class="title_section">받으실 장소</h3>
+                    <div class="inner_show2">
+                    	배송지
+            			
                     </div>
                 </div>
                 <div class="payment">
@@ -125,6 +132,13 @@
                     <div class="inner_show2"></div>
                 </div>
                 <div>
+                	<input type="hidden" name = "member_id" value="${memberInfo.member_name}">
+                	<input type="hidden" name = "product_id" value = "${productInfo.product_id}">
+                	<input type="hidden" name = "pOrder_count" value="${pOrder_count }">
+                	<c:forEach var="cartList" items="${cartList }">
+                		<input type="text" name = "cart_Id_List" value = ${cartList.product_id }>
+                		<input type = "text" name = "cart_product_count" value = ${cartList.cart_product_count }> 
+                	</c:forEach>
                     <input type="submit" value="결제하기"  style="width: 200px; height: 48px; background-color: #5f0080; color: white; border: none; display : block; margin : 40px auto;" >
                 </div>
             </form>
@@ -136,12 +150,7 @@
     </div>
     
     <hr>
-    참고 : 장바구니 불러올때 id index로 받아온것을 출력해주어야합니다. -> cartupdate controller 참고<br>
-    	회원 정보를 상품들의 사장님 혹은 업체들에게 이메일이 갈수 있도록 해주어야합니다. 직접구매는 하나지만 및 장바구니는 여러개가 있을수가 있습니다.<br>
-    	결제 될때 사용자가 수정을 한것 또한 받아와야합니다.<br>
-    	
-    	
-    	구매자 정보 들고오는값<br>
+        	구매자 정보 들고오는값<br>
     	member_id : ${memberInfo.member_id }<br>
     	member_name : ${memberInfo.member_name }<br>
     	member_tel : ${memberInfo.member_tel }<br>
@@ -161,11 +170,24 @@
    		member_tel : ${productMemInfo.member_tel }<br>
    		member_email : ${productMemInfo.member_email }<br>
    		member_addr : ${productMemInfo.member_addr }<br>
-   		
-   		
-   		
-   		
-   		장바구니 인덱스번호<br>
+   		장바구니 판매자 정보<br>
+   		<c:forEach var="cartList" items="${cartList }">
+	        cartList.product_id : ${cartList.product_id }<br>
+	        cartList.product_name : ${cartList.product_name } <br>
+			cartList.product_price : ${cartList.product_price } <br>
+			cartList.cart_product_count : ${cartList.cart_product_count } <br>
+			cartList.product_info : ${cartList.product_info } <br>
+			cartList.member_id : ${cartList.member_id } <br>
+			cartList.seller_name : ${cartList.seller_name } <br>
+			cartList.seller_email : ${cartList.seller_email } <br>
+			cartList.seller_id : ${cartList.seller_id } <br>
+			cartList.seller_tel : ${cartList.seller_tel } <br>
+		</c:forEach>
+    
+    
+    
+    
+    
     
     
     
@@ -173,8 +195,15 @@
     
 </body>
 <script type="text/javascript">
-	function payment(){
-		
+	function changeAddr(){
+		document.getElementById('member_addr').readOnly = "";
+		document.getElementById('addrbtn').value = "저장";
+		document.getElementById('addrbtn').setAttribute("onClick", "insertAddr();");
 	}
-</script>  
+	function insertAddr(){
+		document.getElementById('member_addr').readOnly = "readonly";
+		document.getElementById('addrbtn').value = "변경";
+		document.getElementById('addrbtn').setAttribute("onClick", "changeAddr();");
+	}
+</script>
 </html>
