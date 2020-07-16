@@ -28,6 +28,6 @@
 		<input type="submit" value="업로드">
 	</form>
 	
-	<jsp:include page="../header&footer/header.jsp"/>
+	<jsp:include page="../header&footer/footer.jsp"/>
 </body>
 </html>
