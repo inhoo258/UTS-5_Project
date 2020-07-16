@@ -8,35 +8,7 @@ public class CartVO {
 	private String product_name;
 	private String product_price;
 	private String seller_name;
-	// 각각의 상품 판매자 필요한 정보 추가 -> chan
-	private String seller_email;
-	private String seller_id;
-	private String seller_tel;
 	
-	
-	public String getSeller_email() {
-		return seller_email;
-	}
-
-	public void setSeller_email(String seller_email) {
-		this.seller_email = seller_email;
-	}
-
-	public String getSeller_id() {
-		return seller_id;
-	}
-
-	public void setSeller_id(String seller_id) {
-		this.seller_id = seller_id;
-	}
-
-	public String getSeller_tel() {
-		return seller_tel;
-	}
-
-	public void setSeller_tel(String seller_tel) {
-		this.seller_tel = seller_tel;
-	}
 
 	public String getSeller_name() {
 		return seller_name;

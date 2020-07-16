@@ -17,5 +17,5 @@ public interface IMemberService {
 	public List<MemberVO> getMemberPermission(int permissionPage);
 	public int getMemberCount();
 	public int getPermissionCount();
-	void permissions(String[] permission_ids);
+	public void permissions(String[] permission_ids);
 }

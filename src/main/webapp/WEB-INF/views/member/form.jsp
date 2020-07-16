@@ -98,7 +98,7 @@
 		</table>
 	</form>
 	<!--============================================================================== 아직 미흡한 부분 -->
-<!-- 	20200713 : 아이디 한글로도 가입이 됨 ->해결(승우)
+<!-- 	20200713 : 아이디 한글로도 가입이 됨 
 					css 미흡
 
 
@@ -132,9 +132,6 @@
                 if(member==""){
 	                if(member_id.length==0){
 	                    document.getElementById("id_check").innerText="필수 항목입니다.";
-	                    id_check=false;
-	                }else if(!/^[a-z0-9]{4,12}$/.test(member_id)){
-	                    document.getElementById("id_check").innerText="영문 소문자 ,숫자  4~12 자리로 입력해 주세요.";
 	                    id_check=false;
 	                }else{
 	                    $.ajax({
@@ -226,7 +223,7 @@
             if(member_email.length==0){
                 document.getElementById("email_check").innerText="필수 항목입니다.";
                 email_check=false;
-            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
+            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/.test(member_email)){//------------------------------------------------**
                 document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
                 email_check=false;
             }else{
@@ -237,20 +234,16 @@
     });
     function inputCheck(){
         if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check){
-        	$("#okbutton").attr("disabled",true);
             return true;
         }else {
-			$("input").each(function(){
-				$(this).trigger("blur");
-			})
         	//내용이 입력되어 있지 않은 위치로 focus
-        	if(!email_check){$("#member_email").focus();}
-        	if(!addr_check){$("#member_addr").focus();}
-        	if(!tel_check){$("#member_tel").focus();}
-        	if(!name_check){$("#member_name").focus();}
-        	if(!pw_ok_check){$("#member_pw_ok").focus();}
-        	if(!pw_check){$("#member_pw").focus();}
-        	if(!id_check){$("#member_id").focus();}
+        	if(!email_check){$("#member_email").trigger("blur");}
+        	if(!addr_check){$("#member_addr").trigger("blur");}
+        	if(!tel_check){$("#member_tel").trigger("blur");}
+        	if(!name_check){$("#member_name").trigger("blur");console.log("member_name focused");}
+        	if(!pw_ok_check){$("#member_pw_ok").trigger("blur");console.log("member_pw_ok focused");}
+        	if(!pw_check){$("#member_pw").trigger("blur");console.log("member_pw focused");}
+        	if(!id_check){$("#member_id").trigger("blur");console.log("member_id focused");}
         	return false;
         }
     }
