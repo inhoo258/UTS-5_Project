@@ -1,6 +1,8 @@
 package com.spring.project.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -86,24 +88,23 @@ public class ProductController {
 	
 	// 주문서 최종 주문 후 실행하는 코드(client용)
 	@PostMapping("/payment")
-	public String payment(@RequestParam("member_id")String member_id, @RequestParam("pOrder_count")int pOrder_count,@RequestParam("cart_Id_List")int[] product_ids,@RequestParam("cart_product_count")int[] cart_product_count, @RequestParam("pOrder_count")int product_id, Model model) {
-//		ArrayList<Object> products = null;
-//		Map<String, Object> productsVoList = null;
-//		ProductsVO product = productService.getProduct(product_id); //바로 주문 상품의 정보들을 캐오는 메소드
-//		int productCount = pOrder_count; //바로 주문 상품의 정보들을 캐오는 메소드
-//		
-//		int putMapNumProduct =0; // 개인상품 Array에 넣어줄 변수
-//		for(int i=0; i < product_ids.length; i++) { //장바구니 상품들의 각각 정보들 캐오는 메소드
-//			products.clear(); //각 장바구니 상품들을 따로 넣어주기위한 null작업
-//			products.add(productService.getProduct(product_ids[i]));
-//			products.add(cart_product_count[i]);
-//			productsVoList.put("cartProduct_Count"+i, products);//장바구니 상품들의 각 정보들의 객체를 담는 Map
-//			products.clear();
-//		}
-//		products.add(product); // 바로구매 상품 넣어주기
-//		products.add(productCount); //바로 구매 상품 주문 갯수 넣어주기
-//		productsVoList.put("directproduct", products);
-//		orderService.modifyDb(product,productsVoList,cart_product_count);
+	public String payment(@RequestParam("member_id")String member_id, @RequestParam("pOrder_count")int pOrder_count,@RequestParam(value = "cart_Id_List",required = false, defaultValue = "0")int[] product_ids,@RequestParam(value = "cart_product_count", required = false, defaultValue = "0")int[] cart_product_count, @RequestParam("pOrder_count")int product_id, Model model) {
+		ArrayList<Object> products = null;
+		Map<String, Object> productsVoList = null;
+		ProductsVO product = productService.getProduct(product_id); //바로 주문 상품의 정보들을 캐오는 메소드
+		int productCount = pOrder_count; //바로 주문 상품의 정보들을 캐오는 메소드
+		if(product_ids != null && cart_product_count != null) { // 장바구니 상품이 없을때 오류방지용??
+			for(int i=0; i < product_ids.length; i++) { //장바구니 상품들의 각각 정보들 캐오는 메소드
+				products.add(productService.getProduct(product_ids[i]));
+				products.add(cart_product_count[i]);
+				productsVoList.put("cartProduct_Count"+i, products);//장바구니 상품들의 각 정보들의 객체를 담는 Map
+				products.clear(); //각 장바구니 상품들을 따로 넣어주기위한 null작업
+			}
+		}
+		products.add(product); // 바로구매 상품 넣어주기
+		products.add(productCount); //바로 구매 상품 주문 갯수 넣어주기
+		productsVoList.put("directproduct", products);
+		orderService.modifyDb(productsVoList); //각각의 상품 수량 수정 후 DB에 저장
 //		orderService.insertOrder();
 //		cartService.deleteCart(member_id, product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
 		return "product/payment";

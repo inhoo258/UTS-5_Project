@@ -2,13 +2,12 @@ package com.spring.project.product.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.project.product.model.OrdersVO;
-import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.repository.IOrderRepository;
 
 @Service
@@ -40,13 +39,11 @@ public class OrderService{
 		orderRepository.deliveryOrder(member_id, product_id, order_status);
 	}
 	
-	public void modifyDb(ProductsVO product,List<ProductsVO> productsVoList,int[] cart_product_count) {
-		int productCount = product.getProduct_count(); //단독품목 총 수량
-		ArrayList<ProductsVO> productsCount = null;
-		for (int i = 0; i < productsVoList.size(); i++) {
-			productCount = productsVoList.get(i).getProduct_count();
+	public void modifyDb(Map<String, Object> productsVoLists) {
+		for (int i = 0; i < productsVoLists.size(); i++) {
+//			System.out.println(productsVoLists.get("cartProduct_Count"+i).getClass().forName(className));
+			
 		}
-		
 	}
 	
 }
