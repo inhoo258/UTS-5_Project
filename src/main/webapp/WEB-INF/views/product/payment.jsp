@@ -23,7 +23,7 @@
     
     
     
-    <form action="sendMail.do" method="post">
+    <form action='<c:url value="/product/rest/sendMail.do"/>' method="post">
       <div>
         <input type="text" name="tomail" size="120"
         style="width: 100%" placeholder="상대의 이메일"
@@ -47,5 +47,9 @@
         <input type="submit" value="메일 보내기" class="btn btn-warning">
       </div>
     </form>
+    
+        	
+
+    
 </body>
 </html>

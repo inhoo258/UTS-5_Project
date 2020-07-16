@@ -18,13 +18,12 @@ public interface ICartRepository {
 //	public ArrayList<CartVO> getCartList();
 	
 	//내 장바구니 보기(products, members 테이블 join - 추가적으로 필요한 정보 끌어옴
-	@Select("select c.member_id as member_id, c.product_id as product_id, cart_product_count, product_info, product_name, product_price, m.member_name as seller_name " 
-			+"from cart c " 
-			+"join products p " 
-			+"on c.product_id = p.product_id "
-			+"join members m "
-			+"on m.member_id = p.member_id "
-			+"where c.member_id=#{member_id}")
+	@Select("select c.member_id as member_id, c.product_id as product_id, cart_product_count, product_info, product_name, product_price, m.member_name as seller_name,m.MEMBER_EMAIL as seller_email,m.MEMBER_ID as seller_id,m.MEMBER_TEL as seller_tel "
+			+ "from cart c join products p "
+			+ "on c.product_id = p.product_id "
+			+ "join members m "
+			+ "on m.member_id = p.member_id "
+			+ "where c.member_id=#{member_id}")
 	public List<CartVO> getCart(String member_id);
 	
 	//결제시 장바구니에서 삭제
