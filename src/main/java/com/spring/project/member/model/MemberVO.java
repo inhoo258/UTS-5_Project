@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class MemberVO implements UserDetails {
+	private String rn;
 	private String member_id;
 	private String member_pw;
 	private String member_name;
@@ -17,6 +18,14 @@ public class MemberVO implements UserDetails {
 	private String member_email;
 	private int member_enabled;
 	private String member_auth;
+	
+	
+	public String getRn() {
+		return rn;
+	}
+	public void setRn(String rn) {
+		this.rn = rn;
+	}
 	public String getMember_id() {
 		return this.member_id;
 	}

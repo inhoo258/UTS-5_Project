@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class OrdersVO {
 	private String member_id;
-	private int product_id;
+	private int product_id; 
 	private Date order_date;
 	private String order_receiver_addr;
 	private String order_receiver_name;

@@ -9,11 +9,12 @@ public interface IMemberService {
 	public MemberVO getMemberInfo(String member_id);
 	public void memberInsert(MemberVO member);
 	public void updateMember(MemberVO member);
-	public List<MemberVO> getMemberList(int page);
+	public List<MemberVO> getMemberList(int memberPage);
 	public void memberDelete(String member_id);
 	public void membersDelete(String[] member_ids);
 	public void multi_permission(String[] permission_ids);
 	public void permission(String permission_id);
-	public List<MemberVO> getMemberPermission();
+	public List<MemberVO> getMemberPermission(int permissionPage);
 	public int getMemberCount();
+	public int getPermissionCount();
 }

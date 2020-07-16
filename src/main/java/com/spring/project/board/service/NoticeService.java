@@ -1,6 +1,6 @@
 package com.spring.project.board.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,10 @@ public class NoticeService implements IBoardService{
 	@Autowired
 	INoticeRepository noticeRepository;
 	
-	public ArrayList<NoticeVO> getNoticeList(){
-		return noticeRepository.getNoticeList();
-	}
-	
-	public NoticeVO getNotice(String notice_title) {
-		return noticeRepository.getNotice(notice_title);
+	public List<NoticeVO> getNoticeList(int page){
+		int end = page*10;
+		int start = end-9;
+		return noticeRepository.getNoticeList(start,end);
 	}
 	
 	public void insertNotice(String notice_content, String notice_title, String notice_views) {
@@ -30,7 +28,13 @@ public class NoticeService implements IBoardService{
 		noticeRepository.updateNotice(notice_content);
 	}
 	
-	public void updateViews() {
-		noticeRepository.updateViews();
+	public NoticeVO getNotice(int notice_rn) {
+		NoticeVO notice = noticeRepository.getNotice(notice_rn);
+		noticeRepository.updateViews(notice.getNotice_number());
+		return notice;
+	}
+
+	public int getTotalCount() {
+		return noticeRepository.getTotalCount();
 	}
 }

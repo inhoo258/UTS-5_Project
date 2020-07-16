@@ -9,7 +9,7 @@ import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.repository.IProductRepository;
 
 @Service
-public class ProductService implements IProductService{
+public class ProductService{
 	
 	@Autowired
 	IProductRepository productRepository;

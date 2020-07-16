@@ -10,7 +10,10 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/product/upload.css'/>" />
 </head>
 <body>
+<h1>UPLOAD.JSP</h1>
+<h1>업로드</h1>
 	<jsp:include page="../header/header.jsp"/>
+	
 	<c:set var="member_id">
 		<sec:authentication property="principal.username"/>
 	</c:set>
@@ -24,5 +27,7 @@
 		pweight<input type="text" name="product_weight"><br>
 		<input type="submit" value="업로드">
 	</form>
+	
+	<jsp:include page="../header&footer/header.jsp"/>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/member/info.css'/>" />
 </head>
 <body>
-	<jsp:include page="../header/header.jsp"/>
+	<jsp:include page="../header&footer/header.jsp"/>
 	${member.member_id}<br>
 	${member.member_name }<br>
 	${member.member_tel }<br>

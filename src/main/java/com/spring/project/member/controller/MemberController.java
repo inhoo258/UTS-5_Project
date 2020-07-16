@@ -47,12 +47,24 @@ public class MemberController {
 	}
 
 	@RequestMapping("/list")
-	public void getMemberList(@RequestParam(required=false, defaultValue="1")int page, @RequestParam(required=false)String word, Model model) {
-		model.addAttribute("memberlist" , memberSerivce.getMemberList(page));
-		model.addAttribute("pageManager",new PagingManager(memberSerivce.getMemberCount(),page));
-		model.addAttribute("permission" , memberSerivce.getMemberPermission());
+	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, 
+			@RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage,
+			@RequestParam(value="message" ,required = false)String message) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage));
+		model.addAttribute("memberPage",new PagingManager(memberSerivce.getMemberCount(),memberpage));
+		model.addAttribute("permission" , memberSerivce.getMemberPermission(permissionpage));
+		model.addAttribute("permissionPage",new PagingManager(memberSerivce.getPermissionCount(),memberpage));
 	}
-
+	
+	@PostMapping("/permission")
+	public String permission(@RequestParam(value = "permission_id") String permission_id ,
+			@RequestParam(value="permissionpage" , required = false , defaultValue = "1") int page ,RedirectAttributes attributes) {
+		System.out.println("page : " + page);
+		memberSerivce.permission(permission_id);
+		attributes.addAttribute("permissionpage" , page);
+		return "redirect:/member/list";
+	}
+	
 	@RequestMapping("/info/{userId}")
 	public String getMember(@PathVariable("userId")String userId, Model model) {
 		model.addAttribute("member",memberSerivce.getMemberInfo(userId));
@@ -64,6 +76,7 @@ public class MemberController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth : " + auth.getAuthorities());
 		System.out.println("auth Id : " + auth.getName());
+		member.setMember_pw(pwEncoder.encode(member.getMember_pw()));
 		memberSerivce.updateMember(member);
 		if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))){
 			return "redirect:/member/list";
@@ -88,16 +101,6 @@ public class MemberController {
 		return "redirect:/logout";
 	}
 	
-	@PostMapping("/permission")
-	public String permission(@RequestParam(required = false) String permission_id ,@RequestParam(required = false)String[] permission_ids , RedirectAttributes redirectAttributes) {
-		if(permission_ids !=null && permission_id==null) {
-			memberSerivce.multi_permission(permission_ids);
-		}
-		if(permission_id !=null) {
-			memberSerivce.permission(permission_id);
-		}
-			redirectAttributes.addFlashAttribute("message" , "승인완료");
-			return "redirect:/member/list";
-		}
+	
 
 }
