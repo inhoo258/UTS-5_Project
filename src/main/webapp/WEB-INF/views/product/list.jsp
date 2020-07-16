@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/product/list.css'/>" />
 </head>
 <body>
-	<jsp:include page="../header/header.jsp"/>
+	<jsp:include page="../header&footer/header.jsp"/>
 	<c:forEach var="product" items="${productList}">
 		<a href='<c:url value="/product/${product.product_id}"/>'>${product.product_id}.</a><br>
 		${product.product_name}<br>

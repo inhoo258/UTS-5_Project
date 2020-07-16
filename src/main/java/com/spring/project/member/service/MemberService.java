@@ -41,11 +41,8 @@ public class MemberService implements IMemberService{
 	@Override
 	@Transactional(value="tsManager")
 	public void memberInsert(MemberVO member) {
-		for(int i = 0 ; i < 10 ; i++) {
-			String str = i+"";
-			System.out.println(str);
-			member.setMember_id(member.getMember_id()+str);
-			System.out.println(member.getMember_id());
+		for(int i = 300 ; i < 600 ;i++) {
+			member.setMember_id(i+"");
 			memberRepository.memberJoin(member);
 			memberRepository.authJoin(member.getUsername(),member.getMember_auth());
 		}
@@ -60,7 +57,7 @@ public class MemberService implements IMemberService{
 	@Transactional(value = "tsManager")
 	public void memberDelete(String member_id) {
 		memberRepository.authDelete(member_id);
-		memberRepository.membersDelete(member_id);
+		memberRepository.memberDelete(member_id);
 		
 	}
 
@@ -69,7 +66,7 @@ public class MemberService implements IMemberService{
 	public void membersDelete(String[] member_ids) {
 		for(int i=0; i<member_ids.length; i++) {
 			memberRepository.authDelete(member_ids[i]);
-			memberRepository.membersDelete(member_ids[i]);
+			memberRepository.memberDelete(member_ids[i]);
 		}
 		
 	}
@@ -86,11 +83,25 @@ public class MemberService implements IMemberService{
 	public void permission(String permission_id) {
 		memberRepository.permission(permission_id);
 	}
+	
+	@Override
+	public void permissions(String[] permission_ids) {
+		for(int i = 0 ; i < permission_ids.length ; i++) {
+			memberRepository.permission(permission_ids[i]);
+		}
+	}
 
 	@Override
 	public int getMemberCount() {
 		return memberRepository.getMemberCount();
 	}
+
+	@Override
+	public int getPermissionCount() {
+		return memberRepository.getPermissionCount();
+	}
+
+	
 
 	
 }

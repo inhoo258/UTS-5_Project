@@ -13,7 +13,7 @@
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 <body>
-	<jsp:include page="../header/header.jsp" />
+	<jsp:include page="../header&footer/header.jsp" />
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<form action='<c:url value="/member/${message}"/>' method="post"
 		onsubmit="return inputCheck()">
@@ -98,7 +98,7 @@
 		</table>
 	</form>
 	<!--============================================================================== 아직 미흡한 부분 -->
-<!-- 	20200713 : 아이디 한글로도 가입이 됨 
+<!-- 	20200713 : 아이디 한글로도 가입이 됨 ->해결(승우)
 					css 미흡
 
 
@@ -133,6 +133,9 @@
 	                if(member_id.length==0){
 	                    document.getElementById("id_check").innerText="필수 항목입니다.";
 	                    id_check=false;
+	                }else if(!/^[a-z0-9]{4,12}$/.test(member_id)){
+	                    document.getElementById("id_check").innerText="영문 소문자 ,숫자  4~12 자리로 입력해 주세요.";
+	                    id_check=false;
 	                }else{
 	                    $.ajax({
 	                        url:'<c:url value="/member/rest/memberCheck?member_id="/>'+member_id,
@@ -164,6 +167,7 @@
                 document.getElementById("pw_check").innerText="";
                 pw_check=true;
             }
+            $("#member_pw_ok").trigger("blur");
         });
         $("#member_pw_ok").blur(function(){
             member_pw_ok = document.getElementById("member_pw_ok").value
@@ -187,7 +191,7 @@
                 name_check=false;
                 
             }else if(!/^[가-힣]+$/.test(member_name)){
-                document.getElementById("name_check").innerText="한글만 입력 가능합니다.";
+                document.getElementById("name_check").innerText="가 나 다 형식으로 입력해주세요.";
             }
             else{
                 document.getElementById("name_check").innerText="";
@@ -222,7 +226,7 @@
             if(member_email.length==0){
                 document.getElementById("email_check").innerText="필수 항목입니다.";
                 email_check=false;
-            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/.test(member_email)){//------------------------------------------------**
+            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
                 document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
                 email_check=false;
             }else{
@@ -233,23 +237,20 @@
     });
     function inputCheck(){
         if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check){
-            console.log(id_check);
-            console.log(pw_check);
-            console.log(pw_ok_check);
-            console.log(name_check);
-            console.log(name_check);
-            console.log(addr_check);
-            console.log(email_check);
+        	$("#okbutton").attr("disabled",true);
             return true;
         }else {
+			$("input").each(function(){
+				$(this).trigger("blur");
+			})
         	//내용이 입력되어 있지 않은 위치로 focus
-        	if(!email_check){document.getElementById("member_email").focus();console.log("member_email focused");}
-        	if(!addr_check){document.getElementById("member_addr").focus();console.log("member_addr focused");}
-        	if(!tel_check){document.getElementById("member_tel").focus();console.log("member_tel focused");}
-        	if(!name_check){document.getElementById("member_name").focus();console.log("member_name focused");}
-        	if(!pw_ok_check){document.getElementById("member_pw_ok").focus();console.log("member_pw_ok focused");}
-        	if(!pw_check){document.getElementById("member_pw").focus();console.log("member_pw focused");}
-        	if(!id_check){document.getElementById("member_id").focus();console.log("member_id focused");}
+        	if(!email_check){$("#member_email").focus();}
+        	if(!addr_check){$("#member_addr").focus();}
+        	if(!tel_check){$("#member_tel").focus();}
+        	if(!name_check){$("#member_name").focus();}
+        	if(!pw_ok_check){$("#member_pw_ok").focus();}
+        	if(!pw_check){$("#member_pw").focus();}
+        	if(!id_check){$("#member_id").focus();}
         	return false;
         }
     }
