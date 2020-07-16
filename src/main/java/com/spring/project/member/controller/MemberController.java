@@ -50,20 +50,49 @@ public class MemberController {
 	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, 
 			@RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage,
 			@RequestParam(value="message" ,required = false)String message) {
+		System.out.println("permissionpage : " + permissionpage);
+		System.out.println("memberpage : " + memberpage);
+		System.out.println("message : " +message);
+		System.out.println("membercount : " + memberSerivce.getMemberCount());
+		System.out.println("permissioncount : " + memberSerivce.getPermissionCount());
+		
 		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage));
 		model.addAttribute("memberPage",new PagingManager(memberSerivce.getMemberCount(),memberpage));
 		model.addAttribute("permission" , memberSerivce.getMemberPermission(permissionpage));
-		model.addAttribute("permissionPage",new PagingManager(memberSerivce.getPermissionCount(),memberpage));
+		model.addAttribute("permissionPage",new PagingManager(memberSerivce.getPermissionCount(),permissionpage));
 	}
 	
+	
 	@PostMapping("/permission")
-	public String permission(@RequestParam(value = "permission_id") String permission_id ,
+	public String permission(@RequestParam(value = "permission_id") String permission_id , @RequestParam(required = false)String[] permission_ids,
 			@RequestParam(value="permissionpage" , required = false , defaultValue = "1") int page ,RedirectAttributes attributes) {
-		System.out.println("page : " + page);
-		memberSerivce.permission(permission_id);
+		if(permission_ids != null) {
+			memberSerivce.permissions(permission_ids);
+		}
+		if(permission_id != null) {
+			memberSerivce.permission(permission_id);
+		}
 		attributes.addAttribute("permissionpage" , page);
 		return "redirect:/member/list";
 	}
+	
+	@PostMapping("/delete")
+	public String delete(@RequestParam(required = false) String member_id ,@RequestParam(required = false)String[] member_ids ) {
+		if(member_ids !=null && member_id==null) {
+			memberSerivce.membersDelete(member_ids);
+		}
+		if(member_id !=null) {
+			memberSerivce.memberDelete(member_id);
+		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))) {
+			return "redirect:/member/list";
+		}
+		return "redirect:/logout";
+	}
+	
+	
 	
 	@RequestMapping("/info/{userId}")
 	public String getMember(@PathVariable("userId")String userId, Model model) {
@@ -85,21 +114,6 @@ public class MemberController {
 	}
 	
 	
-	@PostMapping("/delete")
-	public String delete(@RequestParam(required = false) String member_id ,@RequestParam(required = false)String[] member_ids ) {
-		if(member_ids !=null && member_id==null) {
-			memberSerivce.membersDelete(member_ids);
-		}
-		if(member_id !=null) {
-			memberSerivce.memberDelete(member_id);
-		}
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))) {
-			return "redirect:/member/list";
-		}
-		return "redirect:/logout";
-	}
 	
 	
 
