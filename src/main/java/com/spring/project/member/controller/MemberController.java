@@ -64,26 +64,37 @@ public class MemberController {
 	
 	
 	@PostMapping("/permission")
-	public String permission(@RequestParam(value = "permission_id") String permission_id , @RequestParam(required = false)String[] permission_ids,
-			@RequestParam(value="permissionpage" , required = false , defaultValue = "1") int page ,RedirectAttributes attributes) {
+	public String permission(@RequestParam(value = "permission_id" ,required = false) String permission_id , 
+			@RequestParam(required = false)String[] permission_ids, RedirectAttributes attributes,
+			@RequestParam(value="permissionpage" , required = false , defaultValue = "1") int permissionpage, 
+			@RequestParam(value="memberpage" , required = false , defaultValue = "1") int memberpage) {
 		if(permission_ids != null) {
 			memberSerivce.permissions(permission_ids);
 		}
 		if(permission_id != null) {
 			memberSerivce.permission(permission_id);
 		}
-		attributes.addAttribute("permissionpage" , page);
+		attributes.addAttribute("permissionpage" , permissionpage);
+		attributes.addAttribute("memberpage" , memberpage);
 		return "redirect:/member/list";
 	}
 	
 	@PostMapping("/delete")
-	public String delete(@RequestParam(required = false) String member_id ,@RequestParam(required = false)String[] member_ids ) {
-		if(member_ids !=null && member_id==null) {
+	public String delete(@RequestParam(value = "member_id" ,required = false) String member_id ,
+			@RequestParam(required = false)String[] member_ids , RedirectAttributes attributes,
+			@RequestParam(value="permissionpage" , required = false , defaultValue = "1") int permissionpage, 
+			@RequestParam(value="memberpage" , required = false , defaultValue = "1") int memberpage) {
+		System.out.println("permissionpage : : " + permissionpage);
+		System.out.println("memberpage : : " + memberpage);
+		if(member_ids !=null ) {
 			memberSerivce.membersDelete(member_ids);
 		}
 		if(member_id !=null) {
 			memberSerivce.memberDelete(member_id);
 		}
+		
+		attributes.addAttribute("permissionpage" , permissionpage);
+		attributes.addAttribute("memberpage" , memberpage);
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))) {
