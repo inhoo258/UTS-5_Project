@@ -122,6 +122,8 @@ content: "\f00c";
 /*삭제 버튼*/
 .delete{
     margin: 40px 0 40px 20px;
+    width: 100%;
+	border: 2px solid #e5e5e5;
 }
 
 .bottom_btn_delete{
@@ -139,6 +141,7 @@ content: "\f00c";
     font-weight: 400;
     font-size: 12px;
 }
+
 
 /*전체 선택*/
 #span_allCheck{
