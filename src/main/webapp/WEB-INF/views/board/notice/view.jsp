@@ -24,7 +24,7 @@
 		</tr>
 	</tbody>
 </table>
-<input type="button" onclick='location.href="<c:url value='/board/notice/list'/>"' value="목록">
+<input type="button" onclick='location.href="<c:url value='/board/notice/list'/>"' value="목록"><input type="button" value="수정" onclick=''>
 <table border="1" style="border-collapse:collapse;">
 	<c:if test="${notice.notice_rn gt 1}">
 		<tr>

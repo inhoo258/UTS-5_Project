@@ -48,8 +48,6 @@
 				</c:if></td>
 		</tr>
 	</table>
-	<sec:authorize access="hasRole('ROLE_MASTER')">
 	<a href="<c:url value='/board/notice/form'/>">글쓰기</a>
-	</sec:authorize>
 </body>
 </html>
