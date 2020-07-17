@@ -15,6 +15,15 @@ public class OrdersVO {
 	private String order_status;
 	
 
+	@Override
+	public String toString() {
+		return "OrdersVO [member_id=" + member_id + ", product_id=" + product_id + ", order_date=" + order_date
+				+ ", order_receiver_addr=" + order_receiver_addr + ", order_receiver_name=" + order_receiver_name
+				+ ", order_receiver_tel=" + order_receiver_tel + ", order_product_count=" + order_product_count
+				+ ", order_price=" + order_price + ", order_request=" + order_request + ", order_status=" + order_status
+				+ "]";
+	}
+
 	public String getOrder_status() {
 		return order_status;
 	}

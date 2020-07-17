@@ -33,7 +33,7 @@ public class ProductService{
 		product.setProduct_id(productRepository.getMaxProductId()+1);
 		productRepository.insertProduct(product);
 	}
-	
-	
-	
+	public void modifyDb() {
+			
+	} //각 상품들의 상품수량을 빼는 역할
 }

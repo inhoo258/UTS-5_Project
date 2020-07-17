@@ -21,8 +21,6 @@ public interface IProductRepository {
 	@Select("select * from products where product_id=#{product_id}")
 	public ProductsVO getProduct(int product_id);
 	
-	//상품 입고
-	
 	//재고 삭제
 	@Delete("delete from products where product_id=#{product_id}")
 	public void deleteProduct(int product_id);
@@ -42,5 +40,5 @@ public interface IProductRepository {
 			+ "(product_id, member_id, product_info, product_img, product_name, product_count, product_price, product_weight, product_img_name) "
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_img}, #{product_name}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
-
+	
 }

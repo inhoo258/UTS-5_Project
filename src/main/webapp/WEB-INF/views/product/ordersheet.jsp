@@ -89,15 +89,15 @@
                         <table class="order_info_table" style="padding-left: 20px;">
                             <tr>
                                 <th>보내는 분 *</th>
-                                <th><input type="text" name="member_name" required style="width: 162px;"value= ${memberInfo.member_name }> </th>
+                                <th><input type="text" name="order_receiver_name" required style="width: 162px;"value= ${memberInfo.member_name }> </th>
                             </tr>
                             <tr>
                                 <th>휴대폰 *</th>
-                                <th><input type="text" name="member_tel" required style="width: 162px;" value=${memberInfo.member_tel }> </th>
+                                <th><input type="text" name="order_receiver_tel" required style="width: 162px;" value=${memberInfo.member_tel }> </th>
                             </tr>
                             <tr>
                                 <th>이메일 *</th>
-                                <th><input type="text" name="member_email" required style="width: 360px;" value=${memberInfo.member_email }> </th>
+                                <th><input type="text" name="order_receiver_email" required style="width: 360px;" value=${memberInfo.member_email }> </th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -114,13 +114,11 @@
                 <div class="delivery_info">
                     <h3 class="title_section">배송정보</h3>
                     <div class="inner_show2">
-                    	주소 : ${memberInfo.member_addr }
-<!--                     	<input id="addrbtn" type = "button" value ="변경" onclick = "changeAddr()"> -->
+                    	주소 : <input type = "text" id="member_addr" name="order_receiver_addr" value =${memberInfo.member_addr }>
                     </div>
                     <h3 class="title_section">받으실 장소</h3>
                     <div class="inner_show2">
                     	배송지
-            			
                     </div>
                 </div>
                 <div class="payment">
@@ -132,12 +130,17 @@
                     <div class="inner_show2"></div>
                 </div>
                 <div>
-                	<input type="hidden" name = "member_id" value="${memberInfo.member_name}">
-                	<input type="hidden" name = "product_id" value = "${productInfo.product_id}">
-                	<input type="hidden" name = "pOrder_count" value="${pOrder_count }">
-                	<c:forEach var="cartList" items="${cartList }">
-                		<input type="text" name = "cart_Id_List" value = ${cartList.product_id }>
-                		<input type = "text" name = "cart_product_count" value = ${cartList.cart_product_count }> 
+                	<input type="text" name = order_status value = "전">
+                	<input type="text" name = "order_request" value = "22">
+                	<input type="text" name = "order_prices" value = "${productInfo.product_price }">
+                	<input type="text" name = "member_id" value = "${memberInfo.member_id }">
+                	<input type="text" name = "order_receiver_name" value="${memberInfo.member_name}">
+                	<input type="text" name = "product_ids" value = "${productInfo.product_id}">
+                	<input type="text" name = "order_product_counts" value="${pOrder_count }">
+                	<c:forEach var="cart" items="${cartList }">
+                		<input type="text" name = "product_ids" value = ${cart.product_id }>
+                		<input type="text" name = "order_prices" value = "${cart.product_price }">
+                		<input type = "text" name = "order_product_counts" value = ${cart.cart_product_count }> 
                 	</c:forEach>
                     <input type="submit" value="결제하기"  style="width: 200px; height: 48px; background-color: #5f0080; color: white; border: none; display : block; margin : 40px auto;" >
                 </div>

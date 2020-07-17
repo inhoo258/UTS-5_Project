@@ -24,9 +24,10 @@ public interface IOrderRepository {
 	public OrdersVO getOrderSheet(String member_id);
 	
 	// 결제하기 버튼 클릭 후 주문완료 페이지 띄우기 전에 주문목록에 넣어주는 sql
-	@Insert("insert into orders values(#{member_id},#{product_id},#{order_date},#{order_receiver_address},"
-			+ "#{order_receiver_name},#{order_receiver_tel},#{order_receiver_count},#{order_price},#{order_option})")
-	public OrdersVO paymentInOrder(String member_id);
+	@Insert("insert into orders"
+			+ "(member_id,product_id,order_date,order_receiver_address,order_receiver_name,order_receiver_tel,order_product_count,order_price,order_option,order_status) "
+			+ "values(#{member_id},#{product_id},sysdate,#{order_receiver_addr},#{order_receiver_name},#{order_receiver_tel},#{order_product_count},#{order_price},#{order_request},#{order_status})")
+	public void paymentInOrder(OrdersVO ordersVO);
 	
 	//주문취소시 삭제
 	@Delete("delete from orders where member_id=#{member_id} and product_id=#{product_id}")

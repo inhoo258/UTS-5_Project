@@ -91,9 +91,6 @@ public class MemberController {
 		}
 		return "redirect:/logout";
 	}
-	
-	
-	
 	@RequestMapping("/info/{userId}")
 	public String getMember(@PathVariable("userId")String userId, Model model) {
 		model.addAttribute("member",memberSerivce.getMemberInfo(userId));
