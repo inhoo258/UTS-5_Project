@@ -78,14 +78,24 @@
 				<td colspan="2"><font id="email_check"></font></td>
 			</tr>
 			<c:if test="${empty member}">
+			<sec:authorize access="isAnonymous()">
 				<tr>
-					<th colspan="2"><sec:authorize access="isAnonymous()">
-							<input type="radio" name="member_auth" value="ROLE_CUSTOMER"
-								checked>구매자
-						<input type="radio" name="member_auth" value="ROLE_SELLER">판매자
-                  	</sec:authorize></th>
+					<th colspan="2">
+							<input type="radio" name="member_auth" id="role_cus" value="ROLE_CUSTOMER"
+								checked><label for="role_cus">구매자</label>
+						<input type="radio" name="member_auth" id="role_sell" value="ROLE_SELLER"><label for="role_sell">판매자</label>
+                  	</th>
 				</tr>
+			</sec:authorize>
 			</c:if>
+			<tr style="display:none;" class="forSeller">
+				<td colspan="2">
+					<div style="border:1px solid black;">
+						<input type="text" placeholder="사업자 등록번호를 입력하세요" name="seller_reg_num"><br>
+						<input type="text" placeholder="사업장 명을 입력하세요" name="seller_com_name">
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<th colspan="2"><input type="submit" id="okbutton"
 					value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
@@ -97,13 +107,17 @@
 
 		</table>
 	</form>
+	
 	<!--============================================================================== 아직 미흡한 부분 -->
 <!-- 	20200713 : 아이디 한글로도 가입이 됨 ->해결(승우)
 					css 미흡
 
 
 -->
+	<script type="text/javascript">
+		
 	
+	</script>
 	
 	<script type="text/javascript">
 	let member = '${member}';
@@ -254,6 +268,13 @@
         	return false;
         }
     }
+    $("input:radio").on("click",function(){
+    	if($(this).val()=="ROLE_SELLER"){
+	    	$(".forSeller").show();
+    	}else{
+	    	$(".forSeller").hide();
+    	}
+    })
     </script>
 </body>
 </html>
