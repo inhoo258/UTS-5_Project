@@ -137,7 +137,7 @@
 				$(".delPriceOk").hide();
 				$(".deliveryPrice").show();
 				$(".deliveryLimit").text(50000 - totalPrice);
-				$(".finalPrice").text(totalPrice + 3000);
+				$(".finalPrice").text(totalPrice*1 + 3000);
 			} else {
 				$(".delPriceOk").show();
 				$(".delPriceCheck").hide();
