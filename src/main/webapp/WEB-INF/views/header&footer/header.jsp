@@ -79,11 +79,11 @@
 									href='<c:url value="/member/form"/>'>회원가입</a></li>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
-								<c:set var="userId">
+								<c:set var="member_id">
 									<sec:authentication property="principal.username" />
 								</c:set>
 								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/info/${userId}"/>'>나의정보</a></li>
+									href='<c:url value="/member/info/${member_id}"/>'>나의정보</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasAnyRole('ROLE_SELLER','ROLE_MASTER')">
 								<li class="animated-button thar-four"><a id="H_a" href=>나의상품목록</a></li>
@@ -91,7 +91,7 @@
 							</sec:authorize>
 							<sec:authorize access="hasAnyRole('ROLE_CUSTOMER','ROLE_MASTER')">
 								<li class="animated-button thar-four"><a id="H_a" href="#">나의정보</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href="#">장바구니</a></li>
+								<li class="animated-button thar-four"><a id="H_a" href="<c:url value='/product/cart/${member_id}'/>">장바구니</a></li>
 								<li class="animated-button thar-four"><a id="H_a" href="#">주문내역</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasRole('ROLE_MASTER')">
@@ -101,8 +101,7 @@
 									href='<c:url value="/product/list"/>'>상품관리</a></li>
 							</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-								<a id="H_a" style="position: absolute; top: 90%; left: 10%;" sidebar-logout" 
-								href="<c:url value='/logout'/>">LOGOUT >></a>
+								<a id="H_a" style="position: absolute; top: 90%; left: 10%;" href="<c:url value='/logout'/>">LOGOUT >></a>
 						</sec:authorize>
 						<!-- 로그아웃 위치 변경 이유 : 겹쳐보여서 안에다가 넣었습니다. -->
 						</ul>
