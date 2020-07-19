@@ -73,14 +73,34 @@ public class ProductController {
 //
 	// 주문서 최종 주문하기전에 실행하는 코드(client용)
 	@PostMapping("/ordersheet")
-	public String getOrderSheet(@RequestParam("member_id")String member_id,@RequestParam(value = "product_id", required = false, defaultValue = "0")int product_id,@RequestParam(value = "pOrder_count",required = false, defaultValue = "0")int pOrder_count, Model model) {
-		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id)); 	// 회원정보
-		if(product_id != 0) {
-			model.addAttribute("productInfo", productService.getProduct(product_id));	// 개인구매상품 정보
-			model.addAttribute("productMemInfo", memberService.getMemberInfo(productService.getProduct(product_id).getMember_id())); //독립상품 구매시 판매자 정보
+	public String getOrderSheet(
+			@RequestParam("member_id")String member_id,
+			@RequestParam(value = "product_id", required = false, defaultValue = "0")int product_id,
+			@RequestParam(value = "pOrder_count",required = false, defaultValue = "0")int pOrder_count,
+			@RequestParam(value="product_ids",required = false)int[]product_ids,
+			Model model) {
+		System.out.println("-------------------ordersheet in");
+		System.out.println("member_id : "+member_id);
+		System.out.println("product_id : " + product_id);
+		System.out.println("pOrder_count : "+pOrder_count);
+		System.out.println("product_ids : "+product_ids);
+		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id)); 	// 구매중인 회원정보
+		//장바구니 통하지 않은 바로 구매 요청 처리
+		if(product_id != 0 && pOrder_count!=0 && product_ids==null) {
+			System.out.println("product/view 통한 요청처리");
+			ProductsVO product = productService.getProduct(product_id);
+			model.addAttribute("productInfo", product);	// 개인구매상품 정보
+			model.addAttribute("productMemInfo", memberService.getMemberInfo(product.getMember_id())); //독립상품 구매시 판매자 정보
+			model.addAttribute("pOrder_count",pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
+			model.addAttribute("cartList", cartService.getCart(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
+		//장바구니 통한 구매 요청 처리
+		}else if(product_id==0&&pOrder_count==0&&product_ids!=null){
+			System.out.println("product/cart 통한 요청 처리");
+			System.out.println("product_ids.length : "+product_ids.length);
+			model.addAttribute("cartList",cartService.getSelectedCart(member_id,product_ids));//선택된 상품의 정보와 상품 판매자 정보
+		}else {
+			System.out.println("ordersheet의 뭔가가 잘못되었음");
 		}
-		if(pOrder_count != 0) model.addAttribute("pOrder_count",pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
-		model.addAttribute("cartList", cartService.getCart(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
 		return "product/ordersheet";
 	}
 	
