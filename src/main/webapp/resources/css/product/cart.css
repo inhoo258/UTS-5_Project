@@ -176,23 +176,23 @@ tr .td_emptyCart{
 
 /*총금액 + 배송비 확인란 cart_result*/
 .list{
-	margin: 0 auto;
-    width: 200px;
+	margin: 10px;
+    width: 300px;
     height: 165px;
     border: 2px solid #ddd;
-	display: flex;
 	align-items: center;
 }
 
 .tit{
 	margin: 0 auto;
-	display: block;
+/* 	display: block; */
 }
 
 
 .deco{
-	padding: 80px 50px 80px 50px;
+	padding: 80px 0 80px 0;
 	vertical-align: middle;
+	width: 50px;
 }
 
 .fas{

@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,6 @@
 		<sec:authentication property="principal.username" />
 	</c:set>
 	<c:set var="totalPrice" value="0" />
-
 	<form action='<c:url value="/product/ordersheet"/>' method="POST"
 		id="updateCart">
 		<input type="hidden" name="member_id" value="${member_id}">
@@ -60,7 +60,7 @@
 								<td>
 									<a class="product_name" href="#">${cart.product_name}</a>
 									<div class="each_price">
-										<span class="price"> ${cart.product_price}</span>
+										<span class="price"> <fmt:formatNumber value="${cart.product_price}" pattern="#,###"/></span>
 										<span class="txt">원</span>
 									</div>
 								</td>
@@ -72,7 +72,7 @@
 									</div>
 								</td>
 								<td class="td_total_cost" style="text-align: center;">
-									<span class="cart_product_price">${cart.product_price * cart.cart_product_count}</span>
+									<span class="cart_product_price"><fmt:formatNumber value="${cart.product_price * cart.cart_product_count}" pattern="#,###"/></span>
 									<span class="txt">원</span>
 								</td>
 								<td>
@@ -101,7 +101,7 @@
 								<div class="tit">
 									<div>상품금액</div>
 									<div align="center">
-										<span class="totalPrice">${totalPrice}</span>
+										<span class="totalPrice"></span>
 										<span>원</span>
 									</div>
 								</div>
@@ -110,16 +110,20 @@
 								<i class="fas fa-plus"></i>
 							</div>
 							<div class="list delivery">
-								<div class="tit">
-									<div>배송비</div>
-									<div align="center">
-										<span class="delPriceOk"> 0원 </span>
-									</div>
-								</div>
-								<span class="deliveryPrice" style="display: none;">3,000원</span>
-								<div class="delPriceCheck">
-									<label class="deliveryLimit" style="display: none;">${50000-totalPrice}</label>원 추가주문 시, 무료배송
-								</div>
+								<dl style="width: 200px;" >
+								<dt class="tit">배송비
+										<span class="delPriceOk" style="display: block;"> 0원 </span>
+								</dt>
+								
+									<dd>
+										<div class="deliveryPrice" style="display: none; background-color: pink; display: block;">+ 3,000원</div>
+										<div class="delPriceCheck"  style="background-color: green;"> 
+											<label class="deliveryLimit" style="display: block;">${50000-totalPrice}</label>원 추가주문 시, 무료배송 
+ 										</div>
+									</dd>
+								
+								</dl>
+								
 							</div>
 							<div class="deco deco_equal">
 								<i class="fas fa-equals"></i>
@@ -143,36 +147,41 @@
 		</div>
 	</form>
 	<script type="text/javascript">
-		let totalPrice = '${totalPrice}';
+		let totalPrice = parseInt('${totalPrice}');
 		let member_id = '${member_id}';
 		console.log("total Price : " + totalPrice);
 		let idx;
 		let cnt;
+		//totalPrice의 가격 변동이 있을 시마다 실행될 메서드
 		let priceCheck = function() {
-			$(".totalPrice").text(totalPrice);
+			console.log("price check in, totalPrice : "+totalPrice);
+			$(".totalPrice").text(totalPrice.toLocaleString());
 			if (totalPrice == 0) {
-				$(".td_emptyCart").show();
+				if($(".ico_check").length==0){
+					$(".td_emptyCart").show();
+					$(".checkAll").prop("disabled", true);
+				}
 				$(".submit").css("background-color", "lightgray");
 				$(".submit").attr("disabled", true);
 				$(".checkAll").prop("checked", false);
-				$(".checkAll").prop("disabled", true);
-				$(".delPriceOk").show();
 				$(".delPriceCheck").hide();
 				$(".deliveryPrice").hide();
 				$(".finalPrice").text(totalPrice);
+				//50000원은 임의로 지정한 금액, 50000이상 주문 시 무료배송
 			} else if (50000 - totalPrice > 0) {
 				$(".delPriceCheck").show();
 				$(".delPriceOk").hide();
 				$(".deliveryPrice").show();
 				$(".deliveryLimit").text(50000 - totalPrice);
-				$(".finalPrice").text(totalPrice * 1 + 3000);
+				$(".finalPrice").text((totalPrice + 3000).toLocaleString());
 			} else {
 				$(".delPriceOk").show();
 				$(".delPriceCheck").hide();
 				$(".deliveryPrice").hide();
-				$(".finalPrice").text(totalPrice);
+				$(".finalPrice").text(totalPrice.toLocaleString());
 			}
 		}
+		//window load시 전체 가격을 확인해서 0이상일 시 체크박스 선택, 아닐 시 해제
 		$(window).on("load", function() {
 			if (totalPrice != 0) {
 				$(".ico_check").prop("checked", true);
@@ -180,41 +189,52 @@
 			}
 			priceCheck();
 		});
-
+		//- 버튼 조작
 		$(".btn_reduce").click(function() {
 			idx = $(".btn_reduce").index(this);
 			console.log("idx : " + idx);
+			console.log("ico_check idx checked : "+$(".ico_check").get(idx).checked);
 			cnt = $(".cart_product_count").get(idx).value;
-			var originalPrice = $(".cart_product_price").get(idx).innerText / cnt;
+			var cart_product_price = $(".cart_product_price").get(idx).innerText.replace(/,/gi,"");
+			console.log("cart_product_price : " + cart_product_price);
+			var originalPrice = cart_product_price / cnt;
 			if (cnt > 1) {
 				cnt--;
 				$(".cart_product_count").get(idx).value = cnt;
-				$(".cart_product_price").get(idx).innerText = cnt * originalPrice;
-				totalPrice -= originalPrice;
-				console.log("현 idx 상품 총금액 : " + $(".cart_product_price").get(idx).innerText);
-				console.log("현 idx 상품 originP : " + originalPrice);
-				console.log("현 idx 상품 cnt : " + cnt);
-				priceCheck();
+				$(".cart_product_price").get(idx).innerText = (cnt * originalPrice).toLocaleString();
+				if($(".ico_check").get(idx).checked){
+					totalPrice -= originalPrice;
+					console.log("현 idx 상품 총금액 : " + $(".cart_product_price").get(idx).innerText);
+					console.log("현 idx 상품 originP : " + originalPrice);
+					console.log("현 idx 상품 cnt : " + cnt);
+					priceCheck();
+				}
 			}
 		});
+		//+ 버튼 조작
 		$(".btn_rise").click(function() {
 			idx = $(".btn_rise").index(this);
 			console.log("idx : " + idx);
+			console.log("ico_check idx checked : "+$(".ico_check").get(idx).checked);
 			cnt = $(".cart_product_count").get(idx).value;
-			var originalPrice = $(".cart_product_price").get(idx).innerText / cnt;
+			var cart_product_price = $(".cart_product_price").get(idx).innerText.replace(/,/gi,"");
+			console.log("cart_product_price : " + cart_product_price);
+			var originalPrice = cart_product_price / cnt;
 			//일단 10개까지만 선택 가능하도록
 			if (cnt < 10) {
 				cnt++;
 				$(".cart_product_count").get(idx).value = cnt;
-				$(".cart_product_price").get(idx).innerText = cnt * originalPrice;
-				totalPrice = totalPrice * 1 + originalPrice;
-				$(".totalPrice").text(totalPrice);
-				console.log("현 idx 상품 총금액 : " + $(".cart_product_price").get(idx).innerText);
-				console.log("현 idx 상품 originP : " + originalPrice);
-				console.log("현 idx 상품 cnt : " + cnt);
-				priceCheck();
+				$(".cart_product_price").get(idx).innerText = (cnt * originalPrice).toLocaleString();
+				if($(".ico_check").get(idx).checked){
+					totalPrice = totalPrice + originalPrice;
+					console.log("현 idx 상품 총금액 : " + $(".cart_product_price").get(idx).innerText);
+					console.log("현 idx 상품 originP : " + originalPrice);
+					console.log("현 idx 상품 cnt : " + cnt);
+					priceCheck();
+				}
 			}
 		});
+		
 		$("#updateCart").submit(function() {
 			//주문시 장바구니 업데이트 작업
 			let product_ids = [];
@@ -227,7 +247,7 @@
 			})
 			console.log("product_ids[] : " + product_ids);
 			console.log("cart_product_counts[] : " + cart_product_counts);
-			console.log(member_id);
+			console.log("member_id : " + member_id);
 			alert("updating cart before submit-------");
 			$.ajax({
 				url : '<c:url value="/product/rest/updateCart"/>',
@@ -247,13 +267,14 @@
 					$(".hidden_product_id").get(idx).disabled = "disabled";
 				}
 			});
+			//disable 완료 후 submit실행
 		});
 		//선택삭제(체크박스)
+		//0720 15:19 여기까지 했음 여서부터 시작
 		$(".bottom_btn_delete").click(function() {
 			let product_ids = [];
 			$(".ico_check:checked").each(function() {
 				var idx = $(".ico_check").index(this);
-				alert($(".hidden_product_id").get(idx).value);
 				product_ids.push(parseInt($(".hidden_product_id").get(idx).value));
 			});
 			console.log("will delete product where product_ids in : " + product_ids);
@@ -266,14 +287,16 @@
 				},
 				success : function() {
 					$(product_ids).each(function(i) {
-						console.log(product_ids[i]);
+						console.log("deleted product_id : " + product_ids[i]);
 						$(".hidden_product_id").each(function(j) {
 							if ($(this).val() == product_ids[i]) {
-								totalPrice -= $(".cart_product_price").get(j).innerText;
+								totalPrice -= parseInt($(".cart_product_price").get(j).innerText.replace(/,/gi,""));
 								$(this).parent().parent().remove();
 							}
 						});
 					});
+					ico_check-=product_ids.length;
+					console.log("ico_check : "+ico_check);
 					priceCheck();
 				}
 			});
@@ -294,30 +317,38 @@
 				success : function() {
 					console.log(product_ids);
 					$(product_ids).each(function(i) {
-						console.log(product_ids[i]);
+						console.log("deleted product_id : " + product_ids[i]);
 						$(".hidden_product_id").each(function(j) {
 							if ($(this).val() == product_ids[i]) {
-								totalPrice -= $(".cart_product_price").get(j).innerText;
+								totalPrice -= parseInt($(".cart_product_price").get(j).innerText.replace(/,/gi,""));
 								$(this).parent().parent().remove();
 							}
 						});
 					});
+					ico_check-=product_ids.length;
+					console.log("ico_check : "+ico_check);
 					priceCheck();
 				}
 			});
 		});
+		//ico_check : 윈도우 로드 시 모든 장바구니 내역이 체크되어 있는 상태이기 때문에 초기값을  장바구니 체크박스의 크기로 줌
 		let ico_check = $(".ico_check").length;
 		console.log("checkbox cnt : " + ico_check);
+		//전체선택 체크박스 클릭 시 실행
 		$(".checkAll").click(function() {
 			totalPrice = 0;
+			//체크인 경우
 			if ($(this).is(":checked")) {
 				$(".ico_check").prop("checked", true);
 				$(".checkAll").prop("checked", true);
 				ico_check = $(".ico_check").length;
 				$(".cart_product_price").each(function() {
-					totalPrice = totalPrice * 1 + $(this).text() * 1;
-				})
-			} else {
+					console.log("cart_product_price : "+parseInt($(this).text().replace(/,/gi,"")));
+					totalPrice = totalPrice + parseInt($(this).text().replace(/,/gi,""));
+				});
+			}
+			//체크 해제인 경우
+			else {
 				$(".ico_check").prop("checked", false);
 				$(".checkAll").prop("checked", false);
 				ico_check = 0;
@@ -326,16 +357,17 @@
 			console.log("totalPrice : " + totalPrice);
 			console.log("checkbox checked cnt : " + ico_check);
 		});
+		//장바구니 각각의 체크박스 클릭 시 실행
 		$(".ico_check").click(function() {
 			var idx = 0;
 			if ($(this).is(":checked")) {
 				idx = $(".ico_check").index(this);
-				totalPrice = totalPrice* 1 + $(".cart_product_price").get(idx).innerText* 1;
+				totalPrice = totalPrice + parseInt($(".cart_product_price").get(idx).innerText.replace(/,/gi,""));
 				console.log("totalPrice : " + totalPrice);
 				ico_check += 1;
 			} else {
 				idx = $(".ico_check").index(this);
-				totalPrice -= $(".cart_product_price").get(idx).innerText;
+				totalPrice -= parseInt($(".cart_product_price").get(idx).innerText.replace(/,/gi,""));
 				console.log("totalPrice : " + totalPrice);
 				ico_check -= 1;
 			}
