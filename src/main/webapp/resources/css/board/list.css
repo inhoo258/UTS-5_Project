@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.noice_section{
+	 width: 1050px; 
+	 margin: 0 auto; 
+	 padding-top: 100px;
+}
+
+.notice_table{
+border-collapse: collapse; 
+width: 1050px;
+text-align: center;
+}
+
+
+
+.td_title{
+text-align: left; 
+padding:0 20px;
+text-decoration: none;
+cursor: pointer;
+color: red;
+}
