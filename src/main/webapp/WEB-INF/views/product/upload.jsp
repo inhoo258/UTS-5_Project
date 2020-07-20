@@ -12,7 +12,7 @@
 <body>
 <h1>UPLOAD.JSP</h1>
 <h1>업로드</h1>
-	<jsp:include page="../header/header.jsp"/>
+	<jsp:include page="../header&footer/header.jsp"/>
 	
 	<c:set var="member_id">
 		<sec:authentication property="principal.username"/>
@@ -28,6 +28,6 @@
 		<input type="submit" value="업로드">
 	</form>
 	
-	<jsp:include page="../header&footer/header.jsp"/>
+	<jsp:include page="../header&footer/footer.jsp"/>
 </body>
 </html>

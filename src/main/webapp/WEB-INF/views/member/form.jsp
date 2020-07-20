@@ -78,14 +78,24 @@
 				<td colspan="2"><font id="email_check"></font></td>
 			</tr>
 			<c:if test="${empty member}">
+			<sec:authorize access="isAnonymous()">
 				<tr>
-					<th colspan="2"><sec:authorize access="isAnonymous()">
-							<input type="radio" name="member_auth" value="ROLE_CUSTOMER"
-								checked>구매자
-						<input type="radio" name="member_auth" value="ROLE_SELLER">판매자
-                  	</sec:authorize></th>
+					<th colspan="2">
+							<input type="radio" name="member_auth" id="role_cus" value="ROLE_CUSTOMER"
+								checked><label for="role_cus">구매자</label>
+						<input type="radio" name="member_auth" id="role_sell" value="ROLE_SELLER"><label for="role_sell">판매자</label>
+                  	</th>
 				</tr>
+			</sec:authorize>
 			</c:if>
+			<tr style="display:none;" class="forSeller">
+				<td colspan="2">
+					<div style="border:1px solid black;">
+						<input type="text" placeholder="사업자 등록번호를 입력하세요" name="seller_reg_num"><br>
+						<input type="text" placeholder="사업장 명을 입력하세요" name="seller_com_name">
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<th colspan="2"><input type="submit" id="okbutton"
 					value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
@@ -97,13 +107,17 @@
 
 		</table>
 	</form>
+	
 	<!--============================================================================== 아직 미흡한 부분 -->
-<!-- 	20200713 : 아이디 한글로도 가입이 됨 
+<!-- 	20200713 : 아이디 한글로도 가입이 됨 ->해결(승우)
 					css 미흡
 
 
 -->
+	<script type="text/javascript">
+		
 	
+	</script>
 	
 	<script type="text/javascript">
 	let member = '${member}';
@@ -132,6 +146,9 @@
                 if(member==""){
 	                if(member_id.length==0){
 	                    document.getElementById("id_check").innerText="필수 항목입니다.";
+	                    id_check=false;
+	                }else if(!/^[a-z0-9]{4,12}$/.test(member_id)){
+	                    document.getElementById("id_check").innerText="영문 소문자 ,숫자  4~12 자리로 입력해 주세요.";
 	                    id_check=false;
 	                }else{
 	                    $.ajax({
@@ -164,6 +181,7 @@
                 document.getElementById("pw_check").innerText="";
                 pw_check=true;
             }
+            $("#member_pw_ok").trigger("blur");
         });
         $("#member_pw_ok").blur(function(){
             member_pw_ok = document.getElementById("member_pw_ok").value
@@ -187,7 +205,7 @@
                 name_check=false;
                 
             }else if(!/^[가-힣]+$/.test(member_name)){
-                document.getElementById("name_check").innerText="한글만 입력 가능합니다.";
+                document.getElementById("name_check").innerText="가 나 다 형식으로 입력해주세요.";
             }
             else{
                 document.getElementById("name_check").innerText="";
@@ -222,7 +240,7 @@
             if(member_email.length==0){
                 document.getElementById("email_check").innerText="필수 항목입니다.";
                 email_check=false;
-            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,}$/.test(member_email)){//------------------------------------------------**
+            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
                 document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
                 email_check=false;
             }else{
@@ -233,26 +251,30 @@
     });
     function inputCheck(){
         if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check){
-            console.log(id_check);
-            console.log(pw_check);
-            console.log(pw_ok_check);
-            console.log(name_check);
-            console.log(name_check);
-            console.log(addr_check);
-            console.log(email_check);
+        	$("#okbutton").attr("disabled",true);
             return true;
         }else {
+			$("input").each(function(){
+				$(this).trigger("blur");
+			})
         	//내용이 입력되어 있지 않은 위치로 focus
-        	if(!email_check){document.getElementById("member_email").focus();console.log("member_email focused");}
-        	if(!addr_check){document.getElementById("member_addr").focus();console.log("member_addr focused");}
-        	if(!tel_check){document.getElementById("member_tel").focus();console.log("member_tel focused");}
-        	if(!name_check){document.getElementById("member_name").focus();console.log("member_name focused");}
-        	if(!pw_ok_check){document.getElementById("member_pw_ok").focus();console.log("member_pw_ok focused");}
-        	if(!pw_check){document.getElementById("member_pw").focus();console.log("member_pw focused");}
-        	if(!id_check){document.getElementById("member_id").focus();console.log("member_id focused");}
+        	if(!email_check){$("#member_email").focus();}
+        	if(!addr_check){$("#member_addr").focus();}
+        	if(!tel_check){$("#member_tel").focus();}
+        	if(!name_check){$("#member_name").focus();}
+        	if(!pw_ok_check){$("#member_pw_ok").focus();}
+        	if(!pw_check){$("#member_pw").focus();}
+        	if(!id_check){$("#member_id").focus();}
         	return false;
         }
     }
+    $("input:radio").on("click",function(){
+    	if($(this).val()=="ROLE_SELLER"){
+	    	$(".forSeller").show();
+    	}else{
+	    	$(".forSeller").hide();
+    	}
+    })
     </script>
 </body>
 </html>
