@@ -18,8 +18,9 @@ public class OrderService{
 		return orderRepository.getOrderList();
 	}
 	
-	public OrdersVO getOrderSheet(String member_id) {
-		return orderRepository.getOrderSheet(member_id);
+	//결제완료 된 주문 내역 
+	public ArrayList<OrdersVO> getMyOrderList(String member_id) {
+		return orderRepository.getMyOrderList(member_id);
 	}
 	
 	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price) {

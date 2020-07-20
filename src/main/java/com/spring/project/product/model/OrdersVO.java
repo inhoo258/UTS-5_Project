@@ -6,7 +6,7 @@ public class OrdersVO {
 	private String member_id;
 	private int product_id; 
 	private Date order_date;
-	private String order_receiver_addr;
+	private String order_receiver_address;
 	private String order_receiver_name;
 	private String order_receiver_tel;
 	private int order_product_count;
@@ -18,7 +18,7 @@ public class OrdersVO {
 	@Override
 	public String toString() {
 		return "OrdersVO [member_id=" + member_id + ", product_id=" + product_id + ", order_date=" + order_date
-				+ ", order_receiver_addr=" + order_receiver_addr + ", order_receiver_name=" + order_receiver_name
+				+ ", order_receiver_address=" + order_receiver_address + ", order_receiver_name=" + order_receiver_name
 				+ ", order_receiver_tel=" + order_receiver_tel + ", order_product_count=" + order_product_count
 				+ ", order_price=" + order_price + ", order_request=" + order_request + ", order_status=" + order_status
 				+ "]";
@@ -72,14 +72,6 @@ public class OrdersVO {
 		this.product_id = product_id;
 	}
 
-	public String getOrder_receiver_addr() {
-		return order_receiver_addr;
-	}
-
-	public void setOrder_receiver_addr(String order_receiver_addr) {
-		this.order_receiver_addr = order_receiver_addr;
-	}
-
 	public String getOrder_receiver_name() {
 		return order_receiver_name;
 	}
@@ -102,5 +94,13 @@ public class OrdersVO {
 
 	public void setOrder_product_count(int order_product_count) {
 		this.order_product_count = order_product_count;
+	}
+
+	public String getOrder_receiver_address() {
+		return order_receiver_address;
+	}
+
+	public void setOrder_receiver_address(String order_receiver_address) {
+		this.order_receiver_address = order_receiver_address;
 	}
 }

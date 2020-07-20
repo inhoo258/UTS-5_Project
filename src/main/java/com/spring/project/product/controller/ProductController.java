@@ -87,34 +87,28 @@ public class ProductController {
 	
 	// 주문서 최종 주문 후 실행하는 코드(client용)----------------------힘찬
 	@PostMapping("/payment")
-	public String payment(OrdersVO ordersVO,
+	public String payment(OrdersVO ordersVO, 
 			@RequestParam("product_ids")int[] product_ids, 
 			@RequestParam("order_product_counts")int[] order_product_counts,
-			@RequestParam("order_prices")int[] order_prices,
-//			@RequestParam("member_id")String member_id, 
-//			@RequestParam("order_receiver_addr")String order_receiver_addr,
-//			@RequestParam("order_receiver_name")String order_receiver_name,
-//			@RequestParam("order_receiver_tel")String order_receiver_tel, 
-//			@RequestParam("order_request")String order_request,
-//			@RequestParam("order_status")String order_status,
+			@RequestParam("order_prices")int[] order_prices, 
 			Model model) {
-		System.out.println("orderVO : "+ordersVO.toString());
-			orderService.paymentInOrder(ordersVO,product_ids,order_product_counts,order_prices);
-//		cartService.deleteCart(member_id, product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
-		return "product/payment";
+			orderService.paymentInOrder(ordersVO,product_ids,order_product_counts,order_prices); //주문하는 곳에 넣는거고
+			productService.afterPayment(product_ids,order_product_counts); //상품 주문후 전체 수량에서 빼기
+			cartService.deleteCart(ordersVO.getMember_id(), product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
+			return "product/payment";
 	}
 	//===========================================================힘찬
 	
-//
-//	// 장바구니>>주문목록
-//	@RequestMapping("")
-//	public String insertOrder(@ModelAttribute("order") @Validated OrdersVO order, Model model) {
-//		orderService.insertOrder(order.getMember_id(), order.getProduct_id(), order.getOrder_date(),
-//				order.getOrder_receiver_addr(), order.getOrder_receiver_name(), order.getOrder_receiver_tel(),
-//				order.getOrder_product_count(), order.getOrder_price(), order.getOrder_request());
-//		return "";
-//	}
-//
+	// 결제 완료 후 나의 주문서 ===========================================지현
+	@GetMapping("/myorderlist/{userId}")
+	public String myOrderLIst(@PathVariable("userId")String member_id, Model model) {
+		model.addAttribute("myOrderList", orderService.getMyOrderList(member_id));
+		return "product/myorderlist";
+	}
+	//===========================================================지현
+
+	
+	
 //	// 주문 취소시 삭제
 //	@RequestMapping("")
 //	public String deleteOrder(@PathVariable String member_id, int product_id) {
@@ -154,13 +148,6 @@ public class ProductController {
 		ResponseEntity<byte[]> image = new ResponseEntity<byte[]>(product_img,header,HttpStatus.OK);
 		return image;
 	}
-//	// 한개의 상품 정보
-//	@RequestMapping("")
-//	public String getProduct(@PathVariable int product_id, Model model) {
-//		ProductsVO product = productService.getProduct(product_id);
-//		model.addAttribute("product", product);
-//		return "";
-//	}
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
 	public String getProduct(@PathVariable("product_id")int product_id, Model model) {

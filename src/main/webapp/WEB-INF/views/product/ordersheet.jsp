@@ -114,7 +114,7 @@
                 <div class="delivery_info">
                     <h3 class="title_section">배송정보</h3>
                     <div class="inner_show2">
-                    	주소 : <input type = "text" id="member_addr" name="order_receiver_addr" value =${memberInfo.member_addr }>
+                    	주소 : <input type = "text" id="member_addr" name="order_receiver_address" value =${memberInfo.member_addr }>
                     </div>
                     <h3 class="title_section">받으실 장소</h3>
                     <div class="inner_show2">

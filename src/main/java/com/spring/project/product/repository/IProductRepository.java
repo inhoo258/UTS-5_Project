@@ -41,4 +41,8 @@ public interface IProductRepository {
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_img}, #{product_name}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
 	
+	//주문 완료 후 총 수량 수정
+	@Update("update products set product_count=#{1} where product_id=#{0}")
+	public void afterPayment(int product_id, int discount);
+	
 }
