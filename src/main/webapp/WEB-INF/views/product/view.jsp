@@ -107,6 +107,7 @@
         
     </section>
 <hr>
+<jsp:include page="../header&footer/footer.jsp"/>
 </body>
 
 <script type="text/javascript">

@@ -33,4 +33,7 @@ public interface IQnARepository {
 	@Delete("delete from Q_N_A_board where member_id=#{member_id} and q_title=#{q_title}")
 	public void deleteQnA(String member_id, String q_title);
 	
+	@Select("select count(*) from q_n_a_board")
+	public int getTotalCount();
+	
 }

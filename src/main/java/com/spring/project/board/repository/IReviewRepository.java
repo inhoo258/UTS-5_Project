@@ -31,4 +31,6 @@ public interface IReviewRepository {
 	@Update("update review_board set review_content=#{review_content} where member_id=#{member_id} and product_id=#{product_id}")
 	public void updateReview(String member_id, int product_id);
 	
+	@Select("select count(*) from review_board")
+	public int getTotalCount();
 }

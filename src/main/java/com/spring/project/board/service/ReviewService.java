@@ -33,4 +33,8 @@ public class ReviewService implements IBoardService{
 	public void updateReview(String member_id, int product_id) {
 		reviewRepository.updateReview(member_id, product_id);
 	}
+	
+	public int getTotalCount() {
+		return reviewRepository.getTotalCount();
+	}
 }

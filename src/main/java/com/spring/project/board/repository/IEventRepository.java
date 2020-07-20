@@ -12,7 +12,7 @@ public interface IEventRepository {
 	
 	//전체 이벤트 목록
 	@Select("select * from event_board")
-	public ArrayList<EventVO> getEventList();
+	public ArrayList<EventVO> getEventList(int start, int end);
 	
 	//이벤트 제목 클릭
 	@Select("select * from event_board where event_title=#{event_title}")
@@ -31,4 +31,7 @@ public interface IEventRepository {
 	//이벤트 조회수 +1 증가
 	@Update("update event_board set event_views=event_views+1")
 	public void updateViews();
+
+	@Select("select count(*) from event_board")
+	public int getTotalCount();
 }

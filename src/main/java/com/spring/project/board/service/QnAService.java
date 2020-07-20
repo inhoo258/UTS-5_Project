@@ -35,4 +35,8 @@ public class QnAService implements IBoardService{
 	public void deleteQnA(String member_id, String q_title) {
 		qnARepository.deleteQnA(member_id, q_title);
 	}
+	
+	public int getTotalCount() {
+		return qnARepository.getTotalCount();
+	}
 }

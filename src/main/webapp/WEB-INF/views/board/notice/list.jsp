@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../../header&footer/header.jsp"/>
 	<table border="1" style="border-collapse: collapse;">
 		<thead>
 			<tr>
@@ -51,5 +52,6 @@
 	<sec:authorize access="hasRole('ROLE_MASTER')">
 	<a href="<c:url value='/board/notice/form'/>">글쓰기</a>
 	</sec:authorize>
+	<jsp:include page="../../header&footer/footer.jsp"/>
 </body>
 </html>

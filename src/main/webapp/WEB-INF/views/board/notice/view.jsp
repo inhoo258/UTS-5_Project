@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../../header&footer/header.jsp"/>
 <table border="1" style="border-collapse:collapse;">
 	<thead>
 		<tr>
@@ -37,5 +38,6 @@
 		</tr>
 	</c:if>
 </table>
+<jsp:include page="../../header&footer/footer.jsp"/>
 </body>
 </html>

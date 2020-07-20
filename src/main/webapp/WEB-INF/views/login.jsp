@@ -78,5 +78,6 @@
 		</form>
 	</sec:authorize>
 	<c:remove var="message" scope="session"/>
+	<jsp:include page="header&footer/footer.jsp"/>
 </body>
 </html>

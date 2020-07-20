@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../header&footer/header.jsp"/>
 	<h1>payment.jsp</h1>
 	<div>
 		무통장입금 <br>
@@ -50,6 +51,6 @@
     
         	
 
-    
+    <jsp:include page="../header&footer/footer.jsp"/>
 </body>
 </html>

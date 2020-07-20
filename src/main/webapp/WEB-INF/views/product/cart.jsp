@@ -15,7 +15,7 @@
 <script src="https://kit.fontawesome.com/c2524284bc.js"
 	crossorigin="anonymous"></script>
 <body>
-
+	<jsp:include page="../header&footer/header.jsp"/>
 	<c:set var="member_id">
 		<sec:authentication property="principal.username" />
 	</c:set>
@@ -119,6 +119,7 @@
 				</div>
 			</div>
 	</form>
+	<jsp:include page="../header&footer/footer.jsp"/>
 	<script type="text/javascript">
 		let totalPrice = '${totalPrice}'
 		let member_id = '${member_id}';

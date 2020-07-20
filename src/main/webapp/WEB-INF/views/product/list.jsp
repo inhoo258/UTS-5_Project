@@ -17,5 +17,6 @@
 		${product.product_info}
 		<hr>
 	</c:forEach>
+	<jsp:include page="../header&footer/footer.jsp"/>
 </body>
 </html>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href='<c:url value="/resources/css/product/ordersheet.css"/>' />
 </head>
 <body>
-
+	<jsp:include page="../header&footer/header.jsp"/>
     <div class="section">
         <div id="ordersheet">
             <h1>주 문 서</h1>
@@ -192,7 +192,7 @@
     
     
     
-    
+    <jsp:include page="../header&footer/footer.jsp"/>
 </body>
 <script type="text/javascript">
 	function changeAddr(){
