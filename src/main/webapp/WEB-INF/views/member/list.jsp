@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/member/list.css'/>" />
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/member/list.css'/>" />
 
 <style type="text/css">
 </style>
@@ -34,15 +31,16 @@
 							<table>
 								<tr style="border: none;">
 									<td>
-										<form action="<c:url value='/member/delete'/>" method="POST"
-											onsubmit="return checkedDelete()">
+										<form action="<c:url value='/member/delete'/>" method="POST" onsubmit="return checkedDelete()" id="delete_form">
 											<input type="hidden" name="member_ids" id="member_ids">
 											<input type="submit" value="선택 삭제">&nbsp;&nbsp;&nbsp;
 										</form>
 									</td>
 									<td colspan="7" align="right" style="padding-right: 20px">
-										검색 : <input type="text"> <input type="button"
-										value="찾기" onclick="">
+										<form action="<c:url value='/member/list'/>">
+											검색 : <input type="text" name="member_word">
+											<input type="submit" value="찾기" >
+										</form>
 									</td>
 								</tr>
 								<tr>
@@ -71,10 +69,8 @@
 										<td>${member.member_enabled eq "1" ? "승인" : "승인대기"}</td>
 										<th>
 										<input type="button" value="상세 정보"	onclick="location.href='<c:url value='/member/info/${member.member_id}'/>'">
-										<form action="<c:url value='/member/delete'/>" method="POST">
-											<input type="hidden" value="${member.member_id}" class="member_id" name="member_id"> 
-											<input type="submit" value="삭제">
-										</form>
+										<input type="hidden" value="${member.member_id}" class="member_id" name="member_id"> 
+										<input type="button" value="삭제" class="memberBtn">
 										</th>
 									</tr>
 								</c:forEach>
@@ -100,14 +96,16 @@
 								<tbody>
 								<tr style="border: none;">
 									<td>
-										<form action="<c:url value='/member/permission'/>" method="POST" onsubmit="return checkPermission()">
+										<form action="<c:url value='/member/permission'/>" method="POST" onsubmit="return checkPermission()" id="permission_check_form">
 										<input type="hidden" name="permission_ids" id="permission_ids">
 										<input type="submit" value="선택 승인">&nbsp;&nbsp;&nbsp;
 										</form>
 									</td>
-									<td colspan="7" align="right" style="padding-right: 20px">검색
-										: <input type="text"> <input type="button" value="찾기"
-										onclick="">
+									<td colspan="7" align="right" style="padding-right: 20px">
+										<form action="<c:url value='/member/list'/>" onsubmit="sessionCreate()">
+											검색 : <input type="text" name="permission_word">
+											<input type="submit" value="찾기" >
+										</form>
 									</td>
 								</tr>
 
@@ -136,7 +134,7 @@
 										<td>${permission.member_tel}</td>
 										<td>${permission.member_addr}</td>
 										<td>${permission.member_email}</td>
-										<td>${permission.member_enabled}</td>
+										<td>${permission.member_enabled eq "1" ? "승인" : "승인대기"}</td>
 										<th>
 											<input type="hidden" value="${permission.member_id}" class="permission_id" name="permission_id"> 
 											<input type="button" value="승인" class="permissionBtn">
@@ -189,6 +187,9 @@
 			    return false; // 탭에 a요소로 되어 있어서 클릭했을 때 발생하는 click 이벤트 설정. 이동하지 못하게 함.
 			});
 		});
+		//permissionpage용
+		//memberpage용
+		
 	
 		//url파라미터 뽑아오는 메서드
 		function getParameterByName(name) {
@@ -199,33 +200,61 @@
 		}
 	</script>
 	
+	<script type="text/javascript">
+	function sessionCreate() {
+		sessionStorage.setItem("message" , "page_2");
+	}
+	</script>
 	
 	<script type="text/javascript">
 	//단독 삭제 or 승인
 	$(".permissionBtn").click(function() {
-		let index = $(".permissionBtn").index(this);
-		let permissionpage = getParameterByName('permissionpage');
-		let permission_id = $(".permission_id").get(index).value;
-		$("body").append("<form>")
-		sessionStorage.setItem("message" , "page_2")
-		$("body").append("<form id=permission_form></form>")
+		let permission_index = $(".permissionBtn").index(this);
+		let permissionpage_number = getParameterByName('permissionpage');
+		let permission_id = $(".permission_id").get(permission_index).value;
+		sessionStorage.setItem("message" , "page_2");
+		
+		$("body").append("<form id='permission_form'></form>")
 		$("#permission_form").attr({"action" : "<c:url value='/member/permission'/>"});
 		$("#permission_form").attr({"method" : "POST"});
 		$("#permission_form").css({"display" : "hidden"});
-		$("#permission_form").append("<input type='hidden' name=permission_id value='"+permission_id+"'>");
-		if(permissionpage!=""){
+		$("#permission_form").append("<input type='hidden' name='permission_id' id='ddd' value='"+permission_id+"'>");
+		if(permissionpage_number!=""){
 			if($(".permission_id").length == 1){
-				permissionpage--;
+				permissionpage_number--;
 			}
-			if(permissionpage == 1){
-				permissionpage = 1
+			if(permissionpage_number == 1){
+				permissionpage_number = 1;
 			}
-    		$("#permission_form").append("<input type='hidden' name=permissionpage value='"+permissionpage+"'>");
+    		$("#permission_form").append("<input type='hidden' name='permissionpage' id='aaa' value='"+permissionpage_number+"'>");
+			console.log($("#aaa").val())
 		}
 	    $("#permission_form").submit();
 	})
+	
+	
+	$(".memberBtn").click(function() {
+		let member_index = $(".memberBtn").index(this);
+		let memberpage_number = getParameterByName('memberpage');
+		let member_id = $(".member_id").get(member_index).value;
+		$("body").append("<form id=member_form></form>")
+		alert($("#member_form"))
+		$("#member_form").attr({"action" : "<c:url value='/member/delete'/>"});
+		$("#member_form").attr({"method" : "POST"});
+		$("#member_form").css({"display" : "hidden"});
+		$("#member_form").append("<input type='hidden' name=member_id value='"+member_id+"'>");
+		if(memberpage_number!=""){
+			if($(".member_id").length == 1){
+				memberpage_number--;
+			}
+			if(memberpage_number == 1){
+				memberpage_number = 1;
+			}
+    		$("#member_form").append("<input type='hidden' name=memberpage value='"+memberpage_number+"'>");
+		}
+	    $("#member_form").submit();
+	})
 	</script>
-
 
 	<script type="text/javascript">
 	//checkbox 관련 스크립트
@@ -269,7 +298,29 @@
 			}
 		}
 		if(hidden.length > 0){
+			let delete_memberpage_number = getParameterByName('memberpage');
+			let memberlist_lastpage_cnt = (function() {
+				if(${memberPage.totalCount} % 10 == 0){
+					return 10
+				}else{
+					return ${memberPage.totalCount} % 10 
+				}
+			})();
+			
+			//확인용
+// 			alert("memberlist_lastpage_cnt : "+memberlist_lastpage_cnt)
+// 			alert("length : " + length)
+			
+			if(length == memberlist_lastpage_cnt){
+				delete_memberpage_number--;
+			}
+			if(delete_memberpage_number == 0 || delete_memberpage_number == "" || delete_memberpage_number == -1){
+				delete_memberpage_number = 1;
+			}
 			$("#member_ids").attr("value",hidden);
+			if(delete_memberpage_number != ""){
+				$("#delete_form").append("<input type='hidden' name=memberpage value='"+delete_memberpage_number+"'>")
+			}
 			return true;
 		}
 		return false;
@@ -284,7 +335,30 @@
 			}
 		}
 		if(hidden.length > 0){
+			let permission_page_number = getParameterByName('permissionpage');
+			let permission_lastpage_cnt = (function() {
+				if(${permissionPage.totalCount} % 10 == 0){
+					return 10
+				}else{
+					return ${permissionPage.totalCount} % 10 
+				}
+			})();
+			
+			//확인용
+// 			alert("list page cnt : "+permission_lastpage_cnt)
+// 			alert("length : " + length)
+			
+			if(length == permission_lastpage_cnt){
+				permission_page_number--;
+			}
+			if(permission_page_number == 0 || permission_page_number == "" || permission_page_number == -1){
+				permission_page_number = 1;
+			}
 			$("#permission_ids").attr("value",hidden);
+			if(permission_page_number != ""){
+				$("#permission_form").append("<input type='hidden' name=permissionpage value='"+permission_page_number+"'>")
+			}
+			sessionStorage.setItem("message" , "page_2");
 			return true;
 		}
 		return false;
@@ -293,95 +367,98 @@
 
 	<script type="text/javascript">
 	//permission paging 관련 스크립트
-		let memberpage_number = getParameterByName('memberpage');
+	let paging_member_number = getParameterByName('memberpage');
+	let permission_word = getParameterByName('permission_word');
 		$("#permission_firstpage").click(function() {
 			sessionStorage.setItem("message" , "page_2");
-			if(memberpage_number == 1 || memberpage_number ==""){
-				location.href="<c:url value='/member/list?permissionpage=1&memberpage=1'/>";
+			if(paging_member_number == 1 || paging_member_number ==""){
+				location.href="<c:url value='/member/list?permissionpage=1&memberpage=1&permission_word="+permission_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?permissionpage=1&memberpage="+memberpage_number+"'/>";
+				location.href="<c:url value='/member/list?permissionpage=1&memberpage="+paging_member_number+"'/>";
 			}
 		})
 		
 		$("#permission_previous").click(function() {
 			sessionStorage.setItem("message" , "page_2");
-			if(memberpage_number == 1 || memberpage_number ==""){
-				location.href="<c:url value='/member/list?permissionpage=${permissionPage.startPage-1}&memberpage=1'/>";
+			if(paging_member_number == 1 || paging_member_number ==""){
+				location.href="<c:url value='/member/list?permissionpage=${permissionPage.startPage-10}&memberpage=1&permission_word="+permission_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?permissionpage=${permissionPage.startPage-1}&memberpage="+memberpage_number+"'/>";
+				location.href="<c:url value='/member/list?permissionpage=${permissionPage.startPage-10}&memberpage="+paging_member_number+"'/>";
 			}
 		})
 		
 		$(".permission_cnt").click(function() {
 			let cnt = $(".permission_cnt").index(this) + 1;
 			sessionStorage.setItem("message" , "page_2");
-			if(memberpage_number == 1 || memberpage_number ==""){
-				location.href="<c:url value='/member/list?permissionpage="+cnt+"&memberpage=1'/>";
+			if(paging_member_number == 1 || paging_member_number ==""){
+				location.href="<c:url value='/member/list?permissionpage="+cnt+"&memberpage=1&permission_word="+permission_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?permissionpage="+cnt+"&memberpage="+memberpage_number+"'/>";
+				location.href="<c:url value='/member/list?permissionpage="+cnt+"&memberpage="+paging_member_number+"'/>";
 			}
 		})
 		
 		$("#permission_nextpage").click(function() {
 			sessionStorage.setItem("message" , "page_2");
-			if(memberpage_number == 1 || memberpage_number ==""){
-				location.href="<c:url value='/member/list?permissionpage=${permissionPage.endPage+1}&memberpage=1'/>";
+			if(paging_member_number == 1 || paging_member_number ==""){
+				location.href="<c:url value='/member/list?permissionpage=${permissionPage.endPage+1}&memberpage=1&permission_word="+permission_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?permissionpage=${permissionPage.endPage+1}&memberpage="+memberpage_number+"'/>";
+				location.href="<c:url value='/member/list?permissionpage=${permissionPage.endPage+1}&memberpage="+paging_member_number+"'/>";
 			}
 		})
 		
 		$("#permission_lastpage").click(function() {
 			sessionStorage.setItem("message" , "page_2");
-			if(memberpage_number == 1 || memberpage_number ==""){
-				location.href="<c:url value='/member/list?permissionpage=${permissionPage.totalPage}&memberpage=1'/>";
+			if(paging_member_number == 1 || paging_member_number ==""){
+				location.href="<c:url value='/member/list?permissionpage=${permissionPage.totalPage}&memberpage=1&permission_word="+permission_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?permissionpage=${permissionPage.totalPage}&memberpage="+memberpage_number+"'/>";
+				location.href="<c:url value='/member/list?permissionpage=${permissionPage.totalPage}&memberpage="+paging_member_number+"'/>";
 			}
 		})
 	</script>
 	
 	<script type="text/javascript">
 	//member paging 관련 스크립트
-		let permissionpage_number = getParameterByName('permissionpage');
+	let paging_permission_number = getParameterByName('permissionpage');
+	let member_word = getParameterByName('member_word');
 		$("#member_firstpage").click(function() {
-			if(permissionpage_number == 1 || permissionpage_number ==""){
-				location.href="<c:url value='/member/list?memberpage=1&permissionpage=1'/>";
+		alert(member_word);
+			if(paging_permission_number == 1 || paging_permission_number ==""){
+				location.href="<c:url value='/member/list?memberpage=1&permissionpage=1&member_word="+member_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?memberpage=1&permissionpage="+permissionpage_number+"'/>";
+				location.href="<c:url value='/member/list?memberpage=1&permissionpage="+paging_permission_number+"'/>";
 			}
 		})
 		
 		$("#member_previous").click(function() {
-			if(permissionpage_number == 1 || permissionpage_number ==""){
-				location.href="<c:url value='/member/list?memberpage=${memberPage.startPage-1}&permissionpage=1'/>";
+			if(paging_permission_number == 1 || paging_permission_number ==""){
+				location.href="<c:url value='/member/list?memberpage=${memberPage.startPage-10}&permissionpage=1&member_word="+member_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?memberpage=${memberPage.startPage-1}&permissionpage"+permissionpage_number+"'/>";
+				location.href="<c:url value='/member/list?memberpage=${memberPage.startPage-10}&permissionpage"+paging_permission_number+"'/>";
 			}
 		})
 		
 		$(".member_cnt").click(function() {
 			let cnt = $(".member_cnt").index(this) + 1;
-			if(permissionpage_number == 1 || permissionpage_number ==""){
-				location.href="<c:url value='/member/list?memberpage="+cnt+"&permissionpage=1'/>";
+			if(paging_permission_number == 1 || paging_permission_number ==""){
+				location.href="<c:url value='/member/list?memberpage="+cnt+"&permissionpage=1&member_word="+member_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?memberpage="+cnt+"&permissionpage="+permissionpage_number+"'/>";
+				location.href="<c:url value='/member/list?memberpage="+cnt+"&permissionpage="+paging_permission_number+"'/>";
 			}
 		})
 		
 		$("#member_nextpage").click(function() {
-			if(permissionpage_number == 1 || permissionpage_number ==""){
-				location.href="<c:url value='/member/list?memberpage=${memberPage.endPage+1}&permissionpage=1'/>";
+			if(paging_permission_number == 1 || paging_permission_number ==""){
+				location.href="<c:url value='/member/list?memberpage=${memberPage.endPage+1}&permissionpage=1&member_word="+member_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?memberpage=${memberPage.endPage+1}&permissionpage="+permissionpage_number+"'/>";
+				location.href="<c:url value='/member/list?memberpage=${memberPage.endPage+1}&permissionpage="+paging_permission_number+"'/>";
 			}
 		})
 		
 		$("#member_lastpage").click(function() {
-			if(permissionpage_number == 1 || permissionpage_number ==""){
-				location.href="<c:url value='/member/list?memberpage=${memberPage.totalPage}&permissionpage=1'/>";
+			if(paging_permission_number == 1 || paging_permission_number ==""){
+				location.href="<c:url value='/member/list?memberpage=${memberPage.totalPage}&permissionpage=1&member_word="+member_word+"'/>";
 			}else{
-				location.href="<c:url value='/member/list?memberpage=${memberPage.totalPage}&permissionpage="+permissionpage_number+"'/>";
+				location.href="<c:url value='/member/list?memberpage=${memberPage.totalPage}&permissionpage="+paging_permission_number+"'/>";
 			}
 		})
 	</script>

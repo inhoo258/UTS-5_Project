@@ -20,10 +20,6 @@ public class NoticeService implements IBoardService{
 		return noticeRepository.getNoticeList(start,end);
 	}
 	
-	public void insertNotice(String notice_content, String notice_title, String notice_views) {
-		noticeRepository.insertNotice(notice_content, notice_title, notice_views);
-	}
-	
 	public void updateNotice(String notice_content) {
 		noticeRepository.updateNotice(notice_content);
 	}
@@ -36,5 +32,15 @@ public class NoticeService implements IBoardService{
 
 	public int getTotalCount() {
 		return noticeRepository.getTotalCount();
+	}
+
+	public void insertNotice(NoticeVO noticeVO) {
+		noticeVO.setNotice_number(noticeRepository.getMaxNoticeNumber()+1);
+		noticeRepository.insertNotice(noticeVO);
+	}
+
+	public void insertNoticeWithFile(NoticeVO noticeVO) {
+		noticeVO.setNotice_number(noticeRepository.getMaxNoticeNumber()+1);
+		noticeRepository.insertNoticeWithFile(noticeVO);
 	}
 }

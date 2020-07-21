@@ -22,17 +22,19 @@ public class ProductRestController {
 	CartService cartService;
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@PostMapping("/updateCart")
-	public void updateCart(String member_id, @RequestParam("product_id[]") List<Integer> product_id,
-			@RequestParam("cart_product_count[]") List<Integer> cart_product_count) {
-		System.out.println("--------------------------------------------------rest update cart in");
+	public void updateCart(String member_id, @RequestParam("product_ids[]") List<Integer> product_ids,
+			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts) {
+		System.out.println("--------------------------------------------------rest updateCart in");
 		System.out.println("member_id : " + member_id);
-		System.out.println("product_id len : " + product_id);
-		System.out.println("cart_product_count len : " + cart_product_count);
-		cartService.updateCart(member_id, product_id, cart_product_count);
+		System.out.println("product_ids[] len : " + product_ids);
+		System.out.println("cart_product_counts[] len : " + cart_product_counts);
+		cartService.updateCart(member_id, product_ids, cart_product_counts);
+		System.out.println("--------------------------------------------------rest updateCart out");
 	}
 
+	
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id") String member_id,
 			@RequestParam("product_ids[]") int[] product_ids) {
@@ -40,11 +42,16 @@ public class ProductRestController {
 	}
 
 	@PostMapping("/insertCart")
-	public void insertCart(@RequestParam("memberid") String member_id, @RequestParam("productId") int product_id,
-			@RequestParam("pOrderCount") int product_count) {
-		cartService.insertCart(member_id, product_id, product_count);
+	public int insertCart(@RequestParam("member_id") String member_id, @RequestParam("product_id") int product_id,
+			@RequestParam("pOrder_count") int product_count) throws Exception {
+		return cartService.insertCart(member_id, product_id, product_count);
 	}
-	
+
+	@PostMapping("/cartCheck")
+	public int cartCheck(@RequestParam("member_id") String member_id, @RequestParam("product_id") int product_id) {
+		return cartService.checkCart(member_id, product_id);
+	}
+
 	@PostMapping(value = "/sendMail.do")
 	public String mailSending(HttpServletRequest request) {
 		String setfrom = "ihimchan746@gmail.com";
@@ -53,8 +60,7 @@ public class ProductRestController {
 		String content = request.getParameter("content"); // 내용
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
-					true, "UTF-8");
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
 			messageHelper.setTo(tomail); // 받는사람 이메일
 			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다

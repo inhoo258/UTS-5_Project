@@ -11,7 +11,7 @@
 <body>
 <h1>home.jsp</h1>
 <h3></h3>
-	<jsp:include page="header/header.jsp"/>
+	<jsp:include page="header&footer/header.jsp"/>
 	<section>
 <!-- 		<div id="imgbox"> -->
 <!-- 			<img src="resources/test.jpg"> -->

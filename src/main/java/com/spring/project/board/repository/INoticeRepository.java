@@ -20,10 +20,6 @@ public interface INoticeRepository {
 	@Select("select * from(select rownum notice_rn,n.* from(select * from notice_board order by notice_number)n)where notice_rn=#{notice_rn}")
 	public NoticeVO getNotice(int notice_rn);
 	
-	//공지사항 등록
-	@Insert("insert into notice_board values(#{notice_content},sysdate,#{notice_title},#{notice_views})")
-	public void insertNotice(String notice_content, String notice_title, String notice_views);
-	
 	//공지사항 내용 수정
 	@Update("update notice_board set notice_content=#{notice_content}")
 	public void updateNotice(String notice_content);
@@ -33,4 +29,12 @@ public interface INoticeRepository {
 	public void updateViews(int notice_number);
 	@Select("select count(*) from notice_board")
 	public int getTotalCount();
+	//공지등록(파일 포함)
+	@Insert("insert into notice_board (notice_title,notice_content,notice_number,notice_file,notice_file_name) values(#{notice_title},#{notice_content},#{notice_number},#{notice_file},#{notice_file_name})")
+	public void insertNoticeWithFile(NoticeVO noticeVO);
+	//공지등록(파일 미포함)
+	@Insert("insert into notice_board (notice_title,notice_content,notice_number) values(#{notice_title},#{notice_content},#{notice_number})")
+	public void insertNotice(NoticeVO noticeVO);
+	@Select("select nvl(max(notice_number),0) from notice_board")
+	public int getMaxNoticeNumber();
 }
