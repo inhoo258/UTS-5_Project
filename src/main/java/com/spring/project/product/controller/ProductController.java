@@ -108,10 +108,18 @@ public class ProductController {
 	// 주문서 최종 주문 후 실행하는 코드(client용)----------------------힘찬
 	@PostMapping("/payment")
 	public String payment(OrdersVO ordersVO, 
-			@RequestParam("product_ids")int[] product_ids, 
-			@RequestParam("order_product_counts")int[] order_product_counts,
-			@RequestParam("order_prices")int[] order_prices, 
+			@RequestParam(value = "product_ids")int[] product_ids, 
+			@RequestParam(value = "order_product_counts")int[] order_product_counts,
+			@RequestParam(value = "order_prices")int[] order_prices, 
 			Model model) {
+		System.out.println("-------------payment in");
+		System.out.println("product_ids : "+product_ids);
+		System.out.println("product_ids len : "+product_ids.length);
+		System.out.println("order_pro_cnts : "+ order_product_counts);
+		System.out.println("order_pro_cnts len : "+ order_product_counts.length);
+		System.out.println("order-prices : "+order_prices);
+		System.out.println("order-prices len : "+order_prices.length);
+			
 			orderService.paymentInOrder(ordersVO,product_ids,order_product_counts,order_prices); //주문하는 곳에 넣는거고
 			productService.afterPayment(product_ids,order_product_counts); //상품 주문후 전체 수량에서 빼기
 			cartService.deleteCart(ordersVO.getMember_id(), product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
