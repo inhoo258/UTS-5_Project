@@ -1,42 +1,29 @@
-<<<<<<< HEAD
 @charset "UTF-8";
 
-/*css에서 안먹음==================*/
-
-.noice_section {
-	width: 1050px;
-	margin: 0 auto;
-	padding-top: 100px;
-}
-
-.notice_table {
-	border-collapse: collapse;
-	width: 1050px;
-	text-align: center;
-	color:#555;
-	border:1px solid red ;
-}
-
-.td_title {
-	text-align: left;
-	padding: 0 20px;
-	text-decoration: none;
-	cursor: pointer;
-	color: red;
-}
-
-.tr_notice {
-	height: 58px;
-}
-=======
-@charset "UTF-8";
-
+/*게시글 전체 div*/
 .noice_section{
-	 width: 1050px; 
-	 margin: 0 auto; 
-	 padding-top: 100px;
+    width: 1050px; 
+    margin: 0 auto; 
+    margin-bottom: 100px;
 }
 
+.btn_write{
+	width: 110px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #795b8f;
+    border: 1px solid #5f0080;
+    margin-bottom: 5px;
+    float: right;
+}
+
+.btn_write a{
+	color: #fff;
+    font-size: 14px;
+	
+}
+
+/*notice 테이블*/
 .notice_table{
 border-collapse: collapse; 
 width: 1050px;
@@ -45,12 +32,12 @@ color: #4c4c4c;
 }
 
 .tr_notice{
-	height: 56px;
-	border-top: 1px solid #999;;
+   height: 56px;
+   border-top: 1px solid #999;;
 }
 
 .th_notice{
-	border-top: 3px solid #5f0080;
+   border-top: 3px solid #5f0080;
 }
 
 .td_title{
@@ -62,21 +49,53 @@ color: red;
 }
 
 .a_title{
-	color: #4c4c4c ;
+   color: #4c4c4c ;
 }
-
+/*페이징 처리*/
 .notice_paging{
-	padding: 50px;
-	border-bottom: 1px solid #5f0080;
-	border-top: 1px solid #5f0080;
+   padding: 50px;
+   border-bottom: 1px solid #5f0080;
+   border-top: 1px solid #5f0080;
+}
+.a_paging{
+	width:34px; height:34px;
+	display:inline;
+    font-size: 14px;
+    color: #505050;
+    text-align: center;
+    line-height: 34px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-left:none;
 }
 
+.a_paging:hover{
+	background-color: #f7f7f7;
+    color: #5f0080;
+}
 
+.end_paging{
+    border-right: 1px solid #ddd;
+}
+
+/*검색 */
 input,text:focus {
         outline: none;
    }
 
-.fas{
-	font-size: 19px;
+.notice_search{
+	display: flex; 
+	float: right;
+	margin: 20px 0 20px 0;
 }
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
+
+.search_img{
+	width: 40px; height: 42px; 
+	background-color: #795c90; 
+	color: white; 
+	line-height: 40px;
+}
+
+.fas{
+   font-size: 19px;
+}
