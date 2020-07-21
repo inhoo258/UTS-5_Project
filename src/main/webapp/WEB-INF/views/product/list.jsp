@@ -11,11 +11,13 @@
 <body>
 	<jsp:include page="../header&footer/header.jsp"/>
 	<c:forEach var="product" items="${productList}">
+	<div>
 		<a href='<c:url value="/product/${product.product_id}"/>'>${product.product_id}.</a><br>
 		${product.product_name}<br>
 		<img src='<c:url value="/product/img/${product.product_id}"/>' width="500px" height="500px"><br>
 		${product.product_info}
-		<hr>
+	</div>
 	</c:forEach>
+	<jsp:include page ="../header&footer/footer.jsp"/>
 </body>
 </html>
