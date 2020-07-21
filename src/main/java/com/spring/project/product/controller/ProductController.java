@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.project.member.service.IMemberService;
+import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
@@ -73,52 +74,69 @@ public class ProductController {
 //
 	// 주문서 최종 주문하기전에 실행하는 코드(client용)
 	@PostMapping("/ordersheet")
-	public String getOrderSheet(@RequestParam("member_id")String member_id,@RequestParam(value = "product_id", required = false, defaultValue = "0")int product_id,@RequestParam(value = "pOrder_count",required = false, defaultValue = "0")int pOrder_count, Model model) {
-		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id)); 	// 회원정보
-		if(product_id != 0) {
-			model.addAttribute("productInfo", productService.getProduct(product_id));	// 개인구매상품 정보
-			model.addAttribute("productMemInfo", memberService.getMemberInfo(productService.getProduct(product_id).getMember_id())); //독립상품 구매시 판매자 정보
+	public String getOrderSheet(
+			@RequestParam("member_id")String member_id,
+			@RequestParam(value = "product_id", required = false, defaultValue = "0")int product_id,
+			@RequestParam(value = "pOrder_count",required = false, defaultValue = "0")int pOrder_count,
+			@RequestParam(value="product_ids",required = false)int[]product_ids,
+			Model model) {
+		System.out.println("-------------------ordersheet in");
+		System.out.println("member_id : "+member_id);
+		System.out.println("product_id : " + product_id);
+		System.out.println("pOrder_count : "+pOrder_count);
+		System.out.println("product_ids : "+product_ids);
+		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id)); 	// 구매중인 회원정보
+		//장바구니 통하지 않은 바로 구매 요청 처리
+		if(product_id != 0 && pOrder_count!=0 && product_ids==null) {
+			System.out.println("product/view 통한 요청처리");
+			ProductsVO product = productService.getProduct(product_id);
+			model.addAttribute("productInfo", product);	// 개인구매상품 정보
+			model.addAttribute("productMemInfo", memberService.getMemberInfo(product.getMember_id())); //독립상품 구매시 판매자 정보
+			model.addAttribute("pOrder_count",pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
+			model.addAttribute("cartList", cartService.getCart(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
+		//장바구니 통한 구매 요청 처리
+		}else if(product_id==0&&pOrder_count==0&&product_ids!=null){
+			System.out.println("product/cart 통한 요청 처리");
+			System.out.println("product_ids.length : "+product_ids.length);
+			model.addAttribute("cartList",cartService.getSelectedCart(member_id,product_ids));//선택된 상품의 정보와 상품 판매자 정보
+		}else {
+			System.out.println("ordersheet의 뭔가가 잘못되었음");
 		}
-		if(pOrder_count != 0) model.addAttribute("pOrder_count",pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
-		model.addAttribute("cartList", cartService.getCart(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
 		return "product/ordersheet";
 	}
 	
-	// 주문서 최종 주문 후 실행하는 코드(client용)
+	// 주문서 최종 주문 후 실행하는 코드(client용)----------------------힘찬
 	@PostMapping("/payment")
-	public String payment(@RequestParam("member_id")String member_id, @RequestParam("pOrder_count")int pOrder_count,@RequestParam("cart_Id_List")int[] product_ids,@RequestParam("cart_product_count")int[] cart_product_count, @RequestParam("pOrder_count")int product_id, Model model) {
-//		ArrayList<Object> products = null;
-//		Map<String, Object> productsVoList = null;
-//		ProductsVO product = productService.getProduct(product_id); //바로 주문 상품의 정보들을 캐오는 메소드
-//		int productCount = pOrder_count; //바로 주문 상품의 정보들을 캐오는 메소드
-//		
-//		int putMapNumProduct =0; // 개인상품 Array에 넣어줄 변수
-//		for(int i=0; i < product_ids.length; i++) { //장바구니 상품들의 각각 정보들 캐오는 메소드
-//			products.clear(); //각 장바구니 상품들을 따로 넣어주기위한 null작업
-//			products.add(productService.getProduct(product_ids[i]));
-//			products.add(cart_product_count[i]);
-//			productsVoList.put("cartProduct_Count"+i, products);//장바구니 상품들의 각 정보들의 객체를 담는 Map
-//			products.clear();
-//		}
-//		products.add(product); // 바로구매 상품 넣어주기
-//		products.add(productCount); //바로 구매 상품 주문 갯수 넣어주기
-//		productsVoList.put("directproduct", products);
-//		orderService.modifyDb(product,productsVoList,cart_product_count);
-//		orderService.insertOrder();
-//		cartService.deleteCart(member_id, product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
-		return "product/payment";
+	public String payment(OrdersVO ordersVO, 
+			@RequestParam(value = "product_ids")int[] product_ids, 
+			@RequestParam(value = "order_product_counts")int[] order_product_counts,
+			@RequestParam(value = "order_prices")int[] order_prices, 
+			Model model) {
+		System.out.println("-------------payment in");
+		System.out.println("product_ids : "+product_ids);
+		System.out.println("product_ids len : "+product_ids.length);
+		System.out.println("order_pro_cnts : "+ order_product_counts);
+		System.out.println("order_pro_cnts len : "+ order_product_counts.length);
+		System.out.println("order-prices : "+order_prices);
+		System.out.println("order-prices len : "+order_prices.length);
+			
+			orderService.paymentInOrder(ordersVO,product_ids,order_product_counts,order_prices); //주문하는 곳에 넣는거고
+			productService.afterPayment(product_ids,order_product_counts); //상품 주문후 전체 수량에서 빼기
+			cartService.deleteCart(ordersVO.getMember_id(), product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
+			return "product/payment";
 	}
+	//===========================================================힘찬
 	
-//
-//	// 장바구니>>주문목록
-//	@RequestMapping("")
-//	public String insertOrder(@ModelAttribute("order") @Validated OrdersVO order, Model model) {
-//		orderService.insertOrder(order.getMember_id(), order.getProduct_id(), order.getOrder_date(),
-//				order.getOrder_receiver_addr(), order.getOrder_receiver_name(), order.getOrder_receiver_tel(),
-//				order.getOrder_product_count(), order.getOrder_price(), order.getOrder_request());
-//		return "";
-//	}
-//
+	// 결제 완료 후 나의 주문서 ===========================================지현
+	@GetMapping("/myorderlist/{userId}")
+	public String myOrderLIst(@PathVariable("userId")String member_id, Model model) {
+		model.addAttribute("myOrderList", orderService.getMyOrderList(member_id));
+		return "product/myorderlist";
+	}
+	//===========================================================지현
+
+	
+	
 //	// 주문 취소시 삭제
 //	@RequestMapping("")
 //	public String deleteOrder(@PathVariable String member_id, int product_id) {
@@ -158,13 +176,6 @@ public class ProductController {
 		ResponseEntity<byte[]> image = new ResponseEntity<byte[]>(product_img,header,HttpStatus.OK);
 		return image;
 	}
-//	// 한개의 상품 정보
-//	@RequestMapping("")
-//	public String getProduct(@PathVariable int product_id, Model model) {
-//		ProductsVO product = productService.getProduct(product_id);
-//		model.addAttribute("product", product);
-//		return "";
-//	}
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
 	public String getProduct(@PathVariable("product_id")int product_id, Model model) {

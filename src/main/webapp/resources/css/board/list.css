@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @charset "UTF-8";
 
 /*css에서 안먹음==================*/
@@ -27,3 +28,55 @@
 .tr_notice {
 	height: 58px;
 }
+=======
+@charset "UTF-8";
+
+.noice_section{
+	 width: 1050px; 
+	 margin: 0 auto; 
+	 padding-top: 100px;
+}
+
+.notice_table{
+border-collapse: collapse; 
+width: 1050px;
+text-align: center;
+color: #4c4c4c;
+}
+
+.tr_notice{
+	height: 56px;
+	border-top: 1px solid #999;;
+}
+
+.th_notice{
+	border-top: 3px solid #5f0080;
+}
+
+.td_title{
+text-align: left; 
+padding:0 20px;
+text-decoration: none;
+cursor: pointer;
+color: red;
+}
+
+.a_title{
+	color: #4c4c4c ;
+}
+
+.notice_paging{
+	padding: 50px;
+	border-bottom: 1px solid #5f0080;
+	border-top: 1px solid #5f0080;
+}
+
+
+input,text:focus {
+        outline: none;
+   }
+
+.fas{
+	font-size: 19px;
+}
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git

@@ -15,6 +15,7 @@
 <body>
 	<jsp:include page="../header&footer/header.jsp" />
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<form action='<c:url value="/member/${message}"/>' method="post"
 		onsubmit="return inputCheck()">
 		<!-- -------------- formtag  -->
@@ -27,21 +28,21 @@
 					class="id" name="member_id" id="member_id"
 					${not empty member ? "readonly":"placeholder='아이디를 입력하세요' autocomplete='off'"}></th>
 			</tr>
-			<tr>
-				<td colspan="2"><font id="id_check"></font></td>
+			<tr >
+				<td colspan="2" class="id_check"><font id="id_check"></font></td>
 			</tr>
 			<tr>
 				<th colspan="2"><input type="password" class="password"
 					name="member_pw" id="member_pw" placeholder='비밀번호를 입력하세요'></th>
 			</tr>
-			<tr>
+			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="pw_check"></font></td>
 			</tr>
 			<tr>
 				<th colspan="2"><input type="password" class="password"
 					id="member_pw_ok" placeholder='비밀번호 확인'></th>
 			</tr>
-			<tr>
+			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="pw_check_msg"></font></td>
 			</tr>
 			<tr>
@@ -49,7 +50,7 @@
 					value="${member.member_name}" class="id" name="member_name"
 					id="member_name" autocomplete="off" placeholder='이름을 입력하세요'></th>
 			</tr>
-			<tr>
+			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="name_check"></font></td>
 			</tr>
 			<tr>
@@ -57,7 +58,7 @@
 					class="id" name="member_tel" id="member_tel" autocomplete="off"
 					placeholder='전화번호를 입력하세요. (예 : 01012345678)'></th>
 			</tr>
-			<tr>
+			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="tel_check"></font></td>
 			</tr>
 			<tr>
@@ -65,7 +66,7 @@
 					value="${member.member_addr}" class="id" name="member_addr"
 					id="member_addr" autocomplete="off" placeholder='주소를 입력하세요'></th>
 			</tr>
-			<tr>
+			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="addr_check"></font></td>
 			</tr>
 			<tr>
@@ -74,7 +75,7 @@
 					id="member_email" autocomplete="off"
 					placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'></th>
 			</tr>
-			<tr>
+			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="email_check"></font></td>
 			</tr>
 			<c:if test="${empty member}">
@@ -104,8 +105,20 @@
 				<th colspan="2"><input type="button" id="canbutton" value="취소"
 					onclick="window.history.back()"></th>
 			</tr>
-
 		</table>
+<div class="form-group">
+        <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1"
+            type="text" readonly="readonly">
+        <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호
+            찾기</button>
+    </div>
+    <div class="form-group">
+        <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text"
+            readonly="readonly" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" />
+    </div>
 	</form>
 	
 	<!--============================================================================== 아직 미흡한 부분 -->
@@ -114,6 +127,7 @@
 
 
 -->
+
 	<script type="text/javascript">
 		
 	
@@ -170,30 +184,36 @@
         $("#member_pw").blur(function(){
             member_pw = document.getElementById("member_pw").value;
             if(member_pw.length==0){
+            	document.getElementsByClassName("input_check")[0].style.display='';
                 document.getElementById("pw_check").innerText="필수 항목입니다.";
                 pw_check=false;
             }else if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#]).{10,15}$/.test(member_pw)){
     // 			alert("fail")
+    			document.getElementsByClassName("input_check")[0].style.display='';
                 document.getElementById("pw_check").innerText="10~15자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
                 pw_check=false;
             }else{
     // 			alert("pass")
                 document.getElementById("pw_check").innerText="";
+                document.getElementsByClassName("input_check")[0].style.display='none';
                 pw_check=true;
             }
             $("#member_pw_ok").trigger("blur");
         });
         $("#member_pw_ok").blur(function(){
-            member_pw_ok = document.getElementById("member_pw_ok").value
+            member_pw_ok = document.getElementById("member_pw_ok").value;
                 if(member_pw_ok.length==0){
+                	document.getElementsByClassName("input_check")[1].style.display='';
                     document.getElementById("pw_check_msg").innerText="비밀번호를 일치시켜주세요.";
                     pw_ok_check=false;
                 }
                 else if(member_pw != member_pw_ok){
+                	document.getElementsByClassName("input_check")[1].style.display='';
                     document.getElementById("pw_check_msg").innerText="비밀번호가 일치하지 않습니다.";
                     pw_ok_check=false;
                 }else{
                     document.getElementById("pw_check_msg").innerText="";
+                    document.getElementsByClassName("input_check")[1].style.display='none';
                     pw_ok_check=true;
                 }
         });
@@ -201,50 +221,61 @@
         $("#member_name").blur(function(){
             let member_name = document.getElementById("member_name").value
             if(member_name.length==0){
+            	document.getElementsByClassName("input_check")[2].style.display='';
                 document.getElementById("name_check").innerText="필수 항목입니다.";
                 name_check=false;
                 
             }else if(!/^[가-힣]+$/.test(member_name)){
+            	document.getElementsByClassName("input_check")[2].style.display='';
                 document.getElementById("name_check").innerText="가 나 다 형식으로 입력해주세요.";
             }
             else{
                 document.getElementById("name_check").innerText="";
+                document.getElementsByClassName("input_check")[2].style.display='none';
                 name_check=true;
             }
         });
         $("#member_tel").blur(function(){
             let member_tel= document.getElementById("member_tel").value
             if(member_tel.length==0){
+            	document.getElementsByClassName("input_check")[3].style.display='';
                 document.getElementById("tel_check").innerText="필수 항목입니다.";
                 tel_check=false;
             }else if(!/^[0][1]\d{1}\d{3,4}\d{4}$/.test(member_tel)){ //------------------------------------------------**
+            	document.getElementsByClassName("input_check")[3].style.display='';
                 document.getElementById("tel_check").innerText="잘못된 형식입니다.";
                 tel_check=false;
             }else{
                 document.getElementById("tel_check").innerText="";
+                document.getElementsByClassName("input_check")[3].style.display='none';
                 tel_check=true;
             }
         });
         $("#member_addr").blur(function(){
             let member_addr = document.getElementById("member_addr").value
             if(member_addr.length==0){
+            	document.getElementsByClassName("input_check")[4].style.display='';
                 document.getElementById("addr_check").innerText="필수 항목입니다.";
                 addr_check=false;
             }else{
                 document.getElementById("addr_check").innerText="";
+                document.getElementsByClassName("input_check")[4].style.display='none';
                 addr_check=true;
             }
         });
         $("#member_email").blur(function(){
             let member_email = document.getElementById("member_email").value
             if(member_email.length==0){
+            	document.getElementsByClassName("input_check")[5].style.display='';
                 document.getElementById("email_check").innerText="필수 항목입니다.";
                 email_check=false;
             }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
+            	document.getElementsByClassName("input_check")[5].style.display='';
                 document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
                 email_check=false;
             }else{
                 document.getElementById("email_check").innerText="";
+                document.getElementsByClassName("input_check")[5].style.display='none';
                 email_check=true;
             }
         });
@@ -274,7 +305,45 @@
     	}else{
 	    	$(".forSeller").hide();
     	}
-    })
+    });
+    function execPostCode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if (extraRoadAddr !== '') {
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if (fullRoadAddr !== '') {
+                    fullRoadAddr += extraRoadAddr;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                // $("[name=addr1]").val(data.zonecode);
+                // $("[name=addr2]").val(fullRoadAddr);
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('addr2').value = fullRoadAddr;
+                // document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                // document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress;
+            }
+        }).open();
+    }
     </script>
 </body>
 </html>

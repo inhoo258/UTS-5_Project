@@ -9,7 +9,25 @@ public class NoticeVO {
 	private String notice_content;
 	private Date notice_date;
 	private int notice_views;
+	private byte[] notice_file;
+	private String notice_file_name;
 	
+	public byte[] getNotice_file() {
+		return notice_file;
+	}
+
+	public void setNotice_file(byte[] notice_file) {
+		this.notice_file = notice_file;
+	}
+
+	public String getNotice_file_name() {
+		return notice_file_name;
+	}
+
+	public void setNotice_file_name(String notice_file_name) {
+		this.notice_file_name = notice_file_name;
+	}
+
 	public int getNotice_rn() {
 		return notice_rn;
 	}
