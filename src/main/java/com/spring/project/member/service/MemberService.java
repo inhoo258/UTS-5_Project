@@ -63,7 +63,7 @@ public class MemberService implements IMemberService {
 	public int getPermissionCount(String permission_word) {
 		if (permission_word != null) {
 			if (!permission_word.equals("")) {
-				memberRepository.getSelectPermissionCount(permission_word);
+				return memberRepository.getSelectPermissionCount(permission_word);
 			}
 		}
 		return memberRepository.getPermissionCount();

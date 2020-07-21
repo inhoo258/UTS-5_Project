@@ -49,7 +49,7 @@ input[type="button"]{width: 100px; height: 30px;}
   }
 .m_tablediv{ /* chan : table 을 감사고 있는 테이블 */
 	width: 1600px; /*chan : 테이블 크기 조정할 때 여기서 조정해주셔야해요 이유 바로 밑에 table 사이즈를 이 div로 맞춰놨습니다. */
-	background-color: black; /*chan : 위와 같이 색상도 동일*/
+	background-color: #000000; /*chan : 위와 같이 색상도 동일*/
 	opacity: 0.5;
 }
 .m_tablediv> table{ /* chan : table 설정은 단순하게 했습니다.*/
@@ -67,7 +67,7 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 .checkbox{
 	margin-left: 10px;
 	padding-top: 5px;
-	width: 150px;
+/* 	width: 30px; */
 	height: 30px;
 	
 }
@@ -81,7 +81,7 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	cursor: pointer;
 }
 .text{
-	width: 100px;
+	width: 100%;
 }
 .checkbox .icon {
 	position: relative;
@@ -107,7 +107,7 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 
 .checkbox .text {
 	margin-left: 5px;
-	width: 120px;
+	width: 30px;
 	font-weight: bold;
 }
 
@@ -142,13 +142,14 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 .container ul.tab {
 	display: flex;
 	height: 60px;
-	border-bottom: 1px solid #5da62b;
+	border-bottom: 2px solid #0066cc;
 } /*flex를 사용하기 위해서는 부모가 flex여야한다.*/
 .container ul.tab li {
 	flex: 1;
 } /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
 .container ul.tab li:first-child {
-	border-left: 1px solid #ddd;
+/* 	border-left: 2px solid #10caf1; */
+
 } /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
 .container ul.tab li a {
 	/*li가 아닌 a태그에 높이를 줘야 클릭할 수 있는 범위가 넓어진다. a는 인라인요소라서 블록요소로 바꿔줘서 가로세로 100%로 만들어준다. */
@@ -159,18 +160,22 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	text-align: center;
 	line-height: 59px;
 	text-decoration: none;
-	border: 1px solid #ddd;
-	border-left: none;
+	border: 2px solid #ddd;
+/* 	border-left: none; */
 	border-bottom: none;
+	
 }
 
 .container ul.tab li a.on {
 	position: relative;
 	height: 58px;
-	border-color: #5da62b;
+	border-color: #0066cc;
+	
 	border-top-width: 2px;
 	line-height: 57px;
-	border-bottom: 1px solid #fff;
+	border-bottom: 2px solid #fff;
+/* 	background-color: #10caf1;  */
+/* 	배경 */
 }
 
 .container ul.tab li a.on:before {
@@ -181,7 +186,7 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	width: 1px;
 	height: 100%;
 	background: #5da62b;
-	border-top: 2px solid #5da62b;;
+	border-top: 2px solid #0066cc;
 }
 
 /* ============================================= Chan : 체스박스 CSS END */
