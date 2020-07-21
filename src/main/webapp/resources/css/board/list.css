@@ -10,9 +10,17 @@
 border-collapse: collapse; 
 width: 1050px;
 text-align: center;
+color: #4c4c4c;
 }
 
+.tr_notice{
+	height: 56px;
+	border-top: 1px solid #999;;
+}
 
+.th_notice{
+	border-top: 3px solid #5f0080;
+}
 
 .td_title{
 text-align: left; 
@@ -20,4 +28,23 @@ padding:0 20px;
 text-decoration: none;
 cursor: pointer;
 color: red;
+}
+
+.a_title{
+	color: #4c4c4c ;
+}
+
+.notice_paging{
+	padding: 50px;
+	border-bottom: 1px solid #5f0080;
+	border-top: 1px solid #5f0080;
+}
+
+
+input,text:focus {
+        outline: none;
+   }
+
+.fas{
+	font-size: 19px;
 }
