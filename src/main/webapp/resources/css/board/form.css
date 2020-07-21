@@ -31,12 +31,11 @@
  padding: 10px;
 }
 
-/*글 제목 클릭 시 포커스 테두리 안생기게하는 cssS*/
+/*글 제목 클릭 시 포커스 테두리 안생기게하는 css*/
 input,text:focus {
         outline: none;
    }
-
-/*textarea css 안먹음*/   
+  
 textarea:focus {
         outline: none;
    }
