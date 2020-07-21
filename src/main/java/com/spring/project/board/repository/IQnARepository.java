@@ -11,8 +11,8 @@ import com.spring.project.board.model.QnAVO;
 public interface IQnARepository {
 	
 	//qna 전체 목록 출력
-	@Select("select * from q_n_a_board order by rownum desc")
-	public ArrayList<QnAVO> getQnAList();
+	@Select("select * from(select rownum qna_rn,n.* from (select * from q_n_a_board order by q_group) n)where qna_rn between #{0} and #{1} order by qna_rn desc")
+	public ArrayList<QnAVO> getQnAList(int start, int end);
 	
 	//qna 수정
 	@Update("update Q_N_A_board set q_title=#{q_title},q_content=#{q_content} where member_id=#{member_id}")

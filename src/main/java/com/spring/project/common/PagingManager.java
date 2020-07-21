@@ -8,6 +8,7 @@ public class PagingManager {
 	private int startPage;
 	private int endPage;
 	private int totalCount;
+	
 	public PagingManager(int totalCount, int nowPage) {
 		this.nowPage = nowPage;
 		this.totalCount=totalCount;

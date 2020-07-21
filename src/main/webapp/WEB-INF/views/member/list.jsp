@@ -8,17 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/member/list.css'/>" />
-
-<style type="text/css">
-</style>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/member/list.css'/>" />
 </head>
 <body>
-
 	<sec:authorize access="hasRole('ROLE_MASTER')">
 		<jsp:include page="../header&footer/header.jsp" />
 
@@ -47,8 +40,7 @@
 								<tr>
 									<td>number</td>
 									<th><button type="button" id="member_Checkall">모두 선택</button></th>
-									<td>ID<br>Name<br>Auth
-									</td>
+									<td>ID<br>Name<br>Auth</td>
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -103,16 +95,14 @@
 										</form>
 									</td>
 									<td colspan="7" align="right" style="padding-right: 20px">검색
-										: <input type="text"> <input type="button" value="찾기"
-										onclick="">
+										: <input type="text"> <input type="button" value="찾기" onclick="">
 									</td>
 								</tr>
 
 								<tr>
 									<td>number</td>
 									<th><button type="button" id="permission_Checkall">모두 선택</button></th>
-									<td>ID<br>Name<br>Auth
-									</td>
+									<td>ID<br>Name<br>Auth</td>
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -354,6 +344,8 @@
 		$(".permission_cnt").click(function() {
 			let cnt = $(".permission_cnt").index(this) + 1;
 			sessionStorage.setItem("message" , "page_2");
+			console.log(paging_member_number);
+			console.log(cnt);
 			if(paging_member_number == 1 || paging_member_number ==""){
 				location.href="<c:url value='/member/list?permissionpage="+cnt+"&memberpage=1'/>";
 			}else{

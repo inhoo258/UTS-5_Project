@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>noticeList</title>
 </head>
 <body>
 <jsp:include page="../../header&footer/header.jsp"/>
@@ -35,17 +35,15 @@
 			<td colspan="4"><c:if test="${pagingManager.nowPage ne 1}">
 					<a href="<c:url value='/board/notice/list?page=1'/>">처음</a>
 				</c:if> <c:if test="${pagingManager.nowBlock gt 1 }">
-					<button
-						onclick='location.href="<c:url value='/board/notice/list?page=${pagingManager.startPage-1}'/>"'>이전</button>
-				</c:if> <c:forEach var="i" begin="${pagingManager.startPage}"
-					end="${pagingManager.endPage}">
-[<a href='<c:url value="/board/notice/list?page=${i}"/>'>${i}</a>]
-</c:forEach> <c:if test="${pagingManager.nowBlock lt pagingManager.totalBlock}">
-					<button
-						onclick='location.href="<c:url value='/board/notice/list?page=${pagingManager.endPage+1}'/>"'>다음</button>
+					<button	onclick='location.href="<c:url value='/board/notice/list?page=${pagingManager.startPage-1}'/>"'>이전</button>
+				</c:if> 
+				<c:forEach var="i" begin="${pagingManager.startPage}" end="${pagingManager.endPage}">
+					[<a href='<c:url value="/board/notice/list?page=${i}"/>'>${i}</a>]
+				</c:forEach>
+				<c:if test="${pagingManager.nowBlock lt pagingManager.totalBlock}">
+					<button	onclick='location.href="<c:url value='/board/notice/list?page=${pagingManager.endPage+1}'/>"'>다음</button>
 				</c:if> <c:if test="${pagingManager.nowPage ne pagingManager.totalPage}">
-					<a
-						href="<c:url value='/board/notice/list?page=${pagingManager.totalPage}'/>">끝</a>
+					<a href="<c:url value='/board/notice/list?page=${pagingManager.totalPage}'/>">끝</a>
 				</c:if></td>
 		</tr>
 	</table>
