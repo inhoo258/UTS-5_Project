@@ -21,8 +21,6 @@ public interface IProductRepository {
 	@Select("select * from products where product_id=#{product_id}")
 	public ProductsVO getProduct(int product_id);
 	
-	//상품 입고
-	
 	//재고 삭제
 	@Delete("delete from products where product_id=#{product_id}")
 	public void deleteProduct(int product_id);
@@ -42,5 +40,9 @@ public interface IProductRepository {
 			+ "(product_id, member_id, product_info, product_img, product_name, product_count, product_price, product_weight, product_img_name) "
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_img}, #{product_name}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
-
+	
+	//주문 완료 후 총 수량 수정
+	@Update("update products set product_count=#{1} where product_id=#{0}")
+	public void afterPayment(int product_id, int discount);
+	
 }
