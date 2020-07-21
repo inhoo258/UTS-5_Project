@@ -1,23 +1,29 @@
 @charset "UTF-8";
 
-.noice_section{
-	 width: 1050px; 
-	 margin: 0 auto; 
-	 padding-top: 100px;
+/*css에서 안먹음==================*/
+
+.noice_section {
+	width: 1050px;
+	margin: 0 auto;
+	padding-top: 100px;
 }
 
-.notice_table{
-border-collapse: collapse; 
-width: 1050px;
-text-align: center;
+.notice_table {
+	border-collapse: collapse;
+	width: 1050px;
+	text-align: center;
+	color:#555;
+	border:1px solid red ;
 }
 
+.td_title {
+	text-align: left;
+	padding: 0 20px;
+	text-decoration: none;
+	cursor: pointer;
+	color: red;
+}
 
-
-.td_title{
-text-align: left; 
-padding:0 20px;
-text-decoration: none;
-cursor: pointer;
-color: red;
+.tr_notice {
+	height: 58px;
 }
