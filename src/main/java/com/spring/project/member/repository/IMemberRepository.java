@@ -53,16 +53,36 @@ public interface IMemberRepository {
 			+ " from members m join authorities au on m.member_id=au.member_id) where rn between #{0} and #{1}")
 	public List<MemberVO> getMemberList(int start, int end);
 
+	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
+			+ "from members m join authorities au on m.member_id=au.member_id where m.member_id like '%'||#{2}||'%' or m.member_name like '%'||#{2}||'%') "
+			+ "where rn between #{0} and #{1}")
+	public List<MemberVO> getSelectMemberList(int start, int end, String member_word);
+
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id")
 	public int getMemberCount();
+	
+	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%'")
+	public int getSelectMemberCount(String member_word);
 
 	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth "
 			+ "from members m join authorities au on m.member_id=au.member_id where member_enabled = 0) "
 			+ "where rn between #{0} and #{1} ")
-	public List<MemberVO> getMemberPermission(int start, int end);
+	public List<MemberVO> getPermissionList(int start, int end);
 
+	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_addr, member_email, member_enabled, au.authority as member_auth " 
+			+ "from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 and m.member_id like '%'||#{2}||'%' or m.member_name like '%'||#{2}||'%')"
+			+ "where rn between #{0} and #{1}")
+	public List<MemberVO> getSelectPermissionList(int start , int end ,String permission_word);
+	
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 ")
 	public int getPermissionCount();
+	
+	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 and m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%' ")
+	public void getSelectPermissionCount(String permission_word);
 	// ================================================================================
+
+
+
+	
 
 }
