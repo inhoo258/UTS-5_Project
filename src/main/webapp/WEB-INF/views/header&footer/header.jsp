@@ -92,7 +92,7 @@
 							<sec:authorize access="hasAnyRole('ROLE_CUSTOMER','ROLE_MASTER')">
 								<li class="animated-button thar-four"><a id="H_a" href="#">나의정보</a></li>
 								<li class="animated-button thar-four"><a id="H_a" href="<c:url value='/product/cart/${member_id}'/>">장바구니</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href="#">주문내역</a></li>
+								<li class="animated-button thar-four"><a id="H_a" href='<c:url value = "/product/myorderlist/${member_id}"/>'>주문내역</a></li>
 							</sec:authorize>
 							<sec:authorize access="hasRole('ROLE_MASTER')">
 								<li class="animated-button thar-four"><a id="H_a"

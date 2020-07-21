@@ -48,18 +48,20 @@ public class MemberController {
 
 	@RequestMapping("/list")
 	public void getMemberList(@RequestParam(required=false, defaultValue="1")int memberpage, 
-			@RequestParam(required=false)String word, Model model ,@RequestParam(required=false, defaultValue="1")int permissionpage,
-			@RequestParam(value="message" ,required = false)String message) {
-		System.out.println("permissionpage : " + permissionpage);
-		System.out.println("memberpage : " + memberpage);
-		System.out.println("message : " +message);
-		System.out.println("membercount : " + memberSerivce.getMemberCount());
-		System.out.println("permissioncount : " + memberSerivce.getPermissionCount());
+			@RequestParam(required=false )String member_word, @RequestParam(required=false )String permission_word, 
+			@RequestParam(required=false, defaultValue="1")int permissionpage,
+			@RequestParam(value="message" ,required = false)String message ,Model model) {
+		System.out.println(permission_word);
+		System.out.println(member_word);
 		
-		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage));
-		model.addAttribute("memberPage",new PagingManager(memberSerivce.getMemberCount(),memberpage));
-		model.addAttribute("permission" , memberSerivce.getMemberPermission(permissionpage));
-		model.addAttribute("permissionPage",new PagingManager(memberSerivce.getPermissionCount(),permissionpage));
+		model.addAttribute("memberlist" , memberSerivce.getMemberList(memberpage , member_word));
+		System.out.println("1번확인");
+		model.addAttribute("memberPage",new PagingManager(memberSerivce.getMemberCount(member_word),memberpage));
+		System.out.println("2번확인");
+		model.addAttribute("permission" , memberSerivce.getPermissionList(permissionpage , permission_word));
+		System.out.println("3번확인");
+		model.addAttribute("permissionPage",new PagingManager(memberSerivce.getPermissionCount(permission_word),permissionpage));
+		System.out.println("4번확인");
 	}
 	
 	
@@ -102,9 +104,6 @@ public class MemberController {
 		}
 		return "redirect:/logout";
 	}
-	
-	
-	
 	@RequestMapping("/info/{userId}")
 	public String getMember(@PathVariable("userId")String userId, Model model) {
 		model.addAttribute("member",memberSerivce.getMemberInfo(userId));

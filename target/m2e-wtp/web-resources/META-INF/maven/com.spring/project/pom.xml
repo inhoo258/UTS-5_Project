@@ -199,7 +199,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.mail</groupId>
+			<groupId>com.sun.mail</groupId>w
 			<artifactId>javax.mail</artifactId>
 			<version>1.5.6</version>
 		</dependency>

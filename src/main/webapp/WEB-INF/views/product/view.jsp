@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +21,15 @@
                             <span id="title"><span id="titletext">${product.product_name}</span></span>
                         </div>
                         <div>
+                        	<span id="key"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/>원</span>
+                        </div>
+                        <div>
                             <span id="key"><span id="keytext">판매 단위</span></span>
                             <span id="value"><span id="text">KG</span></span>
                         </div>
                         <div>
                             <span id="key"><span id="keytext">판매 중량</span></span>
-                            <span id="value"><span id="text">아직 미입력</span></span>
+                            <span id="value"><span id="text">${product.product_weight}kg</span></span>
                         </div>
                         <div>
                             <span id="key"><span id="keytext">배송구분</span></span>
@@ -58,21 +62,21 @@
 							</span>
                         </div>
                         <div>
-                        	<span id="p_tprice_key">총 상품 금액 :</span><span id="p_tprice_value"></span>
+                        	<span id="p_tprice_key">총 상품 금액 :</span><span id="p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span><span>원</span>
                         </div>
-                        <div>
-                        	<span id="request_key">요청사항</span><span id="request_value"><textarea rows="" cols=""></textarea></span>
-                        </div>
+<!--                         장바구에 요청사항은 굳이 필요 없는거 같아서 일단 주석 -->
+<!--                         <div> -->
+<!--                         	<span id="request_key">요청사항</span><span id="request_value"><textarea rows="" cols=""></textarea></span> -->
+<!--                         </div> -->
 						<div>
 							<form name='myForm'>
-								<input type="hidden" id = "pOrder_productid" name="product_id" value="${product.product_id}">
+								<input type="hidden" id = "pOrder_product_id" name="product_id" value="${product.product_id}">
 								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
-								<input type="hidden" id = "pOrder_memberid" name="member_id" value="<sec:authentication property="principal.username"/>">
+								<input type="hidden" id = "pOrder_member_id" name="member_id" value="<sec:authentication property="principal.username"/>">
 								<input type="button" value ="주문하기" onclick="redirectOrder()"> 
 								<input type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
-								<input type="button" value ="장바구니보기" onclick="redirectCart()"> 
 							</form>
-							<form action ='<c:url value ="/product/cart/${member_id }"/>'>
+							<form action ='<c:url value ="/product/cart/${member_id}"/>'>
 							</form>
 						</div>
                     </div>
@@ -104,71 +108,91 @@
 			   </ul>
 			</nav>
         </div>
-        
+        	
     </section>
 <hr>
 <jsp:include page="../header&footer/footer.jsp"/>
 </body>
 
 <script type="text/javascript">
+		let product_id = document.getElementById("pOrder_product_id").value;
+		let member_id = document.getElementById("pOrder_member_id").value;
+		let p_num = parseInt(document.getElementById("p_count_num").innerText);
+		let originalPrice = parseInt('${product.product_price}')
+		console.log("product_id : " + product_id);
+		console.log("member_id : "+member_id);
+		console.log("p_num : "+p_num);
+		console.log("originalPrice : " + originalPrice);
 	function p_count_plus() {
-		let p_num = parseInt(document.getElementById("p_count_num").innerText)
 		document.getElementById("p_minus_btn").disabled=false;
 		p_num += 1;
 		document.getElementById("p_count_num").innerText=p_num;
+		document.getElementById("p_tprice_value").innerText=(originalPrice*p_num).toLocaleString();
 	}
 	function p_count_minus() {
-		let p_num = parseInt(document.getElementById("p_count_num").innerText)
 		if(p_num > 1){
 			p_num -= 1;
 			if(p_num == 1){
 			document.getElementById("p_minus_btn").disabled="disabled";
 			}
-		}
 		document.getElementById("p_count_num").innerText=p_num;
+		document.getElementById("p_tprice_value").innerText=(originalPrice*p_num).toLocaleString();
+		}
 	}
 	function redirectOrder(){
-//	 	주문서로 이동하는 JS 메도스
-		let p_num = parseInt(document.getElementById("p_count_num").innerText);
-		document.getElementById("pOrder_count").value = p_num;
-		document.myForm.action = '<c:url value="/product/ordersheet"/>';
-		document.myForm.method = 'post';
-		document.myForm.submit();
+//	 	주문서로 이동하는 JS 메소드
+//		주문 전 카트에 해당 상품이 저장되어있는지 확인
+		$.ajax({
+			url:'<c:url value="/product/rest/cartCheck"/>',
+			type:'POST',
+			data : {
+				member_id : member_id,
+				product_id : product_id
+			},
+			success:function(data){
+				if(data==1){
+					document.getElementById("pOrder_count").value = p_num;
+					document.myForm.action = '<c:url value="/product/ordersheet"/>';
+					document.myForm.method = 'post';
+					document.myForm.submit();
+				}else{
+					let ans = confirm("이미 동일한 상품이 장바구니에 존재합니다.\n장바구니로 이동하시겠습니까?");
+					if(ans){
+						location.href="<c:url value='/product/cart/'/>"+member_id;
+					}
+				}
+			},
+			error:function(){
+				alert("오류")
+			}
+		})
 	}
 	
 	function redirectInsertCart(){
-//  	장바구니로 이동하는 JS 메소드
-		let p_num = parseInt(document.getElementById("p_count_num").innerText);
-		document.getElementById("pOrder_count").value = p_num;
-		let productId = document.getElementById("pOrder_productid").value;
-		let memberId = document.getElementById("pOrder_memberid").value;
-		let pOrderCount = document.getElementById("pOrder_count").value;
-		
 		var cartData = $("form[name=myForm]").serialize();
 		$.ajax({
 			url: '<c:url value="/product/rest/insertCart"/>',
 			type : "POST",
 			data : {
-				"memberid" : memberId,
-				"productId" : productId,
-				"pOrderCount" : pOrderCount
+				"member_id" : member_id,
+				"product_id" : product_id,
+				"pOrder_count" : p_num
 			},
 			success : function(data){
-				alert("장바구니 담기에 성공했습니다.");
+				if(data==1){
+					let ans = confirm("장바구니 담기에 성공했습니다.\n장바구니로 이동하시겠습니까?");
+					if(ans){
+						location.href="<c:url value='/product/cart/'/>"+member_id;
+					}
+				}else{
+					alert("이미 동일한 상품이 장바구니에 존재합니다.");
+				}
 				// 자바스크립트 모션넣어주세요!!
 			},error : function(){
-				alert("장바구니 담기에 실패했습니다.")
+				alert("오류")
 			}
 		});
 	};
-	
-	function redirectCart(){
-//	 	장바구니로 이동하는 JS 메도스
-		let memberId = document.getElementById("pOrder_memberid").value;
-		location.href = '<c:url value="/product/cart/"/>'+memberId;
-	}
-	
-	
 	
 	$(function(){
 	   $("ul.panel li:not("+$("ul.tab li a.on").attr("href")+")").hide() //class 속성에 on이 설정되어 있는 a태그의 href 속성을 가져오고 이 이외의 패널은 숨김.
