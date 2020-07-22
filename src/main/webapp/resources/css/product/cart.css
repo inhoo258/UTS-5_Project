@@ -5,6 +5,18 @@
     padding: 0;
 }
 
+<<<<<<< HEAD
+.h_parent{margin-bottom: 100px;}
+.pro_section { width: 1050px;}
+#ordersheet h1 {
+   font-size: 35px ; color: #333333; letter-spacing:-5px;
+   }
+#ordersheet .label {
+   color: #999; letter-spacing:-0.5px; font-weight: 700; 
+   }
+#ordersheet{ 
+   text-align: center; padding-bottom: 20px;}
+=======
 .pro_section { width: 1050px;}
 #ordersheet h1 {
 	font-size: 35px ; color: #333333; letter-spacing:-5px;
@@ -14,6 +26,7 @@
 	}
 #ordersheet{ 
 	text-align: center; padding-bottom: 20px;}
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 
 #orderGoodsList{border-top: 2px solid #5f0080; margin-top: 20px;}
 
@@ -66,8 +79,13 @@ content: "\f00c";
 .detail_table td
 {    border-bottom:1px solid #ddd; padding: 15px;}
 tr .td_emptyCart{
+<<<<<<< HEAD
+   border-bottom:none;
+   padding : 70px;
+=======
 	border-bottom:none;
 	padding : 70px;
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
 /*수량 버튼*/
 .quantity {
@@ -133,8 +151,13 @@ tr .td_emptyCart{
 .delete{
     margin: 0 0 40px 0;
     width: 100%;
+<<<<<<< HEAD
+   border-top: 2px solid #e5e5e5;
+   padding : 40px 0;
+=======
 	border-top: 2px solid #e5e5e5;
 	padding : 40px 0;
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
 
 .bottom_btn_delete{
@@ -176,23 +199,43 @@ tr .td_emptyCart{
 
 /*총금액 + 배송비 확인란 cart_result*/
 .list{
+<<<<<<< HEAD
+   margin: 0 auto;
+    width: 200px;
+=======
 	margin: 10px;
     width: 300px;
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
     height: 165px;
     border: 2px solid #ddd;
+<<<<<<< HEAD
+   display: flex;
+   align-items: center;
+=======
 	align-items: center;
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
 
 .tit{
+<<<<<<< HEAD
+   margin: 0 auto;
+   display: block;
+=======
 	margin: 0 auto;
 /* 	display: block; */
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
 
 
 .deco{
+<<<<<<< HEAD
+   padding: 80px 50px 80px 50px;
+   vertical-align: middle;
+=======
 	padding: 80px 0 80px 0;
 	vertical-align: middle;
 	width: 50px;
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 }
 
 .fas{
@@ -232,4 +275,7 @@ tr .td_emptyCart{
 /*     letter-spacing: -.4px; */
 /*     text-align: center; */
 /* } */
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git

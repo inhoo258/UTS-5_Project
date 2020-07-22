@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
@@ -12,28 +11,24 @@
 <title>cart</title>
 </head>
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/product/cart.css'/>" />
-<script src="https://kit.fontawesome.com/c2524284bc.js"
-	crossorigin="anonymous"></script>
+<link rel="stylesheet"   href="<c:url value='/resources/css/product/cart.css'/>" />
+<script src="https://kit.fontawesome.com/c2524284bc.js"  crossorigin="anonymous"></script>
 <body>
 
-	<jsp:include page="../header&footer/header.jsp" />
+   <jsp:include page="../header&footer/header.jsp" />
+   
+      <c:set var="member_id">
+         <sec:authentication property="principal.username" />
+      </c:set>
+      <c:set var="totalPrice" value="0" />
 
-	<c:set var="member_id">
-		<sec:authentication property="principal.username" />
-	</c:set>
-	<c:set var="totalPrice" value="0" />
-	<form action='<c:url value="/product/ordersheet"/>' method="POST"
-		id="updateCart">
-		<input type="hidden" name="member_id" value="${member_id}">
-		<div align="center" style="margin-top: 100px">
-			<div class="pro_section">
-				<div id="ordersheet">
-					<h1>장 바 구 니</h1>
-					<label class="label">주문하실 상품명 및 수량을 정확하게 확인해 주세요.</label>
-				</div>
-
+      <form action='<c:url value="/product/ordersheet"/>' method="POST" id="updateCart">
+      <div  align="center" style="margin-top: 100px">
+         <div class="pro_section">
+            <div id="ordersheet">
+               <h1>장 바 구 니</h1>
+               <label class="label">주문하실 상품명 및 수량을 정확하게 확인해 주세요.</label>
+            </div>
 				<div id="orderGoodsList">
 					<table class="detail_table">
 						<!-- 장바구니 상품 정보 상세보기 -->

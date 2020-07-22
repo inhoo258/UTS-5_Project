@@ -78,7 +78,7 @@ public interface IMemberRepository {
 	public int getPermissionCount();
 	
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 and m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%' ")
-	public void getSelectPermissionCount(String permission_word);
+	public int getSelectPermissionCount(String permission_word);
 	// ================================================================================
 
 
