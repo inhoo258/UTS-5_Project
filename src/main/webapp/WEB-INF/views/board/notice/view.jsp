@@ -38,6 +38,11 @@
 		</tr>
 	</c:if>
 </table>
+<<<<<<< HEAD
 <jsp:include page="../../header&footer/footer.jsp"/>
+=======
+
+	<div>글 삭제도 만들어야함~~~~~~~~~~~~</div>
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 </body>
 </html>

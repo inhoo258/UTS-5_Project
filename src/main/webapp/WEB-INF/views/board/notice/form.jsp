@@ -35,12 +35,20 @@
 					<td><input type="file" name="file"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit" value="등록"><input
-						type="reset" value="취소" onclick="window.history.back()"></td>
+					<td colspan="2">
+						<input type="submit" value="등록" class="btn">
+						<input type="reset" value="취소" class="btn" onclick="window.history.back()">
+					</td>
 				</tr>
 			</table>
 		</form>
+<<<<<<< HEAD
 	</div>
 	<jsp:include page="../../header&footer/footer.jsp" />
+=======
+	
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 </body>
 </html>
+
+

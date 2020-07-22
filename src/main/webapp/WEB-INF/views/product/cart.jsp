@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
@@ -12,37 +11,32 @@
 <title>cart</title>
 </head>
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/product/cart.css'/>" />
-<script src="https://kit.fontawesome.com/c2524284bc.js"
-	crossorigin="anonymous"></script>
+<link rel="stylesheet"   href="<c:url value='/resources/css/product/cart.css'/>" />
+<script src="https://kit.fontawesome.com/c2524284bc.js"  crossorigin="anonymous"></script>
 <body>
 
-	<jsp:include page="../header&footer/header.jsp" />
+   <jsp:include page="../header&footer/header.jsp" />
+   
+      <c:set var="member_id">
+         <sec:authentication property="principal.username" />
+      </c:set>
+      <c:set var="totalPrice" value="0" />
 
-	<c:set var="member_id">
-		<sec:authentication property="principal.username" />
-	</c:set>
-	<c:set var="totalPrice" value="0" />
-	<form action='<c:url value="/product/ordersheet"/>' method="POST"
-		id="updateCart">
-		<input type="hidden" name="member_id" value="${member_id}">
-		<div align="center" style="margin-top: 100px">
-			<div class="pro_section">
-				<div id="ordersheet">
-					<h1>장 바 구 니</h1>
-					<label class="label">주문하실 상품명 및 수량을 정확하게 확인해 주세요.</label>
-				</div>
-
+      <form action='<c:url value="/product/ordersheet"/>' method="POST" id="updateCart">
+      <div  align="center" style="margin-top: 100px">
+         <div class="pro_section">
+            <div id="ordersheet">
+               <h1>장 바 구 니</h1>
+               <label class="label">주문하실 상품명 및 수량을 정확하게 확인해 주세요.</label>
+            </div>
 				<div id="orderGoodsList">
 					<table class="detail_table">
 						<!-- 장바구니 상품 정보 상세보기 -->
 						<tr class="th">
-							<th id="thSelect" style="width: 130px; text-align: left;"><input
-								type="checkbox" class="checkAll" style="margin-right: 10px;">
-								<label for="ico_check" class="bb"></label> <label
-								for="ico_check" class="cc"></label> <span id="span_allCheck">
-									전체선택</span></th>
+							<th id="thSelect" style="width: 160px; text-align: left;">
+							<input type="checkbox" class="checkAll" id="checkAll_id" style="margin-right: 10px;">
+								<span id="span_allCheck"><label for="checkAll_id" style="cursor:pointer; ">전체선택</label>(<label class="checkedItems"></label>/<label class="allItems"></label>)</span>
+							</th>
 							<th style="width: auto;">상품 정보</th>
 							<th style="width: 85.69px;">수량</th>
 							<th style="width: 109.6px;">상품 금액</th>
@@ -51,14 +45,14 @@
 						<c:forEach var="cart" items="${cartList}">
 							<tr>
 								<td style="padding-left: 20px;">
-									<input type="checkbox" class="ico_check">
+									<input type="checkbox" class="ico_check" style="margin-right: 40px;">
 									<input type="hidden"class="hidden_product_id" name="product_ids" value="${cart.product_id}">
 									<span>
-										<a href="#"><img src='<c:url value="/product/img/${cart.product_id}"/>' width="80px"></a>
+										<a href='<c:url value="/product/${cart.product_id}"/>'><img src='<c:url value="/product/img/${cart.product_id}"/>' width="80px"></a>
 									</span>
 								</td>
 								<td>
-									<a class="product_name" href="#">${cart.product_name}</a>
+									<a class="product_name" href='<c:url value="/product/${cart.product_id}"/>'>${cart.product_name}</a>
 									<div class="each_price">
 										<span class="price"> <fmt:formatNumber value="${cart.product_price}" pattern="#,###"/></span>
 										<span class="txt">원</span>
@@ -82,8 +76,7 @@
 							<c:set var="totalPrice" value="${totalPrice + cart.product_price * cart.cart_product_count}" />
 						</c:forEach>
 						<tr class="emptyCart">
-							<th colspan="5" class="td_emptyCart" style="display: none;">장바구니에
-								등록된 상품이 없습니다.</th>
+							<th colspan="5" class="td_emptyCart" style="display: none;">장바구니에 등록된 상품이 없습니다.</th>
 						</tr>
 					</table>
 				</div>
@@ -91,7 +84,7 @@
 					<label>
 						<input type="checkbox" class="checkAll" style="margin-right: 10px;">
 					</label> 
-					<span id="span_allCheck"> 전체선택</span>
+					<span id="span_allCheck"><label for="checkAll_id" style="cursor:pointer; ">전체선택</label>(<label class="checkedItems"></label>/<label class="allItems"></label>)</span>
 					<button type="button" class="bottom_btn_delete">선택 삭제</button>
 				</div>
 				<div>
@@ -155,6 +148,8 @@
 		let cnt;
 		//totalPrice의 가격 변동이 있을 시마다 실행될 메서드
 		let priceCheck = function() {
+			$(".checkedItems").text(ico_check);
+			$(".allItems").text($(".ico_check").length);
 			console.log("price check in, totalPrice : "+totalPrice);
 			$(".totalPrice").text(totalPrice.toLocaleString());
 			if (totalPrice == 0) {
@@ -170,12 +165,19 @@
 				$(".finalPrice").text(totalPrice);
 				//50000원은 임의로 지정한 금액, 50000이상 주문 시 무료배송
 			} else if (50000 - totalPrice > 0) {
+				$(".submit").attr("disabled", false);
+				$(".submit").css("background-color", "#5f0080");
 				$(".delPriceCheck").show();
 				$(".delPriceOk").hide();
 				$(".deliveryPrice").show();
 				$(".deliveryLimit").text(50000 - totalPrice);
 				$(".finalPrice").text((totalPrice + 3000).toLocaleString());
-			} else {
+			}else if(totalPrice<0 || ico_check<0){
+				location.reload();
+			} 
+			else {
+				$(".submit").attr("disabled", false);
+				$(".submit").css("background-color", "#5f0080");
 				$(".delPriceOk").show();
 				$(".delPriceCheck").hide();
 				$(".deliveryPrice").hide();

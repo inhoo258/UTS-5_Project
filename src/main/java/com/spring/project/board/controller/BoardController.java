@@ -34,13 +34,15 @@ public class BoardController {
 	//공지사항 게시판
 	@GetMapping("/notice/list")
 	public void noticeList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model) {
+		System.out.println("requested page : "+page);
 		model.addAttribute("noticeList", noticeService.getNoticeList(page));
 		PagingManager pagingManager = new PagingManager(noticeService.getTotalCount(), page);
-//		System.out.println("now page : "+pagingManager.getNowPage());
-//		System.out.println("now block : "+pagingManager.getNowBlock());
-//		System.out.println("total page : "+pagingManager.getTotalPage());
-//		System.out.println("total block : "+pagingManager.getTotalBlock());
-		model.addAttribute("pagingManager",pagingManager);
+		System.out.println("now page : " + pagingManager.getNowPage());
+		System.out.println("end page : " + pagingManager.getEndPage());
+		System.out.println("now block : " + pagingManager.getNowBlock());
+		System.out.println("total page : " + pagingManager.getTotalPage());
+		System.out.println("total block : " + pagingManager.getTotalBlock());
+		model.addAttribute("pagingManager", pagingManager);
 	}
 
 	@GetMapping("/notice/{notice_rn}")
