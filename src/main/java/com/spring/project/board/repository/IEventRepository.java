@@ -11,7 +11,7 @@ import com.spring.project.board.model.EventVO;
 public interface IEventRepository {
 	
 	//전체 이벤트 목록
-	@Select("select * from event_board")
+	@Select("select * from(select rownum event_rn,n.* from (select * from event_board order by event_group) n)where event_rn between #{0} and #{1} order by event_rn desc")
 	public ArrayList<EventVO> getEventList(int start, int end);
 	
 	//이벤트 제목 클릭

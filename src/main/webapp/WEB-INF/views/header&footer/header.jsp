@@ -41,12 +41,12 @@
 				</nav>
 				<nav class="nav-meun3 h_menu">
 					<h3>
-						<a href='<c:url value=""/>'><font id="H-font">메뉴</font></a>
+						<a href='<c:url value="/board/qna/list"/>'><font id="H-font">qna</font></a>
 					</h3>
 				</nav>
 				<nav class="nav-meun4 h_menu">
 					<h3>
-						<a href='<c:url value=""/>'><font id="H-font">메뉴</font></a>
+						<a href='<c:url value="/board/review/list"/>'><font id="H-font">review</font></a>
 					</h3>
 				</nav>
 			</section>

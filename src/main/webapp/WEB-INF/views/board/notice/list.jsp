@@ -68,7 +68,7 @@
                   </div>
                </td>
             </tr>
-            <tr >
+            <tr>
                <td style="width: 130px;">> 검색어 </td>   
                <td align="left" style="width: 300px;">
                   <input type="checkbox" name="search_title"> 제목 &nbsp;&nbsp;
@@ -88,5 +88,6 @@
          </form>
       </div>
    </div>
+   <jsp:include page="../../header&footer/footer.jsp"/>
 </body>
 </html>
