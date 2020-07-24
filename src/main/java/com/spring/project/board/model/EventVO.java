@@ -3,6 +3,7 @@ package com.spring.project.board.model;
 import java.sql.Date;
 
 public class EventVO {
+	private int event_rn;
 	private String member_id;
 	private String event_title;
 	private String event_content;
@@ -11,6 +12,14 @@ public class EventVO {
 	private int event_views;
 	private int event_group;
 	private int event_step;
+
+	public int getEvent_rn() {
+		return event_rn;
+	}
+
+	public void setEvent_rn(int event_rn) {
+		this.event_rn = event_rn;
+	}
 
 	public String getEvent_title() {
 		return event_title;

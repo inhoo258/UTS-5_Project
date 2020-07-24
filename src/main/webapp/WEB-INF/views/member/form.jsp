@@ -345,5 +345,6 @@
         }).open();
     }
     </script>
+    <jsp:include page="../header&footer/footer.jsp"/>
 </body>
 </html>

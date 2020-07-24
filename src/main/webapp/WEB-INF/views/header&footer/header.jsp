@@ -36,17 +36,17 @@
 				</nav>
 				<nav class="nav-meun2 h_menu">
 					<h3>
-						<a href="#"><font id="H-font">메뉴2</font></a>
+						<a href='<c:url value="/board/event/list"/>'><font id="H-font">Event</font></a>
 					</h3>
 				</nav>
 				<nav class="nav-meun3 h_menu">
 					<h3>
-						<a href="#"><font id="H-font">메뉴3</font></a>
+						<a href='<c:url value="/board/qna/list"/>'><font id="H-font">qna</font></a>
 					</h3>
 				</nav>
 				<nav class="nav-meun4 h_menu">
 					<h3>
-						<a href="#"><font id="H-font">메뉴4</font></a>
+						<a href='<c:url value="/board/review/list"/>'><font id="H-font">review</font></a>
 					</h3>
 				</nav>
 			</section>

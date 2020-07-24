@@ -1,26 +1,26 @@
 package com.spring.project.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.spring.project.board.service.IBoardService;
+
+import com.spring.project.board.service.EventService;
+import com.spring.project.board.service.NoticeService;
+import com.spring.project.board.service.QnAService;
+import com.spring.project.board.service.ReviewService;
 
 @RestController
 @RequestMapping("/board/rest")
 public class BoardRestController {
+	
 	@Autowired
-	@Qualifier("eventService")
-	IBoardService eventService;
+	QnAService qnAService;
 	@Autowired
-	@Qualifier("noticeService")
-	IBoardService noticeService;
+	ReviewService reviewService;
 	@Autowired
-	@Qualifier("qnAService")
-	IBoardService qnAService;
+	EventService eventService;
 	@Autowired
-	@Qualifier("reviewService")
-	IBoardService reviewService;
+	NoticeService noticeService;
 	
 	
 	

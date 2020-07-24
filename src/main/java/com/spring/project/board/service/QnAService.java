@@ -14,8 +14,10 @@ public class QnAService implements IBoardService{
 	@Autowired
 	IQnARepository qnARepository;
 	
-	public ArrayList<QnAVO> getQnAList(){
-		return qnARepository.getQnAList();
+	public ArrayList<QnAVO> getQnAList(int page){
+		int end = page*10;
+		int start = end-9;
+		return qnARepository.getQnAList(start, end);
 	}
 	
 	public void updateQnA(String q_title, String q_content, String member_id) {
@@ -34,5 +36,9 @@ public class QnAService implements IBoardService{
 	
 	public void deleteQnA(String member_id, String q_title) {
 		qnARepository.deleteQnA(member_id, q_title);
+	}
+	
+	public int getTotalCount() {
+		return qnARepository.getTotalCount();
 	}
 }

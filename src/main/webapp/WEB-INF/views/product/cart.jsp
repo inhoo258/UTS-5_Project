@@ -139,6 +139,7 @@
 			</div>
 		</div>
 	</form>
+	<jsp:include page="../header&footer/footer.jsp"/>
 	<script type="text/javascript">
 		let totalPrice = parseInt('${totalPrice}');
 		let member_id = '${member_id}';
