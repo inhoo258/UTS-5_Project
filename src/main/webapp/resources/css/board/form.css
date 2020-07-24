@@ -3,7 +3,6 @@
 .noice_section{
 	 width: 1050px; 
 	 margin: 0 auto; 
-	 padding-top: 100px;
 }
 
 .form_table{
@@ -14,6 +13,7 @@
 .form_table tr{
 	height: 48px;
 	border-bottom: 2px solid #e8e8e8;
+	padding: 0 10px; 
 }
 
 .form_table th{
@@ -23,12 +23,12 @@
 
 .th_title {
 	width: 99.5%; height: 47px; 
-	border: none; 
+/* 	border: none;  */
 }
 
 .td_content{
- border: none; 
- padding: 10px;
+/*  border: none;  */
+ margin: 10px;
 }
 
 /*글 제목 클릭 시 포커스 테두리 안생기게하는 css*/
@@ -53,6 +53,6 @@ textarea:focus {
     margin: 20px 10px;
     font-size: 13px;
 }
-}
+
 
 
