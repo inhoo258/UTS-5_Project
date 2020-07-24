@@ -10,27 +10,31 @@
 
 input[type="submit"]{width: 100px; height: 30px;}
 input[type="button"]{width: 100px; height: 30px;}
+
+/*페이징 처리*/
 #pagemanager{
-	height: 40px;
+   padding: 30px;
+}
+.permission_paging , .member_paging{
+	height: 34px;
+	width:34px;
+	display:inline-block;
+	cursor:pointer;
+    font-size: 14px;
+    text-align: center;
+    color: #505050;
+    border: 1px solid #ddd;
+    line-height: 34px;
+    text-decoration: none;
+/*     border-left:none; */
 }
 
-#pagemanager>span>a{
-	padding:4px;
-	margin-right:3px;
-	color:#000;
-	font:bold 12px tahoma;
-	border:1px solid #eee;
-	text-align:center;
-	text-decoration:none;
-	cursor: pointer;
-	background-color: white;
+.permission_paging , .member_paging:hover{
+	background-color: #f7f7f7;
+    color: #5f0080;
 }
 
-#pagemanager>span>a:hover,#pagemanager>span>a:focus {
-	color:#fff;
-	border:1px solid #f40;
-	background-color:#f40;
-}
+
 
 
 .m_background{ /* chan : table 을 감사고 있는 테이블 */
@@ -141,40 +145,41 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 
 .container ul.tab {
 	display: flex;
-	height: 60px;
-	border-bottom: 2px solid #0066cc;
+	height: 80px;
+/* 	border-bottom: 2px solid #0066cc; */
 } /*flex를 사용하기 위해서는 부모가 flex여야한다.*/
 .container ul.tab li {
 	flex: 1;
 } /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
 .container ul.tab li:first-child {
-/* 	border-left: 2px solid #10caf1; */
-
+/* 	border-left: 2px solid #0066cc; */
 } /*각각 갯수에 나눠서 크기를 가지려면 flex: 1 필요*/
+
 .container ul.tab li a {
 	/*li가 아닌 a태그에 높이를 줘야 클릭할 수 있는 범위가 넓어진다. a는 인라인요소라서 블록요소로 바꿔줘서 가로세로 100%로 만들어준다. */
-	height: 60px;
+	height: 80px;
 	display: block;
-	font-size: 14px;
-	color: #505050;
+	font-size: 20px;
+	color: black;
 	text-align: center;
 	line-height: 59px;
 	text-decoration: none;
-	border: 2px solid #ddd;
-/* 	border-left: none; */
 	border-bottom: none;
+	background-color: rgba(0 , 0 , 0 , 0.3);
 	
 }
+.container ul.tab>li>a{
+	padding-top: 10px;
+	height: 70px;
+}
+
 
 .container ul.tab li a.on {
-	position: relative;
-	height: 58px;
-	border-color: #0066cc;
-	
-	border-top-width: 2px;
+	color: white;
 	line-height: 57px;
 	border-bottom: 2px solid #fff;
-/* 	background-color: #10caf1;  */
+	background-color: rgba(0 , 0 , 0 , 1);
+	opacity: 0.5;111111111111111
 /* 	배경 */
 }
 
@@ -186,7 +191,6 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	width: 1px;
 	height: 100%;
 	background: #5da62b;
-	border-top: 2px solid #0066cc;
 }
 
 /* ============================================= Chan : 체스박스 CSS END */
