@@ -100,7 +100,7 @@
          </form>
       </div>
    </div>
-
+	<div> 글 하나도 없을 때 끝으로 가기 페이지 안보이게 해야함!!!!!!!!!!!!!!!!!!!!!1</div>
 	<script type="text/javascript">
 	let index = 0;
 		$(".a_num").click(function() {

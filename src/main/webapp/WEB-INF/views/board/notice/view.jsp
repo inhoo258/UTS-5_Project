@@ -62,24 +62,6 @@
 					</c:if>
 				</li>
 			</ul>
-<!-- 			<table class="view_table2"> -->
-<%-- 				<c:if test="${notice.notice_rn gt 1}"> --%>
-<!-- 					<tr> -->
-<!-- 						<td> -->
-<!-- 							<i class="fas fa-angle-up"></i> -->
-<%-- 							<a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>'> 이전글</a> --%>
-<!-- 						</td> -->
-<!-- 					</tr> -->
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${notice.notice_rn lt totalCount}"> --%>
-<!-- 					<tr> -->
-<!-- 						<td> -->
-<!-- 							<i class="fas fa-angle-down"></i> -->
-<%-- 							<a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'> 다음글</a> --%>
-<!-- 						</td> -->
-<!-- 					</tr> -->
-<%-- 				</c:if> --%>
-<!-- 			</table> -->
 		</div>
 	</div>
 	<div>글 삭제도 만들어야함~~~~~~~~~~~~
@@ -87,7 +69,6 @@
 	// desc 확인해야함
 	// 검색 기능 구현
 	// 이전글 다음글 수정
-	
 	// .view_table css borderbottom 안먹음
 	</div>
 </body>
