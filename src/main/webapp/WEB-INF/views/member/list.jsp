@@ -14,7 +14,6 @@
 
 </head>
 <body>
-
 	<sec:authorize access="hasRole('ROLE_MASTER')">
 		<jsp:include page="../header&footer/header.jsp" />
 <!-- 		<h1 align="center">회원 관리 페이지</h1> -->
@@ -44,6 +43,10 @@
 								</tr>
 								<tr>
 									<td>number</td>
+<<<<<<< HEAD
+									<th><button type="button" id="member_Checkall">모두 선택</button></th>
+									<td>ID<br>Name<br>Auth</td>
+=======
 									<th>
 									<label class="checkbox" id="member_checkAll_label"> 
 										<input type="checkbox" id="member_checkAll"> 
@@ -53,6 +56,7 @@
 									</th>
 									<td>ID<br>Name<br>Auth
 									</td>
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -119,6 +123,10 @@
 
 								<tr>
 									<td>number</td>
+<<<<<<< HEAD
+									<th><button type="button" id="permission_Checkall">모두 선택</button></th>
+									<td>ID<br>Name<br>Auth</td>
+=======
 									<th>
 									<label class="checkbox" id="permission_checkAll_label"> 
 										<input type="checkbox" id="permission_checkAll"> 
@@ -128,6 +136,7 @@
 									</th>
 									<td>ID<br>Name<br>Auth
 									</td>
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -511,6 +520,8 @@
 			let permission_cnt_index = $(".permission_cnt").index(this);
 			let cnt = $(".permission_cnt_index").get(permission_cnt_index).value;
 			sessionStorage.setItem("message" , "page_2");
+			console.log(paging_member_number);
+			console.log(cnt);
 			if(paging_member_number == 1 || paging_member_number ==""){
 				location.href="<c:url value='/member/list?permissionpage="+cnt+"&memberpage=1&permission_word="+permission_word+"&member_word="+member_word+"'/>";
 			}else{

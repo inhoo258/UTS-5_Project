@@ -80,7 +80,7 @@
                   </div>
                </td>
             </tr>
-            <tr >
+            <tr>
                <td style="width: 130px;">> 검색어 </td>   
                <td align="left" style="width: 300px;">
                   <input type="checkbox" name="search_title"> 제목 &nbsp;&nbsp;
@@ -100,7 +100,7 @@
          </form>
       </div>
    </div>
-
+   <jsp:include page="../../header&footer/footer.jsp"/>
 	<script type="text/javascript">
 	let index = 0;
 		$(".a_num").click(function() {
@@ -113,9 +113,6 @@
 		function change_color_pagingBtn() {
 		$(".a_num").get(index).css({"background-color" : "#f7f7f7"})
 		}
-		
-		
-	
 	</script>
 </body>
 </html>

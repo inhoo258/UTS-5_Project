@@ -44,6 +44,7 @@
 			</table>
 		</form>
 	</div>
+	<jsp:include page="../../header&footer/footer.jsp" />
 </body>
 </html>
 

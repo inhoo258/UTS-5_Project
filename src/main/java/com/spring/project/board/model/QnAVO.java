@@ -3,6 +3,7 @@ package com.spring.project.board.model;
 import java.sql.Date;
 
 public class QnAVO {
+	private int qna_rn;
 	private String member_id;
 	private Date q_date;
 	private String q_title;
@@ -11,6 +12,14 @@ public class QnAVO {
 	private String q_content;
 	private int q_group;
 	private int q_step;
+	
+	public int getQna_rn() {
+		return qna_rn;
+	}
+
+	public void setQna_rn(int qna_rn) {
+		this.qna_rn = qna_rn;
+	}
 
 	public String getMember_id() {
 		return member_id;
