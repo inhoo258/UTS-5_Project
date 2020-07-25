@@ -18,7 +18,7 @@ public class MemberRestController {
 	@PostMapping("/memberCheck")
 	public int memberCheck(@RequestParam("member_id") String member_id) {
 		System.out.println("request member_id : " + member_id);
-		MemberVO member = memberSerivce.getMemberInfo(member_id + "=============================111");
+		MemberVO member = memberSerivce.getMemberInfo(member_id);
 		System.out.println("result member : " + member);
 		if (memberSerivce.getMemberInfo(member_id) == null)
 			return 0;

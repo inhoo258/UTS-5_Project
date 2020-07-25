@@ -14,11 +14,11 @@ public class MemberVO implements UserDetails {
 	private String member_pw;
 	private String member_name;
 	private String member_tel;
-	private String member_addr;
+	private String member_main_addr;
+	private String member_sub_addr;
 	private String member_email;
 	private int member_enabled;
 	private String member_auth;
-	
 	
 	public String getRn() {
 		return rn;
@@ -54,15 +54,18 @@ public class MemberVO implements UserDetails {
 	public void setMember_tel(String member_tel) {
 		this.member_tel = member_tel;
 	}
-
-	public String getMember_addr() {
-		return member_addr;
+	public String getMember_main_addr() {
+		return member_main_addr;
 	}
-
-	public void setMember_addr(String member_addr) {
-		this.member_addr = member_addr;
+	public void setMember_main_addr(String member_main_addr) {
+		this.member_main_addr = member_main_addr;
 	}
-
+	public String getMember_sub_addr() {
+		return member_sub_addr;
+	}
+	public void setMember_sub_addr(String member_sub_addr) {
+		this.member_sub_addr = member_sub_addr;
+	}
 	public String getMember_email() {
 		return member_email;
 	}

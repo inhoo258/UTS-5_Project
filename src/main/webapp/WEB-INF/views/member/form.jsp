@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -61,14 +62,41 @@
 			<tr class="input_check" style="display:none;">
 				<td colspan="2"><font id="tel_check"></font></td>
 			</tr>
-			<tr>
-				<th colspan="2"><input type="text"
-					value="${member.member_addr}" class="id" name="member_addr"
-					id="member_addr" autocomplete="off" placeholder='주소를 입력하세요'></th>
-			</tr>
-			<tr class="input_check" style="display:none;">
-				<td colspan="2"><font id="addr_check"></font></td>
-			</tr>
+			<c:choose>
+				<c:when test="${empty member }">
+					<tr>
+						<th colspan='2'><input type="button" value="주소찾기" onclick="execPostCode();">
+					</tr>
+					<tr style="display:none;" class="hidden_addr_tr">
+						<th colspan='2'>
+							<input type="text" name="member_main_addr" readonly class="member_addr1">	
+						</th>
+					</tr>
+					<tr style="display:none;" class="hidden_addr_tr">
+						<th>
+							<input type="text" name="member_sub_addr" placeholder="상세 주소를 입력하세요" id="member_addr">	
+						</th>
+					</tr>
+					<tr class="input_check" style="display:none">
+						<td colspan="2"><font id="addr_check"></font></td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<th colspan='2'><input type="button" value="주소찾기" onclick="execPostCode();">
+					</tr>
+					<tr class="hidden_addr_tr">
+						<th colspan='2'>
+							<input type="text" name="member_main_addr" readonly id="member_addr" value="${member.member_main_addr}">	
+						</th>
+					</tr>
+					<tr class="hidden_addr_tr">
+						<th>
+							<input type="text" name="member_sub_addr" placeholder="상세 주소를 입력하세요" value="${member.member_sub_addr}">	
+						</th>
+					</tr>
+				</c:otherwise>
+			</c:choose>
 			<tr>
 				<th colspan="2"><input type="text"
 					value="${member.member_email}" class="id" name="member_email"
@@ -106,19 +134,6 @@
 					onclick="window.history.back()"></th>
 			</tr>
 		</table>
-<div class="form-group">
-        <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1"
-            type="text" readonly="readonly">
-        <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호
-            찾기</button>
-    </div>
-    <div class="form-group">
-        <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text"
-            readonly="readonly" />
-    </div>
-    <div class="form-group">
-        <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" />
-    </div>
 	</form>
 	
 	<!--============================================================================== 아직 미흡한 부분 -->
@@ -251,31 +266,20 @@
                 tel_check=true;
             }
         });
-        $("#member_addr").blur(function(){
-            let member_addr = document.getElementById("member_addr").value
-            if(member_addr.length==0){
-            	document.getElementsByClassName("input_check")[4].style.display='';
-                document.getElementById("addr_check").innerText="필수 항목입니다.";
-                addr_check=false;
-            }else{
-                document.getElementById("addr_check").innerText="";
-                document.getElementsByClassName("input_check")[4].style.display='none';
-                addr_check=true;
-            }
-        });
+       
         $("#member_email").blur(function(){
             let member_email = document.getElementById("member_email").value
             if(member_email.length==0){
-            	document.getElementsByClassName("input_check")[5].style.display='';
+            	document.getElementsByClassName("input_check")[4].style.display='';
                 document.getElementById("email_check").innerText="필수 항목입니다.";
                 email_check=false;
             }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
-            	document.getElementsByClassName("input_check")[5].style.display='';
+            	document.getElementsByClassName("input_check")[4].style.display='';
                 document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
                 email_check=false;
             }else{
                 document.getElementById("email_check").innerText="";
-                document.getElementsByClassName("input_check")[5].style.display='none';
+                document.getElementsByClassName("input_check")[4].style.display='none';
                 email_check=true;
             }
         });
@@ -285,12 +289,19 @@
         	$("#okbutton").attr("disabled",true);
             return true;
         }else {
+        	console.log("id_check : "+id_check);
+        	console.log("pw_check : "+pw_check);
+        	console.log("pw_ok_check : "+pw_ok_check);
+        	console.log("name_check : "+name_check);
+        	console.log("tel_check : "+tel_check);
+        	console.log("addr_check : "+addr_check);
+        	console.log("email_check : "+email_check);
 			$("input").each(function(){
 				$(this).trigger("blur");
 			})
         	//내용이 입력되어 있지 않은 위치로 focus
         	if(!email_check){$("#member_email").focus();}
-        	if(!addr_check){$("#member_addr").focus();}
+        	if(!addr_check){alert("주소를 입력해주세요")}
         	if(!tel_check){$("#member_tel").focus();}
         	if(!name_check){$("#member_name").focus();}
         	if(!pw_ok_check){$("#member_pw_ok").focus();}
@@ -310,7 +321,6 @@
         new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
                 // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
@@ -332,13 +342,14 @@
                 if (fullRoadAddr !== '') {
                     fullRoadAddr += extraRoadAddr;
                 }
-
+				document.getElementsByClassName("hidden_addr_tr")[0].style.display='block';
+				document.getElementsByClassName("hidden_addr_tr")[1].style.display='block';
+                document.getElementById('member_addr').value = fullRoadAddr;
+                addr_check=true;
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 // $("[name=addr1]").val(data.zonecode);
                 // $("[name=addr2]").val(fullRoadAddr);
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('addr2').value = fullRoadAddr;
                 // document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
                 // document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress;
             }

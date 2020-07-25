@@ -72,11 +72,8 @@ public class MemberService implements IMemberService {
 	@Override
 	@Transactional(value = "tsManager")
 	public void memberInsert(MemberVO member) {
-		for (int i = 300; i < 600; i++) {
-			member.setMember_id(i + "");
 			memberRepository.memberJoin(member);
 			memberRepository.authJoin(member.getUsername(), member.getMember_auth());
-		}
 	}
 
 	@Override
