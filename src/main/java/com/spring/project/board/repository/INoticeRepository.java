@@ -2,6 +2,7 @@ package com.spring.project.board.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -11,25 +12,29 @@ import com.spring.project.board.model.NoticeVO;
 
 @Repository
 public interface INoticeRepository {
-	
+	//select =================
 	//전체 공지사항 목록
-	@Select("select * from(select rownum notice_rn,n.* from (select * from notice_board order by notice_number) n)where notice_rn between #{0} and #{1} order by notice_rn desc")
+	@Select("select * from(select rownum notice_rn,n.* from (select * from notice_board order by notice_number desc) n)"
+			+ "where notice_rn between #{0} and #{1}")
 	public List<NoticeVO> getNoticeList(int start, int end);
 	
 	//공지사항 하나 클릭(제목)
-	@Select("select * from(select rownum notice_rn,n.* from(select * from notice_board order by notice_number)n)where notice_rn=#{notice_rn}")
+	@Select("select * from(select rownum notice_rn,n.* from(select * from notice_board order by notice_number desc)n)where notice_rn=#{notice_rn}")
 	public NoticeVO getNotice(int notice_rn);
+
+	@Select("select count(*) from notice_board")
+	public int getTotalCount();
 	
-	//공지사항 내용 수정
-	@Update("update notice_board set notice_content=#{notice_content}")
-	public void updateNotice(String notice_content);
-	
+	//update =================
 	//공지사항 조회수 +1증가
 	@Update("update notice_board set notice_views=notice_views+1 where notice_number =#{notice_number}")
 	public void updateViews(int notice_number);
 	
-	@Select("select count(*) from notice_board")
-	public int getTotalCount();
+	// 공지사항 view 수정
+	@Update("update notice_board set notice_title= #{notice_title}, notice_content=#{notice_content} where notice_number = #{notice_number}")
+	public void updateView(NoticeVO noticeVO);
+	
+	//insert =================
 	//공지등록(파일 포함)
 	@Insert("insert into notice_board (notice_title,notice_content,notice_number,notice_file,notice_file_name) values(#{notice_title},#{notice_content},#{notice_number},#{notice_file},#{notice_file_name})")
 	public void insertNoticeWithFile(NoticeVO noticeVO);
@@ -38,4 +43,9 @@ public interface INoticeRepository {
 	public void insertNotice(NoticeVO noticeVO);
 	@Select("select nvl(max(notice_number),0) from notice_board")
 	public int getMaxNoticeNumber();
+	
+	//delete =================
+	@Delete("delete notice_board where notice_number = #{notice_number}")
+	public void deleteView(int notice_rn);
+	
 }

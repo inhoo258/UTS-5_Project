@@ -1,6 +1,7 @@
 package com.spring.project.board.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,9 +57,27 @@ public class BoardController {
 	}
 
 	@GetMapping("/notice/form")
-	public void noticeForm() {
+	public String noticeForm(Model model) {
+		model.addAttribute("msg", "new");
+		return "board/notice/form";
+	}
+	
+	//notice view에서 수정 버튼 클릭 시	
+	@GetMapping("/notice/form/{notice_rn}")
+	public String getView(@PathVariable("notice_rn") int notice_rn, Model model) {
+		model.addAttribute("notice", noticeService.getNoticeInfo(notice_rn) );
+		model.addAttribute("msg" , "update");
+		return "board/notice/form";
 	}
 
+	//notice view 수정
+	@PostMapping("/notice/update")
+	public String updateView(NoticeVO noticeVo ) {
+		noticeService.updateView(noticeVo);
+		return "redirect:/board/notice/"+noticeVo.getNotice_rn();
+	}
+	
+	
 	@PostMapping("/notice/new")
 	public String noticeInsert(@ModelAttribute NoticeVO noticeVO,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
@@ -73,6 +92,13 @@ public class BoardController {
 			noticeService.insertNoticeWithFile(noticeVO);
 		}
 		else noticeService.insertNotice(noticeVO);
+		return "redirect:/board/notice/list";
+	}
+	
+	// notice view 삭제 
+	@GetMapping("/notice/delete/{notice_number}")
+	public String deleteView(@PathVariable("notice_number") int notice_number) {
+		noticeService.deleteView(notice_number);
 		return "redirect:/board/notice/list";
 	}
 	

@@ -20,6 +20,9 @@
 .btn_write a{
 	color: #fff;
     font-size: 14px;
+/*     width: 100%; */
+/*     height: 100%; */
+/*     display: block; */
 }
 
 /*notice 테이블 css*/
