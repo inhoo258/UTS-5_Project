@@ -14,7 +14,8 @@
 	${member.member_id}<br>
 	${member.member_name }<br>
 	${member.member_tel }<br>
-	${member.member_addr }<br>
+	${member.member_main_addr }<br>
+	${member.member_sub_addr }<br>
 	${member.member_email }<br>
 	${member.member_auth eq 'ROLE_SELLER' ? 'seller':'customer'}
 	<a href='<c:url value="/member/form/${member.member_id}"/>'>정보수정</a>
