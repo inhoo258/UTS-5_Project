@@ -43,10 +43,6 @@
 								</tr>
 								<tr>
 									<td>number</td>
-<<<<<<< HEAD
-									<th><button type="button" id="member_Checkall">모두 선택</button></th>
-									<td>ID<br>Name<br>Auth</td>
-=======
 									<th>
 									<label class="checkbox" id="member_checkAll_label"> 
 										<input type="checkbox" id="member_checkAll"> 
@@ -56,7 +52,6 @@
 									</th>
 									<td>ID<br>Name<br>Auth
 									</td>
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -123,10 +118,6 @@
 
 								<tr>
 									<td>number</td>
-<<<<<<< HEAD
-									<th><button type="button" id="permission_Checkall">모두 선택</button></th>
-									<td>ID<br>Name<br>Auth</td>
-=======
 									<th>
 									<label class="checkbox" id="permission_checkAll_label"> 
 										<input type="checkbox" id="permission_checkAll"> 
@@ -136,7 +127,6 @@
 									</th>
 									<td>ID<br>Name<br>Auth
 									</td>
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>

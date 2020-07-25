@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/home.css'/>" />
 </head>
 <body>
-<h1>home.jsp</h1>
 <h3></h3>
 	<jsp:include page="header&footer/header.jsp"/>
 	<section>

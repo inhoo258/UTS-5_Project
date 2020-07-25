@@ -293,9 +293,9 @@ li.animated-button.thar-four:before {
 	}
 
 .se_div{
-	width:100%;
+	width:80%;
 	height: 70px;
-	background: black;
+	background-color: rgba(0,0,0,0.3);
 	color: white;
 	position: fixed;
 	left: 0;
