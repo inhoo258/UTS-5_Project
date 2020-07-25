@@ -13,7 +13,7 @@
         <div class="main-box">
             <div class="manubar">
                 <div class="manubar-logo">
-                    <div class="logoimg-frame"><img src='<c:url value = "/resources/flatfish1.jpg"/>'></div>
+                    <div class="logoimg-frame"><img src='<c:url value = "https://cdn3.iconfinder.com/data/icons/solidix-summer-holidays/256/summer_vacations_holidays_beach-13-128.png"/>'></div>
                 </div>
                 <div class="manubar-collection">
                     <ul>
@@ -25,11 +25,13 @@
                         <li><a href="#">중도매인 문의</a></li>
                     </ul>
                 </div>
-                <div>
-                    facebook
-                    instagram
-                    twiter
-                    ???
+                <div class="linkofanother">
+                	<ul>
+                		<li><a href="#"><img src='<c:url value="https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/01-128.png"/>'></a></li>
+                		<li><a href="#"><img src='<c:url value="https://cdn4.iconfinder.com/data/icons/picons-social/57/38-instagram-3-128.png"/>'></a></li>
+                		<li><a href="#"><img src='<c:url value="https://cdn3.iconfinder.com/data/icons/picons-social/57/03-twitter-256.png"/>'></a></li>
+                		<li><a href="#"><img src='<c:url value="https://cdn0.iconfinder.com/data/icons/cute-fish/512/b73_6-128.png"/>'></a></li>
+                	</ul>
                 </div>
             </div>
             <div class="imgbar">
