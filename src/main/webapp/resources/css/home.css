@@ -1,11 +1,79 @@
 @charset "UTF-8";
 
 
-#imgbox {
-	height: 600px;
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
 }
 
-img {
-	width: 100%;
-	height: 100%;
+.main-box{
+    width: 100%;
+    height: 837px;
+}
+.manubar{
+    position: fixed;
+    width: 350px;
+    height: 837px;
+    text-align: center;
+    opacity: 0.7;
+    color: white;
+    background-color: black;
+
+}
+.imgbar{
+    margin-left: 350px;
+    width: 1357x;
+    height: 837px;
+    background-color: burlywood;
+}
+#mainimg{
+    width: 100%;
+    height: 100%;
+}
+.manubar-logo{
+    margin-top: 70px;
+    height: 60px;
+}
+.manubar-collection{
+    margin-top: 120px;
+    height: 50%;
+}
+.manubar-collection>ul>li{ /*메뉴 추가시 padding 조절 여기서 하면 됨*/
+    margin: 30px 0;
+    height: 30px;
+    
+}
+.manubar-collection>ul>li>a{
+    font-size: 20px;
+    display: block;
+    height: 100%;
+    color: white;
+}
+.logoimg-frame{
+    margin: 0px auto;
+    width: 60px;
+    height: 60px;
+}
+.logoimg-frame>img{
+    width: 100%;
+    height: 100%;
+}
+.imgleftbtn{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 415px;
+}
+.imgrightbtn{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin-left: 1277px;
+    margin-top: 415px;
+}
+.imgleftbtn:hover, .imgrightbtn:hover{
+    cursor: pointer;
 }
