@@ -27,6 +27,7 @@ public interface INoticeRepository {
 	//공지사항 조회수 +1증가
 	@Update("update notice_board set notice_views=notice_views+1 where notice_number =#{notice_number}")
 	public void updateViews(int notice_number);
+	
 	@Select("select count(*) from notice_board")
 	public int getTotalCount();
 	//공지등록(파일 포함)

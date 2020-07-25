@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../header&footer/header.jsp"/>
 	<section class="m_find_section">
 		<div>
 			<label ><input type="radio" name="findIdPwd" value="findId"> 아이디 찾기 </label>
@@ -19,5 +20,6 @@
 			</form>		
 		</div>
 	</section>
+	<jsp:include page="../header&footer/footer.jsp"/>
 </body>
 </html>

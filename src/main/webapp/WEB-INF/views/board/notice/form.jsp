@@ -18,17 +18,18 @@
 		</div>
 		<form action='<c:url value="/board/notice/new"/>' method="post"
 			enctype="multipart/form-data">
-			<table>
+			<table class="form_table">
 				<tr>
-					<th>글제목</th>
-					<td><input type="text" name="notice_title"
-						style="width: 99.5%;"></td>
+					<th >글제목</th>
+					<td> 
+						<input type="text" name="notice_title" class="th_title">
+					</td>
 				</tr>
 				<tr>
-					<th>글내용</th>
-					<td><textarea rows="50" cols="100" name="notice_content">
-                
-            </textarea></td>
+					<th >글내용</th>
+					<td>
+						<textarea rows="30" cols="110" name="notice_content" class="td_content"></textarea>
+          			</td>
 				</tr>
 				<tr>
 					<th>파일첨부</th>
@@ -42,7 +43,8 @@
 				</tr>
 			</table>
 		</form>
-	
+	</div>
+	<jsp:include page="../../header&footer/footer.jsp" />
 </body>
 </html>
 

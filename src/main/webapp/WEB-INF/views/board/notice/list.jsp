@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-   uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +9,7 @@
 <title>list</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/board/list.css'/>" />
 <script src="https://kit.fontawesome.com/c2524284bc.js" crossorigin="anonymous"></script>
+<!-- <script type="text/javascript" src="./jquery.cookie.js"></script> -->
 </head>
 <body>
    <jsp:include page="../../header&footer/header.jsp" />
@@ -45,30 +45,42 @@
                   </tr>
                </c:forEach>
             </tbody>
-            <tr>
-               <td colspan="4">
+            <tr align="center">
+               <td colspan="4" align="center">
                <div class="notice_paging">
+               <div style="display: inline-block;">
                <div style="display:flex; border-left:1px solid #ddd;">
                   <c:if test="${pagingManager.nowPage ne 1}">
-                     <a class="a_paging" href="<c:url value='/board/notice/list?page=1'/>">처음</a>
+                     <a class="a_paging" href="<c:url value='/board/notice/list?page=1'/>">
+                    	 <i class="fas fa-angle-double-left" style="vertical-align: middle; font-weight: 700; font-size: 15px;"></i>
+                     </a>
                   </c:if> 
                   <c:if test="${pagingManager.nowBlock gt 1 }">
-                     <a class="a_paging" href='<c:url value="/board/notice/list?page=${pagingManager.startPage-1}"/>'>이전</a>
+                     <a class="a_paging" href='<c:url value="/board/notice/list?page=${pagingManager.startPage-1}"/>'>
+                    	 <i class="fas fa-angle-left" style="vertical-align: middle; font-weight: 700; font-size: 15px;"></i>
+                     </a>
                   </c:if> 
                   <c:forEach var="i" begin="${pagingManager.startPage}" end="${pagingManager.endPage}">
-                      <a class="a_paging" href='<c:url value="/board/notice/list?page=${i}"/>'>${i}</a>
+                      <a class="a_paging a_num" href='<c:url value="/board/notice/list?page=${i}"/>' onclick="change_color_pagingBtn()">
+                      	${i}
+                      </a>
                   </c:forEach> 
                   <c:if test="${pagingManager.nowBlock lt pagingManager.totalBlock}">
-                     <a class="a_paging" href="<c:url value='/board/notice/list?page=${pagingManager.endPage+1}'/>">다음</a>
+                     <a class="a_paging" href="<c:url value='/board/notice/list?page=${pagingManager.endPage+1}'/>">
+                     	<i class="fas fa-angle-right" style="vertical-align: middle; font-weight: 700; font-size: 15px;"></i>
+                     </a>
                   </c:if> 
                   <c:if test="${pagingManager.nowPage ne pagingManager.totalPage}">
-                     <a class="a_paging end_paging " href="<c:url value='/board/notice/list?page=${pagingManager.totalPage}'/>">끝</a>
+                     <a class="a_paging end_paging " href="<c:url value='/board/notice/list?page=${pagingManager.totalPage}'/>">
+                     	<i class="fas fa-angle-double-right" style="vertical-align: middle; font-weight: 700; font-size: 15px;"></i>
+                     </a>
                   </c:if>
+                  </div>
                   </div>
                   </div>
                </td>
             </tr>
-            <tr >
+            <tr>
                <td style="width: 130px;">> 검색어 </td>   
                <td align="left" style="width: 300px;">
                   <input type="checkbox" name="search_title"> 제목 &nbsp;&nbsp;
@@ -78,7 +90,7 @@
                   <div class="notice_search" >
                      <input type="text" style="height: 40px; width:270px; border: 1px solid #d3d3d3;">
                      <div class="search_img" align="center">
-                     	<i class="fas fa-search"></i>
+                     	<a><i class="fas fa-search"></i>
                      </div>
                   </div>
                
@@ -88,5 +100,19 @@
          </form>
       </div>
    </div>
+   <jsp:include page="../../header&footer/footer.jsp"/>
+	<script type="text/javascript">
+	let index = 0;
+		$(".a_num").click(function() {
+			index = $(this).index()
+			$.cookie("change_color", index);
+		});
+// 		$.cookie("change_color")
+		
+// 		if($.cookie("change_color"))
+		function change_color_pagingBtn() {
+		$(".a_num").get(index).css({"background-color" : "#f7f7f7"})
+		}
+	</script>
 </body>
 </html>
