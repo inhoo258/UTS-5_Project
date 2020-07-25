@@ -9,7 +9,6 @@
 <title>Insert title here</title>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/list.css'/>" />
-
 <style type="text/css">
 </style>
 
@@ -17,7 +16,7 @@
 <body>
 	<sec:authorize access="hasRole('ROLE_MASTER')">
 		<jsp:include page="../header&footer/header.jsp" />
-
+<!-- 		<h1 align="center">회원 관리 페이지</h1> -->
 		<div class="p_product_explain2">
 			<nav class="container">
 				<ul class="tab">
@@ -44,10 +43,6 @@
 								</tr>
 								<tr>
 									<td>number</td>
-<<<<<<< HEAD
-									<th><button type="button" id="member_Checkall">모두 선택</button></th>
-									<td>ID<br>Name<br>Auth</td>
-=======
 									<th>
 									<label class="checkbox" id="member_checkAll_label"> 
 										<input type="checkbox" id="member_checkAll"> 
@@ -57,7 +52,6 @@
 									</th>
 									<td>ID<br>Name<br>Auth
 									</td>
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -87,20 +81,20 @@
 							</table>
 						</div>
 						<div align="center" id=pagemanager>
-							<span><a id="member_firstpage">[ 첫 페이지 ]</a></span>
+							<span><a id="member_firstpage" class="member_paging">처음</a></span>
 							<c:if test="${memberPage.nowBlock > 1}">
-								<span><a id="member_previous">[ 이전 ]</a></span>
+								<span><a id="member_previous" class="member_paging">이전</a></span>
 							</c:if> 
 							<c:forEach var="member_cnt" begin="${memberPage.startPage}" end="${memberPage.endPage}" step="1" varStatus="member_index">
 								<span>
-								<a class="member_cnt">[ ${member_cnt} ]</a>
+								<a class="member_cnt member_paging">${member_cnt}</a>
 								<input type="hidden" value="${member_index.index}" class="member_cnt_index">
 								</span>
 							</c:forEach>
 							<c:if test="${memberPage.nowBlock < memberPage.totalBlock}">
-								<span><a id="member_nextpage">[ 다음 ]</a></span>
+								<span><a id="member_nextpage" class="member_paging">다음</a></span>
 							</c:if>
-							<span><a id="member_lastpage">[ 마지막 페이지 ]</a></span>
+							<span><a id="member_lastpage" class="member_paging">끝</a></span>
 						</div>
 					</li>
 					<li id="tab2">
@@ -124,10 +118,6 @@
 
 								<tr>
 									<td>number</td>
-<<<<<<< HEAD
-									<th><button type="button" id="permission_Checkall">모두 선택</button></th>
-									<td>ID<br>Name<br>Auth</td>
-=======
 									<th>
 									<label class="checkbox" id="permission_checkAll_label"> 
 										<input type="checkbox" id="permission_checkAll"> 
@@ -137,7 +127,6 @@
 									</th>
 									<td>ID<br>Name<br>Auth
 									</td>
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 									<td>Tel</td>
 									<td>Address</td>
 									<td>Email</td>
@@ -168,21 +157,23 @@
 								</tbody>
 							</table>
 						</div>
-						<div align="center" id=pagemanager>
-							<span><a id="permission_firstpage">[ 첫 페이지 ]</a></span>
+						<div align="center" id=pagemanager >
+							<a id="permission_firstpage" class="permission_paging">처음</a>
 							<c:if test="${permissionPage.nowBlock > 1}">
-								<span><a id="permission_previous">[ 이전 ]</a></span>
-							</c:if> 
-							<c:forEach var="permission_cnt" begin="${permissionPage.startPage}" end="${permissionPage.endPage}" step="1" varStatus="index">
-								<span>
-								<a class="permission_cnt">[ ${permission_cnt} ]</a>
-								<input type="hidden" value="${index.index}" class="permission_cnt_index">
-								</span>
-							</c:forEach>
-							<c:if test="${permissionPage.nowBlock < permissionPage.totalBlock}">
-								<span><a id="permission_nextpage">[ 다음 ]</a></span>
+								<a id="permission_previous" class="permission_paging">이전</a>
 							</c:if>
-							<span><a id="permission_lastpage">[ 마지막 페이지 ]</a></span>
+							<c:forEach var="permission_cnt"
+								begin="${permissionPage.startPage}"
+								end="${permissionPage.endPage}" step="1" varStatus="index">
+								<a class="permission_cnt permission_paging">${permission_cnt}</a>
+								<input type="hidden" value="${index.index}"
+									class="permission_cnt_index">
+							</c:forEach>
+							<c:if
+								test="${permissionPage.nowBlock < permissionPage.totalBlock}">
+								<a id="permission_nextpage" class="permission_paging">다음</a>
+							</c:if>
+							<a id="permission_lastpage" class="permission_paging">끝</a>
 						</div>
 					</li>
 				</ul>  
@@ -191,6 +182,27 @@
 	<jsp:include page="../header&footer/footer.jsp"/>
 	
 	</sec:authorize>
+	<script type="text/javascript">
+	
+	// 쿠키 스크립트
+	var setCookie = function(name, value, day) {
+        var date = new Date();
+        date.setTime(date.getTime() + day * 60 * 60 * 24 * 1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
+	
+    var getCookie = function(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    };
+    
+    var deleteCookie = function(name) {
+        var date = new Date();
+        document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/";
+    }
+    
+	</script>
+	
 	
 	<script type="text/javascript">
 		if(sessionStorage.getItem("message") == "page_2"){
@@ -310,8 +322,8 @@
 		});
 	});
 	
-	
 	$(".member_text , .member_icon , .member_label").click(function() {
+		
 		let member_check_index = 0;
 		if($(this).html() == "선택"){
 			member_check_index = $(".member_text").index(this)
@@ -465,12 +477,19 @@
 	//permission paging 관련 스크립트
 	let paging_member_number = getParameterByName('memberpage');
 	let paging_permission_number = getParameterByName('permissionpage');
-	
 	let permission_word = getParameterByName('permission_word');
 	let member_word = getParameterByName('member_word');
+// 	window.onload=function(){
+//         if(getCookie("pageIndex") != null){
+//         	document.getElementsByClassName("permission_cnt")[0].st
+//         	$(".permission_cnt").get(0).css({"background-color" : "red"})
+//         }
+//     }
 	
 		$("#permission_firstpage").click(function() {
+			alert(document.getElementsByClassName("permission_cnt")[0].value)
 			sessionStorage.setItem("message" , "page_2");
+			setCookie("pageIndex" , "1" , 1)
 			if(paging_member_number == 1 || paging_member_number ==""){
 				location.href="<c:url value='/member/list?permissionpage=1&memberpage=1&permission_word="+permission_word+"&member_word="+member_word+"'/>";
 			}else{
