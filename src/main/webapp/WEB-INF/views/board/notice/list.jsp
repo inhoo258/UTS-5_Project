@@ -90,7 +90,7 @@
                   <div class="notice_search" >
                      <input type="text" style="height: 40px; width:270px; border: 1px solid #d3d3d3;">
                      <div class="search_img" align="center">
-                     	<a><i class="fas fa-search"></i>
+                     	<a><i class="fas fa-search"></i></a>
                      </div>
                   </div>
                
