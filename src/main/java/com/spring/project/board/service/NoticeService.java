@@ -27,6 +27,11 @@ public class NoticeService implements IBoardService{
 		return notice;
 	}
 	
+	//공지사항 이전/다음 페이지 처리 
+	public String getTitle(int notice_rn) {
+		return noticeRepository.getTitle(notice_rn);
+	}
+	
 	// 공지사항 수정 시 정보 가지고 오기
 	public NoticeVO getNoticeInfo(int notice_rn) {
 		return noticeRepository.getNotice(notice_rn);

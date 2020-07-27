@@ -51,6 +51,8 @@ public class BoardController {
 		model.addAttribute("notice", noticeService.getNotice(notice_rn));
 		int totalCount = noticeService.getTotalCount();
 		model.addAttribute("totalCount",totalCount);
+		if(notice_rn!=1)model.addAttribute("preTitle",noticeService.getTitle(notice_rn-1));
+		if(notice_rn!=totalCount)model.addAttribute("postTitle",noticeService.getTitle(notice_rn+1));
 //		System.out.println("totalCount : "+totalCount);
 //		System.out.println("notice_rn : "+notice_rn);
 		return "board/notice/view";

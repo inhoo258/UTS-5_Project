@@ -49,38 +49,44 @@
 			</table>
 			<table class="movement_table"
 						style="width: 100%; border-collapse: collapse; ">
-				<tr style="border-bottom : 1px solid #ddd;">
+				<tr id="pre" style="border-bottom : 1px solid #ddd;">
 					<td style="width: 70px;	height:36px; text-align: center; border-right: 1px solid #ddd;">
 						<c:if test="${notice.notice_rn gt 1}">
-							<i class="fas fa-angle-up"></i>
-							<a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>' >이전글</a>
+							<i class="fas fa-angle-up"></i>  다음글
 						</c:if>
 					</td>
 					<td>
-						글제목 나와야함
+						<a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>' >${preTitle}</a>
 					</td>
 				</tr>
-				<tr style="border-bottom:3px solid #5f0080 ; ">
+				<tr id="post" style="border-bottom:3px solid #5f0080 ; ">
 					<td style="width: 70px;	height:36px; text-align: center; border-right: 1px solid #ddd;">
 						<c:if test="${notice.notice_rn lt totalCount}">
-							<i class="fas fa-angle-down"></i>
-							<a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>다음글</a>
+							<i class="fas fa-angle-down"></i> 이전글
 						</c:if>
 					</td>
 					<td>
-						글제목 나와야함
+						<a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>${postTitle}</a>
 					</td>
 				</tr>
 			</table>
-			
 		</div>
 	</div>
-	<div>글 삭제도 만들어야함~~~~~~~~~~~~
+	<jsp:include page="../../header&footer/footer.jsp"/>
+	<div>
 	// 리스트에서도 삭제 만들건지??
-	// desc 확인해야함
 	// 검색 기능 구현
-	// 이전글 다음글 수정
 	// .view_table css borderbottom & .movement_table css 안먹음 
 	</div>
+	
+	<!-- 다음/ 이전 페이지 처리 --> 
+	<script type="text/javascript">
+		if(${notice.notice_rn eq 1} ){
+			$('#pre').attr('style', "display:none;")	
+		}
+		if(${notice.notice_rn eq totalCount} ){
+			$('#post').attr('style', "display:none;")	
+		}
+	</script>
 </body>
 </html>

@@ -22,8 +22,13 @@ public interface INoticeRepository {
 	@Select("select * from(select rownum notice_rn,n.* from(select * from notice_board order by notice_number desc)n)where notice_rn=#{notice_rn}")
 	public NoticeVO getNotice(int notice_rn);
 
+	//공지시항 이전/다음 페이지 처리
+	@Select("select notice_title from(select rownum notice_rn,n.* from(select * from notice_board order by notice_number desc)n)where notice_rn=#{notice_rn}")
+	public String getTitle(int notice_rn);
+
 	@Select("select count(*) from notice_board")
 	public int getTotalCount();
+	
 	
 	//update =================
 	//공지사항 조회수 +1증가
@@ -47,5 +52,5 @@ public interface INoticeRepository {
 	//delete =================
 	@Delete("delete notice_board where notice_number = #{notice_number}")
 	public void deleteView(int notice_rn);
-	
+
 }
