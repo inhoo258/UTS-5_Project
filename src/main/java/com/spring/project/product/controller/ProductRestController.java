@@ -16,7 +16,6 @@ public class ProductRestController {
 	@Autowired
 	CartService cartService;
 
-
 	@PostMapping("/updateCart")
 	public void updateCart(String member_id, @RequestParam("product_ids[]") List<Integer> product_ids,
 			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts) {
@@ -28,7 +27,6 @@ public class ProductRestController {
 		System.out.println("--------------------------------------------------rest updateCart out");
 	}
 
-	
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id") String member_id,
 			@RequestParam("product_ids[]") int[] product_ids) {

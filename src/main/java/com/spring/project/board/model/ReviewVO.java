@@ -5,11 +5,20 @@ import java.sql.Date;
 public class ReviewVO {
 	private String member_id;
 	private String product_id;
+	private String review_title;
 	private Date purchase_date;
 	private int product_count;
 	private byte[] review_img;
 	private String review_content;
 	private int review_score;
+	
+	public String getReview_title() {
+		return review_title;
+	}
+
+	public void setReview_title(String review_title) {
+		this.review_title = review_title;
+	}
 
 	public int getReview_score() {
 		return review_score;

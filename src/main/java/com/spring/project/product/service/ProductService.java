@@ -30,10 +30,8 @@ public class ProductService{
 		productRepository.plusProductCount(plusCount, product_id);
 	}
 	public void insertProduct(ProductsVO product) {
-		for (int i = 0; i < 100; i++) {
 			product.setProduct_id(productRepository.getMaxProductId()+1);
 			productRepository.insertProduct(product);
-		}
 	}
 	//각 상품들의 상품수량을 주문완료 후 빼는 역할
 	public void afterPayment(int[] product_ids,int[] order_product_counts) {

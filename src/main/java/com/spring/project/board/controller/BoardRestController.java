@@ -22,10 +22,5 @@ public class BoardRestController {
 	@Autowired
 	NoticeService noticeService;
 	
-	
-	
-	
-	
-	
 
 }
