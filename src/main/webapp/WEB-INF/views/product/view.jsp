@@ -49,7 +49,7 @@
                         </div>
                         <div>
                             <span id="explain_key"><span id="keytext">안내사항</span></span>
-                            <span id="explain_value">${product.product_info}</span>
+                            <span id="explain_value">}</span>
                         </div>
                         <div>
                            	<span id="key"><span id="keytext">구매수량</span></span>
@@ -80,7 +80,6 @@
 							</form>
 						</div>
                     </div>
-                    
                 </div>
                 <div class="p_product_pic">
                     <div class="p_pic_setting">
@@ -89,7 +88,6 @@
                 </div>
             </div>
         </div>
-			
 		<div class= "p_product_explain2">
 			<nav class="container">
 			   <ul class="tab">
@@ -100,10 +98,31 @@
 			      <li><a href="#tab5">상품 문의()</a></li>
 			   </ul>
 			   <ul class="panel">
-			         <li id="tab1"> 탭메뉴1 내용 </li>
+			         <li id="tab1">${product.product_info }</li>
 			         <li id="tab2"> 탭메뉴2 내용 </li>
 			         <li id="tab3"> 탭메뉴3 내용 </li>
-			         <li id="tab4"> 탭메뉴4 내용 </li>
+			         <li id="tab4"> 
+		         		<table border="1">
+				         			<tr>
+				         				<th>번호</th>
+				         				<th>제목</th>
+				         				<th>작성자</th>
+				         				<th>작성일</th>
+				         				<th>별점</th>
+				         				<th>조회</th>
+				         			</tr>
+				         	<c:forEach var="review" items="${reviewList}">
+				         		<tr>
+				         			<td></td>
+				         			<td>${review.review_title}</td>
+				         			<td>${review.review_content }</td>
+				         			<td></td>
+				         			<td></td>
+				         			<td></td>
+				         		</tr>
+				         	</c:forEach>
+		         		</table>
+			          </li>
 			         <li id="tab5"> 탭메뉴5 내용 </li>
 			   </ul>
 			</nav>
@@ -113,7 +132,6 @@
 <hr>
 <jsp:include page="../header&footer/footer.jsp"/>
 </body>
-
 <script type="text/javascript">
 		let product_id = document.getElementById("pOrder_product_id").value;
 		let member_id = document.getElementById("pOrder_member_id").value;
@@ -204,6 +222,5 @@
 	      return false; // 탭에 a요소로 되어 있어서 클릭했을 때 발생하는 click 이벤트 설정. 이동하지 못하게 함.
 	   });
 	});
-
 </script>
 </html>
