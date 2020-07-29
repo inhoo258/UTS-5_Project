@@ -21,7 +21,8 @@
                             <span id="title"><span id="titletext">${product.product_name}</span></span>
                         </div>
                         <div>
-                        	<span id="key"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/>원</span>
+                            <span id="key"><span id="keytext">상품 가격</span></span>
+                        	<span id="value"><span id="text"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/>원</span></span>
                         </div>
                         <div>
                             <span id="key"><span id="keytext">판매 단위</span></span>
@@ -56,25 +57,26 @@
                            	<span id="value">
                            		<span id="text">
 		                            <input id="p_minus_btn" type="button" value ="-" onclick="p_count_minus()" disabled="disabled">
-									<label id="p_count_num">1</label>
-									<input type="button" value ="+" onclick="p_count_plus()">
+									<label>&nbsp;<span id="p_count_num">1</span>&nbsp;</label>
+									<input id="p_plus_btn" type="button" value ="+" onclick="p_count_plus()">
 								</span>
 							</span>
                         </div>
                         <div>
-                        	<span id="p_tprice_key">총 상품 금액 :</span><span id="p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span><span>원</span>
+                        	<span id="key"><span id="keytext">총 상품 금액</span ></span>
+                        	<span id="value">
+	                        	<span id="text">
+	                        		<span id= "p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span> 원
+	                        	</span>
+                        	</span>
                         </div>
-<!--                         장바구에 요청사항은 굳이 필요 없는거 같아서 일단 주석 -->
-<!--                         <div> -->
-<!--                         	<span id="request_key">요청사항</span><span id="request_value"><textarea rows="" cols=""></textarea></span> -->
-<!--                         </div> -->
 						<div>
 							<form name='myForm'>
 								<input type="hidden" id = "pOrder_product_id" name="product_id" value="${product.product_id}">
 								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
 								<input type="hidden" id = "pOrder_member_id" name="member_id" value="<sec:authentication property="principal.username"/>">
-								<input type="button" value ="주문하기" onclick="redirectOrder()"> 
-								<input type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
+								<input class="btn" type="button" value ="주문하기" onclick="redirectOrder()"> 
+								<input class="btn" type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
 							</form>
 							<form action ='<c:url value ="/product/cart/${member_id}"/>'>
 							</form>

@@ -1,5 +1,51 @@
 @charset "UTF-8";
 
+*{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.collectionOrder{
+    margin: 0 auto;
+    width: 1800px;
+    height: 180px;
+}
+.myorderproduct{
+    margin: 0px auto;
+    width: 1300px;
+}
+.sectiontop{
+    height: 30px;
+}
+.topoption1{
+    height: 100%;
+}
+.topoption2{
+    text-align: right;
+    float: right;
+    width: 350px;
+    height: 100%;
+}
+.ordernum{
+    font-size: 20px;
+}
+.mptitle{
+    margin: 10px 0;
+}
+.onebyone{
+    vertical-align: middle;
+}
+#myorderimg{
+    width: 100px;
+}
+/*====================================*/
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
 .h_parent{margin-bottom: 100px;}
 .pro_section { width: 1050px;}
 #ordersheet h1 {
@@ -128,9 +174,9 @@ tr .td_emptyCart{
 /*삭제 버튼*/
 .delete{
     margin: 0 0 40px 0;
-	width: 100%;
+    width: 100%;
 	border-top: 2px solid #e5e5e5;
-	padding: 40px 0;
+	padding : 40px 0;
 }
 
 .bottom_btn_delete{
@@ -147,10 +193,6 @@ tr .td_emptyCart{
     font-family: noto sans;
     font-weight: 400;
     font-size: 12px;
-}
-.bottom_btn_delete:hover{
-	background-color: #5f0080;
-	color: white;
 }
 
 
@@ -174,39 +216,12 @@ tr .td_emptyCart{
 }
 
 
-/*총금액 + 배송비 확인란 cart_result*/
-.list{
-  	margin: 0 auto;
-    width: 200px;
-	height: 165px;
-	border: 2px solid #ddd;
-	display: flex;
-	align-items: center;
-}
 
-.tit{
-	margin: 0 auto;
-/* 	display: block; */
-}
-
-
-.deco{
-/*    padding: 80px 50px 80px 50px; */
-	padding: 80px 0 80px 0;
-	vertical-align: middle;
-	width: 50px;
-}
-
-.fas{
-    color: #777;
-    font-size: 20px;
-}
-
-.deco_plus .deco_equal{
-    width: 200px;
-    height: 165px;
-    border: 2px solid rebeccapurple;
-}
+/* .deco_plus .deco_equal{ */
+/*     width: 200px; */
+/*     height: 165px; */
+/*     border: 2px solid rebeccapurple; */
+/* } */
 
 /* .cart_result .list .tit{ */
 /*     display: block; */

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/*게시글 전체 div css*/
+/*게시글 전체 div*/
 .noice_section{
     width: 1050px; 
     margin: 0 auto; 
@@ -20,9 +20,10 @@
 .btn_write a{
 	color: #fff;
     font-size: 14px;
+	
 }
 
-/*notice 테이블 css*/
+/*notice 테이블*/
 .notice_table{
 border-collapse: collapse; 
 width: 1050px;
@@ -32,7 +33,7 @@ color: #4c4c4c;
 
 .tr_notice{
    height: 56px;
-   border-top: 1px solid #999;
+   border-top: 1px solid #999;;
 }
 
 .th_notice{
@@ -50,13 +51,11 @@ color: red;
 .a_title{
    color: #4c4c4c ;
 }
-
-/*페이징 처리 css*/
+/*페이징 처리*/
 .notice_paging{
    padding: 50px;
    border-bottom: 1px solid #5f0080;
    border-top: 1px solid #5f0080;
-   
 }
 .a_paging{
 	width:34px; height:34px;
@@ -79,7 +78,7 @@ color: red;
     border-right: 1px solid #ddd;
 }
 
-/*검색 css */
+/*검색 */
 input,text:focus {
         outline: none;
    }
@@ -97,6 +96,6 @@ input,text:focus {
 	line-height: 40px;
 }
 
-.fa-search{
+.fas{
    font-size: 19px;
 }
