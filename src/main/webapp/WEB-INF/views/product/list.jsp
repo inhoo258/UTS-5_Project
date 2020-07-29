@@ -11,17 +11,6 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/product/list.css'/>" />
 </head>
 <body>
-<<<<<<< HEAD
-	<jsp:include page="../header&footer/header.jsp"/>
-	<c:forEach var="product" items="${productList}">
-		<a href='<c:url value="/product/${product.product_id}"/>'>${product.product_id}.</a><br>
-		${product.product_name}<br>
-		<img src='<c:url value="/product/img/${product.product_id}"/>' width="500px" height="500px"><br>
-		${product.product_info}
-		<hr>
-	</c:forEach>
-	<jsp:include page="../header&footer/footer.jsp"/>
-=======
     <jsp:include page="../header&footer/header.jsp"/>
     <section>
         <h1 class="productstitle">상 품 리 스 트</h1>
@@ -47,10 +36,6 @@
         </c:forEach>
         </div>
     </section>
-<%--     <jsp:include page ="../header&footer/footer.jsp"/> --%>
-<%-- <img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'> --%>
- <br>
-<br>
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
+    <jsp:include page ="../header&footer/footer.jsp"/>
 </body>
 </html>
