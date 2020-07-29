@@ -104,9 +104,11 @@
 	                        <div class="forSeller">
 		                        <div id="forseller2">
 		                            <input type="text" id="sellerbox" placeholder="사업자 등록번호를 입력하세요( '-' 포함)" name="seller_reg_num">
-		                            <input type="button" id="regNumCheckBtn" value="조회">
 		                        </div>
-		                         <div class="joininfovalue">
+		                        <div class="findseller">
+		                            <input type="button" id="regNumCheckBtn" value="조회">
+		                         </div>
+		                         <div class="fsellertxt">
 	                          	 	<font id="reg_num_check"></font>
 	                      		 </div>
 	                        </div>
@@ -304,8 +306,8 @@
     		reg_num_check=false;
 	    	$(".forSeller").show();
 	    	console.log(selectUser)
-	    	selectUser.style.margin='30px 0 0 40px';
-	    	selectUser.style.width='90px';
+	    	selectUser.style.margin='30px 0 0 90px';
+	    	selectUser.style.width='80px';
 	    	document.getElementsByClassName("joinbox")[0].style.height='950px';
     	}else{
     		reg_num_check=true;
@@ -361,13 +363,16 @@ $("#regNumCheckBtn").on("click",function(){
 	console.log("entered seller_reg_num : "+seller_reg_num);
 	if(reg_num_check){
 		document.getElementById("reg_num_check").style.color="red";
+	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
         document.getElementById("reg_num_check").innerText="이미 인증되었습니다.";
 	}else if(seller_reg_num.trim()==""){
 		document.getElementById("reg_num_check").style.color="red";
+	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
         document.getElementById("reg_num_check").innerText="사업자등록번호를 입력해주세요.";
         reg_num_check=false;
 	}else if (!/^[0-9]{3}[-][0-9]{2}[-][0-9]{5}$/.test(seller_reg_num)) { 
 		document.getElementById("reg_num_check").style.color="red";
+	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 150px";
         document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
     	reg_num_check=false; 
 	}else{
@@ -377,7 +382,8 @@ $("#regNumCheckBtn").on("click",function(){
 		}  
 		if (10 - ((checkSum + Math.floor(checkID[8] * Number(reg_nums[8]) / 10)) % 10) != Number(reg_nums[9])) {
 			document.getElementById("reg_num_check").style.color="red";
-	        document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
+	        document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 0 150px";
+			document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
 	   		reg_num_check=false;
 		}else {
 			$.ajax({
