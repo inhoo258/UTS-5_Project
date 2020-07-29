@@ -21,7 +21,8 @@
                             <span id="title"><span id="titletext">${product.product_name}</span></span>
                         </div>
                         <div>
-                        	<span id="key"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/>원</span>
+                            <span id="key"><span id="keytext">상품 가격</span></span>
+                        	<span id="value"><span id="text"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/>원</span></span>
                         </div>
                         <div>
                             <span id="key"><span id="keytext">판매 단위</span></span>
@@ -49,38 +50,38 @@
                         </div>
                         <div>
                             <span id="explain_key"><span id="keytext">안내사항</span></span>
-                            <span id="explain_value">${product.product_info}</span>
+                            <span id="explain_value">}</span>
                         </div>
                         <div>
                            	<span id="key"><span id="keytext">구매수량</span></span>
                            	<span id="value">
                            		<span id="text">
 		                            <input id="p_minus_btn" type="button" value ="-" onclick="p_count_minus()" disabled="disabled">
-									<label id="p_count_num">1</label>
-									<input type="button" value ="+" onclick="p_count_plus()">
+									<label>&nbsp;<span id="p_count_num">1</span>&nbsp;</label>
+									<input id="p_plus_btn" type="button" value ="+" onclick="p_count_plus()">
 								</span>
 							</span>
                         </div>
                         <div>
-                        	<span id="p_tprice_key">총 상품 금액 :</span><span id="p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span><span>원</span>
+                        	<span id="key"><span id="keytext">총 상품 금액</span ></span>
+                        	<span id="value">
+	                        	<span id="text">
+	                        		<span id= "p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span> 원
+	                        	</span>
+                        	</span>
                         </div>
-<!--                         장바구에 요청사항은 굳이 필요 없는거 같아서 일단 주석 -->
-<!--                         <div> -->
-<!--                         	<span id="request_key">요청사항</span><span id="request_value"><textarea rows="" cols=""></textarea></span> -->
-<!--                         </div> -->
 						<div>
 							<form name='myForm'>
 								<input type="hidden" id = "pOrder_product_id" name="product_id" value="${product.product_id}">
 								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
 								<input type="hidden" id = "pOrder_member_id" name="member_id" value="<sec:authentication property="principal.username"/>">
-								<input type="button" value ="주문하기" onclick="redirectOrder()"> 
-								<input type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
+								<input class="btn" type="button" value ="주문하기" onclick="redirectOrder()"> 
+								<input class="btn" type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
 							</form>
 							<form action ='<c:url value ="/product/cart/${member_id}"/>'>
 							</form>
 						</div>
                     </div>
-                    
                 </div>
                 <div class="p_product_pic">
                     <div class="p_pic_setting">
@@ -89,7 +90,6 @@
                 </div>
             </div>
         </div>
-			
 		<div class= "p_product_explain2">
 			<nav class="container">
 			   <ul class="tab">
@@ -100,10 +100,31 @@
 			      <li><a href="#tab5">상품 문의()</a></li>
 			   </ul>
 			   <ul class="panel">
-			         <li id="tab1"> 탭메뉴1 내용 </li>
+			         <li id="tab1">${product.product_info }</li>
 			         <li id="tab2"> 탭메뉴2 내용 </li>
 			         <li id="tab3"> 탭메뉴3 내용 </li>
-			         <li id="tab4"> 탭메뉴4 내용 </li>
+			         <li id="tab4"> 
+		         		<table border="1">
+				         			<tr>
+				         				<th>번호</th>
+				         				<th>제목</th>
+				         				<th>작성자</th>
+				         				<th>작성일</th>
+				         				<th>별점</th>
+				         				<th>조회</th>
+				         			</tr>
+				         	<c:forEach var="review" items="${reviewList}">
+				         		<tr>
+				         			<td></td>
+				         			<td>${review.review_title}</td>
+				         			<td>${review.review_content }</td>
+				         			<td></td>
+				         			<td></td>
+				         			<td></td>
+				         		</tr>
+				         	</c:forEach>
+		         		</table>
+			          </li>
 			         <li id="tab5"> 탭메뉴5 내용 </li>
 			   </ul>
 			</nav>
@@ -113,7 +134,6 @@
 <hr>
 <jsp:include page="../header&footer/footer.jsp"/>
 </body>
-
 <script type="text/javascript">
 		let product_id = document.getElementById("pOrder_product_id").value;
 		let member_id = document.getElementById("pOrder_member_id").value;
@@ -204,6 +224,5 @@
 	      return false; // 탭에 a요소로 되어 있어서 클릭했을 때 발생하는 click 이벤트 설정. 이동하지 못하게 함.
 	   });
 	});
-
 </script>
 </html>

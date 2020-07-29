@@ -1,6 +1,6 @@
 package com.spring.project.board.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,8 @@ public class ReviewService implements IBoardService{
 	@Autowired
 	IReviewRepository reviewRepository;
 	
-	public ArrayList<ReviewVO> getReviewList(){
-		return reviewRepository.getReviewList();
+	public List<ReviewVO> getReviewList(int product_id){
+		return reviewRepository.getReviewList(product_id);
 	}
 	
 	public ReviewVO getReview(String member_id) {

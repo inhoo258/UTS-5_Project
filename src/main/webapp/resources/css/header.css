@@ -289,13 +289,12 @@ li.animated-button.thar-four:before {
 	position: relative;
 	height: 70px;
 	width: 100%;
-	margin-bottom: 100px;
 	}
 
 .se_div{
 	width:100%;
 	height: 70px;
-	background: black;
+	background-color: rgba(0,0,0,0.3);
 	color: white;
 	position: fixed;
 	left: 0;

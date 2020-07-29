@@ -4,21 +4,35 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class MemberVO implements UserDetails {
 	private String rn;
+	@NotEmpty(message="")
+	@Pattern(regexp = "^[a-z0-9]{4,12}$",message="영문 소문자 ,숫자  4~12 자리로 입력해 주세요.")
 	private String member_id;
+	@NotEmpty(message="")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#]).{10,15}$", message="10~15자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
 	private String member_pw;
+	@NotEmpty(message="")
+	@Pattern(regexp = "^[가-힣]+$",message="가 나 다 형식으로 입력해주세요.")
 	private String member_name;
+	@NotEmpty(message="")
+	@Pattern(regexp = "^[0][1]\\d{1}\\d{3,4}\\d{4}$", message="잘못된 형식입니다.")
 	private String member_tel;
-	private String member_addr;
+	@NotEmpty(message="")
+	private String member_main_addr;
+	private String member_sub_addr;
+	@NotEmpty(message="")
+	@Pattern(regexp = "^[a-z0-9._%+-]+@[a-z]+\\.[a-z]{2,3}$", message="잘못된 이메일 형식입니다.")
 	private String member_email;
 	private int member_enabled;
 	private String member_auth;
-	
 	
 	public String getRn() {
 		return rn;
@@ -54,15 +68,18 @@ public class MemberVO implements UserDetails {
 	public void setMember_tel(String member_tel) {
 		this.member_tel = member_tel;
 	}
-
-	public String getMember_addr() {
-		return member_addr;
+	public String getMember_main_addr() {
+		return member_main_addr;
 	}
-
-	public void setMember_addr(String member_addr) {
-		this.member_addr = member_addr;
+	public void setMember_main_addr(String member_main_addr) {
+		this.member_main_addr = member_main_addr;
 	}
-
+	public String getMember_sub_addr() {
+		return member_sub_addr;
+	}
+	public void setMember_sub_addr(String member_sub_addr) {
+		this.member_sub_addr = member_sub_addr;
+	}
 	public String getMember_email() {
 		return member_email;
 	}

@@ -39,7 +39,8 @@ public class MemberController {
 	}
 
 	@PostMapping("/insert")
-	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes) {
+	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes ) {
+		System.out.println("------------------\nmember-insert process---------------------\n");
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
 		if (member.getMember_auth().equals("ROLE_CUSTOMER"))
 			member.setMember_enabled(1);
