@@ -1,11 +1,12 @@
 @charset "UTF-8";
 
-* {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	text-decoration: none;
-}
+/* * { */
+/* 	margin: 0; */
+/* 	padding: 0; */
+/* 	list-style: none; */
+/* 	text-decoration: none; */
+/* } */
+
 
 #container {
 	height: 937px;
@@ -28,47 +29,34 @@
 	text-align: center;
 }
 
-#menu_collection {
-	position: relative;
-	top: 100%;
-	width: 100%;
-	height: 100%;
-	background-color: aliceblue;
-}
-
-ul {
+#menubar>ul {
 	position: absolute;
 	width: 150px;
 	top: 340px;
 	left: 107px;
 }
 
-ul>li {
-	/*메뉴 추가시 padding 조절 여기서 하면 됨*/
+#menubar>ul>li {
+	/* 메뉴 추가시 padding 조절 여기서 하면 됨 */
 	margin: 40px 0;
 	height: 30px;
 }
 
-ul>li>a {
+#menubar>ul>li>a {
 	font-size: 20px;
 	display: block;
 	height: 100%;
 	color: white;
 }
 
-ul>li>a:hover {
+#menubar>ul>li>a:hover {
 	font-size: 25px;
 	display: block;
 	height: 100%;
 	color: yellow;
 }
 
-/* .logoimg-frame {
-            position: relative;
-            width: 200px;
-            height: 200px;
-        } */
-img {
+#menubar>img {
 	position: absolute;
 	top: 100px;
 	left: 83px;
@@ -159,7 +147,7 @@ video {
 	cursor: pointer;
 	display: inline-block;
 	top: 800px;
-	left: 155px;
+	left: 150px;
 	overflow: hidden;
 }
 
@@ -210,21 +198,23 @@ video {
 }
 
 @keyframes span_down1 {
-	from{top:40%;}
-	to{top: 150%;}
+	from { top: 40%; }
+    to { top: 150%; }
 }
 
 @keyframes span_down2 {
-	from {top:60%; }
-	to{top: 160%; }
+	from { top: 60%; }
+    to { top: 160%; }
 }
+
 @keyframes span_down3 {
-	from {top:80%;}
-	to{top: 180%;}
+	from { top: 80%; }
+	to { top: 180%; }
 }
+
 @keyframes text_show {
-	from {top: -25px;}
-	to{top: 35%;}
+from { top: -25px; }
+to { top: 35%; }
 }
 
 #next_span1 {

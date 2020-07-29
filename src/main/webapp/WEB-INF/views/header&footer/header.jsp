@@ -18,104 +18,55 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 <script src="/project/resources/js/summernote-ko-KR.js"></script>
+<style>
+	*{
+	text-decoration: none;
+	}
+</style>
 </head>
 <body>
-
 	<!--로딩화면 -->
 	<div id="mask"></div>
 	<div class="loader"></div>
-	<header>
-		<div class="h_parent">
-		<div class="se_div">
-			<section align="center" class="section header-section1">
-				<h1>
-					<a href="<c:url value='/'/>"><font id="H-font">Home</font></a>
-				</h1>
-			</section>
-			<section align="center" class="section header-section2">
-				<nav class="nav-meun1 h_menu">
-					<h3>
-						<a href='<c:url value="/board/notice/list"/>'><font id="H-font">갓지사항</font></a>
-					</h3>
-				</nav>
-				<nav class="nav-meun2 h_menu">
-					<h3>
-						<a href='<c:url value="/board/event/list"/>'><font id="H-font">Event</font></a>
-					</h3>
-				</nav>
-				<nav class="nav-meun3 h_menu">
-					<h3>
-						<a href='<c:url value="/board/qna/list"/>'><font id="H-font">qna</font></a>
-					</h3>
-				</nav>
-				<nav class="nav-meun4 h_menu">
-					<h3>
-						<a href='<c:url value="/board/review/list"/>'><font id="H-font">review</font></a>
-					</h3>
-				</nav>
-			</section>
-			<section class="section header-section3">
-				<input type="checkbox" id="menuicon"> <label for=menuicon
-					id="H-label" class="h_label"> <span></span> <span></span> <span></span>
-				</label>
-
-				<div class="sidebar">
-					<sec:authorize access="isAnonymous()">
-						<div class="sidebar-container1">
-							<h2>로그인을 해주세요.</h2>
-							<a id="sidebar-login" href="<c:url value='/login'/>">LOGIN ></a>
-						</div>
-					</sec:authorize>
-					<sec:authorize access="isAuthenticated()">
-						<div class="sidebar-container1">
-							<i id="user-icon" class="fas fa-user-circle"></i> <b
-								id="label-id"> <sec:authentication
-									property="principal.username" /></b>&nbsp;&nbsp;<font>님</font> <br>
-							<br>
-
-						</div>
-					</sec:authorize>
-					<hr id="H_hr">
-					<div id="sidebar-container2"> 
-						<ul>
-							<sec:authorize access="isAnonymous()">
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/form"/>'>회원가입</a></li>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<c:set var="member_id">
-									<sec:authentication property="principal.username" />
-								</c:set>
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/info/${member_id}"/>'>나의정보</a></li>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('ROLE_SELLER','ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a" href=>나의상품목록</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href="#">상품추가</a></li>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('ROLE_CUSTOMER','ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a" href="#">나의정보</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href="<c:url value='/product/cart/${member_id}'/>">장바구니</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href='<c:url value = "/product/myorderlist/${member_id}"/>'>주문내역</a></li>
-							</sec:authorize>
-							<sec:authorize access="hasRole('ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/list"/>'>회원관리</a></li>
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/product/list"/>'>상품관리</a></li>
-							</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-								<a id="H_a" style="position: absolute; top: 90%; left: 10%;" href="<c:url value='/logout'/>">LOGOUT >></a>
-						</sec:authorize>
-						<!-- 로그아웃 위치 변경 이유 : 겹쳐보여서 안에다가 넣었습니다. -->
-						</ul>
-					</div>
-				</div>
-			</section>
-		</div>
-		</div>
-	</header>
-	<a class="btn-top" href="#"><i class="fas fa-arrow-circle-up"></i></a>
+	  <header>
+            <div id="header_menu1">
+                <a href="#"><img src="resources/main_logo.png"></a>
+            </div>
+            <div id=sidebar_icon>
+                <div id="sidebar_div">
+                    <input type="checkbox" hidden class=sidebar_check>
+                    <span id=sidebar_span1 class="sidebar_span"></span>
+                    <input type="checkbox" hidden class=sidebar_check>
+                    <span id=sidebar_span2 class="sidebar_span"></span>
+                    <input type="checkbox" hidden class=sidebar_check>
+                    <span id=sidebar_span3 class="sidebar_span"></span>
+                </div>
+            </div>
+            <div id=sidebar>
+                <section id="login_section">
+                    <span>
+                        <h1>로그인을 해주세요</h1>
+                        <a href=""><h3>LogIn >></h3></a>
+                        <div><img src="resources/anonymous.png" alt=""></div>
+                    </span>
+                </section>
+                <section id="sidebar_menu_section">
+                    <ul>
+                        <li><a href="">상품 보기</a></li>
+                        <li><a href="">22</a></li>
+                        <li><a href="">33</a></li>
+                        <li><a href="">44</a></li>
+                        <li><a href="">55</a></li>
+                        <li><a href="">66</a></li>
+                        <li><a href="">77</a></li>
+                        <li><a href="">88</a></li>
+                    </ul>
+                </section>
+                <section id="logout_section">
+                    <a href="">Logout >></a>
+                </section>
+            </div>
+        </header>
 	<script type="text/javascript">
 		$(window).on("load", function() {
 			$(".loader").fadeOut();
@@ -135,15 +86,23 @@
 				'height' : maskHeight
 			});
 		});
-		$(function() {
-	        $(".btn-top").click(function() {
-	            $('html, body').animate({
-	                scrollTop : 0
-	            }, 400);
-	            return false;
-	        });
-	    });
 	</script>
+	
+	<script>
+    $("#sidebar_div").click(function () {
+        if ($(".sidebar_check").prop("checked")) {
+            $(".sidebar_check").prop("checked", false);
+            $("#sidebar").animate({ "right": "-350px" })
+            $("#sidebar_icon").animate({ "top": "40px", "right": "40px" })
+            $(".sidebar_span").css({ "background": "white" })
+        } else {
+            $(".sidebar_check").prop("checked", true)
+            $("#sidebar").animate({ "right": "0px" })
+            $("#sidebar_icon").animate({ "top": "10px", "right": "10px" })
+            $(".sidebar_span").css({ "background": "#2a365c" })
+        }
+    })  
+</script>
 	
     
 
