@@ -8,24 +8,34 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/product/upload.css'/>" />
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<script src="/project/resources/js/summernote-ko-KR.js"></script>
 </head>
 <body>
-<h1>UPLOAD.JSP</h1>
-<h1>업로드</h1>
-	<jsp:include page="../header&footer/header.jsp"/>
-	<c:set var="member_id">
-		<sec:authentication property="principal.username"/>
-	</c:set>
-	<form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
-		<input type="hidden" name="member_id" value="${member_id}">
-		메인사진선택<input type="file" name="file" value="메인사진"><br>
-		<input type="text" name="product_name" placeholder="상품명"><br>
-		<input type="text" name="product_count" placeholder="상품갯수"><br>
-		<input type="text" name="product_price" placeholder="상품가격"><br>
-		<input type="text" name="product_weight" placeholder="상품무게"><br>
-		<textarea name="product_info" id="product_info"></textarea>
-		<input type="button" value="업로드" id="submitBtn" onclick="productUpload(this.form)">
-	</form>
+	<div style="position: relative; width: 1920; height: 1500px; background-color: green">
+		<jsp:include page="../header&footer/header.jsp"/>
+	<div style="position: absolute; width: 80%; height: 80%; background-color: red ; z-index: 20; top: 50%; left: 50%; transform: translate(-50% , -50%) ;">
+		<h1>UPLOAD.JSP</h1>
+		<h1>업로드</h1>
+		<c:set var="member_id">
+<%-- 			<sec:authentication property="principal.username"/> --%>
+		</c:set>
+		<form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
+			<input type="hidden" name="member_id" value="${member_id}">
+			메인사진선택<input type="file" name="file" value="메인사진"><br>
+			<input type="text" name="product_name" placeholder="상품명"><br>
+			<input type="text" name="product_count" placeholder="상품갯수"><br>
+			<input type="text" name="product_price" placeholder="상품가격"><br>
+			<input type="text" name="product_weight" placeholder="상품무게"><br>
+			<textarea name="product_info" id="product_info"></textarea>
+			<input type="button" value="업로드" id="submitBtn" onclick="productUpload(this.form)">
+		</form>
+	</div>
+	</div>
 	<jsp:include page="../header&footer/footer.jsp"/>
 <script>
 $(document).ready(function() {

@@ -8,29 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
+<!-- <script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script> -->
 <link rel="stylesheet" href="<c:url value='/resources/css/header.css'/>" />
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
-<script src="/project/resources/js/summernote-ko-KR.js"></script>
-<style>
-	*{
-	text-decoration: none;
-	}
-</style>
+
 </head>
 <body>
 	<!--로딩화면 -->
 	<div id="mask"></div>
 	<div class="loader"></div>
-	  <header>
+ 	<header>
             <div id="header_menu1">
-                <a href="#"><img src="resources/main_logo.png"></a>
+                <a href="#"><img src="/project/resources/main_logo.png"></a>
             </div>
             <div id=sidebar_icon>
                 <div id="sidebar_div">
@@ -47,7 +35,7 @@
                     <span>
                         <h1>로그인을 해주세요</h1>
                         <a href=""><h3>LogIn >></h3></a>
-                        <div><img src="resources/anonymous.png" alt=""></div>
+                        <div><img src="/project/resources/anonymous.png" alt=""></div>
                     </span>
                 </section>
                 <section id="sidebar_menu_section">
@@ -102,7 +90,7 @@
             $(".sidebar_span").css({ "background": "#2a365c" })
         }
     })  
-</script>
+	</script> 
 	
     
 
