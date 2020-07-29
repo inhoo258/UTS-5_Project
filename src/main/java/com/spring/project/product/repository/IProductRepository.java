@@ -37,8 +37,8 @@ public interface IProductRepository {
 	public int getMaxProductId();
 	//상품입고
 	@Insert("insert into products "
-			+ "(product_id, member_id, product_info, product_img, product_name, product_count, product_price, product_weight, product_img_name) "
-			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_img}, #{product_name}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
+			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name) "
+			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
 	
 	//주문 완료 후 총 수량 수정

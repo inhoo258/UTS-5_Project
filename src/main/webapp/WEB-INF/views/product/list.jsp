@@ -36,6 +36,9 @@
         </c:forEach>
         </div>
     </section>
-    <jsp:include page ="../header&footer/footer.jsp"/>
+<%--     <jsp:include page ="../header&footer/footer.jsp"/> --%>
+<%-- <img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'> --%>
+ <br>
+<br>
 </body>
 </html>

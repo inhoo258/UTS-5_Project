@@ -2,7 +2,10 @@ package com.spring.project.board.repository;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.board.model.ReviewVO;
@@ -10,9 +13,9 @@ import com.spring.project.board.model.ReviewVO;
 @Repository
 public interface IReviewRepository {
 	
-	//전체 글목록 내림차순 정렬
-	@Select("select * from review_board order by rownum desc")
-	public ArrayList<ReviewVO> getReviewList();
+	//개별 상품에 해당하는 글목록 내림차순 정렬
+	@Select("select * from review_board where product_id=#{product_id} order by rownum desc")
+	public ArrayList<ReviewVO> getReviewList(int product_id);
 	
 	//client별 작성 목록
 	@Select("select * from review_board where member_id=#{member_id}")

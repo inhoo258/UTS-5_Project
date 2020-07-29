@@ -7,70 +7,99 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/home.css'/>" />
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body onload="changeImg()">
-    <section>
-        <div class="main-box">
-            <div class="manubar">
-                <div class="manubar-logo">
-                    <div class="logoimg-frame"><img src='<c:url value = "https://cdn3.iconfinder.com/data/icons/solidix-summer-holidays/256/summer_vacations_holidays_beach-13-128.png"/>'></div>
-                </div>
-                <div class="manubar-collection">
-                    <ul>
-                        <li><a href="#">회사소개</a></li>
-                        <li><a href="#">인사말</a></li>
-                        <li><a href="#">양식과정</a></li>
-                        <li><a href="#">오시는길</a></li>
-                        <li><a href="#">배달과정</a></li>
-                        <li><a href="#">중도매인 문의</a></li>
-                    </ul>
-                </div>
-                <div class="linkofanother">
-                	<ul>
-                		<li><a href="#"><img src='<c:url value="https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/01-128.png"/>'></a></li>
-                		<li><a href="#"><img src='<c:url value="https://cdn4.iconfinder.com/data/icons/picons-social/57/38-instagram-3-128.png"/>'></a></li>
-                		<li><a href="#"><img src='<c:url value="https://cdn3.iconfinder.com/data/icons/picons-social/57/03-twitter-256.png"/>'></a></li>
-                		<li><a href="#"><img src='<c:url value="https://cdn0.iconfinder.com/data/icons/cute-fish/512/b73_6-128.png"/>'></a></li>
-                	</ul>
-                </div>
+<body>
+   <div id="container">
+    <section id=menubar class=item>
+        <img src=resources/main_logo.png>
+        <ul>
+            <li><a href="#" class="main_explain">회사소개</a></li>
+            <li><a href="#" class="main_explain">인사말</a></li>
+            <li><a href="#" class="main_explain">양식과정</a></li>
+            <li><a href="#" class="main_explain">오시는길</a></li>
+            <li><a href="#" class="main_explain">배달과정</a></li>
+        </ul>
+        <div id=next>
+            <span id=next_page>NEXT</span>
+            <span id=next_span1 class="next_span"></span>
+            <span id=next_span2 class="next_span"></span>
+            <span id=next_span3 class="next_span"></span>
+            <span id=next_span4 class="next_span"></span>
+            <span id=next_span5 class="next_span"></span>
+            <span id=next_span6 class="next_span"></span>
+        </div>
+        <div id="section_commonse0" class="section_commonse">
+            <div id=exit class="exit">
+                <span id=exit_span1></span>
+                <span id=exit_span2></span>
             </div>
-            <div class="imgbar">
-                <img class = "imgleftbtn" id="mainimgleft" src="https://cdn0.iconfinder.com/data/icons/zondicons/20/arrow-outline-left-512.png" onclick="changeleftImg()">
-                <img class = "imgrightbtn" id="mainimgleft" src="https://cdn0.iconfinder.com/data/icons/zondicons/20/arrow-outline-right-256.png" onclick="changerightImg()">
-                <img id="mainimg" src='<c:url value = "/resources/flatfish1.jpg"/>'>
+            <div id="aaa">
+                asdfasdfsadfsadf
             </div>
         </div>
+        <div id="section_commonse1" class="section_commonse">
+            <div id=exit class="exit">
+                <span id=exit_span1></span>
+                <span id=exit_span2></span>
+            </div>
+            <div>
+                bbbbbb
+            </div>
+        </div>
+        <div id="section_commonse2" class="section_commonse">
+            <div id=exit class="exit">
+                <span id=exit_span1></span>
+                <span id=exit_span2></span>
+            </div>
+        </div>
+        <div id="section_commonse3" class="section_commonse">
+            <div id=exit class="exit">
+                <span id=exit_span1></span>
+                <span id=exit_span2></span>
+            </div>
+        </div>
+        <div id="section_commonse4" class="section_commonse">
+            <div id=exit class="exit">
+                <span id=exit_span1></span>
+                <span id=exit_span2></span>
+            </div>
+        </div>
+        <div class="section_div1"></div>
+        <video src=resources/배경.mp4 loop muted autoplay id="video"></video>
     </section>
+
+    <section id=menu_collection>
+        asdfadsf
+    </section>
+</div>
+	<script>
+	    let index_save;
+	    $(".main_explain").click(function () {
+	        if (index_save != undefined) {
+	            $("#section_commonse" + index_save).css({ "width": "0", "height": "0", "overflow": "hidden" })
+	            $("#section_commonse" + index_save).css({ "border": "none" })
+	        }
+	        let index = $(".main_explain").index(this);
+	        index_save = index
+	        let cnt = $(".section_commonse").length;
+	        $("#section_commonse" + index).animate({ "width": "1500px", "height": "840px", "overflow": "none" })
+	        $("#section_commonse" + index).css({ "border": "2px solid yellow" })
+	    })
+	
+	    $(".exit").click(function () {
+	        let exit_index = $(".exit").index(this)
+	        $("#section_commonse" + exit_index).animate({ "width": "0", "height": "0", "overflow": "hidden" })
+	        $("#section_commonse" + exit_index).css({ "border": "none" })
+	    })
+	</script>
+	
+	<script>
+	    $("#next").click(function () {
+	        $("#menubar").animate({ "top": "-100%", "overflow": "hidden" }, 2000)
+	        $("#menu_collection").animate({ "top": "0%" }, 2000)
+	    })
+	
+	</script>
 </body>
-<script >
-    var mainImg = document.getElementById("mainimg");
-    var collectionImg = ['<c:url value = "/resources/flatfish1.jpg"/>','<c:url value = "/resources/flatfish2.jpg"/>','<c:url value = "/resources/flatfish3.jpg"/>','<c:url value = "/resources/flatfish4.jpg"/>'];
-    var imageIndex = 0;
-    function changeImg() {
-        if (imageIndex >= collectionImg.length-1) {
-            imageIndex = 0;
-        }
-        mainImg.setAttribute("src", collectionImg[imageIndex]);
-        imageIndex++;
-        setTimeout(changeImg,2000);
-    }
-
-    function changeleftImg(){
-        if(imageIndex <= 0){
-            mainImg.setAttribute("src", collectionImg[imageIndex]);
-            imageIndex = collectionImg.length-1;
-        }else{
-            mainImg.setAttribute("src", collectionImg[imageIndex--])
-        }
-    }
-    function changerightImg(){
-        if(imageIndex >= collectionImg.length-1){
-            mainImg.setAttribute("src", collectionImg[imageIndex]);
-            imageIndex=0;
-        }else{
-            mainImg.setAttribute("src", collectionImg[imageIndex++]);
-        }
-    }
-
-</script>
 </html>

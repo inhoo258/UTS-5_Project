@@ -14,12 +14,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.project.board.service.ReviewService;
 import com.spring.project.member.service.IMemberService;
 import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.model.ProductsVO;
@@ -40,6 +42,8 @@ public class ProductController {
 	IMemberService memberService;
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	ReviewService reviewService;
 
 	// -------------cart------------
 	// 전체 장바구니 목록(관리자용)
@@ -174,10 +178,10 @@ public class ProductController {
 	public ResponseEntity<byte[]> getImage(@PathVariable("product_id") int product_id) {
 		System.out.println("getImage in ! by product id = " + product_id);
 		ProductsVO product = productService.getProduct(product_id);
-//		System.out.println("product_img_name = "+product.getProduct_img_name());
-//		System.out.println("product_img_name size = "+product.getProduct_img_name().split("\\.").length);
-//		System.out.println("product_img_name[0] = "+product.getProduct_img_name().split("\\.")[0]);
-//		System.out.println("product_img_name[1] = "+product.getProduct_img_name().split("\\.")[1]);
+		System.out.println("product_img_name = "+product.getProduct_img_name());
+		System.out.println("product_img_name size = "+product.getProduct_img_name().split("\\.").length);
+		System.out.println("product_img_name[0] = "+product.getProduct_img_name().split("\\.")[0]);
+		System.out.println("product_img_name[1] = "+product.getProduct_img_name().split("\\.")[1]);
 		String product_type = product.getProduct_img_name().split("\\.")[1];
 		byte[] product_img = product.getProduct_img();
 		final HttpHeaders header = new HttpHeaders();
@@ -191,6 +195,7 @@ public class ProductController {
 	@RequestMapping("{product_id}")
 	public String getProduct(@PathVariable("product_id") int product_id, Model model) {
 		model.addAttribute("product", productService.getProduct(product_id));
+		model.addAttribute("reviewList",reviewService.getReviewList(product_id));
 		return "product/view";
 	}
 
@@ -200,18 +205,17 @@ public class ProductController {
 	}
 
 	@PostMapping("/upload")
-	public String insertProduct(@RequestParam("file") MultipartFile file, ProductsVO product) {
+	public String insertProduct(@RequestParam("file")MultipartFile file,@ModelAttribute ProductsVO product) {
 		System.out.println("insert start");
-		product.setProduct_img_name(file.getOriginalFilename());
+		System.out.println("product_info : " + product.getProduct_info());
 		try {
 			product.setProduct_img(file.getBytes());
+			product.setProduct_img_name(file.getOriginalFilename());
 		} catch (IOException e) {
-			System.out.println("파일이 아니므니다");
 		}
 		productService.insertProduct(product);
 		return "redirect:/product/list";
 	}
-
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
 //	public String deleteProduct(@PathVariable int product_id) {
