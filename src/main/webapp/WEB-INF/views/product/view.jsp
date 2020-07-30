@@ -94,16 +94,14 @@
 			<nav class="container">
 			   <ul class="tab">
 			      <li><a href="#tab1" class="on">상품 설명</a></li>
-			      <li><a href="#tab2" >상품 이미지</a></li>
-			      <li><a href="#tab3">상세 정보</a></li>
-			      <li><a href="#tab4">고객 후기()</a></li>
-			      <li><a href="#tab5">상품 문의()</a></li>
+			      <li><a href="#tab2">업체 정보</a></li>
+			      <li><a href="#tab3">고객 후기()</a></li>
+			      <li><a href="#tab4">상품 문의()</a></li>
 			   </ul>
 			   <ul class="panel">
 			         <li id="tab1">${product.product_info }</li>
-			         <li id="tab2"> 탭메뉴2 내용 </li>
-			         <li id="tab3"> 탭메뉴3 내용 </li>
-			         <li id="tab4"> 
+			         <li id="tab2"> 탭메뉴 내용 </li>
+			         <li id="tab3"> 
 		         		<table border="1">
 				         			<tr>
 				         				<th>번호</th>
@@ -125,7 +123,7 @@
 				         	</c:forEach>
 		         		</table>
 			          </li>
-			         <li id="tab5"> 탭메뉴5 내용 </li>
+			         <li id="tab4"> 탭메뉴 내용 </li>
 			   </ul>
 			</nav>
         </div>

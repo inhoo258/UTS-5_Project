@@ -39,12 +39,14 @@ public class MemberController {
 	}
 
 	@PostMapping("/insert")
-	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes ) {
+	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes,@RequestParam(value="seller_reg_num",required=false) String seller_reg_num) {
 		System.out.println("------------------\nmember-insert process---------------------\n");
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
 		if (member.getMember_auth().equals("ROLE_CUSTOMER"))
 			member.setMember_enabled(1);
+		System.out.println("seller_reg_num : "+seller_reg_num);
 		memberSerivce.memberInsert(member);
+		if(!seller_reg_num.equals(""))memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
 		return "redirect:/";
 
 	}
@@ -129,6 +131,12 @@ public class MemberController {
 			return "redirect:/member/list";
 		}
 		return "redirect:/member/info/" + member.getMember_id();
+	}
+	@GetMapping("/sellerinfoform")
+	public void sellerInfoForm(Authentication authentication, Model model) {
+		System.out.println("userId : "+authentication.getPrincipal());
+		MemberVO member = (MemberVO)authentication.getPrincipal();
+		model.addAttribute("sellerInfo",memberSerivce.getSellerInfo(member.getMember_id()));
 	}
 
 }

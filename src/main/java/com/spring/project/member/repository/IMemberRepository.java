@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.member.model.MemberVO;
+import com.spring.project.member.model.SellerInfoVO;
 
 @Repository
 public interface IMemberRepository {
@@ -80,5 +81,13 @@ public interface IMemberRepository {
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 and m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%' ")
 	public int getSelectPermissionCount(String permission_word);
 	// ================================================================================
+	
+	//--------------------seller_info queries--------------------------------------
+	@Insert("insert into seller_info (member_id, seller_reg_num) values(#{0},#{1})")
+	public void insertSellerRegNum(String member_id, String seller_reg_num);
+	@Select("select * from seller_info where member_id=#{member_id}")
+	public SellerInfoVO getSellerInfo(String member_id);
+	@Select("select seller_reg_num from seller_info where seller_reg_num =#{seller_reg_num}")
+	public String getSellerRegNum(String seller_reg_num);
 
 }

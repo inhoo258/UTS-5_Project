@@ -102,12 +102,15 @@
 	                            </sec:authorize>
 	                        </c:if>
 	                        <div class="forSeller">
-		                        <div  id="forseller1">
-		                            <input type="text" id="sellerbox" placeholder="사업장 명을 입력하세요" name="seller_com_name">
-		                        </div>
 		                        <div id="forseller2">
-		                            <input type="text" id="sellerbox" placeholder="사업자 등록번호를 입력하세요" name="seller_reg_num">
+		                            <input type="text" id="sellerbox" placeholder="사업자 등록번호를 입력하세요( '-' 포함)" name="seller_reg_num">
 		                        </div>
+		                        <div class="findseller">
+		                            <input type="button" id="regNumCheckBtn" value="조회">
+		                         </div>
+		                         <div class="fsellertxt">
+	                          	 	<font id="reg_num_check"></font>
+	                      		 </div>
 	                        </div>
 	                        <div class="joininbtn">
 		                        <input type="submit" id="signupbtn" value="${message eq 'insert' ? '가입완료' : '수정완료'}">
@@ -132,6 +135,7 @@
     let tel_check=false;
     let addr_check=false;
     let email_check=false;
+    let reg_num_check=true;
     //컴트롤러로부터 넘겨받는 member가 비어있지 않은 경우 아래의 값들을 true로 초기화하여 수정을 하지 않고 수정완료를 누르더라도 수정될 수 있도록.
     if(member!=""){
     	id_check=true;
@@ -265,7 +269,7 @@
         });
     });
     function inputCheck(){
-        if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check){
+        if(id_check&&pw_check&&pw_ok_check&&name_check&&tel_check&&addr_check&&email_check&&reg_num_check){
         	$("#signupbtn").attr("disabled",true);
             return true;
         }else {
@@ -276,6 +280,7 @@
         	console.log("tel_check : "+tel_check);
         	console.log("addr_check : "+addr_check);
         	console.log("email_check : "+email_check);
+        	console.log("reg_num_check : "+reg_num_check);
 			$("input").each(function(){
 				$(this).trigger("blur");
 			})
@@ -287,6 +292,10 @@
         	if(!pw_ok_check){$("#member_pw_ok").focus();}
         	if(!pw_check){$("#member_pw").focus();}
         	if(!id_check){$("#member_id").focus();}
+        	if(!reg_num_check){
+        		document.getElementById("reg_num_check").style.color="red";
+    	        document.getElementById("reg_num_check").innerText="사업자 등록 번호 조회를 해주세요.";
+        	}
         	return false;
         }
     }
@@ -294,12 +303,14 @@
     	let selectUser = document.getElementsByClassName("selectuser")[0];
     	
     	if($(this).val()=="ROLE_SELLER"){
+    		reg_num_check=false;
 	    	$(".forSeller").show();
 	    	console.log(selectUser)
-	    	selectUser.style.margin='30px 0 0 40px';
-	    	selectUser.style.width='90px';
+	    	selectUser.style.margin='30px 0 0 90px';
+	    	selectUser.style.width='80px';
 	    	document.getElementsByClassName("joinbox")[0].style.height='950px';
     	}else{
+    		reg_num_check=true;
 	    	$(".forSeller").hide();
 	    	selectUser.style.margin='30px 0 0 230px';
 	    	selectUser.style.width='150px';
@@ -342,6 +353,61 @@
             }
         }).open();
     }
+$("#sellerbox").on("keyup",function(){
+	reg_num_check=false;
+});
+$("#regNumCheckBtn").on("click",function(){
+	var checkSum = 0;
+	var checkID = [1,3,7,1,3,7,1,3,5];
+	var seller_reg_num= $('input[name=seller_reg_num]').val(); 
+	console.log("entered seller_reg_num : "+seller_reg_num);
+	if(reg_num_check){
+		document.getElementById("reg_num_check").style.color="red";
+	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
+        document.getElementById("reg_num_check").innerText="이미 인증되었습니다.";
+	}else if(seller_reg_num.trim()==""){
+		document.getElementById("reg_num_check").style.color="red";
+	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
+        document.getElementById("reg_num_check").innerText="사업자등록번호를 입력해주세요.";
+        reg_num_check=false;
+	}else if (!/^[0-9]{3}[-][0-9]{2}[-][0-9]{5}$/.test(seller_reg_num)) { 
+		document.getElementById("reg_num_check").style.color="red";
+	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 150px";
+        document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
+    	reg_num_check=false; 
+	}else{
+		var reg_nums = seller_reg_num.replace(/-/gi,'');
+		for (var i=0; i<9; i++) {
+	    	checkSum += checkID[i] * Number(reg_nums[i]);
+		}  
+		if (10 - ((checkSum + Math.floor(checkID[8] * Number(reg_nums[8]) / 10)) % 10) != Number(reg_nums[9])) {
+			document.getElementById("reg_num_check").style.color="red";
+	        document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 0 150px";
+			document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
+	   		reg_num_check=false;
+		}else {
+			$.ajax({
+				url : '<c:url  value="/member/rest/regNumCheck" />',
+				type: 'post',
+				data:{
+					seller_reg_num : seller_reg_num
+				},
+				success : function(result){
+					if(result){
+						document.getElementById("reg_num_check").style.color="black";
+	        			document.getElementById("reg_num_check").innerText="인증되었습니다.";
+						reg_num_check=true;
+					}else{
+						document.getElementById("reg_num_check").style.color="red";
+	        			document.getElementById("reg_num_check").innerText="이미 인증된 사업자등록번호입니다.";
+						reg_num_check=false;
+					}
+				}
+			})
+			
+		}
+	}
+});
     </script>
 <%--     <jsp:include page="../header&footer/footer.jsp"/> --%>
 </body>
