@@ -8,16 +8,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/product/upload.css'/>" />
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+<!-- include libraries(jQuery, bootstrap) --> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+
+<!-- include summernote css/js--> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <script src="/project/resources/js/summernote-ko-KR.js"></script>
+
 </head>
 <body>
 	<div style="position: relative; width: 1920; height: 1500px; background-color: green">
-<%-- 		<jsp:include page="../header&footer/header.jsp"/> --%>
+		<jsp:include page="../header&footer/header.jsp"/>
 	<div style="position: absolute; width: 80%; height: 80%; background-color: red ; top: 50%; left: 50%; transform: translate(-50% , -50%) ;">
 		<h1>UPLOAD.JSP</h1>
 		<h1>업로드</h1>
@@ -53,7 +58,7 @@ $(document).ready(function() {
              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
              ['color', ['forecolor','color']],
              ['table', ['table']],
-             ['para', ['ul', 'ol', 'paragraph']],s
+             ['para', ['ul', 'ol', 'paragraph']],
              ['height', ['height']],
              ['insert',['picture','link','video']],
              ['view', ['fullscreen', 'help','codeview']]
@@ -63,30 +68,30 @@ $(document).ready(function() {
   });
 });
 
-function productUpload(form) {
-	var product_name = form.product_name.value;
-	var product_count = form.product_count.value;
-	var product_price = form.product_price.value;
-	var product_weight = form.product_weight.value;
-	var product_info = form.product_info.value;
+// function productUpload(form) {
+// 	var product_name = form.product_name.value;
+// 	var product_count = form.product_count.value;
+// 	var product_price = form.product_price.value;
+// 	var product_weight = form.product_weight.value;
+// 	var product_info = form.product_info.value;
 	
-	if (product_name.trim() == ''){
-		return false;
-	}
-	if (product_count.trim() == ''){
-		return false;
-	}
-	if (product_price.trim() == ''){
-		return false;
-	}
-	if (product_weight.trim() == ''){
-		return false;
-	}
-	if (product_info.trim() == ''){
-		return false;
-	}
-	form.submit();
-}
+// 	if (product_name.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_count.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_price.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_weight.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_info.trim() == ''){
+// 		return false;
+// 	}
+// 	form.submit();
+// }
 </script>
 </body>
 </html>
