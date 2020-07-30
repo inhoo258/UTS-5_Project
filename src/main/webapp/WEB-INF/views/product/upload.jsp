@@ -8,12 +8,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/product/upload.css'/>" />
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+<!-- include libraries(jQuery, bootstrap) --> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+
+<!-- include summernote css/js--> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <script src="/project/resources/js/summernote-ko-KR.js"></script>
+
 </head>
 <body>
 	<div style="position: relative; width: 1920; height: 1500px; background-color: green">
@@ -22,7 +27,7 @@
 		<h1>UPLOAD.JSP</h1>
 		<h1>업로드</h1>
 		<c:set var="member_id">
-<%-- 			<sec:authentication property="principal.username"/> --%>
+			<sec:authentication property="principal.username"/>
 		</c:set>
 		<form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
 			<input type="hidden" name="member_id" value="${member_id}">
@@ -59,36 +64,11 @@ $(document).ready(function() {
              ['view', ['fullscreen', 'help','codeview']]
            ],
          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-//          callbacks: {
-// 	         onImageUpload: function(files, editor, welEditable) {
-// 	           for (var i = files.length - 1; i >= 0; i--) {
-// 	             sendFile(files[i], this);
-// 	           }
-// 	         }
-// 	     }
+         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
   });
 });
-// function sendFile(file, el) {
-// 	  var form_data = new FormData();
-// 	  form_data.append('file', file);
-// 	  $.ajax({
-// 	    data: form_data,
-// 	    type: "POST",
-// 	    url: '<c:url value="/product/rest/image"/>',
-// 	    cache: false,
-// 	    contentType: false,
-// 	    enctype: 'multipart/form-data',
-// 	    processData: false,
-// 	    success: function(url) {
-// 	      $(el).summernote('editor.insertImage', url);
-// 	      $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-// 	    }
-// 	  });
-// 	}
 
-
-function productUpload(form) {
+// function productUpload(form) {
 // 	var product_name = form.product_name.value;
 // 	var product_count = form.product_count.value;
 // 	var product_price = form.product_price.value;
@@ -110,8 +90,8 @@ function productUpload(form) {
 // 	if (product_info.trim() == ''){
 // 		return false;
 // 	}
-	form.submit();
-}
+// 	form.submit();
+// }
 </script>
 </body>
 </html>

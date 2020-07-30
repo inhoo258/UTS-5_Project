@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
+import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.service.IMemberService;
 
 @Controller
@@ -115,7 +116,11 @@ public class MemberController {
 
 	@RequestMapping("/info/{userId}")
 	public String getMember(@PathVariable("userId") String userId, Model model) {
-		model.addAttribute("member", memberSerivce.getMemberInfo(userId));
+		MemberVO member =  memberSerivce.getMemberInfo(userId);
+		model.addAttribute("member",member);
+		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
+			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(userId));
+		}
 		return "member/info";
 	}
 
@@ -132,6 +137,7 @@ public class MemberController {
 		}
 		return "redirect:/member/info/" + member.getMember_id();
 	}
+	//=========================seller_info============================================
 	@GetMapping("/sellerinfoform")
 	public void sellerInfoForm(Authentication authentication, Model model) {
 		System.out.println("userId : "+authentication.getPrincipal());
@@ -139,4 +145,9 @@ public class MemberController {
 		model.addAttribute("sellerInfo",memberSerivce.getSellerInfo(member.getMember_id()));
 	}
 
+	@PostMapping("/sellerinfoupdate")
+	public String sellerInfoUpdate(SellerInfoVO sellerInfo) {
+		memberSerivce.updateSellerInfo(sellerInfo);
+		return "redirect:/member/info/"+sellerInfo.getMember_id();
+	}
 }

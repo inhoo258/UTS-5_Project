@@ -13,8 +13,9 @@
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 <body>
-	<jsp:include page="../header&footer/header.jsp" />
+<%-- 	<jsp:include page="../header&footer/header.jsp" /> --%>
 	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+<!-- 주소 찾기 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <<<<<<< HEAD
 	<form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">

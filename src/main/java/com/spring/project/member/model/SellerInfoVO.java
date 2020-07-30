@@ -5,11 +5,30 @@ public class SellerInfoVO {
 	private String seller_reg_num;
 	private String seller_company_info;
 	private String seller_company_tel;
-	private String seller_company_address;
-	private String seller_company_additional;
+	private String seller_company_main_address;
+	private String seller_company_sub_address;
 	private String seller_company_email;
 	private String seller_company_name;
+	private String seller_company_head_name;
 	
+	public String getSeller_company_main_address() {
+		return seller_company_main_address;
+	}
+	public void setSeller_company_main_address(String seller_company_main_address) {
+		this.seller_company_main_address = seller_company_main_address;
+	}
+	public String getSeller_company_sub_address() {
+		return seller_company_sub_address;
+	}
+	public void setSeller_company_sub_address(String seller_company_sub_address) {
+		this.seller_company_sub_address = seller_company_sub_address;
+	}
+	public String getSeller_company_head_name() {
+		return seller_company_head_name;
+	}
+	public void setSeller_company_head_name(String seller_company_head_name) {
+		this.seller_company_head_name = seller_company_head_name;
+	}
 	public String getSeller_company_name() {
 		return seller_company_name;
 	}
@@ -39,18 +58,6 @@ public class SellerInfoVO {
 	}
 	public void setSeller_company_tel(String seller_company_tel) {
 		this.seller_company_tel = seller_company_tel;
-	}
-	public String getSeller_company_address() {
-		return seller_company_address;
-	}
-	public void setSeller_company_address(String seller_company_address) {
-		this.seller_company_address = seller_company_address;
-	}
-	public String getSeller_company_additional() {
-		return seller_company_additional;
-	}
-	public void setSeller_company_additional(String seller_company_additional) {
-		this.seller_company_additional = seller_company_additional;
 	}
 	public String getSeller_company_email() {
 		return seller_company_email;

@@ -1,63 +1,38 @@
 @charset "UTF-8";
 
-#container {
-	height: 937px;
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+::-webkit-scrollbar {
+	display: none !important;
+}
+
+body {
+	background-color: #2a365c;
+}
+
+#main_home {
+	position: absolute;
 	width: 1920px;
-	font-size: 0;
+	height: 937px;
 	overflow: hidden;
 }
 
-.item {
-	font-size: 15px;
-	float: left;
-}
-
-#menubar {
-	width: 100%;
-	height: 100%;
-	display: inline-block;
-	background-color: #2a365c;
-	position: relative;
-	text-align: center;
-}
-
-#menu_collection {
-	position:relative;
-	top: 100%;
-	width: 100%;
-	height: 1500px;
-	background-color: #2a365c;
-	z-index: 1;
-}
-
-#menubar>ul {
+#main_menu {
 	position: absolute;
-	width: 150px;
-	top: 340px;
-	left: 107px;
+	top: 937px;
+	left: 50%;
+	transform: translate(-50%);
+	width: 1520px;
+	height: 0px;
+	overflow: hidden;
 }
 
-#menubar>ul>li {
-	/* 메뉴 추가시 padding 조절 여기서 하면 됨 */
-	margin: 40px 0;
-	height: 30px;
-}
-
-#menubar>ul>li>a {
-	font-size: 20px;
-	display: block;
-	height: 100%;
-	color: white;
-}
-
-#menubar>ul>li>a:hover {
-	font-size: 25px;
-	display: block;
-	height: 100%;
-	color: yellow;
-}
-
-#menubar>img {
+#main_home>img {
 	position: absolute;
 	top: 100px;
 	left: 83px;
@@ -66,42 +41,46 @@
 	background: none;
 }
 
-#contents1 {
-	width: 78%;
-	height: 100%;
-	position: relative;
-}
-
-#contents2 {
-	background-color: #25944f;
-	width: 0px;
-	height: 0px;
-}
-
-.section_div1 {
+#main_home>ul {
 	position: absolute;
-	top: 50px;
-	left: 380px;
-	background-color: white;
-	width: 1498px;
-	height: 842px;
+	top: 350px;
+	left: 82px;
+	text-align: center;
+	width: 200px;
+	height: 420px;
 }
 
-video {
+#main_home>ul>li {
+	margin: 40px 0;
+	height: 30px;
+}
+
+#main_home>ul>li>a {
+	color: white;
+	font-size: 24px;
+}
+
+#main_home>ul>li>a:hover {
+	color: yellow;
+	font-size: 26px;
+}
+
+#main_home>video {
 	position: absolute;
-	opacity: 0.5;
-	top: 50px;
-	left: 380px;
-	height: 842px;
+	width: 80%;
+	top: 50%;
+	left: 350px;
+	transform: translate(0, -50%)
 }
 
+/* 클릭시 나오는 화면 */
 .section_commonse {
 	overflow: hidden;
 	position: absolute;
 	width: 0px;
 	height: 0px;
-	top: 25px;
-	left: 360px;
+	top: 15px;
+	left: 330px;
 	background-color: rgba(42, 54, 92, 0.7);
 	box-shadow: 10px 20px 30px #000000;
 	z-index: 2;
@@ -141,6 +120,7 @@ video {
 	transform: translateY(-50%) rotate(-45deg);
 }
 
+/* next css */
 #next {
 	width: 50px;
 	height: 60px;
@@ -148,7 +128,7 @@ video {
 	cursor: pointer;
 	display: inline-block;
 	top: 800px;
-	left: 150px;
+	left: 155px;
 	overflow: hidden;
 }
 
@@ -182,8 +162,8 @@ video {
 	border-radius: 10px;
 	background: white;
 	transition: all .35s;
-	width: 60.5%;
-	height: 5px;
+	width: 60%;
+	height: 4px;
 }
 
 #next_page {
@@ -199,25 +179,21 @@ video {
 }
 
 @keyframes span_down1 {
-	from { top: 40%; }
-    to { top: 150%; }
+	from { top:40%; }
+	to{	top: 150%; }
 }
-
 @keyframes span_down2 {
-	from { top: 60%; }
-    to { top: 160%; }
+	from { top:60%; }
+	to{ top: 160%; }
 }
-
 @keyframes span_down3 {
-	from { top: 80%; }
-	to { top: 180%; }
+	from { top:80%; }
+	to {top: 180%;}
 }
-
 @keyframes text_show {
-from { top: -25px; }
-to { top: 35%; }
+	from { top:-25px; }
+	to { top: 35%; }
 }
-
 #next_span1 {
 	top: 40%;
 	left: 0;
@@ -252,13 +228,4 @@ to { top: 35%; }
 	top: 80%;
 	right: 0;
 	transform: translateY(-50%) rotate(-40deg);
-}
-
-
-header #sidebar_icon {
-	position: absolute !important;
-	top: 40px;
-	right: 40px;
-	width: 40px;
-	height: 40px;
 }

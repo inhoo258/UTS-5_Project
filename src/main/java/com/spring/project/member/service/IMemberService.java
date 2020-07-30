@@ -23,4 +23,5 @@ public interface IMemberService {
 	public void insertSellerRegNum(String member_id, String seller_reg_num);
 	public SellerInfoVO getSellerInfo(String member_id);
 	public boolean getSellerRegNum(String seller_reg_num);
+	public void updateSellerInfo(SellerInfoVO sellerInfo);
 }
