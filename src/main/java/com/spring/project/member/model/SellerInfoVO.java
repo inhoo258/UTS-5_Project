@@ -8,6 +8,14 @@ public class SellerInfoVO {
 	private String seller_company_address;
 	private String seller_company_additional;
 	private String seller_company_email;
+	private String seller_company_name;
+	
+	public String getSeller_company_name() {
+		return seller_company_name;
+	}
+	public void setSeller_company_name(String seller_company_name) {
+		this.seller_company_name = seller_company_name;
+	}
 	public String getMember_id() {
 		return member_id;
 	}
