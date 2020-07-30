@@ -128,6 +128,10 @@ public class MemberService implements IMemberService {
 		if(memberRepository.getSellerRegNum(seller_reg_num)==null)return true;
 		else return false;
 	}
+	@Override
+	public void updateSellerInfo(SellerInfoVO sellerInfo) {
+		memberRepository.updateSellerInfo(sellerInfo);
+	}
 
 	
 }

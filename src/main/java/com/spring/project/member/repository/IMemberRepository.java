@@ -89,5 +89,15 @@ public interface IMemberRepository {
 	public SellerInfoVO getSellerInfo(String member_id);
 	@Select("select seller_reg_num from seller_info where seller_reg_num =#{seller_reg_num}")
 	public String getSellerRegNum(String seller_reg_num);
+	@Update("update seller_info "
+			+ "set seller_company_name=#{seller_company_name}, "
+			+ "seller_company_info= #{seller_company_info}, "
+			+ "seller_company_tel=#{seller_company_tel}, "
+			+ "seller_company_main_address=#{seller_company_main_address}, "
+			+ "seller_company_sub_address=#{seller_company_sub_address}, "
+			+ "seller_company_email=#{seller_company_email}, "
+			+ "seller_company_head_name=#{seller_company_head_name} "
+			+ "where seller_reg_num=#{seller_reg_num}")
+	public void updateSellerInfo(SellerInfoVO sellerInfo);
 
 }

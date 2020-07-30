@@ -17,12 +17,12 @@
 </head>
 <body>
 	<div style="position: relative; width: 1920; height: 1500px; background-color: green">
-		<jsp:include page="../header&footer/header.jsp"/>
+<%-- 		<jsp:include page="../header&footer/header.jsp"/> --%>
 	<div style="position: absolute; width: 80%; height: 80%; background-color: red ; top: 50%; left: 50%; transform: translate(-50% , -50%) ;">
 		<h1>UPLOAD.JSP</h1>
 		<h1>업로드</h1>
 		<c:set var="member_id">
-<%-- 			<sec:authentication property="principal.username"/> --%>
+			<sec:authentication property="principal.username"/>
 		</c:set>
 		<form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
 			<input type="hidden" name="member_id" value="${member_id}">
@@ -53,63 +53,38 @@ $(document).ready(function() {
              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
              ['color', ['forecolor','color']],
              ['table', ['table']],
-             ['para', ['ul', 'ol', 'paragraph']],
+             ['para', ['ul', 'ol', 'paragraph']],s
              ['height', ['height']],
              ['insert',['picture','link','video']],
              ['view', ['fullscreen', 'help','codeview']]
            ],
          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-//          callbacks: {
-// 	         onImageUpload: function(files, editor, welEditable) {
-// 	           for (var i = files.length - 1; i >= 0; i--) {
-// 	             sendFile(files[i], this);
-// 	           }
-// 	         }
-// 	     }
+         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
   });
 });
-// function sendFile(file, el) {
-// 	  var form_data = new FormData();
-// 	  form_data.append('file', file);
-// 	  $.ajax({
-// 	    data: form_data,
-// 	    type: "POST",
-// 	    url: '<c:url value="/product/rest/image"/>',
-// 	    cache: false,
-// 	    contentType: false,
-// 	    enctype: 'multipart/form-data',
-// 	    processData: false,
-// 	    success: function(url) {
-// 	      $(el).summernote('editor.insertImage', url);
-// 	      $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-// 	    }
-// 	  });
-// 	}
-
 
 function productUpload(form) {
-// 	var product_name = form.product_name.value;
-// 	var product_count = form.product_count.value;
-// 	var product_price = form.product_price.value;
-// 	var product_weight = form.product_weight.value;
-// 	var product_info = form.product_info.value;
+	var product_name = form.product_name.value;
+	var product_count = form.product_count.value;
+	var product_price = form.product_price.value;
+	var product_weight = form.product_weight.value;
+	var product_info = form.product_info.value;
 	
-// 	if (product_name.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_count.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_price.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_weight.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_info.trim() == ''){
-// 		return false;
-// 	}
+	if (product_name.trim() == ''){
+		return false;
+	}
+	if (product_count.trim() == ''){
+		return false;
+	}
+	if (product_price.trim() == ''){
+		return false;
+	}
+	if (product_weight.trim() == ''){
+		return false;
+	}
+	if (product_info.trim() == ''){
+		return false;
+	}
 	form.submit();
 }
 </script>
