@@ -21,10 +21,10 @@
 
 </head>
 <body>
+<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
 	 <div id="main_menu">
     	<jsp:include page="../header&footer/header.jsp"></jsp:include>
-    </div>
-		<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
+    	<div id=upload>
 		<h1>UPLOAD.JSP</h1>
 		<h1>업로드</h1>
 		<c:set var="member_id">
@@ -40,9 +40,8 @@
 			<textarea name="product_info" id="product_info"></textarea>
 			<input type="button" value="업로드" id="submitBtn" onclick="productUpload(this.form)">
 		</form>
+		</div>
 	</div>
-	</div>
-	<jsp:include page="../header&footer/footer.jsp"/>
 <script>
 $(document).ready(function() {
   $('#product_info').summernote({

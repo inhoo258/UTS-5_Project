@@ -11,13 +11,15 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/form.css'/>" />
 <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-</head>
-<body>
-<%-- 	<jsp:include page="../header&footer/header.jsp" /> --%>
-	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 <!-- 주소 찾기 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<section>
+</head>
+<body>
+
+<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
+	<div id="main_menu">
+    <jsp:include page="../header&footer/header.jsp"></jsp:include>
+	<section id=form>
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
 	        <div class="joinmain">
 	            <div class="joinbox">
@@ -125,7 +127,7 @@
 	        </div>
         </form>
     </section>
-	
+	</div>
 	<script type="text/javascript">
 	let member = '${member}';
 	console.log("member : " + member);
