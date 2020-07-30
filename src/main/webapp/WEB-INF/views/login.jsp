@@ -55,18 +55,24 @@
 			</form>
 		</div>
 		</div>
-		
 		</section>
 	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal" />님 안녕하세요.<br>
-		<a href="<c:url value="/hr/index" />">메인페이지</a>
-		<form action='<c:url value="/logout"/>' method="post">
-			<sec:csrfInput />
-			<input type=submit value="로그아웃">test
-		</form>
-	</sec:authorize>
+<%-- 	<sec:authorize access="isAuthenticated()"> --%>
+<%-- 		<sec:authentication property="principal" />님 안녕하세요.<br> --%>
+<%-- 		<a href="<c:url value="/hr/index" />">메인페이지</a> --%>
+<%-- 		<form action='<c:url value="/logout"/>' method="post"> --%>
+<%-- 			<sec:csrfInput /> --%>
+<!-- 			<input type="submit" value="로그아웃"> -->
+<!-- 		</form> -->
+<%-- 	</sec:authorize> --%>
 	<jsp:include page="header&footer/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	window.onload = function(){
+		 if(getCookie("memberId")){
+			 document.loginForm.userid.va 
+		 }
+	}
+</script>
 <c:remove var="message" scope="session"/>
 </html>
