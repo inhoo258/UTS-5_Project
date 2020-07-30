@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="section_div1"></div>
-        <video src=resources/배경.mp4 loop muted autoplay id="video"></video>
+        <video src=resources/배경2.mp4 loop muted autoplay id="video"></video>
     </section>
 
     <section id=menu_collection>

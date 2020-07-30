@@ -86,7 +86,7 @@
         } else {
             $(".sidebar_check").prop("checked", true)
             $("#sidebar").animate({ "right": "0px" })
-            $("#sidebar_icon").animate({ "top": "10px", "right": "10px" })
+            $("#sidebar_icon").animate({ "top": "15px", "right": "15px" })
             $(".sidebar_span").css({ "background": "#2a365c" })
         }
     })  

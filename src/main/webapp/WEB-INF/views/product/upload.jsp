@@ -18,7 +18,7 @@
 <body>
 	<div style="position: relative; width: 1920; height: 1500px; background-color: green">
 		<jsp:include page="../header&footer/header.jsp"/>
-	<div style="position: absolute; width: 80%; height: 80%; background-color: red ; z-index: 20; top: 50%; left: 50%; transform: translate(-50% , -50%) ;">
+	<div style="position: absolute; width: 80%; height: 80%; background-color: red ; top: 50%; left: 50%; transform: translate(-50% , -50%) ;">
 		<h1>UPLOAD.JSP</h1>
 		<h1>업로드</h1>
 		<c:set var="member_id">

@@ -42,13 +42,12 @@
 header {
 	position: absolute;
 	width: 1920px;
-	height: 937px;
-	background-color: #2a365c;
+	height: 260px;
 	overflow: hidden;
 }
 
 #sidebar {
-	position: absolute;
+	position: fixed;
 	width: 350px;
 	height: 100%;
 	top: 50%;
@@ -65,24 +64,25 @@ header #header_menu1 {
 	left: 50px;
 }
 
+
 header #header_menu1>a>img {
 	width: 100%;
 	height: 100%;
 }
 
 header #sidebar_icon {
-	position: absolute;
+	position: fixed;
 	top: 40px;
 	right: 40px;
-	width: 40px;
-	height: 40px;
-	z-index: 5;
+	width: 30px;
+	height: 30px;
+	z-index: 1;
 }
 
 header #sidebar_div {
 	position: absolute;
-	width: 40px;
-	height: 40px;
+	width: 100%;
+	height: 100%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
