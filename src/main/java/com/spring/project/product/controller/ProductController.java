@@ -194,7 +194,9 @@ public class ProductController {
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
 	public String getProduct(@PathVariable("product_id") int product_id, Model model) {
-		model.addAttribute("product", productService.getProduct(product_id));
+		ProductsVO product = productService.getProduct(product_id);
+		model.addAttribute("product", product);
+		model.addAttribute("sellerInfo",memberService.getMemberInfo(product.getMember_id()));
 		model.addAttribute("reviewList",reviewService.getReviewList(product_id));
 		return "product/view";
 	}
