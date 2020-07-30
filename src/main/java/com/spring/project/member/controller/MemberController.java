@@ -1,6 +1,7 @@
 package com.spring.project.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,9 @@ public class MemberController {
 	IMemberService memberSerivce;
 	@Autowired
 	BCryptPasswordEncoder pwEncoder;
-
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	@GetMapping("/form")
 	public void form(Model model) {
 		model.addAttribute("message", "insert");
@@ -138,5 +141,43 @@ public class MemberController {
 		MemberVO member = (MemberVO)authentication.getPrincipal();
 		model.addAttribute("sellerInfo",memberSerivce.getSellerInfo(member.getMember_id()));
 	}
+	
+	//아이디 비번 찾기
+	@RequestMapping("/findidpwd")
+	public void findidpwd() {
+	}
+	@PostMapping("/certification")
+	public void certification(Model model, MemberVO memberVO) {
+		model.addAttribute("findInfo", memberVO);
+	}
+	@PostMapping("/findsendemail")
+	public void findsendemail(MemberVO memberVO, Model model) {
+		String setfrom = "underthesea5@naver.com";
+		String tomail = memberVO.getMember_email(); // 받는 사람 이메일
+		String title = memberVO.getMember_name() + "님" + "UTS-5 [Under The Sea 5] 인증번호 메일입니다."; // 제목
+		int num = ((int)(Math.random()*10000) + 1000);
+		System.out.println(num);
+		String content = "인증번호 : [ " + Integer.toString(num) + " ]"; // 내용
+//		try {
+//			MimeMessage message = mailSender.createMimeMessage();
+//			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+//			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+//			messageHelper.setTo(tomail); // 받는사람 이메일
+//			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+//			messageHelper.setText(content); // 메일 내용
+//			mailSender.send(message);
+//			System.out.println("메일 보내기 성공!!!!");
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		} 메일 보내져서 주석처리
+		
+		
+		// 내일 할일!!!!!!!!!!!
+		// 인증하는 사람이 본인이 맞는지 아닌지 확인하는 것
+		// 인증번호 재전송 클릭 시 다시 메일 발송하는 REST CONTROLLER로 연결하기
+		// 확인 버튼 클릭시 해당아이디를 가지고 넘겨준뒤 UPDATE로 수정할 것
+		model.addAttribute("ctfnum",num);
+	}
+	
 
 }

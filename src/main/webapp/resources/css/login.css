@@ -18,7 +18,7 @@
 	margin:0 auto;
 	width: 500px;
 	height: 450px;
-	border: 4px solid #2a365c;
+	border: 2px solid #2a365c;
 }
 
 .l_login_title { 
@@ -28,7 +28,7 @@
 	color: #2a365c;
 }
 #l_login_titlemsg{
-	padding: 7px 0;
+	padding: 10px 0;
 	color: #2a365c;
 }
 .l_login_inputId, .l_login_inputPwd, 
@@ -44,7 +44,6 @@
 	text-align: center;
 	height:30px;
 	color: red;
-/* 	display: none; */
 }
 /*========================================= 각각의 div안에 있는 실제 tag들의 설정*/
 #showMessage{
@@ -91,19 +90,25 @@
 	text-indent: 0.9em;
 	transition: 0.5s;
 }
+.l_login_other{
+	height: 30px;
+/* 	background-color: red; */
+}
 #l_collection_checkbox{
 	display: inline-block;
-	margin-top : 3px;
-	width: 210px;
+	width: 190px;
+	height: 100%;
+	vertical-align: middle;
 /* 	background-color: black; */
 }
 #l_collection_find{
-	display:inline;
-/* 	background: black; */
+	display:inline-block;
+/* 	background: yellowgreen; */
 }
 
 #l_collection_find a{
 	color: #2a365c;
+	font-size: 15px;
 	font-weight:bold;
 }
 
@@ -128,9 +133,11 @@
 
 /*============================================= 체크박스 START*/
 .checkbox{
-	width: 180px;
-	margin-left: 20px;
-	background-color: white;
+	display:inline-block;
+	width: 160px;
+	margin-left: 15px;
+	height: 100%;
+/* 	background-color: yellow; */
 }
 .checkbox input {
 	display: none;
@@ -143,6 +150,7 @@
 }
 .text{
 	width: 100px;
+	font-size: 15px;
 }
 .checkbox .icon {
 	position: relative;
