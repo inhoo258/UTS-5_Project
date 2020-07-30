@@ -17,42 +17,24 @@
 	<div id="mask"></div>
 	<div class="loader"></div>
  	<header>
-            <div id="header_menu1">
-                <a href="#"><img src="/project/resources/main_logo.png"></a>
-            </div>
-            <div id=sidebar_icon>
-                <div id="sidebar_div">
-                    <input type="checkbox" hidden class=sidebar_check>
-                    <span id=sidebar_span1 class="sidebar_span"></span>
-                    <input type="checkbox" hidden class=sidebar_check>
-                    <span id=sidebar_span2 class="sidebar_span"></span>
-                    <input type="checkbox" hidden class=sidebar_check>
-                    <span id=sidebar_span3 class="sidebar_span"></span>
+            <div id="header_main">
+                <div>
+                    <img src="/project/resources/main_logo.png">
                 </div>
-            </div>
-            <div id=sidebar>
-                <section id="login_section">
-                    <span>
-                        <h1>로그인을 해주세요</h1>
-                        <a href=""><h3>LogIn >></h3></a>
-                        <div><img src="/project/resources/anonymous.png" alt=""></div>
-                    </span>
-                </section>
-                <section id="sidebar_menu_section">
-                    <ul>
-                        <li><a href="">상품 보기</a></li>
-                        <li><a href="">22</a></li>
-                        <li><a href="">33</a></li>
-                        <li><a href="">44</a></li>
-                        <li><a href="">55</a></li>
-                        <li><a href="">66</a></li>
-                        <li><a href="">77</a></li>
-                        <li><a href="">88</a></li>
-                    </ul>
-                </section>
-                <section id="logout_section">
-                    <a href="">Logout >></a>
-                </section>
+                <div>
+                    <div id=header_muenbar1 class="header_muenbar">
+                        <div><a href="">menu1</a></div>
+                    </div>
+                    <div id=header_muenbar2 class="header_muenbar">
+                        <div><a href="">menu2</a></div>
+                    </div>
+                    <div id=header_muenbar3 class="header_muenbar">
+                        <div><a href="">menu3</a></div>
+                    </div>
+                    <div id=header_muenbar4 class="header_muenbar">
+                        <div><a href="">menu4</a></div>
+                    </div>
+                </div>
             </div>
         </header>
 	<script type="text/javascript">
