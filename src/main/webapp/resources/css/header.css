@@ -4,6 +4,23 @@ header {
 	position: absolute;
 	width: 100%;
 }
+body {
+	background-color: #2a365c;
+}
+
+::-webkit-scrollbar {
+	display: none !important;
+}
+
+/* #main_menu { */
+/* 	position: absolute; */
+/* 	top: 0px; */
+/* 	left: 50%; */
+/* 	transform: translate(-50%); */
+/* 	width: 1520px; */
+/* 	height: 0px; */
+/* 	overflow: hidden; */
+/* } */
 
 #header_main {
 	position: absolute;
