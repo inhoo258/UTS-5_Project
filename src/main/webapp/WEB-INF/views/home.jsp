@@ -10,7 +10,7 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-   <div id="container">
+<div id="container">
     <section id=menubar class=item>
         <img src=resources/main_logo.png>
         <ul>
@@ -66,11 +66,11 @@
             </div>
         </div>
         <div class="section_div1"></div>
-        <video src=resources/배경.mp4 loop muted autoplay id="video"></video>
+        <video src=resources/배경2.mp4 loop muted autoplay id="video"></video>
     </section>
 
     <section id=menu_collection>
-        asdfadsf
+    	<jsp:include page="header&footer/header.jsp"></jsp:include>
     </section>
 </div>
 	<script>

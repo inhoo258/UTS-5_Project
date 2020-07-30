@@ -26,6 +26,9 @@ public class MemberRestController {
 			return 1;
 	}
 
-	
+	@PostMapping("/regNumCheck")
+	public boolean regNumCheck(@RequestParam("seller_reg_num") String seller_reg_num) {
+		return memberSerivce.getSellerRegNum(seller_reg_num);
+	}
 
 }
