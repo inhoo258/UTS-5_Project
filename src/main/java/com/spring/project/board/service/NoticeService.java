@@ -20,16 +20,35 @@ public class NoticeService implements IBoardService{
 		return noticeRepository.getNoticeList(start,end);
 	}
 	
-	public void updateNotice(String notice_content) {
-		noticeRepository.updateNotice(notice_content);
-	}
-	
+	// 공지사항 조회 시 
 	public NoticeVO getNotice(int notice_rn) {
 		NoticeVO notice = noticeRepository.getNotice(notice_rn);
 		noticeRepository.updateViews(notice.getNotice_number());
 		return notice;
 	}
+	
+	//공지사항 이전/다음 페이지 처리 
+	public String getTitle(int notice_rn) {
+		return noticeRepository.getTitle(notice_rn);
+	}
+	
+	// 공지사항 수정 시 정보 가지고 오기
+	public NoticeVO getNoticeInfo(int notice_rn) {
+		return noticeRepository.getNotice(notice_rn);
+		
+	}
 
+	//공지사항 수정
+	public void updateView(NoticeVO noticeVo) {
+		noticeRepository.updateView(noticeVo);
+	}
+	
+	// 공지사항 view 삭제 
+	public void deleteView(int notice_number) {
+		noticeRepository.deleteView(notice_number);
+	}
+	
+	
 	public int getTotalCount() {
 		return noticeRepository.getTotalCount();
 	}
@@ -43,4 +62,6 @@ public class NoticeService implements IBoardService{
 		noticeVO.setNotice_number(noticeRepository.getMaxNoticeNumber()+1);
 		noticeRepository.insertNoticeWithFile(noticeVO);
 	}
+	
+
 }

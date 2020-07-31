@@ -21,25 +21,54 @@
 
 </head>
 <body>
+<!--         <div id="upload_tit">상품 등록</div> -->
 <jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
 	 <div id="main_menu">
     	<jsp:include page="../header&footer/header.jsp"></jsp:include>
     	<div id=upload>
-		<h1>UPLOAD.JSP</h1>
-		<h1>업로드</h1>
-		<c:set var="member_id">
-<%-- 			<sec:authentication property="principal.username"/> --%>
-		</c:set>
-		<form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
-			<input type="hidden" name="member_id" value="${member_id}">
-			메인사진선택<input type="file" name="file" value="메인사진"><br>
-			<input type="text" name="product_name" placeholder="상품명"><br>
-			<input type="text" name="product_count" placeholder="상품갯수"><br>
-			<input type="text" name="product_price" placeholder="상품가격"><br>
-			<input type="text" name="product_weight" placeholder="상품무게"><br>
-			<textarea name="product_info" id="product_info"></textarea>
-			<input type="button" value="업로드" id="submitBtn" onclick="productUpload(this.form)">
-		</form>
+				<div id="upload_tit">상품 등록</div>
+			<c:set var="member_id">
+				<sec:authentication property="principal.username"/>
+			</c:set>
+	        <form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
+	         <table id="upload_table" >
+	            <tr>
+	                <th>상품 이미지</th>
+	                <td>
+	                	<div><input type="file" name="file" id="file_upload"></div>
+	                </td>   <label>~~~~~~이미지 파일 올릴 때 이미지 미리 보기 만들어야함~~~~</label>
+	                <input type="hidden" name="member_id" value="${member_id}">     
+	            </tr>
+	            <tr>
+	                <th>상품명</th>
+	                <td><input type="text" name="product_name" class="input_text"></td>        
+	            </tr>
+	            <tr>
+	                <th>판매가</th>
+	                <td><input type="text" name="product_price" class="input_text"></td>        
+	            </tr>
+	            <tr>
+	                <th>상품 무게(kg)</th>
+	                <td><input type="text" name="product_weight" class="input_text"></td>        
+	            </tr>
+	            <tr>
+	                <th>상품 수량</th>
+	                <td><input type="text" name="product_count" class="input_text"></td>        
+	            </tr>
+	            <tr>
+	                <th>상세 설명</th>
+	                <td class="td_detail"><textarea name="product_info" id="product_info"></textarea></td>        
+	            </tr>
+	            <tr>
+	                <th colspan="2">
+	                    <div id="div_btn" >
+	                        <input type="button" value="등록" id="submitBtn" onclick="productUpload(this.form)">
+	                        <input type="reset" value="취소" id="resetBtn">
+	                    </div>
+	                </th>
+	            </tr>
+	            </table>
+	        </form>
 		</div>
 	</div>
 <script>
