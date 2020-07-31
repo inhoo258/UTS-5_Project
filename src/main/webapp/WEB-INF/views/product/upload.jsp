@@ -21,15 +21,25 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 	<div style="position: relative; width: 1920; height: 1500px; background-color: green">
  		<!-- <jsp:include page="../header&footer/header.jsp"/>  -->
 	<div style="position: absolute; width: 80%; height: 80%; background-color: red ; top: 50%; left: 50%; transform: translate(-50% , -50%) ; ">
         <div id="upload">
 
         <div id="upload_tit">상품 등록</div>
+=======
+<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
+	 <div id="main_menu">
+    	<jsp:include page="../header&footer/header.jsp"></jsp:include>
+    	<div id=upload>
+		<h1>UPLOAD.JSP</h1>
+		<h1>업로드</h1>
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 		<c:set var="member_id">
 			<sec:authentication property="principal.username"/>
 		</c:set>
+<<<<<<< HEAD
         <form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
          <table id="upload_table" >
             <tr>
@@ -68,9 +78,20 @@
             </table>
         </form>
         </div>
+=======
+		<form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
+			<input type="hidden" name="member_id" value="${member_id}">
+			메인사진선택<input type="file" name="file" value="메인사진"><br>
+			<input type="text" name="product_name" placeholder="상품명"><br>
+			<input type="text" name="product_count" placeholder="상품갯수"><br>
+			<input type="text" name="product_price" placeholder="상품가격"><br>
+			<input type="text" name="product_weight" placeholder="상품무게"><br>
+			<textarea name="product_info" id="product_info"></textarea>
+			<input type="button" value="업로드" id="submitBtn" onclick="productUpload(this.form)">
+		</form>
+		</div>
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 	</div>
-	</div>
-	<jsp:include page="../header&footer/footer.jsp"/>
 <script>
 $(document).ready(function() {
   $('#product_info').summernote({
