@@ -20,6 +20,122 @@
 	<div id="main_menu">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
 	<section id=form>
+	<form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
+		<!-- -------------- formtag  -->
+		<table id="logintable">
+			<tr>
+				<td colspan="2"><h2 style="color: #ff3366;">회 원 ${message eq 'insert' ? '가 입' : '수 정'}</h2></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="text" value="${member.member_id}"
+					class="id" name="member_id" id="member_id"
+					${not empty member ? "readonly":"placeholder='아이디를 입력하세요' autocomplete='off'"}></th>
+			</tr>
+			<tr >
+				<td colspan="2" class="id_check"><font id="id_check"></font></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="password" class="password"
+					name="member_pw" id="member_pw" placeholder='비밀번호를 입력하세요'></th>
+			</tr>
+			<tr class="input_check" style="display:none;">
+				<td colspan="2"><font id="pw_check"></font></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="password" class="password"
+					id="member_pw_ok" placeholder='비밀번호 확인'></th>
+			</tr>
+			<tr class="input_check" style="display:none;">
+				<td colspan="2"><font id="pw_check_msg"></font></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="text"
+					value="${member.member_name}" class="id" name="member_name"
+					id="member_name" autocomplete="off" placeholder='이름을 입력하세요'></th>
+			</tr>
+			<tr class="input_check" style="display:none;">
+				<td colspan="2"><font id="name_check"></font></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="text" value="${member.member_tel}"
+					class="id" name="member_tel" id="member_tel" autocomplete="off"
+					placeholder='전화번호를 입력하세요. (예 : 01012345678)'></th>
+			</tr>
+			<tr class="input_check" style="display:none;">
+				<td colspan="2"><font id="tel_check"></font></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="text"
+					value="${member.member_addr}" class="id" name="member_addr"
+					id="member_addr" autocomplete="off" placeholder='주소를 입력하세요'></th>
+			</tr>
+			<tr class="input_check" style="display:none;">
+				<td colspan="2"><font id="addr_check"></font></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="text"
+					value="${member.member_email}" class="id" name="member_email"
+					id="member_email" autocomplete="off"
+					placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'></th>
+			</tr>
+			<tr class="input_check" style="display:none;">
+				<td colspan="2"><font id="email_check"></font></td>
+			</tr>
+			<c:if test="${empty member}">
+			<sec:authorize access="isAnonymous()">
+				<tr>
+					<th colspan="2">
+							<input type="radio" name="member_auth" id="role_cus" value="ROLE_CUSTOMER"
+								checked><label for="role_cus">구매자</label>
+						<input type="radio" name="member_auth" id="role_sell" value="ROLE_SELLER"><label for="role_sell">판매자</label>
+                  	</th>
+				</tr>
+			</sec:authorize>
+			</c:if>
+			<tr style="display:none;" class="forSeller">
+				<td colspan="2">
+					<div style="border:1px solid black;">
+						<input type="text" placeholder="사업자 등록번호를 입력하세요" name="seller_reg_num"><br>
+						<input type="text" placeholder="사업장 명을 입력하세요" name="seller_com_name">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="submit" id="okbutton"
+					value="${message eq 'insert' ? '가입완료' : '수정완료'}"></th>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="button" id="canbutton" value="취소"
+					onclick="window.history.back()"></th>
+			</tr>
+		</table>
+<div class="form-group">
+        <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="addr1" id="addr1"
+            type="text" readonly="readonly">
+        <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호
+            찾기</button>
+    </div>
+    <div class="form-group">
+        <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr2" id="addr2" type="text"
+            readonly="readonly" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text" />
+    </div>
+	</form>
+	
+	<!--============================================================================== 아직 미흡한 부분 -->
+<!-- 	20200713 : 아이디 한글로도 가입이 됨 ->해결(승우)
+					css 미흡
+
+
+-->
+
+	<script type="text/javascript">
+		
+	
+	</script>
+	<section>
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
 	        <div class="joinmain">
 	            <div class="joinbox">
@@ -128,6 +244,7 @@
         </form>
     </section>
 	</div>
+	
 	<script type="text/javascript">
 	let member = '${member}';
 	console.log("member : " + member);

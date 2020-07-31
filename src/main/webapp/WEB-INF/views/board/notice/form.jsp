@@ -16,19 +16,22 @@
 			<h2 class="tit">공지사항</h2>
 			<span class="tit_sub">새로운 소식들과 유용한 정보들을 한곳에서 공유하세요.</span>
 		</div>
-		<form action='<c:url value="/board/notice/new"/>' method="post"
-			enctype="multipart/form-data">
+		<form action='<c:url value="/board/notice/${msg}"/>' method="post" enctype="multipart/form-data">
 			<table class="form_table">
 				<tr>
 					<th >글제목</th>
 					<td> 
-						<input type="text" name="notice_title" class="th_title">
+						<input type="text" name="notice_title" class="th_title" value="${notice.notice_title}">
+						<c:if test="${msg eq 'update'}">
+							<input type="hidden" name='notice_number' value="${notice.notice_number}">
+							<input type="hidden" name='notice_rn' value="${notice.notice_rn}">
+						</c:if>
 					</td>
 				</tr>
 				<tr>
 					<th >글내용</th>
 					<td>
-						<textarea rows="30" cols="110" name="notice_content" class="td_content"></textarea>
+						<textarea rows="30" cols="110" name="notice_content" class="td_content">${notice.notice_content}</textarea>
           			</td>
 				</tr>
 				<tr>
@@ -37,7 +40,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" value="등록" class="btn">
+						<input type="submit" value="${msg eq 'new'? '등록' : '수정'}" class="btn">
 						<input type="reset" value="취소" class="btn" onclick="window.history.back()">
 					</td>
 				</tr>

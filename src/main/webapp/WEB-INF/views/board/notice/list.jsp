@@ -9,7 +9,6 @@
 <title>list</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/board/list.css'/>" />
 <script src="https://kit.fontawesome.com/c2524284bc.js" crossorigin="anonymous"></script>
-<!-- <script type="text/javascript" src="./jquery.cookie.js"></script> -->
 </head>
 <body>
    <jsp:include page="../../header&footer/header.jsp" />
@@ -90,16 +89,16 @@
                   <div class="notice_search" >
                      <input type="text" style="height: 40px; width:270px; border: 1px solid #d3d3d3;">
                      <div class="search_img" align="center">
-                     	<a><i class="fas fa-search"></i>
+                     	<a><i class="fas fa-search"></i></a>
                      </div>
                   </div>
-               
                </td>   
             </tr>
          </table>
          </form>
       </div>
    </div>
+	<div> 글 하나도 없을 때 끝으로 가기 페이지 안보이게 해야함!!!!!!!!!!!!!!!!!!!!!1</div>
    <jsp:include page="../../header&footer/footer.jsp"/>
 	<script type="text/javascript">
 	let index = 0;
