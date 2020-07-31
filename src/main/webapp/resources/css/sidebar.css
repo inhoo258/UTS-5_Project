@@ -1,0 +1,150 @@
+@charset "UTF-8";
+/* 사이드바 */
+#sidebar {
+	position: fixed;
+	width: 400px;
+	left: 1520px;
+	z-index: -1;
+	height: 100%;
+	background-color: none;
+	color: white;
+	opacity: 0;
+	border: 1px solid white;
+}
+
+#sidebar a {
+	color: white;
+}
+
+/* 사이드바 로그인 */
+#sidebar>#login_section {
+	position: relative;
+	left: 40px;
+	height: 30%;
+	width: 100%;
+}
+
+#sidebar>#login_section span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 70%;
+}
+
+#sidebar>#login_section span div {
+	position: absolute;
+	top: 80px;
+	width: 150px;
+	height: 150px;
+}
+
+#sidebar>#login_section span img {
+	width: 100%;
+	height: 100%;
+}
+
+#sidebar>#login_section h1 {
+	font-size: 30px;
+}
+
+#sidebar>#login_section h3 {
+	font-size: 20px;
+}
+
+/* 사이드바 메뉴 */
+#sidebar>#sidebar_menu_section {
+	border-bottom: 1px solid white;
+	border-top: 1px solid white;
+	position: absolute;
+	top: 30%;
+	height: 60%;
+	width: 100%;
+}
+
+#sidebar_menu_section>ul {
+	height: 100%;
+}
+
+#sidebar_menu_section>ul>li {
+	position: relative;
+	width: 100%;
+	height: 12.5%;
+	font-size: 18px;
+}
+
+#sidebar_menu_section>ul>li:hover {
+	background-color: white;
+}
+
+#sidebar_menu_section>ul>li>a {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* 사이드바 로그아웃 */
+#sidebar>#logout_section {
+	position: absolute;
+	top: 90%;
+	height: 10%;
+	width: 100%;
+	font-size: 20px;
+}
+
+#sidebar>#logout_section>a {
+	position: absolute;
+	top: 50%;
+	left: 50px;
+	transform: translateY(-50%);
+}
+
+/* 사이드바 아이콘 */
+#sidebar_icon {
+	position: fixed;
+	top: 40px;
+	right: 240px;
+	width: 30px;
+	height: 30px;
+	z-index: 2;
+	cursor: pointer;
+	display: none;
+}
+
+#sidebar_icon span {
+	position: absolute;
+	border-radius: 10px;
+	background: white;
+	transition: all .35s;
+	width: 100%;
+	height: 5px;
+}
+
+#sidebar_span1 {
+	top: 0;
+}
+
+#sidebar_span2 {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#sidebar_span3 {
+	bottom: 0;
+}
+
+.sidebar_check:checked+#sidebar_span1 {
+	top: 50%;
+	transform: translateY(-50%) rotate(45deg);
+}
+
+.sidebar_check:checked+#sidebar_span2 {
+	opacity: 0;
+}
+
+.sidebar_check:checked+#sidebar_span3 {
+	bottom: 50%;
+	transform: translateY(50%) rotate(-45deg);
+}

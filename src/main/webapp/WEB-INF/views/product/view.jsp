@@ -50,7 +50,7 @@
                         </div>
                         <div>
                             <span id="explain_key"><span id="keytext">안내사항</span></span>
-                            <span id="explain_value">}</span>
+                            <span id="explain_value"></span>
                         </div>
                         <div>
                            	<span id="key"><span id="keytext">구매수량</span></span>
@@ -100,7 +100,18 @@
 			   </ul>
 			   <ul class="panel">
 			         <li id="tab1">${product.product_info }</li>
-			         <li id="tab2"> 탭메뉴 내용 </li>
+			         <li id="tab2">
+			         	${sellerInfo}<br>
+		         		${sellerInfo.member_id}<br>
+						${sellerInfo.seller_reg_num}<br>
+						${sellerInfo.seller_company_info}<br>
+						${sellerInfo.seller_company_tel}<br>
+						${sellerInfo.seller_company_main_address}<br>
+						${sellerInfo.seller_company_sub_address }<br>
+						${sellerInfo.seller_company_email }<br>
+						${sellerInfo.seller_company_name}<br>
+						${sellerInfo.seller_company_head_name}<br>
+			         </li>
 			         <li id="tab3"> 
 		         		<table border="1">
 				         			<tr>

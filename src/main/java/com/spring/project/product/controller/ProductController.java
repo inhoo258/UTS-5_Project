@@ -196,7 +196,7 @@ public class ProductController {
 	public String getProduct(@PathVariable("product_id") int product_id, Model model) {
 		ProductsVO product = productService.getProduct(product_id);
 		model.addAttribute("product", product);
-		model.addAttribute("sellerInfo",memberService.getMemberInfo(product.getMember_id()));
+		model.addAttribute("sellerInfo",memberService.getSellerInfo(product.getMember_id()));
 		model.addAttribute("reviewList",reviewService.getReviewList(product_id));
 		return "product/view";
 	}
