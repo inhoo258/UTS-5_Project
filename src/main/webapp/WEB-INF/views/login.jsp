@@ -12,10 +12,11 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/login.css'/>" />
 </head>
 <body>
-<%-- 	<jsp:include page="header&footer/header.jsp" /> --%>
-	<sec:authorize access="isAnonymous()">
-
-		<section>
+<jsp:include page="header&footer/sidebar.jsp"></jsp:include>
+	 <div id="main_menu">
+    	<jsp:include page="header&footer/header.jsp"></jsp:include>
+		<sec:authorize access="isAnonymous()">
+		<section id="login">
 		<div class = "l_login_all">
 		<div class = "l_login_form">
 			<div class = "l_login_title">
@@ -65,7 +66,9 @@
 			<input type="submit" value="로그아웃">
 		</form>
 	</sec:authorize>
-	<jsp:include page="header&footer/footer.jsp"/>
+	</div>
+	
+<%-- 	<jsp:include page="header&footer/footer.jsp"/> --%>
 </body>
 <script type="text/javascript">
 	//l_id_input,[id] 아이디 name l_pwd_input[pw] 비밀번호 name [loginForm] form id
@@ -111,10 +114,6 @@
 		}
 		document.loginFrom.submit();
 	}
-	
-	
-	
-	
 	
 </script>
 <c:remove var="message" scope="session"/>

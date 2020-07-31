@@ -2,11 +2,34 @@
 
 
 /*========================================로그인 div*/
-* {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	text-decoration: none;
+/* 감싸는 div */
+#main_menu{
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	transform: translate(-50%);
+	width: 1520px;
+	height: 937px;
+	overflow: hidden;
+}
+/* 사이드바 바뀌는 속성 */
+#sidebar_icon {
+	position: fixed;
+	top: 40px;
+	right: 240px;
+	width: 30px;
+	height: 30px;
+	z-index: 2;
+	cursor: pointer;
+	display: block !important;
+}
+/* 여기부터 로그인 css 시작 */
+#login{
+	position: absolute;
+	top:160px;
+	left:50%;
+	transform: translate(-50%);
+	background-color: #566089;
 }
 
 .l_login_all{
