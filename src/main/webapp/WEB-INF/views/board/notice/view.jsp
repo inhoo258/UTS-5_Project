@@ -19,44 +19,6 @@
 			<span class="tit_sub">새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</span>
 		</div>
 		<div align="center">
-<%-- 			<jsp:include page="../../header&footer/header.jsp" /> --%>
-<!-- 			<table border="1" style="border-collapse: collapse;"> -->
-<!-- 				<thead> -->
-<!-- 					<tr> -->
-<!-- 						<th>제목</th> -->
-<%-- 						<td colspan="3">${notice.notice_title}</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<th>작성일</th> -->
-<%-- 						<td>${notice.notice_date}</td> --%>
-<!-- 						<th>조회수</th> -->
-<%-- 						<td>${notice.notice_views}</td> --%>
-<!-- 					</tr> -->
-<!-- 				</thead> -->
-<!-- 				<tbody> -->
-<!-- 					<tr> -->
-<%-- 						<th colspan="4">${notice.notice_content}</th> --%>
-<!-- 					</tr> -->
-<!-- 				</tbody> -->
-<!-- 			</table> -->
-<!-- 			<input type="button" -->
-<%-- 				onclick='location.href="<c:url value='/board/notice/list'/>"' --%>
-<!-- 				value="목록"><input type="button" value="수정" onclick=''> -->
-<!-- 			<table border="1" style="border-collapse: collapse;"> -->
-<%-- 				<c:if test="${notice.notice_rn gt 1}"> --%>
-<!-- 					<tr> -->
-<!-- 						<td><a -->
-<%-- 							href='<c:url value="/board/notice/${notice.notice_rn-1}"/>'>이전글</a></td> --%>
-<!-- 					</tr> -->
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${notice.notice_rn lt totalCount}"> --%>
-<!-- 					<tr> -->
-<!-- 						<td><a -->
-<%-- 							href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>다음글</a></td> --%>
-<!-- 					</tr> -->
-<%-- 				</c:if> --%>
-<!-- 			</table> -->
-<%-- 			<jsp:include page="../../header&footer/footer.jsp" /> --%>
 			<table class="view_table">
 				<thead>
 					<tr>
@@ -76,49 +38,55 @@
 					</tr>
 				</tbody>
 				<tr class="last_tr">
-					<td colspan="4"><input class="btn" type="button"
-						onclick='location.href="<c:url value='/board/notice/list'/>"'
-						value="목록"> <sec:authorize access="hasRole('ROLE_MASTER')">
-							<input class="btn" type="button" value="수정" onclick=''>
-						</sec:authorize></td>
+					<td colspan="4">
+						<input class="btn" type="button" onclick='location.href="<c:url value='/board/notice/list'/>"' value="목록"> 
+							<sec:authorize access="hasRole('ROLE_MASTER')">
+								<input class="btn" type="button" value="수정" onclick='location.href="<c:url value='/board/notice/form/${notice.notice_rn}'/>"'>
+								<input class="btn" type="button" value="삭제" onclick='location.href="<c:url value='/board/notice/delete/${notice.notice_number}'/>"'>
+							</sec:authorize>
+					</td>
 				</tr>
 			</table>
-
-			<ul>
-				<li><c:if test="${notice.notice_rn gt 1}">
-						<i class="fas fa-angle-up"></i>
-						<a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>'>
-							이전글</a>
-					</c:if></li>
-				<li><c:if test="${notice.notice_rn lt totalCount}">
-						<i class="fas fa-angle-down"></i>
-						<a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>
-							다음글</a>
-					</c:if></li>
-			</ul>
-			<!-- 			<table class="view_table2"> -->
-			<%-- 				<c:if test="${notice.notice_rn gt 1}"> --%>
-			<!-- 					<tr> -->
-			<!-- 						<td> -->
-			<!-- 							<i class="fas fa-angle-up"></i> -->
-			<%-- 							<a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>'> 이전글</a> --%>
-			<!-- 						</td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:if> --%>
-			<%-- 				<c:if test="${notice.notice_rn lt totalCount}"> --%>
-			<!-- 					<tr> -->
-			<!-- 						<td> -->
-			<!-- 							<i class="fas fa-angle-down"></i> -->
-			<%-- 							<a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'> 다음글</a> --%>
-			<!-- 						</td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:if> --%>
-			<!-- 			</table> -->
+			<table class="movement_table"
+						style="width: 100%; border-collapse: collapse; ">
+				<tr id="pre" style="border-bottom : 1px solid #ddd;">
+					<td style="width: 70px;	height:36px; text-align: center; border-right: 1px solid #ddd;">
+						<c:if test="${notice.notice_rn gt 1}">
+							<i class="fas fa-angle-up"></i>  다음글
+						</c:if>
+					</td>
+					<td>
+						<a href='<c:url value="/board/notice/${notice.notice_rn-1}"/>' >${preTitle}</a>
+					</td>
+				</tr>
+				<tr id="post" style="border-bottom:3px solid #5f0080 ; ">
+					<td style="width: 70px;	height:36px; text-align: center; border-right: 1px solid #ddd;">
+						<c:if test="${notice.notice_rn lt totalCount}">
+							<i class="fas fa-angle-down"></i> 이전글
+						</c:if>
+					</td>
+					<td>
+						<a href='<c:url value="/board/notice/${notice.notice_rn+1}"/>'>${postTitle}</a>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
+	<jsp:include page="../../header&footer/footer.jsp"/>
 	<div>
-		글 삭제도 만들어야함~~~~~~~~~~~~ // 리스트에서도 삭제 만들건지?? // desc 확인해야함 //
-		검색 기능 구현 // 이전글 다음글 수정 // .view_table css borderbottom 안먹음
+	// 리스트에서도 삭제 만들건지??
+	// 검색 기능 구현
+	// .view_table css borderbottom & .movement_table css 안먹음 
 	</div>
+	
+	<!-- 다음/ 이전 페이지 처리 --> 
+	<script type="text/javascript">
+		if(${notice.notice_rn eq 1} ){
+			$('#pre').attr('style', "display:none;")	
+		}
+		if(${notice.notice_rn eq totalCount} ){
+			$('#post').attr('style', "display:none;")	
+		}
+	</script>
 </body>
 </html>

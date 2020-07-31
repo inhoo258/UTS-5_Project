@@ -14,10 +14,12 @@
 
 </head>
 <body>
-	<sec:authorize access="hasRole('ROLE_MASTER')">
-		<jsp:include page="../header&footer/header.jsp" />
-<!-- 		<h1 align="center">회원 관리 페이지</h1> -->
-		<div class="p_product_explain2">
+<%-- 	<sec:authorize access="hasRole('ROLE_MASTER')"> --%>
+<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
+	 <div id="main_menu">
+    	<jsp:include page="../header&footer/header.jsp"></jsp:include>
+    	<div id="memberlist_div">
+<!-- 		<div class="p_product_explain2"> -->
 			<nav class="container">
 				<ul class="tab">
 					<li><a href="#tab1" id=memberlist class="on">회원 리스트</a></li>
@@ -68,7 +70,7 @@
 										</label></th>
 										<td>${member.member_id}<br>${member.member_name}<br>${member.member_auth}</td>
 										<td>${member.member_tel}</td>
-										<td>${member.member_addr}</td>
+										<td>${member.member_main_addr}</td>
 										<td>${member.member_email}</td>
 										<td>${member.member_enabled eq "1" ? "승인" : "승인대기"}</td>
 										<th>
@@ -179,9 +181,10 @@
 				</ul>  
 			</nav>
 		</div>
-	<jsp:include page="../header&footer/footer.jsp"/>
-	
-	</sec:authorize>
+<%-- 	<jsp:include page="../header&footer/footer.jsp"/> --%>
+		</div>
+	</div>
+<%-- 	</sec:authorize> --%>
 	<script type="text/javascript">
 	
 	// 쿠키 스크립트
