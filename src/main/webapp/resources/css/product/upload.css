@@ -1,2 +1,88 @@
 @charset "UTF-8";
 
+*{
+    margin: 0 auto;
+}
+
+#upload {
+    background-color:  #f5f5f5;
+    margin-bottom: 25px;
+    width: 90%; height: 90%;
+}
+
+#upload_tit {
+    background-color:  #dff0d8;
+    border-radius: 5px;
+    border: 1px solid #aacaa7;
+    color: #518f55;
+    font-weight: 700;
+    font-size: 28px;
+    padding: 10px 20px;
+    /* margin-top: 50px ; */
+    width: 90%;
+}
+
+#upload_table {
+    width: 90%;
+    margin-top: 25px;
+}
+
+#upload_table tr {
+    border-top: 2px solid #dfdfdf;
+}
+
+#upload_table th{
+    padding: 10px;
+    height: 40px;
+}
+
+#upload_table td{
+    padding-left: 60px;
+}
+
+#upload_table th, td{
+    color: #6f6d65;
+}
+
+.input_text{
+    height: 33px;
+    width: 400px;
+    border-radius: 5px;
+    border: 1px solid #dfdfdf;
+}
+
+.td_detail{
+    padding-top: 20px;
+}
+
+#product_info{
+    padding-top: 20px;
+}
+
+/* 등록&취소 버튼 */
+#upload_table #submitBtn{
+    background-color: rgb(95, 190, 95);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(81, 164, 81) ;
+    height: 33px; width: 60px;
+    margin-right: 5px;
+}
+
+#resetBtn{
+    background-color: rgb(249, 166, 48);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(225, 149, 44) ;
+    height: 33px; width: 60px;
+}
+
+#div_btn{
+    padding: 13px;
+    text-align: center;
+}
+
+/*div_btn css 안먹음------------------------*/
+#upload_tit, #div_btn{
+    margin: 0 auto;
+}
