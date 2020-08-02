@@ -176,14 +176,20 @@ public class MemberController {
 //		} catch (Exception e) {
 //			System.out.println(e);
 //		} 메일 보내져서 주석처리
-		
+		model.addAttribute("ctfnum",num);
+		model.addAttribute("memberemail",memberVO.getMember_email());
 		
 		// 내일 할일!!!!!!!!!!!
 		// 인증하는 사람이 본인이 맞는지 아닌지 확인하는 것
 		// 인증번호 재전송 클릭 시 다시 메일 발송하는 REST CONTROLLER로 연결하기
 		// 확인 버튼 클릭시 해당아이디를 가지고 넘겨준뒤 UPDATE로 수정할 것
-		model.addAttribute("ctfnum",num);
 	}
+	@PostMapping("/changepwd")
+	public void changepwd() {
+		
+	}
+	
+	
 	
 
 	@PostMapping("/sellerinfoupdate")
