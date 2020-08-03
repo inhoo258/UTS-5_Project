@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<jsp:include page="../header&footer/header.jsp" />
-    <section>
+<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
+	<div id="main_menu">
+    <jsp:include page="../header&footer/header.jsp"></jsp:include>
+     <section id="view_section">
         <div class="p_product_main">
             <div class="p_product_collection">
                 <div class="p_product_desc">
@@ -78,8 +81,8 @@
 								<input class="btn" type="button" value ="주문하기" onclick="redirectOrder()"> 
 								<input class="btn" type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
 							</form>
-							<form action ='<c:url value ="/product/cart/${member_id}"/>'>
-							</form>
+<%-- 							<form action ='<c:url value ="/product/cart/${member_id}"/>'> --%>
+<!-- 							</form> -->
 						</div>
                     </div>
                 </div>
@@ -95,13 +98,12 @@
 			   <ul class="tab">
 			      <li><a href="#tab1" class="on">상품 설명</a></li>
 			      <li><a href="#tab2">업체 정보</a></li>
-			      <li><a href="#tab3">고객 후기()</a></li>
+			      <li><a href="#tab3">고객 후기(<span id="reviewCounts"></span>)</a></li>
 			      <li><a href="#tab4">상품 문의()</a></li>
 			   </ul>
 			   <ul class="panel">
 			         <li id="tab1">${product.product_info }</li>
 			         <li id="tab2">
-			         	${sellerInfo}<br>
 		         		${sellerInfo.member_id}<br>
 						${sellerInfo.seller_reg_num}<br>
 						${sellerInfo.seller_company_info}<br>
@@ -114,25 +116,47 @@
 			         </li>
 			         <li id="tab3"> 
 		         		<table border="1">
-				         			<tr>
-				         				<th>번호</th>
-				         				<th>제목</th>
-				         				<th>작성자</th>
-				         				<th>작성일</th>
-				         				<th>별점</th>
-				         				<th>조회</th>
-				         			</tr>
-				         	<c:forEach var="review" items="${reviewList}">
-				         		<tr>
-				         			<td></td>
-				         			<td>${review.review_title}</td>
-				         			<td>${review.review_content }</td>
-				         			<td></td>
-				         			<td></td>
-				         			<td></td>
-				         		</tr>
-				         	</c:forEach>
+		         			<tr>
+		         				<th>번호</th>
+		         				<th>제목</th>
+		         				<th>작성자</th>
+		         				<th>작성일</th>
+		         				<th>별점</th>
+		         				<th>조회</th>
+		         			</tr>
+				         	<tbody id="tbody">
+					         	<c:forEach var="review" items="${reviewList}">
+					         		<tr>
+					         			<td>${review.review_number}</td>
+					         			<td>${review.review_title}</td>
+					         			<td>${review.member_id }</td>
+					         			<td>${review.review_date }</td>
+					         			<td>${review.review_score }</td>
+					         			<td>${review.review_views }</td>
+					         		</tr>
+					         	</c:forEach>
+				         	</tbody>
+				         	<tr>
+				         		<td colspan="6">
+				         			<c:if test="${pagingManager.nowPage ne 1}">
+				         				<span id="span_start">처음</span>
+					                </c:if> 
+					                <c:if test="${pagingManager.nowBlock gt 1 }">
+					                	<span id="span_pre">이전</span>
+					                </c:if> 
+					                <c:forEach var="i" begin="${pagingManager.startPage}" end="${pagingManager.endPage}">
+					                	<span class="span_page">${i}</span>
+					                </c:forEach> 
+					                <c:if test="${pagingManager.nowBlock lt pagingManager.totalBlock}">
+					                	<span id="span_post">다음</span>
+					                </c:if> 
+					                <c:if test="${pagingManager.nowPage ne pagingManager.totalPage}">
+					                	<span id="span_end">끝</span>
+					                </c:if>
+				         		</td>
+				         	</tr>
 		         		</table>
+		         		<input type="button" value="후기쓰기">
 			          </li>
 			         <li id="tab4"> 탭메뉴 내용 </li>
 			   </ul>
@@ -140,10 +164,60 @@
         </div>
         	
     </section>
+    </div>
 <hr>
-<jsp:include page="../header&footer/footer.jsp"/>
 </body>
 <script type="text/javascript">
+let idx;
+let page;
+$(".span_page").on("click",function(){
+	idx = $(".span_page").index(this);
+	page = $(".span_page").get(idx).innerText;
+	pagingControl(page);
+});
+$("#span_start").on("click",function(){
+	page=1;	
+	pagingControl(page);
+});
+$("#span_end").on("click",function(){
+	page = '${pagingManager.totalPage}';	
+	pagingControl(page);
+});
+$("#span_pre").on("click",function(){
+	page = '${pagingManager.startPage-1}';	
+	pagingControl(page);
+});
+$("#span_post").on("click",function(){
+	page = '${pagingManager.endPage+1}';	
+	pagingControl(page);
+});
+function pagingControl(page){
+	console.log("requested page : "+page);
+	$.ajax({
+		url:'<c:url value="/board/rest/reviewList"/>',
+		data:{
+			page:page,
+			product_id:'${product.product_id}'
+		},
+		type:'GET',
+		success:function(reviewList){
+			$("#tbody").empty();
+			for(var i = 0; i < reviewList.length; i++){
+				console.log(reviewList[i].review_date);
+				$("#tbody").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+				$("#tbody>tr")[i].childNodes[0].innerText = reviewList[i].review_number;
+				$("#tbody>tr")[i].childNodes[1].innerText = reviewList[i].review_title;
+				$("#tbody>tr")[i].childNodes[2].innerText = reviewList[i].member_id;
+				$("#tbody>tr")[i].childNodes[4].innerText = reviewList[i].review_score;
+				$("#tbody>tr")[i].childNodes[5].innerText = reviewList[i].review_views;
+			}
+		},error:function(){
+			alert("틀림 ;;;");
+		}
+	});
+}
+
+
 		let product_id = document.getElementById("pOrder_product_id").value;
 		let member_id = document.getElementById("pOrder_member_id").value;
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
@@ -152,6 +226,7 @@
 		console.log("member_id : "+member_id);
 		console.log("p_num : "+p_num);
 		console.log("originalPrice : " + originalPrice);
+	
 	function p_count_plus() {
 		document.getElementById("p_minus_btn").disabled=false;
 		p_num += 1;

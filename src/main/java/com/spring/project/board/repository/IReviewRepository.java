@@ -1,6 +1,6 @@
 package com.spring.project.board.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -12,11 +12,6 @@ import com.spring.project.board.model.ReviewVO;
 
 @Repository
 public interface IReviewRepository {
-	
-	//개별 상품에 해당하는 글목록 내림차순 정렬
-	@Select("select * from review_board where product_id=#{product_id} order by rownum desc")
-	public ArrayList<ReviewVO> getReviewList(int product_id);
-	
 	//client별 작성 목록
 	@Select("select * from review_board where member_id=#{member_id}")
 	public ReviewVO getReview(String member_id);
@@ -36,4 +31,6 @@ public interface IReviewRepository {
 	
 	@Select("select count(*) from review_board")
 	public int getTotalCount();
+	@Select("select * from (select rownum review_rn, re.* from (select * from review_board where product_id = #{0} order by review_number desc)re)where review_rn between #{1} and #{2}")
+	public List<ReviewVO> getReviewList(int product_id, int start, int end);
 }

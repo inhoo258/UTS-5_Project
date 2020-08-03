@@ -30,14 +30,15 @@
 			<c:set var="member_id">
 				<sec:authentication property="principal.username"/>
 			</c:set>
-	        <form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data">
+	        <form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data" id=upload_form>
 	         <table id="upload_table" >
 	            <tr>
 	                <th>상품 이미지</th>
 	                <td>
 	                	<div><input type="file" name="file" id="file_upload"></div>
-	                </td>   <label>~~~~~~이미지 파일 올릴 때 이미지 미리 보기 만들어야함~~~~</label>
-	                <input type="hidden" name="member_id" value="${member_id}">     
+	                	<img id="pre_view" width="200" height="auto"/>
+	                	<input type="hidden" name="member_id" value="${member_id}">
+	                </td>        
 	            </tr>
 	            <tr>
 	                <th>상품명</th>
@@ -72,6 +73,29 @@
 		</div>
 	</div>
 <script>
+$("#file_upload").change(function(){
+   readURL(this);
+});
+function readURL(input) {
+	console.log("input : " + input);
+	console.log("input.files : " + input.files);
+	console.log("input.files[0] : "+input.files[0]);
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			//img id:pre_view에 src 값 넣어줌
+			if(e.target.result.substring(5,10)!='image'){
+				$("#file_upload").val("")
+				$('#pre_view').attr('src', "");  
+				alert("이미지만 선택 가능합니다.");
+				return;
+			}else{
+				$('#pre_view').attr('src', e.target.result);  
+			}
+		};
+		reader.readAsDataURL(input.files[0]);
+	}
+}
 $(document).ready(function() {
   $('#product_info').summernote({
 	    	placeholder: '글 내용을 입력해주세요.(최대 2048자)',
@@ -90,37 +114,37 @@ $(document).ready(function() {
              ['para', ['ul', 'ol', 'paragraph']],
              ['height', ['height']],
              ['insert',['picture','link','video']],
-             ['view', ['fullscreen', 'help','codeview']]
+             ['view', ['fullscreen', 'help']]
            ],
          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
   });
 });
 
-// function productUpload(form) {
-// 	var product_name = form.product_name.value;
-// 	var product_count = form.product_count.value;
-// 	var product_price = form.product_price.value;
-// 	var product_weight = form.product_weight.value;
-// 	var product_info = form.product_info.value;
+function productUpload(form) {
+	var product_name = form.product_name.value;
+	var product_count = form.product_count.value;
+	var product_price = form.product_price.value;
+	var product_weight = form.product_weight.value;
+	var product_info = form.product_info.value;
 	
-// 	if (product_name.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_count.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_price.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_weight.trim() == ''){
-// 		return false;
-// 	}
-// 	if (product_info.trim() == ''){
-// 		return false;
-// 	}
-// 	form.submit();
-// }
+	if (product_name.trim() == ''){
+		return false;
+	}
+	if (product_count.trim() == ''){
+		return false;
+	}
+	if (product_price.trim() == ''){
+		return false;
+	}
+	if (product_weight.trim() == ''){
+		return false;
+	}
+	if (product_info.trim() == ''){
+		return false;
+	}
+	form.submit();
+}
 </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ header {
 	width: 100%;
 }
 body {
-	background-color: #2a365c;
+	background-color: #739ecb;
 }
 
 ::-webkit-scrollbar {
@@ -26,7 +26,8 @@ body {
 	left: 50%;
 	transform: translate(-50%);
 	font-size: 0;
-	background-color: #566089;
+	background-color: none;
+	border-bottom: 1px solid white;
 }
 
 #header_main>div:nth-child(1) {
@@ -65,6 +66,7 @@ body {
 	width: 200px;
 	text-align: center;
 	height: 30px;
+	
 }
 
 header a {
@@ -74,6 +76,7 @@ header a {
 
 #header_muenbar1 {
 	/* background-color: antiquewhite; */
+	
 	
 }
 

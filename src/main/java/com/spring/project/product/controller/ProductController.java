@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.project.board.service.ReviewService;
+import com.spring.project.common.PagingManager;
 import com.spring.project.member.service.IMemberService;
 import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.model.ProductsVO;
@@ -197,7 +198,8 @@ public class ProductController {
 		ProductsVO product = productService.getProduct(product_id);
 		model.addAttribute("product", product);
 		model.addAttribute("sellerInfo",memberService.getSellerInfo(product.getMember_id()));
-		model.addAttribute("reviewList",reviewService.getReviewList(product_id));
+		model.addAttribute("reviewList",reviewService.getReviewList(product_id,1));
+		model.addAttribute("pagingManager",new PagingManager(reviewService.getTotalCount(), 1));
 		return "product/view";
 	}
 

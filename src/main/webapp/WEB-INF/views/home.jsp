@@ -63,6 +63,15 @@
     
     <div id="main_menu">
     	<jsp:include page="header&footer/header.jsp"></jsp:include>
+    	<div id = main_div1>
+    		<div id=div_header>
+    			Home
+    		</div>
+    		<div id=div_content>
+    		</div>
+    	</div>
+    	<div id = main_div2>
+    	</div>
     </div>
 		<jsp:include page="header&footer/sidebar.jsp"></jsp:include>
     	
