@@ -44,4 +44,9 @@ public class ProductRestController {
 		return cartService.checkCart(member_id, product_id);
 	}
 
+	@PostMapping("/reviewCheck")
+	public boolean reviewCheck() {
+		return true;
+	}
+	
 }

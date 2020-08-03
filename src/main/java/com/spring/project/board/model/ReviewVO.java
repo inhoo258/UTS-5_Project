@@ -2,6 +2,8 @@ package com.spring.project.board.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ReviewVO {
 	private int review_number;
 	private String member_id;
@@ -11,6 +13,7 @@ public class ReviewVO {
 	private int order_product_count;
 	private String review_content;
 	private int review_score;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date review_date;
 	private int review_views;
 	

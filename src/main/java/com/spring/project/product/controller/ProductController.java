@@ -194,12 +194,19 @@ public class ProductController {
 
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
-	public String getProduct(@PathVariable("product_id") int product_id, Model model) {
+	public String getProduct(@PathVariable("product_id") int product_id,@RequestParam(value = "reviewPage", required = false)String reviewPage, Model model) {
+		System.out.println("reviewPage : "+reviewPage);
+		if(reviewPage!=null) {
+			model.addAttribute("reviewRequest","reviewRequest");
+		}else {
+			reviewPage="1";
+		}
+		int rPage = Integer.parseInt(reviewPage);
 		ProductsVO product = productService.getProduct(product_id);
 		model.addAttribute("product", product);
 		model.addAttribute("sellerInfo",memberService.getSellerInfo(product.getMember_id()));
-		model.addAttribute("reviewList",reviewService.getReviewList(product_id,1));
-		model.addAttribute("pagingManager",new PagingManager(reviewService.getTotalCount(), 1));
+		model.addAttribute("reviewList",reviewService.getReviewList(product_id,rPage));
+		model.addAttribute("reviewPagingManager",new PagingManager(reviewService.getTotalCount(product_id), rPage));
 		return "product/view";
 	}
 

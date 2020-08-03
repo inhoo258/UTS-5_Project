@@ -29,8 +29,8 @@ public interface IReviewRepository {
 	@Update("update review_board set review_content=#{review_content} where member_id=#{member_id} and product_id=#{product_id}")
 	public void updateReview(String member_id, int product_id);
 	
-	@Select("select count(*) from review_board")
-	public int getTotalCount();
+	@Select("select count(*) from review_board where product_id = #{product_id}")
+	public int getTotalCount(int product_id);
 	@Select("select * from (select rownum review_rn, re.* from (select * from review_board where product_id = #{0} order by review_number desc)re)where review_rn between #{1} and #{2}")
 	public List<ReviewVO> getReviewList(int product_id, int start, int end);
 }
