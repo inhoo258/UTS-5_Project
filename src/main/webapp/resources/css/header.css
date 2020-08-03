@@ -10,9 +10,10 @@ header {
 	position: absolute;
 	width: 100%;
 }
-body {
-	background-color: #2a365c;
-}
+/* body { */
+/* 	background-color: #2a365c; */
+/* background-color: white; */
+/* } */
 
 ::-webkit-scrollbar {
 	display: none !important;
@@ -26,13 +27,20 @@ body {
 	left: 50%;
 	transform: translate(-50%);
 	font-size: 0;
-	background-color: #566089;
+/* 	background-color: #566089; */
+	background-color: #2a365c;
 }
 
 #header_main>div:nth-child(1) {
 	width: 150px;
 	height: 150px;
 	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#header_main>div:nth-child(1):nth-child(1){
+	
 }
 
 #header_main>div:nth-child(2) {

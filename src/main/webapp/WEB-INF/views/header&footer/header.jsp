@@ -18,8 +18,10 @@
 	<div class="loader"></div>
  	<header>
             <div id="header_main">
-                <div>
-                    <img src="/project/resources/main_logo.png">
+            	<div>
+<!-- 	                <div> -->
+	                    <img src="/project/resources/main_logo.png">
+<!-- 	                </div> -->
                 </div>
                 <div>
                     <div id=header_muenbar1 class="header_muenbar">

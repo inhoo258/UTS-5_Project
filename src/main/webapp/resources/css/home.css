@@ -1,13 +1,15 @@
 @charset "UTF-8";
-body {
-	background-color: #2a365c;
-}
+/* body { */
+/* 	background-color: #2a365c; */
+/* 	background-color: white; */
+/* } */
 
 #main_home {
 	position: absolute;
 	width: 1920px;
 	height: 937px;
 	overflow: hidden;
+	background-color: #2a365c;
 }
 
 #main_menu{
