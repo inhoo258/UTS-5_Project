@@ -150,12 +150,27 @@ public class MemberController {
 	
 	//아이디 비번 찾기
 	@RequestMapping("/findidpwd")
-	public void findidpwd() {
+	public void findidpwd(Model model, @RequestParam("choice")String choice, @RequestParam(value = "message", required = false)String message) {
+		model.addAttribute("chocie",choice);
+		model.addAttribute("message",message);
 	}
+	
 	@PostMapping("/certification")
-	public void certification(Model model, MemberVO memberVO) {
+	public String certification(Model model, @RequestParam(value = "choice")String choice, MemberVO memberVO , RedirectAttributes redirectAttributes) {
+		if( memberVO.getMember_email() == null ) {
+			redirectAttributes.addAttribute("message","nonemessage");
+			redirectAttributes.addAttribute("choice" , choice);
+			return "redirect:/member/findidpwd";
+		}else if(memberSerivce.getMemberEmail(memberVO.getMember_email()) == null){
+			redirectAttributes.addAttribute("message","reloadpage");
+			redirectAttributes.addAttribute("choice" , choice);
+			return "redirect:/member/findidpwd";
+		}
 		model.addAttribute("findInfo", memberVO);
+		model.addAttribute("choice", choice);
+		return "/member/certification";
 	}
+	
 	@PostMapping("/findsendemail")
 	public void findsendemail(MemberVO memberVO, Model model) {
 		String setfrom = "underthesea5@naver.com";
@@ -178,7 +193,7 @@ public class MemberController {
 //		} 메일 보내져서 주석처리
 		model.addAttribute("ctfnum",num);
 		model.addAttribute("memberemail",memberVO.getMember_email());
-		
+		 
 		// 내일 할일!!!!!!!!!!!
 		// 인증하는 사람이 본인이 맞는지 아닌지 확인하는 것
 		// 인증번호 재전송 클릭 시 다시 메일 발송하는 REST CONTROLLER로 연결하기

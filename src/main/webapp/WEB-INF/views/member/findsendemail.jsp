@@ -8,29 +8,35 @@
 </head>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/findsendemail.css'/>" />
 <body>
-    <section class= "findsendeamilframe">
-        <div class = "findsendemail">
-            <div class = "findsendform">
-                <div class = "findsendtitle">
-                    <h3 id= "findsendtitlemsg">비밀번호 찾기</h3>
-                </div>
-                <form id="findform" action="<c:url value='/member/changepwd'/>" method="post" onsubmit="return checkNum()">
-                    <div class="collectionsend">
-                        <div class="findtextbox">
-                            <input type="text" id="cernum" placeholder="전송된 인증번호를 입력해주세요" >
-                        </div>
-                        <div class="textframe">
-	                       	<p id="fristtxt">인증번호를 못 받았다면? <a href="#">인증번호 재전송 ></a></p>
-                            <p id="secondtxt"></p>
+<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
+	<div id="main_menu">
+    <jsp:include page="../header&footer/header.jsp"></jsp:include>
+    	<div id="header_div">
+	    <section class= "findsendeamilframe">
+	        <div class = "findsendemail">
+	            <div class = "findsendform">
+	                <div class = "findsendtitle">
+	                    <h3 id= "findsendtitlemsg">비밀번호 찾기</h3>
+	                </div>
+	                <form id="findform" action="<c:url value='/member/changepwd'/>" method="post" onsubmit="return checkNum()">
+	                    <div class="collectionsend">
+	                        <div class="findtextbox">
+	                            <input type="text" id="cernum" placeholder="전송된 인증번호를 입력해주세요" >
+	                        </div>
+	                        <div class="textframe">
+		                       	<p id="fristtxt">인증번호를 못 받았다면? <a href="#">인증번호 재전송 ></a></p>
+	                            <p id="secondtxt"></p>
+		                    </div>
+	                        <div class="findsendbtn">
+	                            <input type="submit" value="확인">
+	                        </div>
 	                    </div>
-                        <div class="findsendbtn">
-                            <input type="submit" value="확인">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
+	                </form>
+	            </div>
+	        </div>
+	    </section>
+    	</div>
+   	</div>
     
     <script type="text/javascript">	
     function checkNum(){

@@ -20,6 +20,17 @@
     padding: 20px 0;
 	color: #2a365c;
 }
+.selectfind{
+	width: 300px;
+	margin-left: 100px;
+}
+#id{
+	margin-left: 30px;
+}
+#pwd{
+	margin-left: 10px;
+	
+}
 .collectionfinder>div{
 	float: left;
     margin-left: 100px;

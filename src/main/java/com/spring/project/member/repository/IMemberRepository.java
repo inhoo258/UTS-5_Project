@@ -80,6 +80,14 @@ public interface IMemberRepository {
 
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 and m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%' ")
 	public int getSelectPermissionCount(String permission_word);
+	
+	
+	@Select("select * from members where member_email = #{0}")
+	public MemberVO getEmail(String member_email);
+	
+	
+	
+	
 	// ================================================================================
 	
 	//--------------------seller_info queries--------------------------------------

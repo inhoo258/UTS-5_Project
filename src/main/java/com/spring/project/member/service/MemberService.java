@@ -112,6 +112,16 @@ public class MemberService implements IMemberService {
 			memberRepository.permission(permission_ids[i]);
 		}
 	}
+	@Override
+	public MemberVO getMemberEmail(String member_email) {
+		return memberRepository.getEmail(member_email);
+	}
+	
+	
+	
+	
+	
+	
 //------------------ seller_info queries-----------------------------------
 	@Override
 	public void insertSellerRegNum(String member_id, String seller_reg_num) {
@@ -132,6 +142,7 @@ public class MemberService implements IMemberService {
 	public void updateSellerInfo(SellerInfoVO sellerInfo) {
 		memberRepository.updateSellerInfo(sellerInfo);
 	}
+
 
 	
 }

@@ -45,8 +45,8 @@
 							</label>
 						</div>
 						<div id="l_collection_find">
-							<a href='<c:url value="/member/findidpwd"/>'>아이디 찾기</a> | 
-							<a href='<c:url value="/member/findpwd"/>'>비밀번호 찾기</a>
+							<a href='<c:url value="/member/findidpwd?choice=id"/>'>아이디 찾기</a> | 
+							<a href='<c:url value="/member/findidpwd?choice=pwd"/>'>비밀번호 찾기</a>
 						</div>
 					</div>
 					<div class="l_login_signup">
