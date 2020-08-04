@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.spring.project.board.service.EventService;
+
 import com.spring.project.board.model.NoticeVO;
+import com.spring.project.board.service.EventService;
 import com.spring.project.board.service.NoticeService;
 import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
@@ -50,15 +51,35 @@ public class BoardController {
 		model.addAttribute("notice", noticeService.getNotice(notice_rn));
 		int totalCount = noticeService.getTotalCount();
 		model.addAttribute("totalCount",totalCount);
+		if(notice_rn!=1)model.addAttribute("preTitle",noticeService.getTitle(notice_rn-1));
+		if(notice_rn!=totalCount)model.addAttribute("postTitle",noticeService.getTitle(notice_rn+1));
 //		System.out.println("totalCount : "+totalCount);
 //		System.out.println("notice_rn : "+notice_rn);
 		return "board/notice/view";
 	}
 
 	@GetMapping("/notice/form")
-	public void noticeForm() {
+	public String noticeForm(Model model) {
+		model.addAttribute("msg", "new");
+		return "board/notice/form";
+	}
+	
+	//notice view에서 수정 버튼 클릭 시	
+	@GetMapping("/notice/form/{notice_rn}")
+	public String getView(@PathVariable("notice_rn") int notice_rn, Model model) {
+		model.addAttribute("notice", noticeService.getNoticeInfo(notice_rn) );
+		model.addAttribute("msg" , "update");
+		return "board/notice/form";
 	}
 
+	//notice view 수정
+	@PostMapping("/notice/update")
+	public String updateView(NoticeVO noticeVo ) {
+		noticeService.updateView(noticeVo);
+		return "redirect:/board/notice/"+noticeVo.getNotice_rn();
+	}
+	
+	
 	@PostMapping("/notice/new")
 	public String noticeInsert(@ModelAttribute NoticeVO noticeVO,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
@@ -73,6 +94,13 @@ public class BoardController {
 			noticeService.insertNoticeWithFile(noticeVO);
 		}
 		else noticeService.insertNotice(noticeVO);
+		return "redirect:/board/notice/list";
+	}
+	
+	// notice view 삭제 
+	@GetMapping("/notice/delete/{notice_number}")
+	public String deleteView(@PathVariable("notice_number") int notice_number) {
+		noticeService.deleteView(notice_number);
 		return "redirect:/board/notice/list";
 	}
 	
@@ -110,25 +138,8 @@ public class BoardController {
 		
 	}
 	
-	//리뷰 게시판
-	@GetMapping("/review/list")
-	public void reviewList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
-		model.addAttribute("eventList",eventService.getEventList(page));
-		PagingManager pagingManager = new PagingManager(eventService.getTotalCount(), page);
-		model.addAttribute("pagingManager",pagingManager);
-	}
-	
-	@GetMapping("/review/{member_id}")
-	public String reviewView(Model model, @PathVariable("member_id")String member_id) {
-		int totalCount = reviewService.getTotalCount();
-		model.addAttribute("review",reviewService.getReview(member_id));
-		model.addAttribute("totalCount",totalCount);
-		return "board/event/view";
-	}
-	
 	@GetMapping("/review/form")
 	public void reviewForm() {
-		
 	}
 	
 }

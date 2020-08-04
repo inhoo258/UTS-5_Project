@@ -14,10 +14,6 @@ public class ReviewService implements IBoardService{
 	@Autowired
 	IReviewRepository reviewRepository;
 	
-	public List<ReviewVO> getReviewList(int product_id){
-		return reviewRepository.getReviewList(product_id);
-	}
-	
 	public ReviewVO getReview(String member_id) {
 		return reviewRepository.getReview(member_id);
 	}
@@ -34,7 +30,13 @@ public class ReviewService implements IBoardService{
 		reviewRepository.updateReview(member_id, product_id);
 	}
 	
-	public int getTotalCount() {
-		return reviewRepository.getTotalCount();
+	public int getTotalCount(int product_id) {
+		return reviewRepository.getTotalCount(product_id);
+	}
+
+	public List<ReviewVO> getReviewList(int product_id, int nowPage) {
+		int end = nowPage*10;
+		int start = end-9;
+		return reviewRepository.getReviewList(product_id, start, end);
 	}
 }
