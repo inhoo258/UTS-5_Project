@@ -74,9 +74,7 @@
 	</div>
 	<jsp:include page="../../header&footer/footer.jsp"/>
 	<div>
-	// 리스트에서도 삭제 만들건지??
-	// 검색 기능 구현
-	// .view_table css borderbottom & .movement_table css 안먹음 
+<!-- 	// .view_table css borderbottom & .movement_table css 안먹음  -->
 	</div>
 	
 	<!-- 다음/ 이전 페이지 처리 --> 
