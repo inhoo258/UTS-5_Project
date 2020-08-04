@@ -138,25 +138,8 @@ public class BoardController {
 		
 	}
 	
-	//리뷰 게시판
-	@GetMapping("/review/list")
-	public void reviewList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
-		model.addAttribute("eventList",eventService.getEventList(page));
-		PagingManager pagingManager = new PagingManager(eventService.getTotalCount(), page);
-		model.addAttribute("pagingManager",pagingManager);
-	}
-	
-	@GetMapping("/review/{member_id}")
-	public String reviewView(Model model, @PathVariable("member_id")String member_id) {
-		int totalCount = reviewService.getTotalCount();
-		model.addAttribute("review",reviewService.getReview(member_id));
-		model.addAttribute("totalCount",totalCount);
-		return "board/event/view";
-	}
-	
 	@GetMapping("/review/form")
 	public void reviewForm() {
-		
 	}
 	
 }

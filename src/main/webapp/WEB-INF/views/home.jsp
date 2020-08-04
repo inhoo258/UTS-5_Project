@@ -61,10 +61,6 @@
 <!--         </div> -->
 <!--         <video src="/project/resources/배경.mp4" loop muted autoplay></video> -->
 <!--     </div> -->
-    
-<!--     <div id="main_menu"> -->
-    	
-<!--     </div> -->
 <%-- 		<jsp:include page="header&footer/sidebar.jsp"></jsp:include> --%>
     	
 <!-- 	<script> -->
