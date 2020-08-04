@@ -24,6 +24,14 @@
 .collectionfind{
 	margin-top:30px;
 }
+.collectionidfind>div{
+	margin-top: 25px;
+}
+.findkey>p{
+	margin-left: 20px;
+}
+
+
 .findkey{
 	float: left;
     margin-left: 100px;
@@ -53,6 +61,16 @@
 	transition: 0.5s;
 }
 .collectionfind>div>input[type=submit]{
+     width: 300px;
+	height: 50px;
+	margin-left: 100px;
+	border:none;
+	outline: none;
+	color: white;
+	background-color: #2a365c;
+	text-indent: 0.9em;
+}
+.collectionidfind>div>input[type=button]{
     width: 300px;
 	height: 50px;
 	margin-left: 100px;
@@ -61,6 +79,17 @@
 	color: white;
 	background-color: #2a365c;
 	text-indent: 0.9em;
+}
+.collectionidfind>div>input[type=submit]{
+    width: 300px;
+	height: 50px;
+	margin-left: 100px;
+	border:none;
+	outline: none;
+	color: #2a365c;
+	background-color: white;
+	text-indent: 0.9em;
+	border: 1px solid #2a365c;
 }
 .collectionfind>div>input[type=submit]:hover{
 	cursor: pointer;

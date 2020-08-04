@@ -30,6 +30,9 @@ public interface IMemberRepository {
 	@Update("update members set member_pw=#{member_pw},member_name=#{member_name}, member_tel=#{member_tel}, member_main_addr=#{member_main_addr},member_sub_addr=#{member_sub_addr}, member_email=#{member_email} "
 			+ "where member_id=#{member_id}")
 	public void updateMember(MemberVO member);
+	
+	@Update("update members set member_pw=#{0} where member_id=#{1}")
+	public void changePwd(String member_pw,String member_id);
 	// =============================================================================
 
 	// 회원가입 sql ===================================================================

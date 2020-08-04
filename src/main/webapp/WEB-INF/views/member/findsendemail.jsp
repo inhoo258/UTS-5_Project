@@ -5,29 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/findsendemail.css'/>" />
-<body>
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	<div id="main_menu">
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body onload="changePage()">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
-    	<div id="header_div">
 	    <section class= "findsendeamilframe">
 	        <div class = "findsendemail">
 	            <div class = "findsendform">
 	                <div class = "findsendtitle">
 	                    <h3 id= "findsendtitlemsg">비밀번호 찾기</h3>
 	                </div>
-	                <form id="findform" action="<c:url value='/member/changepwd'/>" method="post" onsubmit="return checkNum()">
+	                <form id="findform" action="<c:url value='/member/lastfindidpwd'/>" method="post" onsubmit="return checkNum()">
 	                    <div class="collectionsend">
 	                        <div class="findtextbox">
 	                            <input type="text" id="cernum" placeholder="전송된 인증번호를 입력해주세요" >
 	                        </div>
 	                        <div class="textframe">
-		                       	<p id="fristtxt">인증번호를 못 받았다면? <a href="#">인증번호 재전송 ></a></p>
+		                       	<p id="fristtxt">인증번호를 못 받았다면? <a href="#">${member.member_email } 인증번호 재전송 ></a></p>
 	                            <p id="secondtxt"></p>
 		                    </div>
 	                        <div class="findsendbtn">
+	                        	<input type="hidden" name = "member_id" value= "${member.member_id }">
+	                        	<input type="hidden" name = "member_email" value= "${member.member_email }">
+	                        	<input type="hidden" name = "member_name" value= "${member.member_name }">
+	                        	<input type="hidden" name = "choice" value= "${choice}">
 	                            <input type="submit" value="확인">
 	                        </div>
 	                    </div>
@@ -35,13 +37,19 @@
 	            </div>
 	        </div>
 	    </section>
-    	</div>
-   	</div>
-    
     <script type="text/javascript">	
+    let choice = "${choice}";
+    let title = document.getElementById('findsendtitlemsg');
+    function changePage() {
+		if(choice == "id"){
+			title.innerText = "아이디 찾기";
+		}else{
+			title.innerText = "비밀번호 찾기";
+		}	
+	}
     function checkNum(){
     		let imputusernum = document.getElementById("cernum").value;
-    		let emailnum = ${ctfnum};
+    		let emailnum = ${number};
     		if(imputusernum != emailnum){
     			document.getElementsByClassName("textframe")[0].style.height= '60px';
     			document.getElementById("secondtxt").style.display='block';

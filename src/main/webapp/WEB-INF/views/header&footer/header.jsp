@@ -28,7 +28,7 @@
             </span>
             <!-- 익명사용자 -->
             <div id="header_menu_div">
-                <div id="login_img" title="로그인"><img src="/project/resources/img/login.png"></div>
+                <div id="login_img" onclick="location.href='/project/login'" title="로그인"><img src="/project/resources/img/login.png"></div>
                 <div id="information_img" title="내 정보"><img src="/project/resources/img/information.png"></div>
                 <div id="lastproduct_img" title="장바구니"><img src="/project/resources/img/cart.png"></div>
                 <div id="header_icon">
@@ -67,7 +67,7 @@
                 </div>
                 <div id="sidebar_menu_div">
                     <div>
-                        <a href="#">Login</a>
+                        <a href="/project/login">Login</a>
                         <a href="#">information</a>
                         <a href="#">my_cart</a>
                     </div>

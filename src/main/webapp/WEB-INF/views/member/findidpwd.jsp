@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<c:url value='/resources/css/member/findidpwd.css'/>" />
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body onload="changePage()">
+	<jsp:include page="../header&footer/header.jsp"></jsp:include>
     <section id="findid">
         <div class = "findidpwdmain">
             <div class = "findidpwdform">
@@ -18,7 +20,7 @@
     				<input type="radio" id="id" name="findidpw" value="1" onclick="changePage2()"><label for="id"> 아이디 찾기</label>
     				<input type="radio" id="pwd" name="findidpw" value="2" onclick="changePage2()"><label for="pwd"> 비밀번호 찾기</label>
                 </div>
-                <form action="<c:url value='/member/certification'/>" method="post"f>
+                <form action="<c:url value='/member/certification'/>" method="post">
                     <div class="collectionfinder">
                         <div class="namefind">
                             <input type="text" name="member_name" placeholder="이름을 입력해주세요." autofocus="autofocus" autocomplete="off">

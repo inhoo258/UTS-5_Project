@@ -15,6 +15,7 @@ public interface IMemberService {
 	public void membersDelete(String[] member_ids);
 	public void memberDelete(String member_id);
 	public MemberVO getMemberEmail(String member_email);
+	public void changePwd(String member_pw, String member_id);
 	
 	public List<MemberVO> getPermissionList(int permissionPage ,String permission_word);
 	public int getPermissionCount(String permission_word);

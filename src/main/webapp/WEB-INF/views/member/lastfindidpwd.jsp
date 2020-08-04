@@ -5,19 +5,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<c:url value='/resources/css/member/changepwd.css'/>" />
+<link rel="stylesheet" href="<c:url value='/resources/css/member/lastfindidpwd.css'/>" />
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
-<section class= "findsendeamilframe">
+<body onload="changePage()">
+<jsp:include page="../header&footer/header.jsp"></jsp:include>
+	<section class= "findsendeamilframe">
        <div class = "findsendemail">
            <div class = "findsendform">
                <div class = "findsendtitle">
                    <h3 id= "findsendtitlemsg">비밀번호 찾기</h3>
                </div>
+               <form id="findidform" action="<c:url value='/member/findidpwd?choice=pwd'/>" method="post">
+                   <div class="collectionidfind">
+                    	<div class="findkey">
+                            <p>본인의 아이디는 <font id="member_id">${member }</font>입니다</p>
+                        </div>
+                       <div class="findsendbtn">
+                           <input type="button" value = "로그인" onclick='location.href="<c:url value="/login"/>"'>
+                      </div>
+                       <div class="findsendbtn">
+                       	   <input type="hidden" name = "member_id" value="${member}">
+                           <input type="submit" value = "비밀번호 찾기">
+                       </div>
+                   </div>
+               </form>
                <form id="findform" action="<c:url value='/member/changepwd'/>" method="post" onsubmit="return checkUpdatePw()">
                    <div class="collectionfind">
                        <div class="findkey">
-                           <input type="password" id="password" placeholder="바꿀 비밀번호를 입력하세요" >
+                           <input type="password" id="password" name="member_pw" placeholder="바꿀 비밀번호를 입력하세요" >
                        </div>
                        <div class="findvalue">
 	                       <font id="pw_check"></font>
@@ -29,10 +45,12 @@
                             <font id="pw_check_msg"></font>
                         </div>
                        <div class="findsendbtn">
+                       	   <input type="hidden" name = "member_id" value="${member}">
                            <input type="submit" value="확인">
                        </div>
                    </div>
                </form>
+               
            </div>
        </div>
    </section>
@@ -45,6 +63,19 @@
    		let pw_msgOK = document.getElementById("pw_check_msg");
    		member_pw.onblur = function() { passwordcheck() };
    		member_pwOK.onblur = function() { passwordcheckOK() };
+   		
+	   	 let choice = "${choice}";
+	     let title = document.getElementById('findsendtitlemsg');
+	     function changePage() {
+	 		if(choice == "id"){
+	 			title.innerText = "아이디 찾기";
+	 			document.getElementById('findform').style.display = "none";
+	 		}else{
+	 			title.innerText = "비밀번호 찾기";
+	 			document.getElementById('findidform').style.display = "none";
+	 		}	
+	 	}
+   		
    		function passwordcheck(){
 			if(member_pw.value.length == 0){
 				pw_msg.style.color = "red";
@@ -85,8 +116,6 @@
    				return false;
    			}
    		}
-   
-   
    </script>
 </body>
 </html>

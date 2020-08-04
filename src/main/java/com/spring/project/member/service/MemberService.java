@@ -81,7 +81,12 @@ public class MemberService implements IMemberService {
 	public void updateMember(MemberVO member) {
 		memberRepository.updateMember(member);
 	}
-
+	@Override
+	public void changePwd(String member_pw, String member_id) {
+		memberRepository.changePwd(member_pw, member_id);
+	}
+	
+	
 	@Override
 	@Transactional(value = "tsManager")
 	public void memberDelete(String member_id) {
