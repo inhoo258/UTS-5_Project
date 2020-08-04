@@ -97,7 +97,7 @@ $(document).ready(function() {
   });
 });
 
-// function productUpload(form) {
+function productUpload(form) {
 // 	var product_name = form.product_name.value;
 // 	var product_count = form.product_count.value;
 // 	var product_price = form.product_price.value;
@@ -119,8 +119,8 @@ $(document).ready(function() {
 // 	if (product_info.trim() == ''){
 // 		return false;
 // 	}
-// 	form.submit();
-// }
+	form.submit();
+}
 </script>
 </body>
 </html>

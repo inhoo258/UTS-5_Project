@@ -118,6 +118,7 @@
 	height: 33px;
 	width: 60px;
 	margin-right: 5px;
+	box-shadow: 2px 2px white 10 inset;
 }
 
 #resetBtn {
