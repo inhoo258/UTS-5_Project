@@ -30,6 +30,9 @@ public interface IMemberRepository {
 	@Update("update members set member_pw=#{member_pw},member_name=#{member_name}, member_tel=#{member_tel}, member_main_addr=#{member_main_addr},member_sub_addr=#{member_sub_addr}, member_email=#{member_email} "
 			+ "where member_id=#{member_id}")
 	public void updateMember(MemberVO member);
+	
+	@Update("update members set member_pw=#{0} where member_id=#{1}")
+	public void changePwd(String member_pw,String member_id);
 	// =============================================================================
 
 	// 회원가입 sql ===================================================================
@@ -80,6 +83,14 @@ public interface IMemberRepository {
 
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where member_enabled = 0 and m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%' ")
 	public int getSelectPermissionCount(String permission_word);
+	
+	
+	@Select("select * from members where member_email = #{0}")
+	public MemberVO getEmail(String member_email);
+	
+	
+	
+	
 	// ================================================================================
 	
 	//--------------------seller_info queries--------------------------------------

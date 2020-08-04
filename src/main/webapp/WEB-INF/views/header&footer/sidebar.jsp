@@ -13,9 +13,7 @@
         <section id="login_section">
             <span>
                 <h1>로그인을 해주세요</h1>
-                <a href="">
-                    LogIn >>
-                </a>
+                <a href='<c:url value="/login"/>'> LogIn >> </a>
                 <div><img src="/project/resources/anonymous.png"></div>
             </span>
         </section>
