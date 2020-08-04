@@ -123,7 +123,7 @@
                             </tr>
                             <tr>
                                 <th>주 소 *</th>
-                                <th><input type = "text" id="useraddr" readonly="readonly" style="width: 360px" value =${memberInfo.member_addr } > </th>
+                                <th><input type = "text" id="useraddr" readonly="readonly" style="width: 360px" value =${memberInfo.member_main_addr } > </th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -199,54 +199,7 @@
         </ul>
     </div>
     
-<<<<<<< HEAD
-    <hr>
-        	구매자 정보 들고오는값<br>
-    	member_id : ${memberInfo.member_id }<br>
-    	member_name : ${memberInfo.member_name }<br>
-    	member_tel : ${memberInfo.member_tel }<br>
-    	member_email : ${memberInfo.member_email }<br>
-    	member_addr : ${memberInfo.member_addr }<br>
-    	상품 정보 들고오는값<br>
-    	product_id : ${productInfo.product_id }<br>
-    	member_id : ${productInfo.member_id }<br>
-    	product_info : ${productInfo.product_info }<br>
-    	product_name : ${productInfo.product_name }<br>
-    	product_count : ${productInfo.product_count }<br>
-    	product_price : ${productInfo.product_price }<br>
-    	product_weight : ${productInfo.product_weight }<br>
-   		판매자 정보 들고오는 값<br>
-   		member_id : ${productMemInfo.member_id }<br>
-   		member_name : ${productMemInfo.member_name }<br>
-   		member_tel : ${productMemInfo.member_tel }<br>
-   		member_email : ${productMemInfo.member_email }<br>
-   		member_addr : ${productMemInfo.member_addr }<br>
-   		장바구니 판매자 정보<br>
-   		<c:forEach var="cartList" items="${cartList }">
-	        cartList.product_id : ${cartList.product_id }<br>
-	        cartList.product_name : ${cartList.product_name } <br>
-			cartList.product_price : ${cartList.product_price } <br>
-			cartList.cart_product_count : ${cartList.cart_product_count } <br>
-			cartList.product_info : ${cartList.product_info } <br>
-			cartList.member_id : ${cartList.member_id } <br>
-			cartList.seller_name : ${cartList.seller_name } <br>
-			cartList.seller_email : ${cartList.seller_email } <br>
-			cartList.seller_id : ${cartList.seller_id } <br>
-			cartList.seller_tel : ${cartList.seller_tel } <br>
-		</c:forEach>
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <jsp:include page="../header&footer/footer.jsp"/>
-=======
-    
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 </body>
 <script type="text/javascript">
 	function showMyGood(){
