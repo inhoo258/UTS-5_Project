@@ -59,7 +59,7 @@
 		</section>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal" />님 안녕하세요.<br>
+		<sec:authentication property="principal.username" />님 안녕하세요.<br>
 		<a href="<c:url value="/hr/index" />">메인페이지</a>
 		<form action='<c:url value="/logout"/>' method="post">
 			<sec:csrfInput />

@@ -327,7 +327,8 @@
 			type: 'POST',
 			data : {
 				product_id : product_id,
-				member_id : member_id
+				member_id : member_id,
+				"${_csrf.parameterName}" : "${_csrf.token}"
 			},
 			success : function(result){
 				if(result){

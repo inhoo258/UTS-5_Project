@@ -22,9 +22,9 @@
 </head>
 <body>
 <!--         <div id="upload_tit">상품 등록</div> -->
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	 <div id="main_menu">
-    	<jsp:include page="../header&footer/header.jsp"></jsp:include>
+<%-- <jsp:include page="../header&footer/sidebar.jsp"></jsp:include> --%>
+<!-- 	 <div id="main_menu"> -->
+<%--     	<jsp:include page="../header&footer/header.jsp"></jsp:include> --%>
     	<div id=upload>
 				<div id="upload_tit">상품 등록</div>
 			<c:set var="member_id">
