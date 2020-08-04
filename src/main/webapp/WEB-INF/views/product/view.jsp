@@ -210,9 +210,6 @@
 			         		</td>
 			         	</tr>
 	         		</table>
-	         		<form action='<c:url value="/board/review/form"/>'>
-	         			<input type="button" value="후기쓰기" onclick="reviewCheck(this.form)">
-	         		</form>
 		          </li>
 			   </ul>
 			   <ul id="tab4" class="tab">
@@ -321,23 +318,6 @@
 	});
 	
 	//후기 쓰기 전 사용자 주문 내역에 해당 상품이 존재하는지 검증
-	function reviewCheck(form){
-		$.ajax({
-			url : '<c:url value="/product/rest/reviewCheck"/>',
-			type: 'POST',
-			data : {
-				product_id : product_id,
-				member_id : member_id
-			},
-			success : function(result){
-				if(result){
-					
-				} else{
-					
-				}
-			}
-		})
-	}
 	
 	
 </script>

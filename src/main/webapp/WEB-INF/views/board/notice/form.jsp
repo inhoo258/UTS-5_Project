@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>form</title>
 <link rel="stylesheet"
-	href="<c:url value='/resources/css/board/form.css'/>" />
+	href="<c:url value='/resources/css/board/notice/form.css'/>" />
 </head>
 <body>
 	<jsp:include page='../../header&footer/header.jsp' />

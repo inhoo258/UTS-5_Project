@@ -145,10 +145,10 @@ public class ProductController {
 	// ===========================================================힘찬
 
 	// 결제 완료 후 나의 주문서 ===========================================지현
-	@GetMapping("/myorderlist/{userId}")
-	public String myOrderLIst(@PathVariable("userId") String member_id, Model model) {
-		model.addAttribute("myOrderList", orderService.getMyOrderList(member_id));
-		return "product/myorderlist";
+	@GetMapping("/orderlist/{member_id}")
+	public String myOrderLIst(@PathVariable("member_id") String member_id, Model model) {
+		model.addAttribute("orderList", orderService.getOrderList(member_id));
+		return "product/orderlist";
 	}
 	// ===========================================================지현
 
