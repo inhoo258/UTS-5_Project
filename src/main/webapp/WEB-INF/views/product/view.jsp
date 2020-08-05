@@ -272,6 +272,15 @@
 					document.myForm.action = '<c:url value="/product/ordersheet"/>';
 					document.myForm.method = 'post';
 					document.myForm.submit();
+					
+					switch (key) {
+					case value:
+						
+						break;
+
+					default:
+						break;
+					}
 				}else{
 					let ans = confirm("이미 동일한 상품이 장바구니에 존재합니다.\n장바구니로 이동하시겠습니까?");
 					if(ans){
