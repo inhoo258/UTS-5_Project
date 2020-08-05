@@ -2,16 +2,53 @@ package com.spring.project.board.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ReviewVO {
+	private int review_number;
 	private String member_id;
 	private String product_id;
 	private String review_title;
 	private Date purchase_date;
-	private int product_count;
-	private byte[] review_img;
+	private int order_product_count;
 	private String review_content;
 	private int review_score;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date review_date;
+	private int review_views;
 	
+	
+	public int getReview_number() {
+		return review_number;
+	}
+
+	public void setReview_number(int review_number) {
+		this.review_number = review_number;
+	}
+
+	public int getReview_views() {
+		return review_views;
+	}
+
+	public void setReview_views(int review_views) {
+		this.review_views = review_views;
+	}
+	public Date getReview_date() {
+		return review_date;
+	}
+
+	public void setReview_date(Date review_date) {
+		this.review_date = review_date;
+	}
+
+	public int getOrder_product_count() {
+		return order_product_count;
+	}
+
+	public void setOrder_product_count(int order_product_count) {
+		this.order_product_count = order_product_count;
+	}
+
 	public String getReview_title() {
 		return review_title;
 	}
@@ -50,22 +87,6 @@ public class ReviewVO {
 
 	public void setPurchase_date(Date purchase_date) {
 		this.purchase_date = purchase_date;
-	}
-
-	public int getProduct_count() {
-		return product_count;
-	}
-
-	public void setProduct_count(int product_count) {
-		this.product_count = product_count;
-	}
-
-	public byte[] getReview_img() {
-		return review_img;
-	}
-
-	public void setReview_img(byte[] review_img) {
-		this.review_img = review_img;
 	}
 
 	public String getReview_content() {

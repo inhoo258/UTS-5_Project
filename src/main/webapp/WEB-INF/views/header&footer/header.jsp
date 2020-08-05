@@ -7,121 +7,193 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
+<title>Under The Sea</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/header.css'/>" />
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
-<script src="/project/resources/js/summernote-ko-KR.js"></script>
+
 </head>
 <body>
-
 	<!--로딩화면 -->
-	<div id="mask"></div>
-	<div class="loader"></div>
+<!-- 	<div id="mask"></div> -->
+<!-- 	<div class="loader"></div> -->
 	<header>
-		<div class="h_parent">
-		<div class="se_div">
-			<section align="center" class="section header-section1">
-				<h1>
-					<a href="<c:url value='/'/>"><font id="H-font">Home</font></a>
-				</h1>
-			</section>
-			<section align="center" class="section header-section2">
-				<nav class="nav-meun1 h_menu">
-					<h3>
-						<a href='<c:url value="/board/notice/list"/>'><font id="H-font">갓지사항</font></a>
-					</h3>
-				</nav>
-				<nav class="nav-meun2 h_menu">
-					<h3>
-						<a href='<c:url value="/board/event/list"/>'><font id="H-font">Event</font></a>
-					</h3>
-				</nav>
-				<nav class="nav-meun3 h_menu">
-					<h3>
-						<a href='<c:url value="/board/qna/list"/>'><font id="H-font">qna</font></a>
-					</h3>
-				</nav>
-				<nav class="nav-meun4 h_menu">
-					<h3>
-						<a href='<c:url value="/board/review/list"/>'><font id="H-font">review</font></a>
-					</h3>
-				</nav>
-			</section>
-			<section class="section header-section3">
-				<input type="checkbox" id="menuicon"> <label for=menuicon
-					id="H-label" class="h_label"> <span></span> <span></span> <span></span>
-				</label>
+ 	 <div id=header_div>
+            <div id="header_img">
+                <a href="/project"><img src="/project/resources/img/main_logo.png"></a>
+            </div>
+            <span id=header_search_span>
+                <input type="text" id="header_search">
+                <div id="header_search_img">
+                    <img src="/project/resources/img/search.png">
+                </div>
+            </span>
+            <!-- 익명사용자 -->
+            <div id="header_menu_div">
+                <div id="login_img" title="로그인"><img src="/project/resources/img/login.png"></div>
+                <div id="information_img" title="내 정보"><img src="/project/resources/img/information.png"></div>
+                <div id="lastproduct_img" title="장바구니"><img src="/project/resources/img/cart.png"></div>
+                <div id="header_icon">
+                    <div>
+                        <span id=sidebar_span1 class="sidebar_span"></span>
+                        <span id=sidebar_span2 class="sidebar_span"></span>
+                        <span id=sidebar_span3 class="sidebar_span"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 로그인 사용자 -->
+            <!-- <div id="header_menu_div">
+            <div id="information_img" title="내 정보"><img src="information.png"></div>
+            <div id="lastproduct_img" title="최근 본 상품"><img src="lastproduct.png"></div>
+            <div id="logout_img" title="로그아웃"><img src="logout.png"></div>
+        </div> -->
+        </div>
 
-				<div class="sidebar">
-					<sec:authorize access="isAnonymous()">
-						<div class="sidebar-container1">
-							<h2>로그인을 해주세요.</h2>
-							<a id="sidebar-login" href="<c:url value='/login'/>">LOGIN ></a>
-						</div>
-					</sec:authorize>
-					<sec:authorize access="isAuthenticated()">
-						<div class="sidebar-container1">
-							<i id="user-icon" class="fas fa-user-circle"></i> <b
-								id="label-id"> <sec:authentication
-									property="principal.username" /></b>&nbsp;&nbsp;<font>님</font> <br>
-							<br>
+        <div id="sidebar_back">
+            <div id="sidebar_main">
+                <div id="sidebar_logo">
+                    <img src="/project/resources/img/header_logo.png" alt="">
+                </div>
+            </div>
+            <div id=sidebar_icon style="visibility:hidden">
+                <input type="checkbox" class=sidebar_check>
+                <span id=sidebar_span1 class="sidebar_span"></span>
+                <input type="checkbox" class=sidebar_check>
+                <span id=sidebar_span2 class="sidebar_span"></span>
+                <input type="checkbox" class=sidebar_check>
+                <span id=sidebar_span3 class="sidebar_span"></span>
+            </div>
+            <div id="sidebar">
+                <div id="sidebar_main_logo">
+                    <img src="/project/resources/img/sidebar_logo.png">
+                </div>
+                <div id="sidebar_menu_div">
+                    <div>
+                        <a href="#">Login</a>
+                        <a href="#">information</a>
+                        <a href="#">my_cart</a>
+                    </div>
+                    <div>
+                        <h3>information</h3>
+                        <h3>board</h3>
+                        <h3>customer center</h3>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><a href="/project/member/info">회원정보</a></li>
+                            <li><a href="#">회원정보</a></li>
+                            <li><a href="#">회원정보</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">판매자 게시판</a></li>
+                            <li><a href="/project/board/review/list">리뷰 게시판</a></li>
+                            <li><a href="/project/board/qna/list">QNA 게시판</a></li>
+                            <li><a href="#">자유 게시판</a></li>
+                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">1:1 문의</a></li>
+                            <li><a href="#">온라인 문의</a></li>
+                            <li><a href="#">이메일 문의</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="header_icon_box">
+                    <span id="header_side_icon1" class="header_side_icon"></span>
+                    <span id="header_side_icon2" class="header_side_icon"></span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-						</div>
-					</sec:authorize>
-					<hr id="H_hr">
-					<div id="sidebar-container2"> 
-						<ul>
-							<sec:authorize access="isAnonymous()">
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/form"/>'>회원가입</a></li>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<c:set var="member_id">
-									<sec:authentication property="principal.username" />
-								</c:set>
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/info/${member_id}"/>'>나의정보</a></li>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('ROLE_SELLER','ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a" href=>나의상품목록</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href="#">상품추가</a></li>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('ROLE_CUSTOMER','ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a" href="#">나의정보</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href="<c:url value='/product/cart/${member_id}'/>">장바구니</a></li>
-								<li class="animated-button thar-four"><a id="H_a" href='<c:url value = "/product/myorderlist/${member_id}"/>'>주문내역</a></li>
-							</sec:authorize>
-							<sec:authorize access="hasRole('ROLE_MASTER')">
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/member/list"/>'>회원관리</a></li>
-								<li class="animated-button thar-four"><a id="H_a"
-									href='<c:url value="/product/list"/>'>상품관리</a></li>
-							</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-								<a id="H_a" style="position: absolute; top: 90%; left: 10%;" href="<c:url value='/logout'/>">LOGOUT >></a>
-						</sec:authorize>
-						<!-- 로그아웃 위치 변경 이유 : 겹쳐보여서 안에다가 넣었습니다. -->
-						</ul>
-					</div>
-				</div>
-			</section>
-		</div>
-		</div>
-	</header>
-	<a class="btn-top" href="#"><i class="fas fa-arrow-circle-up"></i></a>
-	<script type="text/javascript">
-		$(window).on("load", function() {
-			$(".loader").fadeOut();
-			$("#mask").fadeOut();
-		});
-	</script>
+
+
+    <script>
+        let Scroll_sangtae;
+        $(window).scroll(function (event) {
+            Scroll_sangtae = true;
+        });
+
+        let save_scroll;
+        setInterval(function () {
+            if (Scroll_sangtae) {
+                Scrolled();
+                Scroll_sangtae = false;
+            }
+        }, 250);
+
+
+
+        function Scrolled() {
+            let scrolltop = $(this).scrollTop();
+            if (scrolltop >= 200) {
+                document.getElementById("sidebar_back").style.animationDuration = "1s"
+                document.getElementById("sidebar_back").style.animationName = "sidebar_down"
+                document.getElementById("sidebar_back").style.animationFillMode = "forwards"
+            } else if (scrolltop <= 200 && save_scroll >= 200) {
+                document.getElementById("sidebar_back").style.animationDuration = "1s"
+                document.getElementById("sidebar_back").style.animationName = "sidebar_up"
+                document.getElementById("sidebar_back").style.animationFillMode = "forwards"
+            }
+            save_scroll = scrolltop;
+        }
+
+    </script>
+
+    <script>
+        $("#header_icon").click(function () {
+            document.getElementById("sidebar").style.animationDuration = "1s";
+            document.getElementById("sidebar").style.animationName = "header_sidebar_on";
+            document.getElementById("sidebar").style.animationFillMode = "forwards";
+            document.getElementById("header_icon_box").style.display = "block"
+            $(".sidebar_check").prop("checked", true);
+        })
+
+        $("#header_icon_box").click(function () {
+            document.getElementById("sidebar").style.animationDuration = "1s";
+            document.getElementById("sidebar").style.animationName = "header_sidebar_off";
+            document.getElementById("sidebar").style.animationFillMode = "forwards";
+            document.getElementById("header_icon_box").style.display = "none"
+            $(".sidebar_check").prop("checked", false);
+        })
+
+
+        $("#sidebar_icon").click(function () {
+            if ($(".sidebar_check").prop("checked")) {
+                $(".sidebar_check").prop("checked", false);
+                document.getElementById("sidebar").style.animationDuration = "1s";
+                document.getElementById("sidebar").style.animationName = "sidebar_off";
+                document.getElementById("sidebar").style.animationFillMode = "forwards";
+
+                document.getElementById("sidebar_icon").style.animationDuration = "1s";
+                document.getElementById("sidebar_icon").style.animationName = "sidebar_icon_off";
+                document.getElementById("sidebar_icon").style.animationFillMode = "forwards";
+
+            } else {
+                $(".sidebar_check").prop("checked", true);
+                document.getElementById("sidebar").style.animationDuration = "1s";
+                document.getElementById("sidebar").style.animationName = "sidebar_on";
+                document.getElementById("sidebar").style.animationFillMode = "forwards";
+                document.getElementById("header_icon_box").style.display = "none"
+
+                document.getElementById("sidebar_icon").style.animationDuration = "1s";
+                document.getElementById("sidebar_icon").style.animationName = "sidebar_icon_on";
+                document.getElementById("sidebar_icon").style.animationFillMode = "forwards";
+            }
+        })
+
+        $(window).on("scroll", function () {
+            if ($(".sidebar_check").prop("checked")) {
+                $(".sidebar_check").prop("checked", false);
+                document.getElementById("sidebar").style.animationDuration = "1s";
+                document.getElementById("sidebar").style.animationName = "sidebar_off";
+                document.getElementById("sidebar").style.animationFillMode = "forwards";
+
+                document.getElementById("sidebar_icon").style.animationDuration = "1s";
+                document.getElementById("sidebar_icon").style.animationName = "sidebar_icon_off";
+                document.getElementById("sidebar_icon").style.animationFillMode = "forwards";
+                document.getElementById("sidebar_icon").style.zIndex = "none";
+            }
+        })
+    </script>
 
 	<script type="text/javascript">
 		$(function() {
@@ -135,17 +207,6 @@
 				'height' : maskHeight
 			});
 		});
-		$(function() {
-	        $(".btn-top").click(function() {
-	            $('html, body').animate({
-	                scrollTop : 0
-	            }, 400);
-	            return false;
-	        });
-	    });
 	</script>
-	
-    
-
 </body>
 </html>

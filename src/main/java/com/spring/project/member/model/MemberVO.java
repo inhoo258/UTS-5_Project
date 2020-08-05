@@ -33,7 +33,6 @@ public class MemberVO implements UserDetails {
 	private String member_email;
 	private int member_enabled;
 	private String member_auth;
-	
 	public String getRn() {
 		return rn;
 	}

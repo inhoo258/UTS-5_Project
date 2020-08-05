@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.project.member.model.MemberVO;
+import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.repository.IMemberRepository;
 
 @Service
@@ -111,5 +112,26 @@ public class MemberService implements IMemberService {
 			memberRepository.permission(permission_ids[i]);
 		}
 	}
+//------------------ seller_info queries-----------------------------------
+	@Override
+	public void insertSellerRegNum(String member_id, String seller_reg_num) {
+		memberRepository.insertSellerRegNum(member_id, seller_reg_num);
+	}
 
+	@Override
+	public SellerInfoVO getSellerInfo(String member_id) {
+		return memberRepository.getSellerInfo(member_id);
+	}
+
+	@Override
+	public boolean getSellerRegNum(String seller_reg_num) {
+		if(memberRepository.getSellerRegNum(seller_reg_num)==null)return true;
+		else return false;
+	}
+	@Override
+	public void updateSellerInfo(SellerInfoVO sellerInfo) {
+		memberRepository.updateSellerInfo(sellerInfo);
+	}
+
+	
 }
