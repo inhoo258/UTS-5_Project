@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>view</title>
-<link rel="stylesheet"	href="<c:url value='/resources/css/board/view.css'/>" />
+<link rel="stylesheet"	href="<c:url value='/resources/css/board/notice/view.css'/>" />
 <script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
 </head>
 <body>

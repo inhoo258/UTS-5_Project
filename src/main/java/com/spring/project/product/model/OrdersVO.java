@@ -4,24 +4,52 @@ import java.sql.Date;
 
 public class OrdersVO {
 	private String member_id;
+	private String product_name;
 	private int product_id; 
 	private Date order_date;
-	private String order_receiver_address;
+	private String order_receiver_main_address;
+	private String order_receiver_sub_address;
 	private String order_receiver_name;
 	private String order_receiver_tel;
 	private int order_product_count;
 	private int order_price;
 	private String order_request;
 	private String order_status;
+	private int order_number;
+	private int review_check;
+	private int product_weight;
 	
 
-	@Override
-	public String toString() {
-		return "OrdersVO [member_id=" + member_id + ", product_id=" + product_id + ", order_date=" + order_date
-				+ ", order_receiver_address=" + order_receiver_address + ", order_receiver_name=" + order_receiver_name
-				+ ", order_receiver_tel=" + order_receiver_tel + ", order_product_count=" + order_product_count
-				+ ", order_price=" + order_price + ", order_request=" + order_request + ", order_status=" + order_status
-				+ "]";
+	public int getProduct_weight() {
+		return product_weight;
+	}
+
+	public void setProduct_weight(int product_weight) {
+		this.product_weight = product_weight;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
+	public int getOrder_number() {
+		return order_number;
+	}
+
+	public void setOrder_number(int order_number) {
+		this.order_number = order_number;
+	}
+
+	public int getReview_check() {
+		return review_check;
+	}
+
+	public void setReview_check(int review_check) {
+		this.review_check = review_check;
 	}
 
 	public String getOrder_status() {
@@ -96,11 +124,20 @@ public class OrdersVO {
 		this.order_product_count = order_product_count;
 	}
 
-	public String getOrder_receiver_address() {
-		return order_receiver_address;
+	public String getOrder_receiver_main_address() {
+		return order_receiver_main_address;
 	}
 
-	public void setOrder_receiver_address(String order_receiver_address) {
-		this.order_receiver_address = order_receiver_address;
+	public void setOrder_receiver_main_address(String order_receiver_main_address) {
+		this.order_receiver_main_address = order_receiver_main_address;
 	}
+
+	public String getOrder_receiver_sub_address() {
+		return order_receiver_sub_address;
+	}
+
+	public void setOrder_receiver_sub_address(String order_receiver_sub_address) {
+		this.order_receiver_sub_address = order_receiver_sub_address;
+	}
+	
 }

@@ -11,18 +11,19 @@
 	display: none
 }
 
-a {
+header a {
 	color: white;
 }
 
 header {
+/* 	position:relative; */
 	width: 100%;
 	height: 200px;
 }
 
 #header_div {
 	display: flex;
-	position: absolute;
+	position: relative;
 	left: 50%;
 	transform: translate(-50%);
 	font-size: 0;
@@ -163,6 +164,7 @@ header {
 	height: 75px;
 	background-color: #2a365c;
 	border-bottom: 2px solid;
+	z-index: 1;
 }
 
 #sidebar_main {
@@ -237,6 +239,7 @@ header {
 
 /*main sidebar */
 #sidebar {
+	display:flex;
 	position: absolute;
 	top: -405px;
 	width: 100%;
@@ -245,9 +248,12 @@ header {
 }
 
 /* main sidebar icon */
+#header_icon_div{
+	width: 15%;
+	height: 100%;
+}
 #header_icon_box {
 	position: absolute;
-	display: flex;
 	width: 30px;
 	height: 30px;
 	top: 20px;
@@ -277,24 +283,23 @@ header {
 
 /* main sidebar logo */
 #sidebar_main_logo {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	width: 150px;
-	height: 150px;
+	position: relative;
+	display:flex;
+	width: 15%;
+	height: 100%;
+	flex-direction:column;
+	align-items: center;
+	padding-top: 30px;
 	/* background-color: black; */
 }
 
 #sidebar_main_logo img {
-	width: 100%;
-	height: 100%;
+	width: 150px;
+	height: 150px;
 }
 
 /* main sidebar menu */
 #sidebar_menu_div {
-	position: absolute;
-	align-items: center;
-	left: 15%;
 	width: 70%;
 	height: 100%;
 }

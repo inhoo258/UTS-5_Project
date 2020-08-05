@@ -1,6 +1,6 @@
 package com.spring.project.product.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,9 @@ public class OrderService{
 	@Autowired
 	IOrderRepository orderRepository;
 	
-	public ArrayList<OrdersVO> getOrderList(){
-		return orderRepository.getOrderList();
-	}
-	
 	//결제완료 된 주문 내역 
-	public ArrayList<OrdersVO> getMyOrderList(String member_id) {
-		return orderRepository.getMyOrderList(member_id);
+	public List<OrdersVO> getOrderList(String member_id) {
+		return orderRepository.getOrderList(member_id);
 	}
 	
 	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price) {
@@ -38,5 +34,8 @@ public class OrderService{
 	public void deliveryOrder(String member_id, int product_id, String order_status) {
 		orderRepository.deliveryOrder(member_id, product_id, order_status);
 	}
-	
+
+	public OrdersVO getOrderByOrderNumber(int order_number) {
+		return orderRepository.getOrderByOrderNumber(order_number);
+	}
 }

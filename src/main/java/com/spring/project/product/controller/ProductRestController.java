@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.project.product.service.CartService;
+import com.spring.project.product.service.OrderService;
 
 @RestController
 @RequestMapping("/product/rest")
 public class ProductRestController {
 	@Autowired
 	CartService cartService;
-
+	@Autowired
+	OrderService orderService;
 	@PostMapping("/updateCart")
 	public void updateCart(String member_id, @RequestParam("product_ids[]") List<Integer> product_ids,
 			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts) {
@@ -43,10 +45,4 @@ public class ProductRestController {
 	public int cartCheck(@RequestParam("member_id") String member_id, @RequestParam("product_id") int product_id) {
 		return cartService.checkCart(member_id, product_id);
 	}
-
-	@PostMapping("/reviewCheck")
-	public boolean reviewCheck() {
-		return true;
-	}
-	
 }

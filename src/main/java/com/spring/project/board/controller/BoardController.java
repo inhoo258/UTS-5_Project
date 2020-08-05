@@ -19,6 +19,7 @@ import com.spring.project.board.service.NoticeService;
 import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
 import com.spring.project.common.PagingManager;
+import com.spring.project.product.service.OrderService;
 
 @Controller
 @RequestMapping("/board")
@@ -31,6 +32,8 @@ public class BoardController {
 	EventService eventService;
 	@Autowired
 	NoticeService noticeService;
+	@Autowired
+	OrderService orderService;
 	
 	//공지사항 게시판
 	@GetMapping("/notice/list")
@@ -139,7 +142,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/review/form")
-	public void reviewForm() {
+	public void reviewForm(@RequestParam("member_id")String member_id, @RequestParam("order_number")int order_number, Model model) {
+		model.addAttribute("order", orderService.getOrderByOrderNumber(order_number));
 	}
-	
+	@PostMapping("/review/new")
+	public String reviewInsert() {
+		return null;
+	}
 }
