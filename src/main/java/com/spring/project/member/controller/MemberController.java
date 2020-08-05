@@ -167,7 +167,6 @@ public class MemberController {
 		model.addAttribute("chocie",choice);
 		model.addAttribute("message",message);
 	}
-	
 	@PostMapping("/certification")
 	public String certification(Model model, @RequestParam(value = "choice")String choice, MemberVO memberVO , RedirectAttributes redirectAttributes) {
 		if( memberVO.getMember_email() == null ) {
@@ -212,6 +211,8 @@ public class MemberController {
 		// 인증번호 재전송 클릭 시 다시 메일 발송하는 REST CONTROLLER로 연결하기
 		// 확인 버튼 클릭시 해당아이디를 가지고 넘겨준뒤 UPDATE로 수정할 것
 	}
+
+	
 	@PostMapping("/lastfindidpwd")
 	public String lastfindidpwd(MemberVO memberVO, Model model, @RequestParam(value = "choice")String choice) {
 		model.addAttribute("choice", choice);
