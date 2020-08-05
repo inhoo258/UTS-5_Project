@@ -15,175 +15,175 @@
 </head>
 <body>
 <%-- 	<sec:authorize access="hasRole('ROLE_MASTER')"> --%>
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	 <div id="main_menu">
-    	<jsp:include page="../header&footer/header.jsp"></jsp:include>
-    	<div id="memberlist_div">
-<!-- 		<div class="p_product_explain2"> -->
-			<nav class="container">
-				<ul class="tab">
-					<li><a href="#tab1" id=memberlist class="on">회원 리스트</a></li>
-					<li><a href="#tab2" id=permissionlist>승인대기 리스트</a></li>
-				</ul>
-				<ul class="panel">
-					<li id="tab1">
-						<div class="m_tablediv">
-							<table>
-								<tr style="border: none;">
-									<td>
-										<form action="<c:url value='/member/delete'/>" method="POST" onsubmit="return checkedDelete()" id="delete_check_form">
-											<input type="hidden" name="member_ids" id="member_ids">
-											<input type="submit" value="선택 삭제">&nbsp;&nbsp;&nbsp;
-										</form>
-									</td>
-									<td colspan="7" align="right" style="padding-right: 20px">
-										<form action="<c:url value='/member/list'/>">
-											검색 : <input type="text" name="member_word">
-											<input type="submit" value="찾기" >
-										</form>
-									</td>
-								</tr>
-								<tr>
-									<td>number</td>
-									<th>
-									<label class="checkbox" id="member_checkAll_label"> 
-										<input type="checkbox" id="member_checkAll"> 
-										<span class="icon" id="member_checkAll_span"></span>
-										<span id="member_checkAll_text">모두 선택</span>
-									</label>
-									</th>
-									<td>ID<br>Name<br>Auth
-									</td>
-									<td>Tel</td>
-									<td>Address</td>
-									<td>Email</td>
-									<td>Enabled</td>
-									<th>관리</th>
-								</tr>
-								<c:forEach var="member" items="${memberlist}">
-									<tr>
-										<td>${member.rn}</td>
-										<th><label class="checkbox member_label"> 
-										<input type="checkbox" class="member_CheckEach"> 
-										<span class="member_icon icon"></span> 
-										<span class="member_text text">선택</span>
-										</label></th>
-										<td>${member.member_id}<br>${member.member_name}<br>${member.member_auth}</td>
-										<td>${member.member_tel}</td>
-										<td>${member.member_main_addr}</td>
-										<td>${member.member_email}</td>
-										<td>${member.member_enabled eq "1" ? "승인" : "승인대기"}</td>
-										<th>
-										<input type="button" value="상세 정보"	onclick="location.href='<c:url value='/member/info/${member.member_id}'/>'">
-										<input type="hidden" value="${member.member_id}" class="member_id" name="member_id"> 
-										<input type="button" value="삭제" class="deleteBtn">
-										</th>
-									</tr>
-								</c:forEach>
-							</table>
-						</div>
-						<div align="center" id=pagemanager>
-							<span><a id="member_firstpage" class="member_paging">처음</a></span>
-							<c:if test="${memberPage.nowBlock > 1}">
-								<span><a id="member_previous" class="member_paging">이전</a></span>
-							</c:if> 
-							<c:forEach var="member_cnt" begin="${memberPage.startPage}" end="${memberPage.endPage}" step="1" varStatus="member_index">
-								<span>
-								<a class="member_cnt member_paging">${member_cnt}</a>
-								<input type="hidden" value="${member_index.index}" class="member_cnt_index">
-								</span>
-							</c:forEach>
-							<c:if test="${memberPage.nowBlock < memberPage.totalBlock}">
-								<span><a id="member_nextpage" class="member_paging">다음</a></span>
-							</c:if>
-							<span><a id="member_lastpage" class="member_paging">끝</a></span>
-						</div>
-					</li>
-					<li id="tab2">
-						<div class="m_tablediv">
-							<table>
-								<tbody>
-								<tr style="border: none;">
-									<td>
-										<form action="<c:url value='/member/permission'/>" method="POST" onsubmit="return checkPermission()" id="permission_check_form">
-										<input type="hidden" name="permission_ids" id="permission_ids">
-										<input type="submit" value="선택 승인">&nbsp;&nbsp;&nbsp;
-										</form>
-									</td>
-									<td colspan="7" align="right" style="padding-right: 20px">
-										<form action="<c:url value='/member/list'/>" onsubmit="sessionCreate()">
-											검색 : <input type="text" name="permission_word">
-											<input type="submit" value="찾기" >
-										</form>
-									</td>
-								</tr>
+<%-- <jsp:include page="../header&footer/sidebar.jsp"></jsp:include> --%>
+<!-- 	 <div id="main_menu"> -->
+<%--     	<jsp:include page="../header&footer/header.jsp"></jsp:include> --%>
+<!--     	<div id="memberlist_div"> -->
+<!-- <!-- 		<div class="p_product_explain2"> --> 
+<!-- 			<nav class="container"> -->
+<!-- 				<ul class="tab"> -->
+<!-- 					<li><a href="#tab1" id=memberlist class="on">회원 리스트</a></li> -->
+<!-- 					<li><a href="#tab2" id=permissionlist>승인대기 리스트</a></li> -->
+<!-- 				</ul> -->
+<!-- 				<ul class="panel"> -->
+<!-- 					<li id="tab1"> -->
+<!-- 						<div class="m_tablediv"> -->
+<!-- 							<table> -->
+<!-- 								<tr style="border: none;"> -->
+<!-- 									<td> -->
+<%-- 										<form action="<c:url value='/member/delete'/>" method="POST" onsubmit="return checkedDelete()" id="delete_check_form"> --%>
+<!-- 											<input type="hidden" name="member_ids" id="member_ids"> -->
+<!-- 											<input type="submit" value="선택 삭제">&nbsp;&nbsp;&nbsp; -->
+<!-- 										</form> -->
+<!-- 									</td> -->
+<!-- 									<td colspan="7" align="right" style="padding-right: 20px"> -->
+<%-- 										<form action="<c:url value='/member/list'/>"> --%>
+<!-- 											검색 : <input type="text" name="member_word"> -->
+<!-- 											<input type="submit" value="찾기" > -->
+<!-- 										</form> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td>number</td> -->
+<!-- 									<th> -->
+<!-- 									<label class="checkbox" id="member_checkAll_label">  -->
+<!-- 										<input type="checkbox" id="member_checkAll">  -->
+<!-- 										<span class="icon" id="member_checkAll_span"></span> -->
+<!-- 										<span id="member_checkAll_text">모두 선택</span> -->
+<!-- 									</label> -->
+<!-- 									</th> -->
+<!-- 									<td>ID<br>Name<br>Auth -->
+<!-- 									</td> -->
+<!-- 									<td>Tel</td> -->
+<!-- 									<td>Address</td> -->
+<!-- 									<td>Email</td> -->
+<!-- 									<td>Enabled</td> -->
+<!-- 									<th>관리</th> -->
+<!-- 								</tr> -->
+<%-- 								<c:forEach var="member" items="${memberlist}"> --%>
+<!-- 									<tr> -->
+<%-- 										<td>${member.rn}</td> --%>
+<!-- 										<th><label class="checkbox member_label">  -->
+<!-- 										<input type="checkbox" class="member_CheckEach">  -->
+<!-- 										<span class="member_icon icon"></span>  -->
+<!-- 										<span class="member_text text">선택</span> -->
+<!-- 										</label></th> -->
+<%-- 										<td>${member.member_id}<br>${member.member_name}<br>${member.member_auth}</td> --%>
+<%-- 										<td>${member.member_tel}</td> --%>
+<%-- 										<td>${member.member_main_addr}</td> --%>
+<%-- 										<td>${member.member_email}</td> --%>
+<%-- 										<td>${member.member_enabled eq "1" ? "승인" : "승인대기"}</td> --%>
+<!-- 										<th> -->
+<%-- 										<input type="button" value="상세 정보"	onclick="location.href='<c:url value='/member/info/${member.member_id}'/>'"> --%>
+<%-- 										<input type="hidden" value="${member.member_id}" class="member_id" name="member_id">  --%>
+<!-- 										<input type="button" value="삭제" class="deleteBtn"> -->
+<!-- 										</th> -->
+<!-- 									</tr> -->
+<%-- 								</c:forEach> --%>
+<!-- 							</table> -->
+<!-- 						</div> -->
+<!-- 						<div align="center" id=pagemanager> -->
+<!-- 							<span><a id="member_firstpage" class="member_paging">처음</a></span> -->
+<%-- 							<c:if test="${memberPage.nowBlock > 1}"> --%>
+<!-- 								<span><a id="member_previous" class="member_paging">이전</a></span> -->
+<%-- 							</c:if>  --%>
+<%-- 							<c:forEach var="member_cnt" begin="${memberPage.startPage}" end="${memberPage.endPage}" step="1" varStatus="member_index"> --%>
+<!-- 								<span> -->
+<%-- 								<a class="member_cnt member_paging">${member_cnt}</a> --%>
+<%-- 								<input type="hidden" value="${member_index.index}" class="member_cnt_index"> --%>
+<!-- 								</span> -->
+<%-- 							</c:forEach> --%>
+<%-- 							<c:if test="${memberPage.nowBlock < memberPage.totalBlock}"> --%>
+<!-- 								<span><a id="member_nextpage" class="member_paging">다음</a></span> -->
+<%-- 							</c:if> --%>
+<!-- 							<span><a id="member_lastpage" class="member_paging">끝</a></span> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 					<li id="tab2"> -->
+<!-- 						<div class="m_tablediv"> -->
+<!-- 							<table> -->
+<!-- 								<tbody> -->
+<!-- 								<tr style="border: none;"> -->
+<!-- 									<td> -->
+<%-- 										<form action="<c:url value='/member/permission'/>" method="POST" onsubmit="return checkPermission()" id="permission_check_form"> --%>
+<!-- 										<input type="hidden" name="permission_ids" id="permission_ids"> -->
+<!-- 										<input type="submit" value="선택 승인">&nbsp;&nbsp;&nbsp; -->
+<!-- 										</form> -->
+<!-- 									</td> -->
+<!-- 									<td colspan="7" align="right" style="padding-right: 20px"> -->
+<%-- 										<form action="<c:url value='/member/list'/>" onsubmit="sessionCreate()"> --%>
+<!-- 											검색 : <input type="text" name="permission_word"> -->
+<!-- 											<input type="submit" value="찾기" > -->
+<!-- 										</form> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
 
-								<tr>
-									<td>number</td>
-									<th>
-									<label class="checkbox" id="permission_checkAll_label"> 
-										<input type="checkbox" id="permission_checkAll"> 
-										<span class="icon" id="permission_checkAll_span"></span>
-										<span id="permission_checkAll_text">모두 선택</span>
-									</label>
-									</th>
-									<td>ID<br>Name<br>Auth
-									</td>
-									<td>Tel</td>
-									<td>Address</td>
-									<td>Email</td>
-									<td>Enabled</td>
-									<th>관리</th>
-								</tr>
-								<c:forEach var="permission" items="${permission}" varStatus="status">
-									<tr>
-										<td>${permission.rn}</td>
-										<th>
-										<label class="checkbox permission_label">
-											<input type="checkbox" class="permission_CheckEach"> 
-											<span class="permission_icon icon"> </span>
-											<span class="permission_text text">선택</span>
-										</label>
-										</th>
-										<td>${permission.member_id}<br>${permission.member_name}<br>${permission.member_auth}</td>
-										<td>${permission.member_tel}</td>
-										<td>${permission.member_addr}</td>
-										<td>${permission.member_email}</td>
-										<td>${permission.member_enabled eq "1" ? "승인" : "승인대기"}</td>
-										<th>
-											<input type="hidden" value="${permission.member_id}" class="permission_id" name="permission_id"> 
-											<input type="button" value="승인" class="permissionBtn">
-										</th>
-									</tr>
-								</c:forEach>
-								</tbody>
-							</table>
-						</div>
-						<div align="center" id=pagemanager >
-							<a id="permission_firstpage" class="permission_paging">처음</a>
-							<c:if test="${permissionPage.nowBlock > 1}">
-								<a id="permission_previous" class="permission_paging">이전</a>
-							</c:if>
-							<c:forEach var="permission_cnt"
-								begin="${permissionPage.startPage}"
-								end="${permissionPage.endPage}" step="1" varStatus="index">
-								<a class="permission_cnt permission_paging">${permission_cnt}</a>
-								<input type="hidden" value="${index.index}"
-									class="permission_cnt_index">
-							</c:forEach>
-							<c:if
-								test="${permissionPage.nowBlock < permissionPage.totalBlock}">
-								<a id="permission_nextpage" class="permission_paging">다음</a>
-							</c:if>
-							<a id="permission_lastpage" class="permission_paging">끝</a>
-						</div>
-					</li>
-				</ul>  
-			</nav>
-		</div>
+<!-- 								<tr> -->
+<!-- 									<td>number</td> -->
+<!-- 									<th> -->
+<!-- 									<label class="checkbox" id="permission_checkAll_label">  -->
+<!-- 										<input type="checkbox" id="permission_checkAll">  -->
+<!-- 										<span class="icon" id="permission_checkAll_span"></span> -->
+<!-- 										<span id="permission_checkAll_text">모두 선택</span> -->
+<!-- 									</label> -->
+<!-- 									</th> -->
+<!-- 									<td>ID<br>Name<br>Auth -->
+<!-- 									</td> -->
+<!-- 									<td>Tel</td> -->
+<!-- 									<td>Address</td> -->
+<!-- 									<td>Email</td> -->
+<!-- 									<td>Enabled</td> -->
+<!-- 									<th>관리</th> -->
+<!-- 								</tr> -->
+<%-- 								<c:forEach var="permission" items="${permission}" varStatus="status"> --%>
+<!-- 									<tr> -->
+<%-- 										<td>${permission.rn}</td> --%>
+<!-- 										<th> -->
+<!-- 										<label class="checkbox permission_label"> -->
+<!-- 											<input type="checkbox" class="permission_CheckEach">  -->
+<!-- 											<span class="permission_icon icon"> </span> -->
+<!-- 											<span class="permission_text text">선택</span> -->
+<!-- 										</label> -->
+<!-- 										</th> -->
+<%-- 										<td>${permission.member_id}<br>${permission.member_name}<br>${permission.member_auth}</td> --%>
+<%-- 										<td>${permission.member_tel}</td> --%>
+<%-- 										<td>${permission.member_addr}</td> --%>
+<%-- 										<td>${permission.member_email}</td> --%>
+<%-- 										<td>${permission.member_enabled eq "1" ? "승인" : "승인대기"}</td> --%>
+<!-- 										<th> -->
+<%-- 											<input type="hidden" value="${permission.member_id}" class="permission_id" name="permission_id">  --%>
+<!-- 											<input type="button" value="승인" class="permissionBtn"> -->
+<!-- 										</th> -->
+<!-- 									</tr> -->
+<%-- 								</c:forEach> --%>
+<!-- 								</tbody> -->
+<!-- 							</table> -->
+<!-- 						</div> -->
+<!-- 						<div align="center" id=pagemanager > -->
+<!-- 							<a id="permission_firstpage" class="permission_paging">처음</a> -->
+<%-- 							<c:if test="${permissionPage.nowBlock > 1}"> --%>
+<!-- 								<a id="permission_previous" class="permission_paging">이전</a> -->
+<%-- 							</c:if> --%>
+<%-- 							<c:forEach var="permission_cnt" --%>
+<%-- 								begin="${permissionPage.startPage}" --%>
+<%-- 								end="${permissionPage.endPage}" step="1" varStatus="index"> --%>
+<%-- 								<a class="permission_cnt permission_paging">${permission_cnt}</a> --%>
+<%-- 								<input type="hidden" value="${index.index}" --%>
+<!-- 									class="permission_cnt_index"> -->
+<%-- 							</c:forEach> --%>
+<%-- 							<c:if --%>
+<%-- 								test="${permissionPage.nowBlock < permissionPage.totalBlock}"> --%>
+<!-- 								<a id="permission_nextpage" class="permission_paging">다음</a> -->
+<%-- 							</c:if> --%>
+<!-- 							<a id="permission_lastpage" class="permission_paging">끝</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 				</ul>   -->
+<!-- 			</nav> -->
+<!-- 		</div> -->
 <%-- 	<jsp:include page="../header&footer/footer.jsp"/> --%>
-		</div>
-	</div>
+<!-- 		</div> -->
+<!-- 	</div> -->
 <%-- 	</sec:authorize> --%>
 	<script type="text/javascript">
 	

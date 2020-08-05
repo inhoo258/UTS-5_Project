@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,7 +58,7 @@ public class MemberController {
 		return "redirect:/";
 
 	}
-
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@RequestMapping("/list")
 	public void getMemberList(@RequestParam(required = false, defaultValue = "1") int memberpage,
 			@RequestParam(required = false) String member_word, @RequestParam(required = false) String permission_word,
@@ -67,14 +68,10 @@ public class MemberController {
 		System.out.println(member_word);
 
 		model.addAttribute("memberlist", memberSerivce.getMemberList(memberpage, member_word));
-		System.out.println("1번확인");
 		model.addAttribute("memberPage", new PagingManager(memberSerivce.getMemberCount(member_word), memberpage));
-		System.out.println("2번확인");
 		model.addAttribute("permission", memberSerivce.getPermissionList(permissionpage, permission_word));
-		System.out.println("3번확인");
 		model.addAttribute("permissionPage",
 				new PagingManager(memberSerivce.getPermissionCount(permission_word), permissionpage));
-		System.out.println("4번확인");
 	}
 
 	@PostMapping("/permission")
@@ -120,12 +117,15 @@ public class MemberController {
 		return "redirect:/logout";
 	}
 
-	@RequestMapping("/info/{userId}")
-	public String getMember(@PathVariable("userId") String userId, Model model) {
-		MemberVO member =  memberSerivce.getMemberInfo(userId);
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping("/info")
+	public String getMember(Authentication authentication, Model model) {
+		
+		
+		MemberVO member =  memberSerivce.getMemberInfo(authentication.getName());
 		model.addAttribute("member",member);
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
-			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(userId));
+			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
 		}
 		return "member/info";
 	}

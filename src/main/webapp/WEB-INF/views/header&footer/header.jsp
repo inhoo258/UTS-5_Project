@@ -30,20 +30,25 @@
 	            </span>
 	            <!-- 로그인 사용자 -->
 	            <div id="header_menu_div">
-		            <sec:authorize access="isAuthenticated()">
-					<c:set var="member_id">
-						<sec:authentication property="principal.username" />
-					</c:set>
-					<div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
-	                <div id="information_img" title="내 정보"><a href="/project/member/info/${member_id}"><img src="/project/resources/img/information.png"></a></div>
-	                <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart/${member_id}"><img src="/project/resources/img/cart.png"></a></div>
-		            </sec:authorize>
-		            
-		            <sec:authorize access="isAnonymous()">
-					<div id="login_img" title="로그인"><a href="/project/login"><img src="/project/resources/img/login.png"></a></div>
-	                <div id="information_img" title="내 정보"><a href="/project/login"><img src="/project/resources/img/information.png"></a></div>
-	                <div id="lastproduct_img" title="장바구니"><a href="/project/login"><img src="/project/resources/img/cart.png"></a></div>
-		            </sec:authorize>
+<%-- 					<c:set var="member_id"> --%>
+<%-- 						<sec:authentication property="principal.username" /> --%>
+<%-- 					</c:set> --%>
+<%-- 					<sec:authorize access="isAuthenticated() and hasRole('ROLE_MASTER')"> --%>
+<!-- 		                <div id="information_img" title="회원 정보"><a href="/project/member/list"><img src="/project/resources/img/information.png"></a></div> -->
+<!-- 						<div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div> -->
+<%-- 					</sec:authorize> --%>
+					
+<%-- 					<sec:authorize access="isAnonymous() or hasAnyRole('ROLE_CUSTOMER','ROLE_SELLER)"> --%>
+		                	<div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
+		                	<div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
+			            <sec:authorize access="isAuthenticated()">
+							<div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
+			            </sec:authorize>
+			            
+			            <sec:authorize access="isAnonymous()">
+							<div id="login_img" title="로그인"><a href="/project/login"><img src="/project/resources/img/login.png"></a></div>
+			            </sec:authorize>
+<%-- 		            </sec:authorize> --%>
 		            
 	                <div id="header_icon">
 	                    <div>
@@ -105,11 +110,11 @@
 	                            <li><a href="#">회원정보</a></li>
 	                        </ul>
 	                        <ul>
-	                            <li><a href="#">판매자 게시판</a></li>
-	                            <li><a href="#">리뷰 게시판</a></li>
-	                            <li><a href="#">QNA 게시판</a></li>
-	                            <li><a href="#">자유 게시판</a></li>
-	                            <li><a href="#">이벤트 게시판</a></li>
+	                            <li><a href="/project/board/notice/list">공지 사항</a></li>
+	                            <li><a href="/project/board/qna/list">QNA 게시판</a></li>
+	                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
+<!-- 	                            <li><a href="#">자유 게시판</a></li> -->
+<!-- 	                            <li><a href="#">이벤트 게시판</a></li> -->
 	                        </ul>
 	                        <ul>
 	                            <li><a href="#">1:1 문의</a></li>

@@ -19,19 +19,19 @@ public class RequestInterceptor implements HandlerInterceptor {
 		String param = request.getQueryString();
 		//Post 방식 확인 바람
 		
-		if(url.contains("resources")) {
-			url = "/";
-		}
-		System.out.println("===contextName");
-		System.out.println(contextName);
-		System.out.println("===ContextPath===");
-		System.out.println(request.getContextPath());
-		System.out.println("===URL===");
-		System.out.println(url);
-		System.out.println("===requestURI===");
-		System.out.println(request.getRequestURI());
-		System.out.println("===param===");
-		System.out.println(param);
+//		if(url.contains("resources")) {
+//			url = "/";
+//		}
+//		System.out.println("===contextName");
+//		System.out.println(contextName);
+//		System.out.println("===ContextPath===");
+//		System.out.println(request.getContextPath());
+//		System.out.println("===URL===");
+//		System.out.println(url);
+//		System.out.println("===requestURI===");
+//		System.out.println(request.getRequestURI());
+//		System.out.println("===param===");
+//		System.out.println(param);
 		
 //		System.out.println("===QueryString===");
 //		System.out.println(param);
