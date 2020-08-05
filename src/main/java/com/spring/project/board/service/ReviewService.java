@@ -7,21 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.spring.project.board.model.ReviewVO;
 import com.spring.project.board.repository.IReviewRepository;
+import com.spring.project.product.repository.IOrderRepository;
 
 @Service
 public class ReviewService implements IBoardService{
 	
 	@Autowired
 	IReviewRepository reviewRepository;
-	
-	public ReviewVO getReview(String member_id) {
-		return reviewRepository.getReview(member_id);
-	}
-	
-	public void insertReview(String member_id,int product_id, int order_product_count, String review_content, byte[] review_img, int review_score) {
-		reviewRepository.insertReview(member_id, product_id, order_product_count, review_content, review_img, review_score);
-	}
-	
+	@Autowired
+	IOrderRepository orderRepository;
 	public void deleteReview(String member_id, int product_id) {
 		reviewRepository.deleteReview(member_id, product_id);
 	}
@@ -38,5 +32,17 @@ public class ReviewService implements IBoardService{
 		int end = nowPage*10;
 		int start = end-9;
 		return reviewRepository.getReviewList(product_id, start, end);
+	}
+
+	public void insertReview(ReviewVO reviewVO, int order_number) {
+		reviewVO.setReview_number(reviewRepository.getMaxReviewNumber(reviewVO.getProduct_id())+1);
+		if(reviewVO.getReview_img()==null && reviewVO.getReview_img_name()==null) reviewRepository.insertReview(reviewVO);
+		else reviewRepository.insertReviewWithImage(reviewVO);
+		orderRepository.updateReviewCheck(order_number);
+	}
+
+
+	public ReviewVO getReviewImage(int product_id, int review_number) {
+		return reviewRepository.getReviewImage(product_id, review_number);
 	}
 }
