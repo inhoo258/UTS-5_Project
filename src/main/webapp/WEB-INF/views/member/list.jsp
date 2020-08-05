@@ -14,6 +14,12 @@
 
 </head>
 <body>
+	<jsp:include page="../header&footer/header.jsp"></jsp:include>
+	
+	<div>
+		<div>
+		</div>
+	</div>
 <%-- 	<sec:authorize access="hasRole('ROLE_MASTER')"> --%>
 <%-- <jsp:include page="../header&footer/sidebar.jsp"></jsp:include> --%>
 <!-- 	 <div id="main_menu"> -->
