@@ -77,7 +77,7 @@ input[type="file"]::-webkit-file-upload-button {
 	text-align: center
 }
 
-.review_btn {
+.review_upload_btn {
 	width: 88px;
 	height: 42px;
 	margin-right: 10px;

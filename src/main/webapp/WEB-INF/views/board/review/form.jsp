@@ -10,11 +10,14 @@
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <body>
-<form action="<c:url value='/board/review/new'/>" method="POST" onsubmit="return reviewFormCheck()" enctype="multipart/form-data">
+<form id="reviewUploadForm">
         <table class="review_write_table">
             <tr>
                 <th>
                     <div class="review_write_tlt">후기 쓰기</div>
+                    <input type="hidden" name="order_number" value="${order.order_number}">
+                    <input type="hidden" name="member_id" value="${order.member_id}">
+                    <input type="hidden" name="purchase_date" value="${order.order_date}">
                 </th>
             </tr>
             <tr>
@@ -24,6 +27,7 @@
                     		<tr>
                     			<td>
                     				<img src="/project/product/img/${order.product_id}" style="width:100px; height:100px;">
+                    				<input type="hidden" name="product_id" value="${order.product_id}">
                     			</td>
                     			<td>
                     				<div>
@@ -34,6 +38,7 @@
                     				</div>
 									<div>
                     					<span>수량 :</span> <span>${order.order_product_count}</span>
+                    					<input type="hidden" name="order_product_count" value="${order.order_product_count}">
 									</div>
                     			</td>
                     		</tr>
@@ -59,7 +64,7 @@
             <tr>
                 <td>
                     <div class="sub_tlt textarea_tit">제목</div>
-                    <input type="text" name="review_title" class="review_title">
+                    <input type="text" name="review_title" class="review_title" id="review_title">
             	</td>   
             </tr>	     
             <tr>
@@ -81,7 +86,7 @@
                 <td>
                     <div class="review_witre_btn">
                         <input type="button" value="취소" class="review_btn cancel_btn">
-                        <input type="submit" value="확인" class="review_btn">
+                        <input type="button" value="확인" class="review_upload_btn" id="review_upload_btn">
                     </div>
                 </td>
             </tr>
@@ -89,21 +94,36 @@
     </form>
 
     <script>
-    function reviewFormCheck(){
+    $("#review_upload_btn").on("click",function(){
+    	let review_title = $("#review_title").val();
     	let review_content = $("#review_content").val();
     	console.log(review_content);
-    	if(review_content.trim()==""){
+    	if(review_title.trime==""){
+    		alert("제목을 입력하세요.");
+    	}else if(review_content.trim()==""){
     		alert("구매 후기를 입력하세요.");
-    		return false;
     	}else if(review_content.length < 10){
     		alert("구매 후기를 10자 이상 입력하세요.");
-    		return false;
     	}else{
     		$("#review_score").val($(".on").length);
-    		alert($("#review_score").val());
-    		return true;
+    		let form = $("#reviewUploadForm")[0];
+    		console.log(form);
+    		let formData = new FormData(form);
+    		console.log(formData);
+    		$.ajax({
+    			url:'<c:url value="/board/rest/review/upload"/>',
+    			type:'POST',
+    			data:formData,
+    			contentType:false,
+    			processData:false,
+    			success:function(){
+    				opener.document.location.reload();
+    				self.close();
+    			}
+    		});
     	}
-    }
+    });
+    	
         $('#star_grade a').click(function () {
             $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */
             $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
