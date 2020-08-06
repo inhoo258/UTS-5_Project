@@ -275,7 +275,7 @@
 				}else{
 					let ans = confirm("이미 동일한 상품이 장바구니에 존재합니다.\n장바구니로 이동하시겠습니까?");
 					if(ans){
-						location.href="<c:url value='/product/cart/'/>"+member_id;
+						location.href="<c:url value='/product/cart/'/>";
 					}
 				}
 			},
@@ -299,7 +299,7 @@
 				if(data==1){
 					let ans = confirm("장바구니 담기에 성공했습니다.\n장바구니로 이동하시겠습니까?");
 					if(ans){
-						location.href="<c:url value='/product/cart/'/>"+member_id;
+						location.href="<c:url value='/product/cart/'/>";
 					}
 				}else{
 					alert("이미 동일한 상품이 장바구니에 존재합니다.");
