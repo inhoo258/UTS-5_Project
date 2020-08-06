@@ -19,8 +19,6 @@
 </style>
 </head>
 <body>
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	<div id="main_menu">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
      <section id="view_section">
         <div class="p_product_main">

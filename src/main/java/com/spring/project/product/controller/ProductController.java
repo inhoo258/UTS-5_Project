@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +57,9 @@ public class ProductController {
 //	}
 //
 	// 개인의 장바구니 목록 조회
-	@RequestMapping("/cart/{member_id}")
-	public String getCart(@PathVariable("member_id") String member_id, Model model) {
-		model.addAttribute("cartList", cartService.getCart(member_id));
+	@RequestMapping("/cart")
+	public String getCart(Authentication authentication, Model model) {
+		model.addAttribute("cartList", cartService.getCart(authentication.getName()));
 		return "product/cart";
 	}
 

@@ -15,9 +15,6 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	<div id="main_menu">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
 	<section id=form>
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
@@ -94,7 +91,7 @@
 	                            <input type="text" value="${member.member_email}" name="member_email" id="member_email"  autocomplete="off" placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'>
 	                        </div>
 	                        <div class="joininfovalue">
-	                            <font id="email_check"></font>
+	                            <input type="button" id="certifyemail" disabled="" value="중복 확인" >
 	                        </div>
 	                        <c:if test="${empty member}">
 	                            <sec:authorize access="isAnonymous()">
@@ -256,19 +253,20 @@
         });
        
         $("#member_email").blur(function(){
-            let member_email = document.getElementById("member_email").value
-            if(member_email.length==0){
-				document.getElementById("email_check").style.color="red";
-                document.getElementById("email_check").innerText="필수 항목입니다.";
-                email_check=false;
-            }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
-				document.getElementById("email_check").style.color="red";
-                document.getElementById("email_check").innerText="잘못된 이메일 형식입니다.";
-                email_check=false;
-            }else{
-                document.getElementById("email_check").innerText="";
-                email_check=true;
-            }
+        let member_email = document.getElementById("member_email").value
+        if(member_email.length==0){
+			document.getElementById("certifyemail").disabled = "disabled";
+			document.getElementById("certifyemail").style.opacity = '0.7';
+        }else if(!/^[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,3}$/.test(member_email)){//------------------------------------------------**
+			document.getElementById("certifyemail").disabled = "disabled";
+			document.getElementById("certifyemail").style.opacity = '0.7';
+        }else{
+			document.getElementById("certifyemail").disabled = false;
+			document.getElementById("certifyemail").style.opacity = '1';
+			document.getElementById("certifyemail").style.backgroundColor = '#2a365c';
+			document.getElementById("certifyemail").style.color = 'white';
+			document.getElementById("certifyemail").style.border = 'none';
+        	}
         });
     });
     function inputCheck(){
@@ -288,7 +286,7 @@
 				$(this).trigger("blur");
 			})
         	//내용이 입력되어 있지 않은 위치로 focus
-        	if(!email_check){$("#member_email").focus();}
+        	if(!email_check){alert("이메일 인증을 해주세요")}
         	if(!addr_check){alert("주소를 입력해주세요")}
         	if(!tel_check){$("#member_tel").focus();}
         	if(!name_check){$("#member_name").focus();}
@@ -304,19 +302,18 @@
     }
     $("input:radio").on("click",function(){
     	let selectUser = document.getElementsByClassName("selectuser")[0];
-    	
     	if($(this).val()=="ROLE_SELLER"){
     		reg_num_check=false;
 	    	$(".forSeller").show();
 	    	console.log(selectUser)
-	    	selectUser.style.margin='30px 0 0 90px';
+	    	selectUser.style.margin='30px 10px 0 80px';
 	    	selectUser.style.width='80px';
 	    	document.getElementsByClassName("joinbox")[0].style.height='950px';
     	}else{
     		reg_num_check=true;
 	    	$(".forSeller").hide();
 	    	selectUser.style.margin='30px 0 0 230px';
-	    	selectUser.style.width='150px';
+	    	selectUser.style.width='180px';
 	    	document.getElementsByClassName("joinbox")[0].style.height='900px';
     	}
     });
@@ -356,61 +353,81 @@
             }
         }).open();
     }
-$("#sellerbox").on("keyup",function(){
-	reg_num_check=false;
-});
-$("#regNumCheckBtn").on("click",function(){
-	var checkSum = 0;
-	var checkID = [1,3,7,1,3,7,1,3,5];
-	var seller_reg_num= $('input[name=seller_reg_num]').val(); 
-	console.log("entered seller_reg_num : "+seller_reg_num);
-	if(reg_num_check){
-		document.getElementById("reg_num_check").style.color="red";
-	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
-        document.getElementById("reg_num_check").innerText="이미 인증되었습니다.";
-	}else if(seller_reg_num.trim()==""){
-		document.getElementById("reg_num_check").style.color="red";
-	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
-        document.getElementById("reg_num_check").innerText="사업자등록번호를 입력해주세요.";
-        reg_num_check=false;
-	}else if (!/^[0-9]{3}[-][0-9]{2}[-][0-9]{5}$/.test(seller_reg_num)) { 
-		document.getElementById("reg_num_check").style.color="red";
-	    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 150px";
-        document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
-    	reg_num_check=false; 
-	}else{
-		var reg_nums = seller_reg_num.replace(/-/gi,'');
-		for (var i=0; i<9; i++) {
-	    	checkSum += checkID[i] * Number(reg_nums[i]);
-		}  
-		if (10 - ((checkSum + Math.floor(checkID[8] * Number(reg_nums[8]) / 10)) % 10) != Number(reg_nums[9])) {
+	$("#sellerbox").on("keyup",function(){
+		reg_num_check=false;
+	});
+	$("#regNumCheckBtn").on("click",function(){
+		var checkSum = 0;
+		var checkID = [1,3,7,1,3,7,1,3,5];
+		var seller_reg_num= $('input[name=seller_reg_num]').val(); 
+		console.log("entered seller_reg_num : "+seller_reg_num);
+		if(reg_num_check){
 			document.getElementById("reg_num_check").style.color="red";
-	        document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 0 150px";
-			document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
-	   		reg_num_check=false;
-		}else {
-			$.ajax({
-				url : '<c:url  value="/member/rest/regNumCheck" />',
-				type: 'post',
-				data:{
-					seller_reg_num : seller_reg_num
-				},
-				success : function(result){
-					if(result){
-						document.getElementById("reg_num_check").style.color="black";
-	        			document.getElementById("reg_num_check").innerText="인증되었습니다.";
-						reg_num_check=true;
-					}else{
-						document.getElementById("reg_num_check").style.color="red";
-	        			document.getElementById("reg_num_check").innerText="이미 인증된 사업자등록번호입니다.";
-						reg_num_check=false;
+		    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
+	        document.getElementById("reg_num_check").innerText="이미 인증되었습니다.";
+		}else if(seller_reg_num.trim()==""){
+			document.getElementById("reg_num_check").style.color="red";
+		    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 230px";
+	        document.getElementById("reg_num_check").innerText="사업자등록번호를 입력해주세요.";
+	        reg_num_check=false;
+		}else if (!/^[0-9]{3}[-][0-9]{2}[-][0-9]{5}$/.test(seller_reg_num)) { 
+			document.getElementById("reg_num_check").style.color="red";
+		    document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 10px 150px";
+	        document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
+	    	reg_num_check=false; 
+		}else{
+			var reg_nums = seller_reg_num.replace(/-/gi,'');
+			for (var i=0; i<9; i++) {
+		    	checkSum += checkID[i] * Number(reg_nums[i]);
+			}  
+			if (10 - ((checkSum + Math.floor(checkID[8] * Number(reg_nums[8]) / 10)) % 10) != Number(reg_nums[9])) {
+				document.getElementById("reg_num_check").style.color="red";
+		        document.getElementsByClassName("fsellertxt")[0].style.margin="10px 0 0 150px";
+				document.getElementById("reg_num_check").innerText="사업자등록번호가 올바르게 입력되었는지 확인해주세요.";
+		   		reg_num_check=false;
+			}else {
+				$.ajax({
+					url : '<c:url  value="/member/rest/regNumCheck" />',
+					type: 'post',
+					data:{
+						seller_reg_num : seller_reg_num
+					},
+					success : function(result){
+						if(result){
+							document.getElementById("reg_num_check").style.color="black";
+		        			document.getElementById("reg_num_check").innerText="인증되었습니다.";
+							reg_num_check=true;
+						}else{
+							document.getElementById("reg_num_check").style.color="red";
+		        			document.getElementById("reg_num_check").innerText="이미 인증된 사업자등록번호입니다.";
+							reg_num_check=false;
+						}
 					}
-				}
-			})
-			
+				})
+			}
 		}
-	}
-});
+	});
+	
+	$("#certifyemail").on("click", function(){
+		let member_email = document.getElementById("member_email").value
+		$.ajax({
+			url: '<c:url value="/member/rest/checkemail"/>',
+			type:"post",
+			data:{
+				member_email : member_email
+			},
+			success : function(result){
+				if(result == 1){
+					alert('중복된 이메일 입니다.');
+					email_check = false;
+				}else{
+					alert('중복되지 않는 이메일입니다.');
+					email_check=true;
+				}
+			}
+		})
+	})
+
     </script>
 <%--     <jsp:include page="../header&footer/footer.jsp"/> --%>
 </body>

@@ -36,5 +36,6 @@
 	<security:authentication-provider ref="loginAuthenticationProvider" /> 
 	</security:authentication-manager>
 	
+		
 
 </beans>
