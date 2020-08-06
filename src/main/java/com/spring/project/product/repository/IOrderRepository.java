@@ -38,10 +38,13 @@ public interface IOrderRepository {
 	@Update("update orders set order_status=#{order_status}")
 	public void deliveryOrder(String member_id, int product_id, String order_status);
 
-	@Select("select ord.product_id product_id, prd.product_name product_name, order_product_count, order_number, product_weight "
+	@Select("select ord.member_id member_id, order_date, ord.product_id product_id, prd.product_name product_name, order_product_count, order_number, product_weight "
 			+ "from orders ord "
 			+ "join products prd "
 			+ "on ord.product_id = prd.product_id "
 			+ "where ord.order_number=#{order_number}")
 	public OrdersVO getOrderByOrderNumber(int order_number);
+
+	@Update("update orders set review_check = 1 where order_number=#{order_number}")
+	public void updateReviewCheck(int order_number);
 }

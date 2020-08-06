@@ -19,8 +19,6 @@
 </style>
 </head>
 <body>
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	<div id="main_menu">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
      <section id="view_section">
         <div class="p_product_main">
@@ -186,7 +184,12 @@
 				         			<td>${review.review_views }</td>
 				         		</tr>
 				         		<tr style="display:none" class="class_review_content">
-				         			<td colspan="6">${review.review_content}</td>
+				         			<td colspan="6">
+				         				<c:if test="${not empty review.review_img}">
+				         					<img src="<c:url value='/board/review/img?product_id=${product.product_id}&review_number=${review.review_number}'/>" width="100px" height="100px"/>
+				         				</c:if>
+				         				${review.review_content}
+				         			</td>
 				         		</tr>
 				         	</c:forEach>
 			         	</tbody>

@@ -54,8 +54,7 @@
 	<!-- for images, js file mapping -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
-		<url-pattern>/images/*</url-pattern>
-		<url-pattern>/js/*</url-pattern>
+		<url-pattern>/resources/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

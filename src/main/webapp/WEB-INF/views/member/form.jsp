@@ -15,9 +15,6 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	<div id="main_menu">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
 	<section id=form>
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
