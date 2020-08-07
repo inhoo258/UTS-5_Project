@@ -16,9 +16,31 @@ public class OrdersVO {
 	private String order_request;
 	private String order_status;
 	private int order_number;
+	private int order_group_number;
 	private int review_check;
 	private int product_weight;
 	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "OrdersVO [member_id=" + member_id + ", product_name=" + product_name + ", product_id=" + product_id
+				+ ", order_date=" + order_date + ", order_receiver_main_address=" + order_receiver_main_address
+				+ ", order_receiver_sub_address=" + order_receiver_sub_address + ", order_receiver_name="
+				+ order_receiver_name + ", order_receiver_tel=" + order_receiver_tel + ", order_product_count="
+				+ order_product_count + ", order_price=" + order_price + ", order_request=" + order_request
+				+ ", order_status=" + order_status + ", order_number=" + order_number + ", order_group_number="
+				+ order_group_number + ", review_check=" + review_check + ", product_weight=" + product_weight + "]";
+	}
+
+	public int getOrder_group_number() {
+		return order_group_number;
+	}
+
+	public void setOrder_group_number(int order_group_number) {
+		this.order_group_number = order_group_number;
+	}
 
 	public int getProduct_weight() {
 		return product_weight;
