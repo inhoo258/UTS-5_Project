@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.service.IMemberService;
@@ -60,18 +59,8 @@ public class MemberController {
 	}
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@RequestMapping("/list")
-	public void getMemberList(@RequestParam(required = false, defaultValue = "1") int memberpage,
-			@RequestParam(required = false) String member_word, @RequestParam(required = false) String permission_word,
-			@RequestParam(required = false, defaultValue = "1") int permissionpage,
-			@RequestParam(value = "message", required = false) String message, Model model) {
-		System.out.println(permission_word);
-		System.out.println(member_word);
-
-		model.addAttribute("memberlist", memberSerivce.getMemberList(memberpage, member_word));
-		model.addAttribute("memberPage", new PagingManager(memberSerivce.getMemberCount(member_word), memberpage));
-		model.addAttribute("permission", memberSerivce.getPermissionList(permissionpage, permission_word));
-		model.addAttribute("permissionPage",
-				new PagingManager(memberSerivce.getPermissionCount(permission_word), permissionpage));
+	public void getMemberList(Model model , @RequestParam(value = "member_word" , required = false) String member_word) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList(1, member_word));
 	}
 
 	@PostMapping("/permission")
