@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.service.IMemberService;
@@ -57,24 +57,10 @@ public class MemberController {
 		return "redirect:/";
 
 	}
-
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@RequestMapping("/list")
-	public void getMemberList(@RequestParam(required = false, defaultValue = "1") int memberpage,
-			@RequestParam(required = false) String member_word, @RequestParam(required = false) String permission_word,
-			@RequestParam(required = false, defaultValue = "1") int permissionpage,
-			@RequestParam(value = "message", required = false) String message, Model model) {
-		System.out.println(permission_word);
-		System.out.println(member_word);
-
-		model.addAttribute("memberlist", memberSerivce.getMemberList(memberpage, member_word));
-		System.out.println("1번확인");
-		model.addAttribute("memberPage", new PagingManager(memberSerivce.getMemberCount(member_word), memberpage));
-		System.out.println("2번확인");
-		model.addAttribute("permission", memberSerivce.getPermissionList(permissionpage, permission_word));
-		System.out.println("3번확인");
-		model.addAttribute("permissionPage",
-				new PagingManager(memberSerivce.getPermissionCount(permission_word), permissionpage));
-		System.out.println("4번확인");
+	public void getMemberList(Model model , @RequestParam(value = "member_word" , required = false) String member_word) {
+		model.addAttribute("memberlist" , memberSerivce.getMemberList(1, member_word));
 	}
 
 	@PostMapping("/permission")
@@ -120,12 +106,15 @@ public class MemberController {
 		return "redirect:/logout";
 	}
 
-	@RequestMapping("/info/{userId}")
-	public String getMember(@PathVariable("userId") String userId, Model model) {
-		MemberVO member =  memberSerivce.getMemberInfo(userId);
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping("/info")
+	public String getMember(Authentication authentication, Model model) {
+		
+		
+		MemberVO member =  memberSerivce.getMemberInfo(authentication.getName());
 		model.addAttribute("member",member);
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
-			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(userId));
+			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
 		}
 		return "member/info";
 	}
@@ -167,7 +156,6 @@ public class MemberController {
 		model.addAttribute("chocie",choice);
 		model.addAttribute("message",message);
 	}
-	
 	@PostMapping("/certification")
 	public String certification(Model model, @RequestParam(value = "choice")String choice, MemberVO memberVO , RedirectAttributes redirectAttributes) {
 		if( memberVO.getMember_email() == null ) {
@@ -212,6 +200,8 @@ public class MemberController {
 		// 인증번호 재전송 클릭 시 다시 메일 발송하는 REST CONTROLLER로 연결하기
 		// 확인 버튼 클릭시 해당아이디를 가지고 넘겨준뒤 UPDATE로 수정할 것
 	}
+
+	
 	@PostMapping("/lastfindidpwd")
 	public String lastfindidpwd(MemberVO memberVO, Model model, @RequestParam(value = "choice")String choice) {
 		model.addAttribute("choice", choice);
