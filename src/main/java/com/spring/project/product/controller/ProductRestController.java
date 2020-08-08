@@ -45,4 +45,13 @@ public class ProductRestController {
 	public int cartCheck(@RequestParam("member_id") String member_id, @RequestParam("product_id") int product_id) {
 		return cartService.checkCart(member_id, product_id);
 	}
+	@PostMapping("/orderCancel")
+	public boolean orderCancel(@RequestParam("order_number")int order_number) {
+		try {
+			orderService.deleteOrder(order_number);
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
 }
