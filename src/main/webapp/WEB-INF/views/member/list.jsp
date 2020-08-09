@@ -14,10 +14,25 @@
 
 </head>
 <body>
+	<div id="loding">
+        <div></div>
+    </div>
+    
 	<jsp:include page="../header&footer/header.jsp"></jsp:include>
 	
+    
+	<div id=memberlist_menu_div>
+	 	<div id=memberlist_menubar>
+	    	<ul>
+	        	<li><a href="#a">회원 관리</a></li>
+	            <li><a href="#a">회원 상세정보</a></li>
+	        </ul>
+	        <span id="bar"></span>
+	    </div>
+	 </div>
+	 
 	 <div id=memberlist_div>
-        <div>
+        <div id="member_list">
             <h2>회원 검색</h2>
             <div id=member_option_div>
                 <table>
@@ -78,11 +93,11 @@
                     <input type="button" value="선택 삭제">
                 </div>
                 <div>
-                    <table>
+                    <table id="list_table">
                         <tr>
                             <th>
                             	<label class="checkbox member_label"> 
-								<input type="checkbox" class="member_CheckEach"> 
+								<input type="checkbox" id="Check_All"> 
 								<span class="member_icon icon"></span> 
 								</label>
 							</th>
@@ -93,34 +108,202 @@
                             <th>Auth</th>
                             <th>Enabled</th>
                             <th>기타</th>
+                            <c:set var="memberlist" value="result" />
                         </tr>
-                        <c:forEach var="member" items="${memberlist}">
-                        <tr>
-                            <th>
-								<label class="checkbox member_label"> 
-								<input type="checkbox" class="member_CheckEach"> 
-								<span class="member_icon icon"></span> 
-								</label>
-							</th>
-                            <th>${member.member_id} <br> ${member.member_name} </th>
-                            <th>${member.member_tel}</th>
-                            <th>${member.member_main_addr}</th>
-                            <th>${member.member_email}</th>
-                            <th>${member.member_auth}</th>
-                            <th>${member.member_enabled}</th>
-                            <th>
-                                <input type="button" value="승인">
-                                <input type="button" value="삭제">
-                            </th>
-                        </tr>
-                        </c:forEach>
                     </table>
                 </div>
             </div>
         </div>
     </div>
     
-    <script>
+    
+    <div id=memberinfo_div>
+    
+    </div>
+    
+    
+    
+	<script>
+		$("#memberinfo_div").hide();
+		$("#memberlist_menubar>ul>li a").click(function() {
+			$(this).addClass("on");
+			$(this).parent().siblings().children().removeClass("on");
+			if($("#memberlist_menubar>ul>li:nth-child(1) a").attr("class") != "on"){
+				$("#bar").animate({"left" :"450px", "width" : "150px"},1000);
+				$("#memberlist_div").hide();
+				$("#memberinfo_div").show();
+			}else{
+				$("#bar").animate({"left" :"110px" , "width" : "130px"},1000);
+				$("#memberlist_div").show();
+				$("#memberinfo_div").hide();
+			}
+		})
+	</script>
+
+	<script>
+		    let check_in_out = true
+		    let check_count = 0;
+		    document.getElementById("Check_All").onclick = function () {
+		        let length = document.getElementsByClassName("CheckEach").length;
+		        if (check_in_out) {
+		            for (var i = 0; i < length; i++) {
+		                document.getElementsByClassName("CheckEach")[i].checked = true;
+		            }
+					check_count = 10;
+		            check_in_out = false;
+		        } else {
+		            for (var i = 0; i < length; i++) {
+		                document.getElementsByClassName("CheckEach")[i].checked = false;
+		            }
+		            check_count = 0;
+		            check_in_out = true;
+		        }
+		        console.log(check_count)
+		    };
+		    
+	</script>
+	
+	<script>
+		$(window).on("load" , function(){
+			load_list_ajax();
+		});
+		
+		$("#memberlist_menubar>ul>li:nth-child(1) a").addClass("on");
+		
+		function load_list_ajax(){
+			var xhr = new XMLHttpRequest();
+	        xhr.open("GET", "/project/member/rest/list");
+	        xhr.setRequestHeader("content-type", "application/josn");
+			xhr.send();
+			xhr.onreadystatechange = function () {
+                if (xhr.readyState === xhr.LOADING) {
+                    $("#loding").show();
+                }
+                if (xhr.readyState === xhr.DONE) {
+                    if (xhr.status === 200 || xhr.status === 201) {
+                    	$("#loding").hide();
+                    	let result = JSON.parse(xhr.responseText);
+                    	for(var i = 0 ; i < result.length ; i++){
+	                    	let enabled_text
+	                    	
+	                    	if(result[i].member_enabled == "0"){enabled_text = "미승인"}
+	                    	else{enabled_text = "승인"}
+	                    	
+	                    	let memberlist = "<tr>"+
+		                        "<th>"+
+									"<label class='checkbox member_label'>"+
+									"<input type='checkbox' class='CheckEach'>"+
+									"<span class='member_icon icon'></span>"+
+									"</label>"+
+								"</th>"+
+		                        "<th>"+result[i].member_id+" <br> "+result[i].member_name+" </th>"+
+		                        "<th>"+result[i].member_tel+"</th>"+
+		                        "<th>"+result[i].member_main_addr+"</th>"+
+		                        "<th>"+result[i].member_email+"</th>"+
+		                        "<th>"+result[i].member_auth+"</th>"+
+		                        "<th>"+enabled_text+"</th>"+
+		                        "<th>"+
+			                    (function(){
+			                        if(enabled_text == "승인"){
+		                        		return "<input type='button' value='정지' class='enabled'>"
+			                        }else{
+			                            return "<input type='button' value='승인' class='enabled'>"
+			                        }
+		                        })()
+		                            +"<input type='button' value='삭제' class='delete'>"+
+		                        "</th>"+
+	                    	"</tr>"
+		                    $("#list_table").append(memberlist);
+                    	}
+                    	
+                    	let paging = "<tr>"+
+                    		"<th  colspan='8'>"+
+                    			"처음  1 2 3 4 5 6 7 8 9 10  다음"+
+                    		"</th>"
+                    	$("#list_table").append(paging);
+                    	
+                    	//delete click event add
+                    	$("#list_table").on("click",".delete.on", function(){
+                    		let member_id = (result[$(".delete").index(this)].member_id);
+                    		var xhr = new XMLHttpRequest();
+                	        xhr.open("POST", "/project/member/rest/choice_delete");
+                	        xhr.setRequestHeader("content-type", "application/josn");
+//                 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+                			xhr.send(member_id);
+                			xhr.onreadystatechange = function () {
+                                if (xhr.readyState === xhr.LOADING) {
+                                    $("#loding").show();
+                                }
+                                if (xhr.readyState === xhr.DONE) {
+                                    if (xhr.status === 200 || xhr.status === 201) {
+                                    	$("#loding").hide();
+                                    	$("#list_table tr:nth-child(n+2)").remove();
+                                    	$("#list_table").off();
+                                    	document.getElementById("Check_All").checked = false;
+                                    	check_in_out = true;
+                                    	load_list_ajax();
+                                    }
+                                }
+                			}
+                    	});
+                   		$(".delete").addClass("on");
+                   		
+                    	//enabled click event add
+                    	$("#list_table").on("click",".enabled.on", function(){
+                    		let member_id = (result[$(".enabled").index(this)].member_id);
+                    		let enable = (result[$(".enabled").index(this)].member_enabled);
+                    		let member = {member_id:member_id , member_enabled:enable}
+                    		var xhr = new XMLHttpRequest();
+                	        xhr.open("GET", "/project/member/rest/member_enable");
+                	        xhr.setRequestHeader("content-type", "application/josn");
+//                 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+                			xhr.send(JSON.stringify(member));
+                			xhr.onreadystatechange = function () {
+                                if (xhr.readyState === xhr.LOADING) {
+                                    $("#loding").show();
+                                }
+                                if (xhr.readyState === xhr.DONE) {
+                                    if (xhr.status === 200 || xhr.status === 201) {
+                                    	$("#loding").hide();
+                                    	$("#list_table tr:nth-child(n+2)").remove();
+                                    	$("#list_table").off();
+                                    	document.getElementById("Check_All").checked = false;
+                                    	check_in_out = true;
+                                    	load_list_ajax();
+                                    }
+                                }
+                			}
+                    	});
+                   		$(".enabled").addClass("on");
+                   		
+                   		
+                   		//check_box click event add
+	                   	$("#list_table").on("click",".CheckEach.on", function(){
+	         		    	console.log("asdf")
+	         				let check_index = $(".CheckEach").index(this);
+	         				if (document.getElementsByClassName("CheckEach")[check_index].checked == true) {
+	         			    	check_count++;
+	         			    } else {
+	         			        check_count--;
+	         			    }
+	         				if (check_count == 10) {
+	         			    	document.getElementById("Check_All").checked = true;
+	         			        check_in_out = false;
+	         				} else {
+	         			    	document.getElementById("Check_All").checked = false;
+	         			        check_in_out = true;
+	         				}
+	         			});
+	         			$(".CheckEach").addClass("on");
+                    }
+                }
+            }
+		}
+	</script>
+	
+   
+	
+	<script>
 	    $(function(){
 	        $("#level").change(function(){
 	        	if($(this).val() == "Gold"){
@@ -139,6 +322,7 @@
 	        });
 	    });
     </script>
+    
     
     
     
