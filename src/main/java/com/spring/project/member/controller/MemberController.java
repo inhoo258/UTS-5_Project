@@ -37,14 +37,27 @@ public class MemberController {
 	public void form(Model model) {
 		model.addAttribute("message", "insert");
 	}
-
+	
+	@PostMapping("/checkpwd")
+	public String checkemail(MemberVO membervo, RedirectAttributes redirectAttributes) {
+		System.out.println("여기 : " + membervo.getMember_id());
+		System.out.println("인코더하고 비교 : "+pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id())));
+		if(pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id()))) {
+			redirectAttributes.addAttribute("userId",membervo.getMember_id());
+			return "redirect:/member/form";
+		}else {
+			redirectAttributes.addAttribute("message","error");
+			return "redirect:/member/info";
+		}
+	}
+	
 	@GetMapping("/form/{userId}")
 	public String form(@PathVariable("userId") String userId, Model model) {
 		model.addAttribute("member", memberSerivce.getMemberInfo(userId));
 		model.addAttribute("message", "update");
 		return "member/form";
 	}
-
+	
 	@PostMapping("/insert")
 	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes,@RequestParam(value="seller_reg_num",required=false) String seller_reg_num) {
 		System.out.println("------------------\nmember-insert process---------------------\n");
@@ -59,8 +72,8 @@ public class MemberController {
 		}
 		if(!seller_reg_num.equals(""))memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
 		return "redirect:/";
-
 	}
+	
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@RequestMapping("/list")
 	public void getMemberList() {
@@ -73,10 +86,10 @@ public class MemberController {
 			@RequestParam(value = "permissionpage", required = false, defaultValue = "1") int permissionpage,
 			@RequestParam(value = "memberpage", required = false, defaultValue = "1") int memberpage) {
 		if (permission_ids != null) {
-			memberSerivce.permissions(permission_ids);
+//			memberSerivce.permissions(permission_ids);
 		}
 		if (permission_id != null) {
-			memberSerivce.permission(permission_id);
+//			memberSerivce.permission(permission_id);
 		}
 		attributes.addAttribute("permission_word" , permission_word);
 		attributes.addAttribute("permissionpage", permissionpage);
@@ -101,7 +114,6 @@ public class MemberController {
 		attributes.addAttribute("member_word" , member_word);
 		attributes.addAttribute("permissionpage", permissionpage);
 		attributes.addAttribute("memberpage", memberpage);
-
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))) {
 			return "redirect:/member/list";
@@ -112,8 +124,6 @@ public class MemberController {
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/info")
 	public String getMember(Authentication authentication, Model model) {
-		
-		
 		MemberVO member =  memberSerivce.getMemberInfo(authentication.getName());
 		model.addAttribute("member",member);
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
@@ -204,15 +214,12 @@ public class MemberController {
 		// 확인 버튼 클릭시 해당아이디를 가지고 넘겨준뒤 UPDATE로 수정할 것
 	}
 
-	
 	@PostMapping("/lastfindidpwd")
 	public String lastfindidpwd(MemberVO memberVO, Model model, @RequestParam(value = "choice")String choice) {
 		model.addAttribute("choice", choice);
 		model.addAttribute("member",memberSerivce.getMemberEmail(memberVO.getMember_email()).getMember_id());
 		return "/member/lastfindidpwd";
 	}
-	
-	
 
 	@PostMapping("/sellerinfoupdate")
 	public String sellerInfoUpdate(SellerInfoVO sellerInfo) {

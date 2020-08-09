@@ -19,8 +19,9 @@ public class OrdersVO {
 	private int order_group_number;
 	private int review_check;
 	private int product_weight;
-	
-	
+	private String seller_company_name;
+	private String seller_company_tel;
+	private int order_delivery_price;
 	
 	
 	@Override
@@ -31,7 +32,33 @@ public class OrdersVO {
 				+ order_receiver_name + ", order_receiver_tel=" + order_receiver_tel + ", order_product_count="
 				+ order_product_count + ", order_price=" + order_price + ", order_request=" + order_request
 				+ ", order_status=" + order_status + ", order_number=" + order_number + ", order_group_number="
-				+ order_group_number + ", review_check=" + review_check + ", product_weight=" + product_weight + "]";
+				+ order_group_number + ", review_check=" + review_check + ", product_weight=" + product_weight
+				+ ", seller_company_name=" + seller_company_name + ", seller_company_tel=" + seller_company_tel
+				+ ", order_delivery_price=" + order_delivery_price + "]";
+	}
+
+	public int getOrder_delivery_price() {
+		return order_delivery_price;
+	}
+
+	public void setOrder_delivery_price(int order_delivery_price) {
+		this.order_delivery_price = order_delivery_price;
+	}
+
+	public String getSeller_company_name() {
+		return seller_company_name;
+	}
+
+	public void setSeller_company_name(String seller_company_name) {
+		this.seller_company_name = seller_company_name;
+	}
+
+	public String getSeller_company_tel() {
+		return seller_company_tel;
+	}
+
+	public void setSeller_company_tel(String seller_company_tel) {
+		this.seller_company_tel = seller_company_tel;
 	}
 
 	public int getOrder_group_number() {

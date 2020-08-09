@@ -21,7 +21,8 @@ public interface IMemberRepository {
 			+ "from members m " + "join authorities au " + "on m.member_id=au.member_id "
 			+ "where m.member_id=#{member_id}")
 	public MemberVO getMemberInfo(String member_id);
-
+	
+	
 	// 권한 수정========================================================================
 	@Update("update members set member_enabled='#{0)' where member_id = #{1}")
 	public void member_enable(int enable ,String permission_ids);

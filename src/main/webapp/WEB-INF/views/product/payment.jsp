@@ -17,8 +17,6 @@
 	</div>
 	<input type="button" onclick="gotolist()" value = "쇼핑 더 하기"><br>
 	<input type="button" onclick="myOrderList()" value = "나의 주문 내역"><br>
-<<<<<<< HEAD
-	 
 
     
     <form action='<c:url value="/product/rest/sendMail.do"/>' method="post">
@@ -41,8 +39,6 @@
     </form>
 
     <jsp:include page="../header&footer/footer.jsp"/>
-=======
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 </body>
 <script type="text/javascript">
 	function gotolist(){
