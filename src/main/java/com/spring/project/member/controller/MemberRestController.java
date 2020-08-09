@@ -3,7 +3,6 @@ package com.spring.project.member.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +20,6 @@ public class MemberRestController {
 	@Autowired
 	IMemberService memberSerivce;
 
-	@Autowired
-	private JavaMailSender mailSender;
 
 	@PostMapping("/memberCheck")
 	public int memberCheck(@RequestParam("member_id") String member_id) {
