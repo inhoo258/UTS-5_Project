@@ -30,13 +30,26 @@
 
 .order_num {
 	margin-bottom: 10px;
-	margin: 10px 0;
-}
-
-.order_group_number {
-	font-size: 21px;
+    margin: 10px 0;
+    font-size: 21px;
 	font-weight: 550;
-	color: #424044;
+    color: #5f0080;
+    display: inline-block;
+    width: 98%;
+}
+.fa-chevron-right{
+    color: #5f0080;
+}
+.span_order_info{
+    display: inline-block;
+    width: 100px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 17px;
+    color: #424044;
+}
+.span_three{
+    letter-spacing: 3px;
 }
 
 .orderlist_order_date {
