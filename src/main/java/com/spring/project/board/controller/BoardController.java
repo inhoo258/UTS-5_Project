@@ -146,6 +146,7 @@ public class BoardController {
 		
 	}
 	
+	//review
 	@PostMapping("/review/form")
 	public void reviewForm(@RequestParam("member_id")String member_id, @RequestParam("order_number")int order_number, Model model) {
 		model.addAttribute("order", orderService.getOrderByOrderNumber(order_number));

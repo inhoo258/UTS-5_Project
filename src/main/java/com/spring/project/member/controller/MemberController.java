@@ -86,10 +86,10 @@ public class MemberController {
 			@RequestParam(value = "permissionpage", required = false, defaultValue = "1") int permissionpage,
 			@RequestParam(value = "memberpage", required = false, defaultValue = "1") int memberpage) {
 		if (permission_ids != null) {
-			memberSerivce.permissions(permission_ids);
+//			memberSerivce.permissions(permission_ids);
 		}
 		if (permission_id != null) {
-			memberSerivce.permission(permission_id);
+//			memberSerivce.permission(permission_id);
 		}
 		attributes.addAttribute("permission_word" , permission_word);
 		attributes.addAttribute("permissionpage", permissionpage);

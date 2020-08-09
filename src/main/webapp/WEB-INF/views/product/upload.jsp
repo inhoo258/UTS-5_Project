@@ -122,12 +122,37 @@ $(document).ready(function() {
 });
 
 function productUpload(form) {
+<<<<<<< HEAD
+// 	var product_name = form.product_name.value;
+// 	var product_count = form.product_count.value;
+// 	var product_price = form.product_price.value;
+// 	var product_weight = form.product_weight.value;
+// 	var product_info = form.product_info.value;
+=======
 	var product_name = form.product_name.value;
 	var product_count = form.product_count.value;
 	var product_price = form.product_price.value;
 	var product_weight = form.product_weight.value;
 	var product_info = form.product_info.value;
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 	
+<<<<<<< HEAD
+// 	if (product_name.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_count.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_price.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_weight.trim() == ''){
+// 		return false;
+// 	}
+// 	if (product_info.trim() == ''){
+// 		return false;
+// 	}
+=======
 	if (product_name.trim() == ''){
 		return false;
 	}
@@ -143,6 +168,7 @@ function productUpload(form) {
 	if (product_info.trim() == ''){
 		return false;
 	}
+>>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 	form.submit();
 }
 </script>
