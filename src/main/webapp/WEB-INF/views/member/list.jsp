@@ -251,13 +251,14 @@
                     	//enabled click event add
                     	$("#list_table").on("click",".enabled.on", function(){
                     		let member_id = (result[$(".enabled").index(this)].member_id);
-                    		let enable = (result[$(".enabled").index(this)].member_enabled);
-                    		let member = {member_id:member_id , member_enabled:enable}
+//                     		let enable = (result[$(".enabled").index(this)].member_enabled);
+//                     		let member = {member_id:member_id , member_enabled:enable};
+//                     		console.log(JSON.stringify(member))
                     		var xhr = new XMLHttpRequest();
-                	        xhr.open("GET", "/project/member/rest/member_enable");
+                	        xhr.open("post", "/project/member/rest/member_enable");
                 	        xhr.setRequestHeader("content-type", "application/josn");
-//                 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
-                			xhr.send(JSON.stringify(member));
+                	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+                			xhr.send(member_id);
                 			xhr.onreadystatechange = function () {
                                 if (xhr.readyState === xhr.LOADING) {
                                     $("#loding").show();
