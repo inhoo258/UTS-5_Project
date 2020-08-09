@@ -41,6 +41,30 @@
                         <li>
                             <a href="#myinfomodifyform" onClick="myinfomodify()">개인 정보 수정<p>></p></a>
                         </li>
+                        <li>
+                            <a href="#" onClick="showmenubar()">상품 관리<p>></p></a>
+                        </li>
+                        <li >
+                        	<a href="#">상품 조회 / 수정</a>
+                        </li>
+                        <li>
+                        	<a href="#">상품 등록</a>
+                        </li>
+                        <li>
+                            <a href="#" >주문 관리<p>></p></a>
+                        </li>
+<!--                         <li> -->
+<!--                         	<a href="#">신규 주문()</a> -->
+<!--                         </li> -->
+<!--                         <li> -->
+<!--                         	<a href="#">주문 취소()</a> -->
+<!--                         </li> -->
+<!--                         <li> -->
+<!--                         	<a href="#">상품준비 완료시 배송상태()</a> -->
+<!--                         </li> -->
+                        <li>
+                            <a href="#">판매자 정보 수정<p>></p></a>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -102,5 +126,7 @@
     		alert("차있음");
     	}
     }
+    function showmenubar(){}
+    	
 </script>
 </html>
