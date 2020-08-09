@@ -106,17 +106,17 @@ public class MemberService implements IMemberService {
 	}
 
 	@Override
-	public void permission(String permission_id) {
-		memberRepository.permission(permission_id);
+	public void member_enable(int enable , String member_id) {
+		memberRepository.member_enable(enable ,member_id);
 	}
 
-	@Override
-	@Transactional(value = "tsManager")
-	public void permissions(String[] permission_ids) {
-		for (int i = 0; i < permission_ids.length; i++) {
-			memberRepository.permission(permission_ids[i]);
-		}
-	}
+//	@Override
+//	@Transactional(value = "tsManager")
+//	public void permissions(String[] permission_ids) {
+//		for (int i = 0; i < permission_ids.length; i++) {
+//			memberRepository.permission(permission_ids[i]);
+//		}
+//	}
 	@Override
 	public MemberVO getMemberEmail(String member_email) {
 		return memberRepository.getEmail(member_email);

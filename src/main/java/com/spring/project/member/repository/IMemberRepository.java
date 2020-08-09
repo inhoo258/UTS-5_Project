@@ -23,8 +23,8 @@ public interface IMemberRepository {
 	public MemberVO getMemberInfo(String member_id);
 
 	// 권한 수정========================================================================
-	@Update("update members set member_enabled='1' where member_id = #{permission_ids}")
-	public void permission(String permission_ids);
+	@Update("update members set member_enabled='#{0)' where member_id = #{1}")
+	public void member_enable(int enable ,String permission_ids);
 
 	// 회원 정보 수정
 	@Update("update members set member_pw=#{member_pw},member_name=#{member_name}, member_tel=#{member_tel}, member_main_addr=#{member_main_addr},member_sub_addr=#{member_sub_addr}, member_email=#{member_email} "

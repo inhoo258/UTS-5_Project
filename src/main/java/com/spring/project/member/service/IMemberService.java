@@ -19,8 +19,8 @@ public interface IMemberService {
 	
 	public List<MemberVO> getPermissionList(int permissionPage ,String permission_word);
 	public int getPermissionCount(String permission_word);
-	void permissions(String[] permission_ids);
-	public void permission(String permission_id);
+//	void permissions(String[] permission_ids);
+	public void member_enable(int enable ,String member_id);
 	public void insertSellerRegNum(String member_id, String seller_reg_num);
 	public SellerInfoVO getSellerInfo(String member_id);
 	public boolean getSellerRegNum(String seller_reg_num);
