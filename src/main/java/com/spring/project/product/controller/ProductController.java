@@ -151,8 +151,12 @@ public class ProductController {
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
-	// ===========================================================지현
+	@PostMapping("/orderview")
+	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
+		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
+	}
 
+	// ===========================================================지현
 //	// 주문 취소시 삭제
 //	@RequestMapping("")
 //	public String deleteOrder(@PathVariable String member_id, int product_id) {
