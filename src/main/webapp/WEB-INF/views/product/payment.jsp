@@ -17,32 +17,6 @@
 	</div>
 	<input type="button" onclick="gotolist()" value = "쇼핑 더 하기"><br>
 	<input type="button" onclick="myOrderList()" value = "나의 주문 내역"><br>
-<<<<<<< HEAD
-	 
-
-    
-    <form action='<c:url value="/product/rest/sendMail.do"/>' method="post">
-      <div>
-        <input type="text" name="tomail" size="120" style="width: 100%" placeholder="상대의 이메일" class="form-control">
-      </div>
-      <div align="center">
-        <!-- 제목 -->
-        <input type="text" name="title" size="120" style="width: 100%" placeholder="제목을 입력해주세요" class="form-control">
-      </div>
-        <p>
-          <div align="center">
-          <!-- 내용 -->
-            <textarea name="content" cols="120" rows="12" style="width: 100%; resize: none" placeholder="내용#" class="form-control"></textarea>
-          </div>
-        <p>
-      <div align="center">
-        <input type="submit" value="메일 보내기" class="btn btn-warning">
-      </div>
-    </form>
-
-    <jsp:include page="../header&footer/footer.jsp"/>
-=======
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 </body>
 <script type="text/javascript">
 	function gotolist(){

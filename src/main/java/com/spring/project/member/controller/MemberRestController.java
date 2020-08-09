@@ -16,7 +16,6 @@ import com.spring.project.member.service.IMemberService;
 public class MemberRestController {
 	@Autowired
 	IMemberService memberSerivce;
-	
 	@Autowired
 	private JavaMailSender mailSender;
 	

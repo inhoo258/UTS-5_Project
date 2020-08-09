@@ -20,12 +20,10 @@ public class MemberService implements IMemberService {
 	public String getMemberPassword(String userId) {
 		return memberRepository.getMemberPassword(userId);
 	}
-
 	@Override
 	public MemberVO getMemberInfo(String userId) {
 		return memberRepository.getMemberInfo(userId);
 	}
-
 	@Override
 	public List<MemberVO> getMemberList(int memberPage, String member_word) {
 		int start = (memberPage - 1) * 10 + 1;
@@ -121,10 +119,6 @@ public class MemberService implements IMemberService {
 	public MemberVO getMemberEmail(String member_email) {
 		return memberRepository.getEmail(member_email);
 	}
-	
-	
-	
-	
 	
 	
 //------------------ seller_info queries-----------------------------------
