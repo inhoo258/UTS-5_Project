@@ -24,7 +24,7 @@ public interface IMemberRepository {
 	
 	
 	// 권한 수정========================================================================
-	@Update("update members set member_enabled='#{0)' where member_id = #{1}")
+	@Update("update members set member_enabled=#{0} where member_id = #{1}")
 	public void member_enable(int enable ,String member_id);
 
 	// 회원 정보 수정

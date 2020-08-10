@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.service.IMemberService;
 
@@ -46,8 +47,14 @@ public class MemberRestController {
 	}
 
 	@RequestMapping("/list")
-	public List<MemberVO> memberList() {
-		return memberSerivce.getMemberList(1, "");
+	public List<MemberVO> memberList(@RequestParam(value="page" , defaultValue = "1")int page , @RequestParam(value = "word" , required = false) String word) {
+		return memberSerivce.getMemberList(page, word);
+	}
+	
+	@RequestMapping("/page_numbering")
+	public PagingManager page_Numbering(@RequestParam(value="page" , defaultValue = "1")int page , @RequestParam(value = "word" , required = false) String word) {
+		System.out.println("page : " + page);
+		return new PagingManager(memberSerivce.getMemberCount(word), page);
 	}
 
 	@PostMapping("/choice_delete")
@@ -56,18 +63,25 @@ public class MemberRestController {
 		memberSerivce.memberDelete(member_id);
 	}
 
-	@PostMapping(value="/member_enable" , produces="application/json;charset=UTF-8")
-	public void member_enable (@RequestBody String member_id) {
-		System.out.println("enable : " +memberSerivce.getMemberInfo(member_id).getMember_enabled());
-		if(memberSerivce.getMemberInfo(member_id).getMember_enabled() == 1) {
-			System.out.println("0일때");
+//	@PostMapping(value="/member_enable" , produces="application/json;charset=UTF-8")
+//	public void member_enable (@RequestBody String member_id) {
+//		System.out.println("enable : " +memberSerivce.getMemberInfo(member_id).getMember_enabled());
+//		if(memberSerivce.getMemberInfo(member_id).getMember_enabled() == 0) {
+//			System.out.println("0일때");
 //			memberSerivce.member_enable(1 , member_id);
-		}else {
-			System.out.println("1일때");
-			
-		}
+//		}else {
+//			System.out.println("1일때");
 //			memberSerivce.member_enable(0 , member_id);
+//		}
 //	}
+//	
+	@PostMapping(value="/member_enable" , produces="application/json;charset=UTF-8")
+	public void member_enable (@RequestBody MemberVO member) {
+		if(member.getMember_enabled() == 0) {
+			memberSerivce.member_enable(1, member.getMember_id());
+		}else {
+			memberSerivce.member_enable(0, member.getMember_id());
+		}
 	}
 
 }

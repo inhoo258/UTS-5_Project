@@ -218,7 +218,7 @@ body {
 /*================================================================*/
 /*================================================================*/
 
- #memberlist_div>div:nth-child(2) {
+#memberlist_div>div:nth-child(2) {
 	display: flex;
 	width: 100%;
 	min-width: 1400px;
@@ -231,13 +231,15 @@ body {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding-left: 10px;
 }
 
-#member_table_div tr>th:nth-child(4) {
-	width: 250px;
+#member_table_div tr>th:nth-child(2) {
+	width: 50px;
 }
 #member_table_div tr>th:nth-child(5) {
+	width: 250px;
+}
+#member_table_div tr>th:nth-child(6) {
 	width: 50px;
 }
 
@@ -307,6 +309,46 @@ body {
 #member_table_div th:last-child {
 	width: 100px;
 }
+
+#member_table_div th:last-child div {
+	display:flex;
+	margin: 0 auto;
+	justify-content:center;
+}
+
+
+/*================================================================*/
+/*================================================================*/
+/*================================================================*/
+
+
+.paging_span , #first , #back , #next , #last{
+	display:flex;
+	justify-content:center;
+	background-color:azure;
+	flex-direction:column;
+	width:40px;
+	height : 40px;
+	border:1px solid #2a365c;
+	margin: 5px;
+	color:black;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+
+.paging_span:hover , #first:hover , #back:hover , #next:hover , #last:hover{
+	background-color:#000000;
+	color:white;
+}
+
+
+
+
+
+
+
+
 
 /*================================================================*/
 /*================================================================*/
@@ -385,7 +427,225 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	to {transform: scale(1,1);}
 }
 
+/*=====================================================================*/
+/*=====================================================================*/
+/* 					회원 상세 정보  */
+/*=====================================================================*/
+/*=====================================================================*/
+#memberinfo_div input[type=button], label, input[type=radio] {
+	cursor: pointer;
+	outline: none;
+}
+
+#memberinfo_div{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 2000px;
+	align-items: center;
+}
+
+#memberinfo_div>div:nth-child(1) {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	width: 100%;
+	max-width: 1400px;
+	min-width: 1400px;
+	border-bottom: 1px solid #2a365c;
+}
+
+#memberinfo_div h2 {
+	display: flex;
+	font-size: 25px;
+	height: 60px;
+	align-items: center;
+	border-bottom: 1px solid #2a365c;
+	padding-left: 20px;
+}
+
+#memberinfo_option_div {
+	width: 100%;
+}
+
+#memberinfo_option_div>table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#memberinfo_option_div>table tr:nth-child(n+1) {
+	height: 80px;
+}
+
+#memberinfo_option_div>table td:nth-child(n+1) {
+	border-right: 1px solid #2a365c;
+	border-bottom: 1px solid #2a365c;
+	padding: 20px;
+}
+
+#memberinfo_option_div>table td:nth-child(odd) {
+	color: white;
+	width: 20%;
+	background-color: rgba(42, 54, 92, 0.8);
+}
+
+#memberinfo_option_div>table td:nth-child(even) {
+	background-color: azure;
+	width: 30%;
+}
+
+#memberinfo_option_div>table select {
+	width: 100px;
+	height: 35px;
+}
+
+#memberinfo_option_div>table input[type=text] {
+	height: 33px;
+	width: 250px;
+	font-size: 15px;
+}
+
+#memberinfo_option_div>table input[type=radio] {
+	width: 15px;
+	height: 15px;
+}
+
+#memberinfo_option_div>table label {
+	margin-right: 20px;
+	font-size: 17px;
+}
+
+#memberinfo_option_div>div:last-child {
+	display: flex;
+	justify-content: center;
+}
+
+#memberinfo_option_div input[type=button] {
+	width: 200px;
+	height: 50px;
+	border: 2px solid #2a365c;
+	background-color: white;
+	margin: 30px 0 40px 0;
+	font-size: 20px;
+	border-radius: 20px;
+}
+
+#memberinfo_option_div input[type=button]:hover {
+	background-color: #2a365c;
+	color: white;
+}
+
+#memberinfo_LV {
+	display: inline;
+	color: silver;
+	font-size: 20px;
+	border: 2px solid silver;
+	vertical-align: middle;
+	padding: 0 5px 0 5px;
+	margin-right: 10px
+}
 
 
+/*=====================================================================*/
+/*=====================================================================*/
+/*=====================================================================*/
 
+#memberinfo_div>div:nth-child(2) {
+	display: flex;
+	width: 100%;
+	min-width: 1400px;
+	max-width: 1400px;
+	/* padding-top: 40px; */
+	/* background-color: aqua; */
+}
 
+#memberinfo_table_div {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#memberinfo_table_div tr>th:nth-child(4) {
+	width: 250px;
+}
+
+#memberinfo_table_div tr>th:nth-child(5) {
+	width: 50px;
+}
+
+#memberinfo_table_div>div:first-child {
+	padding: 40px 0 20px 0;
+}
+
+#memberinfo_table_div>div:nth-child(2) {
+	padding: 20px 0 0 0;
+}
+
+#memberinfo_table_div div:first-child>input[type=button] {
+	width: 100px;
+	height: 40px;
+	margin-right: 20px;
+	border: 2px solid #2a365c;
+	background-color: white;
+	font-size: 20px;
+	border-radius: 10px;
+}
+
+#memberinfo_table_div div:first-child>input[type=button]:hover {
+	background-color: #2a365c;
+	color: white;
+}
+
+#memberinfo_table_div div:nth-child(2) input[type=button] {
+	width: 70px;
+	height: 30px;
+	border: 2px solid #2a365c;
+	background-color: white;
+	font-size: 15px;
+	border-radius: 10px;
+}
+
+#memberinfo_table_div div:nth-child(2) input[type=button]:hover {
+	background-color: #2a365c;
+	color: white;
+}
+
+#memberinfo_table_div table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: azure;
+}
+
+#memberinfo_table_div tr:nth-child(1) {
+	font-size: 20px;
+}
+
+#memberinfo_table_div tr:nth-child(n+1) {
+	height: 70px;
+}
+
+#memberinfo_table_div tr:first-child, #memberinfo_table_div tr:last-child
+	{
+	color: white;
+	background-color: rgba(42, 54, 92, 0.8);
+}
+
+#memberinfo_table_div th:nth-child(n+1) {
+	width: 60px;
+	border-bottom: 1px solid #2a365c;
+	border-top: 1px solid #2a365c;
+}
+
+#memberinfo_table_div th:first-child {
+	width: 50px;
+}
+
+#memberinfo_table_div th:last-child {
+	width: 100px;
+}
+
+#memberinfo_table_div th:last-child div {
+	display: flex;
+	margin: 0 auto;
+	justify-content: center;
+}
