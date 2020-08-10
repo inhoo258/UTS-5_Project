@@ -24,15 +24,15 @@
 	<div id=memberlist_menu_div>
 	 	<div id=memberlist_menubar>
 	    	<ul>
-	        	<li><a href="#a">회원 관리</a></li>
-	            <li><a href="#a">회원 상세정보</a></li>
+	        	<li><a onclick="memberList()">회원 관리</a></li>
+	            <li><a onclick="memberInfo()">회원 상세정보</a></li>
 	        </ul>
 	        <span id="bar"></span>
 	    </div>
 	 </div>
 	 
 	 <div id=memberlist_div>
-        <div id="member_list">
+        <div>
             <h2>회원 검색</h2>
             <div id=member_option_div>
                 <table>
@@ -89,7 +89,7 @@
         <div>
             <div id=member_table_div>
                 <div>
-                    <input type="button" value="선택 승인">
+<!--                     <input type="button" value="선택 승인"> -->
                     <input type="button" value="선택 삭제">
                 </div>
                 <div>
@@ -101,6 +101,7 @@
 								<span class="member_icon icon"></span> 
 								</label>
 							</th>
+							<th>Num</th>
                             <th>ID <br> Name </th>
                             <th>Tel</th>
                             <th>Address</th>
@@ -117,12 +118,84 @@
     </div>
     
     
-    <div id=memberinfo_div>
-    
+	<div id=memberinfo_div>
+    	<div>
+            <h2>회원 검색</h2>
+            <div id=memberinfo_option_div>
+                <table>
+                    <tr>
+                        <td>검색어</td>
+                        <td>
+                            <select>
+                                <option value="select_all">-전체검색-</option>
+                                <option value="member_name"> 이름 </option>
+                                <option value="member_tel"> 전화번호 </option>
+                                <option value="member_email"> Email </option>
+                            </select>
+                            <input type="text">
+                        </td>
+                        <td>회원 권한</td>
+                        <td>
+                            <input type="radio" id=info_auth_all name="info_auth" checked>
+                            <label for="info_auth_all">All</label>
+                            <input type="radio" id=info_customer name="info_auth">
+                            <label for="info_customer">Customer</label>
+                            <input type="radio" id=info_seller name="info_auth">
+                            <label for="info_seller">Seller</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>승인 여부</td>
+                        <td>
+                            <input type="radio" id=info_enabled_all name="info_enabled" checked>
+                            <label for="info_enabled_all">전체</label>
+                            <input type="radio" id=info_true name="info_enabled">
+                            <label for="info_true">승인</label>
+                            <input type="radio" id=info_false name="info_enabled">
+                            <label for="info_false">미승인</label>
+                        </td>
+                        <td>회원 등급</td>
+                        <td>
+                            <p id=memberinfo_LV>Silver</p>
+                            <select id=info_level>
+                                <option value="Silver"> Silver </option>
+                                <option value="Gold"> Gold </option>
+                                <option value="Platinum"> Platinum </option>
+                                <option value="VIP"> VIP </option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <input type="button" value="Select">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div id=memberinfo_table_div>
+                <div>
+                    <table id="info_list_table">
+                        <tr>
+                            <th>
+                                <label class="checkbox memberinfo_label">
+                                    <input type="checkbox" id="Check_All">
+                                    <span class="member_icon icon"></span>
+                                </label>
+                            </th>
+                            <th>ID <br> Name </th>
+                            <th>Tel</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Auth</th>
+                            <th>Enabled</th>
+                            <th>기타</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    
-    
 	<script>
 		$("#memberinfo_div").hide();
 		$("#memberlist_menubar>ul>li a").click(function() {
@@ -131,11 +204,19 @@
 			if($("#memberlist_menubar>ul>li:nth-child(1) a").attr("class") != "on"){
 				$("#bar").animate({"left" :"450px", "width" : "150px"},1000);
 				$("#memberlist_div").hide();
+				
 				$("#memberinfo_div").show();
 			}else{
 				$("#bar").animate({"left" :"110px" , "width" : "130px"},1000);
-				$("#memberlist_div").show();
 				$("#memberinfo_div").hide();
+				$("#list_table tr:nth-child(n+2)").remove();
+	        	$("#list_table").off();
+	        	document.getElementById("Check_All").checked = false;
+	        	check_in_out = true;
+	        	save_page = 1;
+	   			load_list_ajax();
+				$("#memberlist_div").show();
+				
 			}
 		})
 	</script>
@@ -164,15 +245,21 @@
 	</script>
 	
 	<script>
+		let save_page = 1;
+	
 		$(window).on("load" , function(){
 			load_list_ajax();
 		});
 		
 		$("#memberlist_menubar>ul>li:nth-child(1) a").addClass("on");
 		
-		function load_list_ajax(){
+		function load_list_ajax(page){
 			var xhr = new XMLHttpRequest();
-	        xhr.open("GET", "/project/member/rest/list");
+	        if(page == undefined){
+	        	xhr.open("GET", "/project/member/rest/list");
+	        }else{
+	        	xhr.open("GET", "/project/member/rest/list?page="+page);
+	        }
 	        xhr.setRequestHeader("content-type", "application/josn");
 			xhr.send();
 			xhr.onreadystatechange = function () {
@@ -183,6 +270,7 @@
                     if (xhr.status === 200 || xhr.status === 201) {
                     	$("#loding").hide();
                     	let result = JSON.parse(xhr.responseText);
+                    	console.log(result)
                     	for(var i = 0 ; i < result.length ; i++){
 	                    	let enabled_text
 	                    	
@@ -196,7 +284,8 @@
 									"<span class='member_icon icon'></span>"+
 									"</label>"+
 								"</th>"+
-		                        "<th>"+result[i].member_id+" <br> "+result[i].member_name+" </th>"+
+		                        "<th>"+result[i].rn+"</th>"+
+		                        "<th>"+result[i].member_id+"<br>"+result[i].member_name+"</th>"+
 		                        "<th>"+result[i].member_tel+"</th>"+
 		                        "<th>"+result[i].member_main_addr+"</th>"+
 		                        "<th>"+result[i].member_email+"</th>"+
@@ -215,12 +304,6 @@
 	                    	"</tr>"
 		                    $("#list_table").append(memberlist);
                     	}
-                    	
-                    	let paging = "<tr>"+
-                    		"<th  colspan='8'>"+
-                    			"처음  1 2 3 4 5 6 7 8 9 10  다음"+
-                    		"</th>"
-                    	$("#list_table").append(paging);
                     	
                     	//delete click event add
                     	$("#list_table").on("click",".delete.on", function(){
@@ -251,11 +334,15 @@
                     	//enabled click event add
                     	$("#list_table").on("click",".enabled.on", function(){
                     		let member_id = (result[$(".enabled").index(this)].member_id);
-                    		let enable = (result[$(".enabled").index(this)].member_enabled);
-                    		let member = {member_id:member_id , member_enabled:enable}
+                    		let member_enabled = result[$(".enabled").index(this)].member_enabled;
+                    		let member = {
+                    			member_id:member_id,
+                    			member_enabled:member_enabled
+                    		}
+//                     		console.log(JSON.stringify(member))
                     		var xhr = new XMLHttpRequest();
-                	        xhr.open("GET", "/project/member/rest/member_enable");
-                	        xhr.setRequestHeader("content-type", "application/josn");
+                	        xhr.open("post", "/project/member/rest/member_enable");
+                	        xhr.setRequestHeader("content-type", "application/json");
 //                 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
                 			xhr.send(JSON.stringify(member));
                 			xhr.onreadystatechange = function () {
@@ -279,7 +366,6 @@
                    		
                    		//check_box click event add
 	                   	$("#list_table").on("click",".CheckEach.on", function(){
-	         		    	console.log("asdf")
 	         				let check_index = $(".CheckEach").index(this);
 	         				if (document.getElementsByClassName("CheckEach")[check_index].checked == true) {
 	         			    	check_count++;
@@ -296,12 +382,133 @@
 	         			});
 	         			$(".CheckEach").addClass("on");
                     }
+                    
+                    paging_ajax(page);
+                    
                 }
             }
 		}
+		
+		
+		
+		function paging_ajax(page){
+		//page numbering ajax
+	        console.log(page)
+	    	var xhr = new XMLHttpRequest();
+	        if(page == undefined){
+	        	xhr.open("GET", "/project/member/rest/page_numbering");
+	        }else{
+	        	xhr.open("GET", "/project/member/rest/page_numbering?page="+page);
+	        }
+	        xhr.setRequestHeader("content-type", "application/josn");
+			xhr.send();
+			xhr.onreadystatechange = function () {
+	            if (xhr.readyState === xhr.LOADING) {
+	                $("#loding").show();
+	            }
+	            if (xhr.readyState === xhr.DONE) {
+	                if (xhr.status === 200 || xhr.status === 201) {
+	                	$("#loding").hide();
+	                	let pagingManager= JSON.parse(xhr.responseText);
+	                	console.log(pagingManager)
+	                	let paging = "<tr>"+
+	            		"<th  colspan='9'>"+
+	            		"<div>"+
+	            		"<span id='first'>처음</span>"+
+	            		(function(){
+		            		if(pagingManager.nowBlock > 1){
+								return "<span id='back'>이전</span>"     			
+		            		}else{
+		            			return ""
+		            		}
+	            		})()
+	            		+
+	            		(function(){
+	            			var a_paging = ""
+	            			for(var i = pagingManager.startPage ; i <= pagingManager.endPage ; i++){
+								a_paging += "<span class='paging_span'>"+i+"</span>"    				
+	            			}
+	            			return a_paging;
+	            		})()
+	            		+
+	            		(function(){
+		            		if(pagingManager.nowBlock >= pagingManager.totalBlock){
+								return ""     			
+		            		}else{
+		            			return "<span id='next'>다음</span>"
+		            		}
+	            		})()
+	            		+
+	            		(function(){
+		            		return "<span id='last'>끝</span>"
+	            		})()
+	            		+
+	            		"</div>"+
+	            		"</th>"+
+	            		"</tr>"
+	            	$("#list_table").append(paging);
+	            	document.getElementsByClassName("paging_span")[save_page-1].style.backgroundColor = "#2a365c";
+	            	document.getElementsByClassName("paging_span")[save_page-1].style.color = "white";
+	            	
+	                $("#list_table").on("click",".paging_span.on", function(){
+                    	let now_page = ($(".paging_span").index(this)+1);
+                    	save_page = now_page;
+                    	let select_page = document.getElementsByClassName("paging_span")[now_page-1].innerText;
+                   		$("#list_table tr:nth-child(n+2)").remove();
+                   		$("#list_table").off();
+                   		document.getElementById("Check_All").checked = false;
+                       	check_in_out = true;
+                   		load_list_ajax(select_page);						
+                   	});
+	                
+	                $("#list_table").on("click","#first.on", function(){
+                    	save_page = 1;
+                   		$("#list_table tr:nth-child(n+2)").remove();
+                   		$("#list_table").off();
+                   		document.getElementById("Check_All").checked = false;
+                       	check_in_out = true;
+                   		load_list_ajax(1);						
+                   	});
+	                
+	                $("#list_table").on("click","#next.on", function(){
+                   		$("#list_table tr:nth-child(n+2)").remove();
+                   		$("#list_table").off();
+                   		document.getElementById("Check_All").checked = false;
+                       	check_in_out = true;
+                       	save_page = 1;
+                   		load_list_ajax(pagingManager.nowBlock * 10 + 1);						
+                   	});
+	                
+	                $("#list_table").on("click","#back.on", function(){
+                   		$("#list_table tr:nth-child(n+2)").remove();
+                   		$("#list_table").off();
+                   		document.getElementById("Check_All").checked = false;
+                       	check_in_out = true;
+                       	save_page = 1;
+                   		load_list_ajax((pagingManager.nowBlock -1) * 10 - 9);						
+                   	});
+	                
+	                $("#list_table").on("click","#last.on", function(){
+                   		$("#list_table tr:nth-child(n+2)").remove();
+                   		$("#list_table").off();
+                   		document.getElementById("Check_All").checked = false;
+                       	check_in_out = true;
+                       	save_page = pagingManager.totalPage - (pagingManager.totalBlock - 1) * 10 
+                   		load_list_ajax(pagingManager.totalPage);						
+                   	});
+	                
+                   		$(".paging_span").addClass("on");
+                   		$("#first").addClass("on");
+                   		$("#next").addClass("on");
+                   		$("#back").addClass("on");
+                   		$("#last").addClass("on");
+	                }
+	            }
+			}
+		}
+		
 	</script>
 	
-   
 	
 	<script>
 	    $(function(){
@@ -319,6 +526,24 @@
 		            $("#member_LV").css({"color" : "tomato" , "border-color" : "tomato"})
 	        	}
 	            $("#member_LV").text($(this).val());
+	        });
+	    });
+	    
+	    $(function(){
+	        $("#info_level").change(function(){
+	        	if($(this).val() == "Gold"){
+		            $("#memberinfo_LV").css({"color" : "gold" , "border-color" : "gold"})
+	        	}
+	        	if($(this).val() == "Silver"){
+		            $("#memberinfo_LV").css({"color" : "Silver" , "border-color" : "Silver"})
+	        	}
+	        	if($(this).val() == "Platinum"){
+		            $("#memberinfo_LV").css({"color" : "mediumpurple" , "border-color" : "mediumpurple"})
+	        	}
+	        	if($(this).val() == "VIP"){
+		            $("#memberinfo_LV").css({"color" : "tomato" , "border-color" : "tomato"})
+	        	}
+	            $("#memberinfo_LV").text($(this).val());
 	        });
 	    });
     </script>

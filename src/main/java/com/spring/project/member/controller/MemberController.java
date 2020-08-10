@@ -63,13 +63,11 @@ public class MemberController {
 		System.out.println("------------------\nmember-insert process---------------------\n");
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
 //		for(int i = 0 ; i < 1000 ; i++) {
-			if (member.getMember_auth().equals("ROLE_CUSTOMER")) {
+			if (member.getMember_auth().equals("ROLE_CUSTOMER"))
 				member.setMember_enabled(1);
 			System.out.println("seller_reg_num : "+seller_reg_num);
-//			member.setMember_id(i+"");
 			memberSerivce.memberInsert(member);
 //			}
-		}
 		if(!seller_reg_num.equals(""))memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
 		return "redirect:/";
 	}
