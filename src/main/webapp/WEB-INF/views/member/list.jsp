@@ -24,8 +24,8 @@
 	<div id=memberlist_menu_div>
 	 	<div id=memberlist_menubar>
 	    	<ul>
-	        	<li><a onclick="memberList()">회원 관리</a></li>
-	            <li><a onclick="memberInfo()">회원 상세정보</a></li>
+	        	<li><a>회원 관리</a></li>
+	            <li><a>회원 상세정보</a></li>
 	        </ul>
 	        <span id="bar"></span>
 	    </div>
@@ -39,13 +39,13 @@
                     <tr>
                         <td>검색어</td>
                         <td>
-                            <select>
+                            <select id="select_option">
                                 <option value="select_all">-전체검색-</option>
                                 <option value="member_name"> 이름 </option>
                                 <option value="member_tel"> 전화번호 </option>
                                 <option value="member_email"> Email </option>
                             </select>
-                            <input type="text">
+                            <input type="text" id="member_select_word">
                         </td>
                         <td>회원 권한</td>
                         <td>
@@ -80,10 +80,9 @@
                     </tr>
                 </table>
                 <div>
-                    <input type="button" value="Select">
+                    <input type="button" value="Select" onclick="member_select()">
                 </div>
             </div>
-            
         </div>
 
         <div>
@@ -132,7 +131,7 @@
                                 <option value="member_tel"> 전화번호 </option>
                                 <option value="member_email"> Email </option>
                             </select>
-                            <input type="text">
+                            <input type="text" >
                         </td>
                         <td>회원 권한</td>
                         <td>
@@ -220,6 +219,68 @@
 			}
 		})
 	</script>
+	
+	<script>
+		function member_select(){
+			$("#list_table tr:nth-child(n+2)").remove();
+        	$("#list_table").off();
+        	document.getElementById("Check_All").checked = false;
+        	check_in_out = true;
+        	
+        	let select_word = (function(){
+        		if(document.getElementById("member_select_word").value==""){
+        			return null;	
+        		}else{
+        			return document.getElementById("member_select_word").value;
+        		}
+        	})()
+        	let select_option =(function() {
+        		if(document.getElementById("select_option").value == "select_all"){
+        			return null;
+        		}else{
+        			return document.getElementById("select_option").value;
+        		}
+        	})()
+        	let select_auth = (function(){
+        		for(var i = 0 ; i < document.getElementsByName("auth").length ; i ++){
+	        		if(document.getElementsByName("auth")[i].checked == true){
+	        			if(document.getElementsByName("auth")[i].getAttribute("id") == "auth_all"){
+	        				return null;
+	        			}else if(document.getElementsByName("auth")[i].getAttribute("id") == "customer"){
+	        				return "ROLE_CUSTOMER";
+	        			}else{
+	        				return "ROLE_SELLER";
+	        			}
+	        				
+	        		}
+        		} 
+        	})()
+        	let select_enabled = (function(){
+        		for(var i = 0 ; i < document.getElementsByName("enabled").length ; i ++){
+	        		if(document.getElementsByName("enabled")[i].checked == true){
+	        			if(document.getElementsByName("enabled")[i].getAttribute("id") == "true"){
+	        				return 1	
+	        			}else if(document.getElementsByName("enabled")[i].getAttribute("id") == "false"){
+	        				return 0
+	        			}else{
+	        				return null;
+	        			}
+	        		}
+        		} 
+        	})()	
+        	
+        	selectVO = {
+        		page:1,
+        		select_word:select_word,
+        		select_option:select_option,
+        		select_auth:select_auth,
+        		select_enabled:select_enabled
+        	}
+        	
+        	load_list_ajax(selectVO);
+		}
+	
+	</script>
 
 	<script>
 		    let check_in_out = true
@@ -239,7 +300,6 @@
 		            check_count = 0;
 		            check_in_out = true;
 		        }
-		        console.log(check_count)
 		    };
 		    
 	</script>
@@ -248,20 +308,21 @@
 		let save_page = 1;
 	
 		$(window).on("load" , function(){
-			load_list_ajax();
+			load_list_ajax(selectVO);
 		});
 		
 		$("#memberlist_menubar>ul>li:nth-child(1) a").addClass("on");
 		
-		function load_list_ajax(page){
+		let selectVO = {
+			page:1
+		}
+		
+		function load_list_ajax(selectVO){
+			console.log(JSON.stringify(selectVO));
 			var xhr = new XMLHttpRequest();
-	        if(page == undefined){
-	        	xhr.open("GET", "/project/member/rest/list");
-	        }else{
-	        	xhr.open("GET", "/project/member/rest/list?page="+page);
-	        }
-	        xhr.setRequestHeader("content-type", "application/josn");
-			xhr.send();
+	        xhr.open("post", "/project/member/rest/list");
+	        xhr.setRequestHeader("content-type", "application/json");
+			xhr.send(JSON.stringify(selectVO));
 			xhr.onreadystatechange = function () {
                 if (xhr.readyState === xhr.LOADING) {
                     $("#loding").show();
@@ -383,7 +444,7 @@
 	         			$(".CheckEach").addClass("on");
                     }
                     
-                    paging_ajax(page);
+                    paging_ajax(selectVO.page);
                     
                 }
             }
@@ -458,7 +519,10 @@
                    		$("#list_table").off();
                    		document.getElementById("Check_All").checked = false;
                        	check_in_out = true;
-                   		load_list_ajax(select_page);						
+                       	selectVO={
+                       		page : select_page
+                       	}
+                   		load_list_ajax(selectVO);						
                    	});
 	                
 	                $("#list_table").on("click","#first.on", function(){
@@ -467,7 +531,10 @@
                    		$("#list_table").off();
                    		document.getElementById("Check_All").checked = false;
                        	check_in_out = true;
-                   		load_list_ajax(1);						
+                       	selectVO={
+                            page : 1
+                        }
+                   		load_list_ajax(selectVO);						
                    	});
 	                
 	                $("#list_table").on("click","#next.on", function(){
@@ -476,7 +543,10 @@
                    		document.getElementById("Check_All").checked = false;
                        	check_in_out = true;
                        	save_page = 1;
-                   		load_list_ajax(pagingManager.nowBlock * 10 + 1);						
+                       	selectVO={
+                           	page : pagingManager.nowBlock * 10 + 1
+						}
+                   		load_list_ajax(selectVO);						
                    	});
 	                
 	                $("#list_table").on("click","#back.on", function(){
@@ -485,7 +555,10 @@
                    		document.getElementById("Check_All").checked = false;
                        	check_in_out = true;
                        	save_page = 1;
-                   		load_list_ajax((pagingManager.nowBlock -1) * 10 - 9);						
+                    	selectVO={
+							page : (pagingManager.nowBlock -1) * 10 - 9
+    					}
+                   		load_list_ajax(selectVO);						
                    	});
 	                
 	                $("#list_table").on("click","#last.on", function(){
@@ -494,7 +567,10 @@
                    		document.getElementById("Check_All").checked = false;
                        	check_in_out = true;
                        	save_page = pagingManager.totalPage - (pagingManager.totalBlock - 1) * 10 
-                   		load_list_ajax(pagingManager.totalPage);						
+                       	selectVO={
+							page : pagingManager.totalPage
+    					}
+                   		load_list_ajax(selectVO);						
                    	});
 	                
                    		$(".paging_span").addClass("on");

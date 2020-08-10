@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
+import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.service.IMemberService;
 
 @RestController
@@ -46,35 +47,51 @@ public class MemberRestController {
 		}
 	}
 
-	@RequestMapping("/list")
-	public List<MemberVO> memberList(@RequestParam(value="page" , defaultValue = "1")int page , @RequestParam(value = "word" , required = false) String word) {
-		return memberSerivce.getMemberList(page, word);
+	@PostMapping("/list")
+	public List<MemberVO> memberList(@RequestBody SelectVO select) {
+		
+//		if((select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() == null )
+//				||(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() != null && select.getSelect_word() == null)){
+//			return memberSerivce.getMemberList(select.getPage(), "");
+////			초기값
+//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() != null) {
+////			word 만 있을경우
+//			return null;
+//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() != null && select.getSelect_word() != null) {
+////			word 에 옵션 ++
+//			return null;
+//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()!=null && select.getSelect_option() == null && select.getSelect_word() == null) {
+////			enabled만 있을때
+//			return null;
+//		}else if(select.getSelect_auth() != null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() == null) {
+////			활성화 여부만
+//			return null;
+//		}else if(select.getSelect_auth() != null && select.getSelect_enabled()!=null && select.getSelect_option() == null && select.getSelect_word() == null) {
+////			활성화 권한 두개
+//			return null;
+//		}else if(select.getSelect_auth() != null && select.getSelect_enabled()==null && select.getSelect_option() != null && select.getSelect_word() != null) {
+////			권한 + 옵션 + 워드
+//			return null;
+//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() == null) {
+//			return null;
+//		}
+		System.out.println(select.getSelect_auth());
+		System.out.println(select.getSelect_enabled());
+		System.out.println(select.getSelect_option());
+		System.out.println(select.getSelect_word());
+		return memberSerivce.getMemberList(1, "");
 	}
 	
 	@RequestMapping("/page_numbering")
 	public PagingManager page_Numbering(@RequestParam(value="page" , defaultValue = "1")int page , @RequestParam(value = "word" , required = false) String word) {
-		System.out.println("page : " + page);
 		return new PagingManager(memberSerivce.getMemberCount(word), page);
 	}
 
 	@PostMapping("/choice_delete")
 	public void choice_delete(@RequestBody String member_id) {
-		System.out.println("delete member_id : " + member_id);
 		memberSerivce.memberDelete(member_id);
 	}
 
-//	@PostMapping(value="/member_enable" , produces="application/json;charset=UTF-8")
-//	public void member_enable (@RequestBody String member_id) {
-//		System.out.println("enable : " +memberSerivce.getMemberInfo(member_id).getMember_enabled());
-//		if(memberSerivce.getMemberInfo(member_id).getMember_enabled() == 0) {
-//			System.out.println("0일때");
-//			memberSerivce.member_enable(1 , member_id);
-//		}else {
-//			System.out.println("1일때");
-//			memberSerivce.member_enable(0 , member_id);
-//		}
-//	}
-//	
 	@PostMapping(value="/member_enable" , produces="application/json;charset=UTF-8")
 	public void member_enable (@RequestBody MemberVO member) {
 		if(member.getMember_enabled() == 0) {
@@ -83,5 +100,6 @@ public class MemberRestController {
 			memberSerivce.member_enable(0, member.getMember_id());
 		}
 	}
+	
 
 }
