@@ -19,7 +19,7 @@
    <c:set var="member_id">
         <sec:authentication property="principal.username" />
     </c:set>
-    <jsp:include page="../header&footer/header.jsp" />
+<%--     <jsp:include page="../header&footer/header.jsp" /> --%>
     <!-- 주문내역에서 필요한 것들 -->
     <!-- 사진, 결제방법 -->
     <c:set var="totalCost" value="0" />

@@ -17,7 +17,7 @@
     background-color: rgba(42, 54, 92, 1); 
 }
 #info-main>div:nth-child(1)>div:nth-child(1){
-    width: 68%;
+    width: 70%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -31,12 +31,20 @@
     background-color: azure;
 }
 #info-main>div:nth-child(1)>div:nth-child(1)>div:first-child{
-    width: 400px;
+    width: 300px;
     height: 200px;
 }
-
+#info-main>div:nth-child(1)>div:nth-child(1)>div:nth-child(2){
+    width: 500px;
+    height: 200px;
+}
+#info-main>div:nth-child(1)>div:nth-child(1)>div:last-child{
+	width: 200px;
+	height: 200px;
+}
 #info-main>div:nth-child(2){
     margin: 0 auto;
+    margin-top: 20px;
     display: flex;
     width: 100%;
     height: 600px; 
@@ -44,20 +52,23 @@
 }
 #info-main>div:nth-child(2)>div{
     display: flex;
-    width: 68%;
-    height: 600px; 
+    width: 95%;
+    height: 600px;
 }
 #info-main>div:nth-child(2)>div>div:nth-child(1){
-    width: 22%;
+    width: 10%;
     height: 600px; 
+    background-color: #2a365c;
+    color: white ;
 }
 #info-main>div:nth-child(2)>div>div:nth-child(2){
-    width: 75%;
+    width: 90%;
     height: 600px; 
-    margin-left: auto;
+    background-color: yellowgreen;
 }
 .myinfotextframe{
-	border: 1px solid white;
+    border: 2px solid white;
+    border-radius: 3px;
 }
 .myinfotextframe>div:nth-child(1){
     height: 50px;
@@ -67,33 +78,100 @@
 }
 .myinfotextframe>div:nth-child(1)>h2{
     color: white;
-    padding-left: 30px;
+    padding-left: 18px;
+}
+.infoframeB>div:nth-child(1)>h2{
+    padding-left: 13px;
 }
 .myinfotextframe>div:nth-child(2){
-    background-color: #2a365c;
+    background-color: azure;
     height: 133px;
 }
 .myinfotextframe>div:nth-child(2)>p{
-	padding-top: 10px;
-    padding-left: 30px;
-    color: white;
+	padding-top: 30px;
+    padding-left: 20px;
+    color: #2a365c;
     font-size: 20px;
 }
 .myinfotextframe>div:nth-child(2)>p:nth-child(1)>span:nth-child(1){
     font-size: 40px;
 }
+.infoframeB>div:nth-child(even){
+	height:40px;
+	font-size: 15px;
+	padding-left: 13px;
+}
+.infoframeB>div:nth-child(odd){
+	height:50px;
+	font-size: 15px;
+	background-color: #2a365c;
+}
+.infoframeB>div:nth-child(3){
+	border-top: 2px solid white;
+	border-bottom: 2px solid white;
+	height: 42px;
+	padding-left: 13px;
+	padding-top: 8px;
+	color: white;
+}
+
+
+
+
+.subinfo{
+	display: flex;
+}
+.subinfo>#keyframe{
+	width: 80px;
+}
+.subinfo>#valueframe{
+	width: 500px;
+}
+
+.subinfo>p{
+	display: flex;
+	height: 20px;
+}
+.subinfo>div>p{
+	height: 26.5px;
+}
+.subinfo>div>p>#key{
+	display: inline-block;
+	font-size: 15px;
+	width: 100%;
+	text-align:center;
+	margin-top: 3px;
+	color: black;
+	justify-content: space-between;
+}
+.subinfo>div>p>#value{
+	display: inline-block;
+	font-size: 14px;
+	margin-top: 3px;
+	width: 400px;
+	color: black;
+	margin-left: 2px;
+}
+
+
+
+
+
+
 .secondsection>div>div:nth-child(1)>p{
     font-size: 27px;
     padding: 20px 10px;
 }
 .secondsection>div>div:nth-child(1)>ul{
-    border: 1px solid steelblue;
+    border: 2px solid #2a365c;
+    color: #2a365c;
 }
 .secondsection>div>div:nth-child(1)>ul>li{
     display: flex;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid #2a365c;
+    border-bottom: 2px solid #2a365c;
+    background-color: #2a365c;
     height: 40px;
 }
 .secondsection>div>div:nth-child(1)>ul>li:last-child{
@@ -102,6 +180,7 @@
 .secondsection>div>div:nth-child(1)>ul>li>a{
     font-size: 12px;
     display: flex;
+    color: white;
     width: 100%;
     justify-content: space-between;
     margin:0 10px 0 10px;
@@ -113,11 +192,11 @@
 .secondsection>div>div:nth-child(2)>p{
     font-size: 20px;
     padding: 25px 14px;
-    height: 25px;
+    height: 26px;
 }
 .secondsection>div>div:nth-child(2)>hr{
     background-color: #2a365c;
-    height: 3px;
+    height: 2px;
     border: none;
 }
 
