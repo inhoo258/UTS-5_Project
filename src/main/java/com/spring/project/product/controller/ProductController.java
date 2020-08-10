@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +57,9 @@ public class ProductController {
 //	}
 //
 	// 개인의 장바구니 목록 조회
-	@RequestMapping("/cart/{member_id}")
-	public String getCart(@PathVariable("member_id") String member_id, Model model) {
-		model.addAttribute("cartList", cartService.getCart(member_id));
+	@RequestMapping("/cart")
+	public String getCart(Authentication authentication, Model model) {
+		model.addAttribute("cartList", cartService.getCart(authentication.getName()));
 		return "product/cart";
 	}
 
@@ -144,14 +145,18 @@ public class ProductController {
 	}
 	// ===========================================================힘찬
 
-	// 결제 완료 후 나의 주문서 ===========================================지현
-	@GetMapping("/myorderlist/{userId}")
-	public String myOrderLIst(@PathVariable("userId") String member_id, Model model) {
-		model.addAttribute("myOrderList", orderService.getMyOrderList(member_id));
-		return "product/myorderlist";
+	// 결제 완료 후 나의 주문내역 ===========================================지현
+	@GetMapping("/orderlist/{member_id}")
+	public String myOrderLIst(@PathVariable("member_id") String member_id, Model model) {
+		model.addAttribute("orderLists", orderService.getOrderList(member_id));
+		return "product/orderlist";
 	}
-	// ===========================================================지현
+	@PostMapping("/orderview")
+	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
+		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
+	}
 
+	// ===========================================================지현
 //	// 주문 취소시 삭제
 //	@RequestMapping("")
 //	public String deleteOrder(@PathVariable String member_id, int product_id) {

@@ -42,6 +42,5 @@
 	function gotolist(){
 		location.href = '<c:url value="/product/list"/>'
 	}
-	
 </script>
 </html>

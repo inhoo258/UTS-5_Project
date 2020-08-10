@@ -23,7 +23,8 @@
       <c:set var="totalPrice" value="0" />
 
       <form action='<c:url value="/product/ordersheet"/>' method="POST" id="updateCart">
-      <div  align="center" style="margin-top: 100px">
+      <input type="hidden" name="member_id" value="${member_id}">
+      <div  align="center">
          <div class="pro_section">
             <div id="ordersheet">
                <h1>장 바 구 니</h1>

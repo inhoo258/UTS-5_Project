@@ -1,6 +1,7 @@
 package com.spring.project.product.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,33 @@ public class OrderService{
 	@Autowired
 	IOrderRepository orderRepository;
 	
-	public ArrayList<OrdersVO> getOrderList(){
-		return orderRepository.getOrderList();
-	}
-	
 	//결제완료 된 주문 내역 
-	public ArrayList<OrdersVO> getMyOrderList(String member_id) {
-		return orderRepository.getMyOrderList(member_id);
+	public List<List<OrdersVO>> getOrderList(String member_id) {
+		List<OrdersVO> totalList = orderRepository.getOrderList(member_id);
+		List<OrdersVO> orderListByGroupNum = new ArrayList<OrdersVO>();
+		List<List<OrdersVO>> orderList = new ArrayList<List<OrdersVO>>();
+		for (int i = 0; i < totalList.size(); i++) {
+			System.out.println(totalList.get(i).toString());
+			if(i==0) {
+				orderListByGroupNum.add(totalList.get(i));
+				if(totalList.size()==1)orderList.add(orderListByGroupNum);
+			}
+			else if(totalList.get(i-1).getOrder_group_number()==totalList.get(i).getOrder_group_number()) {
+				orderListByGroupNum.add(totalList.get(i));
+				if(i==totalList.size()-1)orderList.add(orderListByGroupNum);
+			}
+			else {
+				orderList.add(orderListByGroupNum);
+				orderListByGroupNum = new ArrayList<OrdersVO>();
+				orderListByGroupNum.add(totalList.get(i));
+				if(i==totalList.size()-1)orderList.add(orderListByGroupNum);
+			}
+		}
+		return orderList; 
 	}
-	
+//	public List<OrdersVO> getOrderList(String member_id){
+//		return orderRepository.getOrderList(member_id);
+//	}
 	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price) {
 		for (int i = 0; i < product_id.length; i++) {
 			System.out.println("Start : " + i);
@@ -32,11 +51,42 @@ public class OrderService{
 			orderRepository.paymentInOrder(ordersVO);
 		}
 	}
-	public void deleteOrder(String member_id, int product_id) {
-		orderRepository.deleteOrder(member_id, product_id);
-	}
+//	public void deleteOrder(String member_id, int product_id) {
+//		orderRepository.deleteOrder(member_id, product_id);
+//	}
 	public void deliveryOrder(String member_id, int product_id, String order_status) {
 		orderRepository.deliveryOrder(member_id, product_id, order_status);
 	}
-	
+
+	public OrdersVO getOrderByOrderNumber(int order_number) {
+		return orderRepository.getOrderByOrderNumber(order_number);
+	}
+
+	public void deleteOrder(int order_number) {
+		orderRepository.deleteOrder(order_number);
+	}
+	public List<List<OrdersVO>> getOrder(String member_id, int order_group_number) {
+		List<OrdersVO> totalList = orderRepository.getOrder(member_id, order_group_number);
+		List<OrdersVO> orderListByGroupNum = new ArrayList<OrdersVO>();
+		List<List<OrdersVO>> orderList = new ArrayList<List<OrdersVO>>();
+		for (int i = 0; i < totalList.size(); i++) {
+			System.out.println(totalList.get(i).toString());
+			if(i==0) {
+				orderListByGroupNum.add(totalList.get(i));
+				if(totalList.size()==1)orderList.add(orderListByGroupNum);
+			}
+			else if(totalList.get(i-1).getOrder_group_number()==totalList.get(i).getOrder_group_number()) {
+				orderListByGroupNum.add(totalList.get(i));
+				if(i==totalList.size()-1)orderList.add(orderListByGroupNum);
+			}
+			else {
+				orderList.add(orderListByGroupNum);
+				orderListByGroupNum = new ArrayList<OrdersVO>();
+				orderListByGroupNum.add(totalList.get(i));
+				if(i==totalList.size()-1)orderList.add(orderListByGroupNum);
+			}
+		}
+		return orderList; 
+
+	}
 }

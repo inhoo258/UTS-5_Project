@@ -3,6 +3,10 @@ package com.spring.project.board.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.project.board.model.NoticeVO;
+import com.spring.project.board.model.ReviewVO;
 import com.spring.project.board.service.EventService;
 import com.spring.project.board.service.NoticeService;
 import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
 import com.spring.project.common.PagingManager;
+import com.spring.project.product.service.OrderService;
 
 @Controller
 @RequestMapping("/board")
@@ -31,6 +37,8 @@ public class BoardController {
 	EventService eventService;
 	@Autowired
 	NoticeService noticeService;
+	@Autowired
+	OrderService orderService;
 	
 	//공지사항 게시판
 	@GetMapping("/notice/list")
@@ -138,8 +146,20 @@ public class BoardController {
 		
 	}
 	
-	@GetMapping("/review/form")
-	public void reviewForm() {
+	//review
+	@PostMapping("/review/form")
+	public void reviewForm(@RequestParam("member_id")String member_id, @RequestParam("order_number")int order_number, Model model) {
+		model.addAttribute("order", orderService.getOrderByOrderNumber(order_number));
 	}
-	
+	@RequestMapping("/review/img")
+	public ResponseEntity<byte[]> getImage(@RequestParam("product_id")int product_id, @RequestParam("review_number")int review_number) {
+		ReviewVO reviewVO = reviewService.getReviewImage(product_id, review_number);
+		String review_img_type = reviewVO.getReview_img_name().split("\\.")[1];
+		byte[] review_img = reviewVO.getReview_img();
+		final HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("image",review_img_type));
+		header.setContentDispositionFormData("attachment", reviewVO.getReview_img_name());
+		System.out.println("review_img_type : ");
+		return new ResponseEntity<byte[]>(review_img, header, HttpStatus.OK);
+	}
 }

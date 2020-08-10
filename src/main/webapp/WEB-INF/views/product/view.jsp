@@ -19,8 +19,6 @@
 </style>
 </head>
 <body>
-<jsp:include page="../header&footer/sidebar.jsp"></jsp:include>
-	<div id="main_menu">
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
      <section id="view_section">
         <div class="p_product_main">
@@ -186,7 +184,12 @@
 				         			<td>${review.review_views }</td>
 				         		</tr>
 				         		<tr style="display:none" class="class_review_content">
-				         			<td colspan="6">${review.review_content}</td>
+				         			<td colspan="6">
+				         				<c:if test="${not empty review.review_img}">
+				         					<img src="<c:url value='/board/review/img?product_id=${product.product_id}&review_number=${review.review_number}'/>" width="100px" height="100px"/>
+				         				</c:if>
+				         				${review.review_content}
+				         			</td>
 				         		</tr>
 				         	</c:forEach>
 			         	</tbody>
@@ -210,9 +213,6 @@
 			         		</td>
 			         	</tr>
 	         		</table>
-	         		<form action='<c:url value="/board/review/form"/>'>
-	         			<input type="button" value="후기쓰기" onclick="reviewCheck(this.form)">
-	         		</form>
 		          </li>
 			   </ul>
 			   <ul id="tab4" class="tab">
@@ -272,10 +272,19 @@
 					document.myForm.action = '<c:url value="/product/ordersheet"/>';
 					document.myForm.method = 'post';
 					document.myForm.submit();
+					
+					switch (key) {
+					case value:
+						
+						break;
+
+					default:
+						break;
+					}
 				}else{
 					let ans = confirm("이미 동일한 상품이 장바구니에 존재합니다.\n장바구니로 이동하시겠습니까?");
 					if(ans){
-						location.href="<c:url value='/product/cart/'/>"+member_id;
+						location.href="<c:url value='/product/cart/'/>";
 					}
 				}
 			},
@@ -299,7 +308,7 @@
 				if(data==1){
 					let ans = confirm("장바구니 담기에 성공했습니다.\n장바구니로 이동하시겠습니까?");
 					if(ans){
-						location.href="<c:url value='/product/cart/'/>"+member_id;
+						location.href="<c:url value='/product/cart/'/>";
 					}
 				}else{
 					alert("이미 동일한 상품이 장바구니에 존재합니다.");
@@ -320,24 +329,6 @@
 		}
 	});
 	
-	//후기 쓰기 전 사용자 주문 내역에 해당 상품이 존재하는지 검증
-	function reviewCheck(form){
-		$.ajax({
-			url : '<c:url value="/product/rest/reviewCheck"/>',
-			type: 'POST',
-			data : {
-				product_id : product_id,
-				member_id : member_id
-			},
-			success : function(result){
-				if(result){
-					
-				} else{
-					
-				}
-			}
-		})
-	}
 	
 	
 </script>

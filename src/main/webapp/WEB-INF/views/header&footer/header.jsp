@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,96 +16,121 @@
 	<!--로딩화면 -->
 <!-- 	<div id="mask"></div> -->
 <!-- 	<div class="loader"></div> -->
-	<header>
- 	 <div id=header_div>
-            <div id="header_img">
-                <a href="/project"><img src="/project/resources/img/main_logo.png"></a>
-            </div>
-            <span id=header_search_span>
-                <input type="text" id="header_search">
-                <div id="header_search_img">
-                    <img src="/project/resources/img/search.png">
-                </div>
-            </span>
-            <!-- 익명사용자 -->
-            <div id="header_menu_div">
-                <div id="login_img" title="로그인"><img src="/project/resources/img/login.png"></div>
-                <div id="information_img" title="내 정보"><img src="/project/resources/img/information.png"></div>
-                <div id="lastproduct_img" title="장바구니"><img src="/project/resources/img/cart.png"></div>
-                <div id="header_icon">
-                    <div>
-                        <span id=sidebar_span1 class="sidebar_span"></span>
-                        <span id=sidebar_span2 class="sidebar_span"></span>
-                        <span id=sidebar_span3 class="sidebar_span"></span>
-                    </div>
-                </div>
-            </div>
-            <!-- 로그인 사용자 -->
-            <!-- <div id="header_menu_div">
-            <div id="information_img" title="내 정보"><img src="information.png"></div>
-            <div id="lastproduct_img" title="최근 본 상품"><img src="lastproduct.png"></div>
-            <div id="logout_img" title="로그아웃"><img src="logout.png"></div>
-        </div> -->
-        </div>
-
-        <div id="sidebar_back">
-            <div id="sidebar_main">
-                <div id="sidebar_logo">
-                    <img src="/project/resources/img/header_logo.png" alt="">
-                </div>
-            </div>
-            <div id=sidebar_icon style="visibility:hidden">
-                <input type="checkbox" class=sidebar_check>
-                <span id=sidebar_span1 class="sidebar_span"></span>
-                <input type="checkbox" class=sidebar_check>
-                <span id=sidebar_span2 class="sidebar_span"></span>
-                <input type="checkbox" class=sidebar_check>
-                <span id=sidebar_span3 class="sidebar_span"></span>
-            </div>
-            <div id="sidebar">
-                <div id="sidebar_main_logo">
-                    <img src="/project/resources/img/sidebar_logo.png">
-                </div>
-                <div id="sidebar_menu_div">
-                    <div>
-                        <a href="#">Login</a>
-                        <a href="#">information</a>
-                        <a href="#">my_cart</a>
-                    </div>
-                    <div>
-                        <h3>information</h3>
-                        <h3>board</h3>
-                        <h3>customer center</h3>
-                    </div>
-                    <div>
-                        <ul>
-                            <li><a href="/project/member/info">회원정보</a></li>
-                            <li><a href="#">회원정보</a></li>
-                            <li><a href="#">회원정보</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">판매자 게시판</a></li>
-                            <li><a href="/project/board/review/list">리뷰 게시판</a></li>
-                            <li><a href="/project/board/qna/list">QNA 게시판</a></li>
-                            <li><a href="#">자유 게시판</a></li>
-                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">1:1 문의</a></li>
-                            <li><a href="#">온라인 문의</a></li>
-                            <li><a href="#">이메일 문의</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="header_icon_box">
-                    <span id="header_side_icon1" class="header_side_icon"></span>
-                    <span id="header_side_icon2" class="header_side_icon"></span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
+	<header id=header>
+	<div>
+	 	 <div id=header_div>
+	            <div id="header_img">
+	                <img src="/project/resources/img/main_logo.png">
+	            </div>
+	            <span id=header_search_span>
+	                <input type="text" id="header_search">
+	                <div id="header_search_img">
+	                    <img src="/project/resources/img/search.png">
+	                </div>
+	            </span>
+	            <!-- 로그인 사용자 -->
+	            <div id="header_menu_div">
+					<sec:authorize access="isAuthenticated() and hasRole('ROLE_MASTER')">
+		                <div id="information_img" title="회원 정보"><a href="/project/member/list"><img src="/project/resources/img/information.png"></a></div>
+						<div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
+					</sec:authorize>
+					
+					<sec:authorize access="isAnonymous()">
+		                	<div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
+		                	<div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
+							<div id="login_img" title="로그인"><a href="/project/login"><img src="/project/resources/img/login.png"></a></div>
+					</sec:authorize>
+					
+					<sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
+		                	<div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
+		                	<div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
+							<div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
+					</sec:authorize>
+	                <div id="header_icon">
+	                    <div>
+	                        <span id=sidebar_span1 class="sidebar_span"></span>
+	                        <span id=sidebar_span2 class="sidebar_span"></span>
+	                        <span id=sidebar_span3 class="sidebar_span"></span>
+	                    </div>
+	                </div>
+	            </div>
+				<!-- 익명 사용자 -->
+			</div>
+	
+	        <div id="sidebar_back">
+	            <div id="sidebar_main">
+	                <div id="sidebar_logo">
+	                    <img src="/project/resources/img/header_logo.png" alt="">
+	                </div>
+	            </div>
+	            <div id=sidebar_icon>
+	                <input type="checkbox" hidden class=sidebar_check>
+	                <span id=sidebar_span1 class="sidebar_span"></span>
+	                <input type="checkbox" hidden class=sidebar_check>
+	                <span id=sidebar_span2 class="sidebar_span"></span>
+	                <input type="checkbox" hidden class=sidebar_check>
+	                <span id=sidebar_span3 class="sidebar_span"></span>
+	            </div>
+	            <div id="sidebar">
+	                <div id="sidebar_main_logo">
+	                    <img src="/project/resources/img/sidebar_logo.png">
+	                </div>
+	               		<div id="sidebar_menu_div">
+							<sec:authorize access="isAuthenticated() and hasRole('ROLE_MASTER')">
+								<div>
+									<a href="/project/logout">Logout</a>
+									<a href="/project/member/list">MemberList</a>
+								</div>
+							</sec:authorize>
+								
+							<sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
+								<div>
+									<a href="/project/logout">Logout</a>
+									<a href="/project/member/info">information</a>
+									<a href="/project/product/cart">my_cart</a>
+								</div>
+							</sec:authorize>
+								
+							<sec:authorize access="isAnonymous()">
+								<div>
+									<a href="/project/login">login</a>
+									<a href="/project/member/info">information</a>
+									<a href="/project/product/cart">my_cart</a>
+								</div>
+							</sec:authorize>
+						<div>
+	                        <h3>information</h3>
+	                        <h3>board</h3>
+	                        <h3>customer center</h3>
+	                    </div>
+	                    <div>
+	                        <ul>
+	                            <li><a href="#">회원정보</a></li>
+	                            <li><a href="#">회원정보</a></li>
+	                            <li><a href="#">회원정보</a></li>
+	                        </ul>
+	                        <ul>
+	                            <li><a href="/project/board/notice/list">공지 사항</a></li>
+	                            <li><a href="/project/board/qna/list">QNA 게시판</a></li>
+	                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
+	                        </ul>
+	                        <ul>
+	                            <li><a href="#">1:1 문의</a></li>
+	                            <li><a href="#">온라인 문의</a></li>
+	                            <li><a href="#">이메일 문의</a></li>
+	                        </ul>
+	                    </div>
+	                </div>
+	                <div id=header_icon_div>
+		                <div id="header_icon_box">
+		                    <span id="header_side_icon1" class="header_side_icon"></span>
+		                    <span id="header_side_icon2" class="header_side_icon"></span>
+		                </div>
+	                </div>
+	            </div>
+	    	</div>
+		</div>
+	</header>
 
     <script>
         let Scroll_sangtae;
