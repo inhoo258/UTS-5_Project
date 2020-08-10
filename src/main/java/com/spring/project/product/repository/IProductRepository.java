@@ -12,7 +12,7 @@ import com.spring.project.product.model.ProductsVO;
 
 @Repository
 public interface IProductRepository {
-	
+	//select======================================
 	//전체 목록 가져오기
 	@Select("select * from products")
 	public ArrayList<ProductsVO> getProductList();
@@ -24,10 +24,15 @@ public interface IProductRepository {
 	@Select("select * from products where product_id=#{product_id}")
 	public ProductsVO getProduct(int product_id);
 	
+	@Select("select nvl(max(product_id),0) from products")
+	public int getMaxProductId();
+
+	//delete======================================
 	//재고 삭제
 	@Delete("delete from products where product_id=#{product_id}")
 	public void deleteProduct(int product_id);
 	
+	//update======================================
 	//물량 감소
 	@Update("update products set product_count=product_count-#{minusCount} where product_id=#{product_id}")
 	public void minusProductCount(int minusCount, int product_id);
@@ -36,16 +41,23 @@ public interface IProductRepository {
 	@Update("update products set product_count=product_count+#{plusCount} where product_id=#{product_id}")
 	public void plusProductCount(int plusCount, int product_id);
 
-	@Select("select nvl(max(product_id),0) from products")
-	public int getMaxProductId();
-	//상품입고
-	@Insert("insert into products "
-			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name, product_upload_date) "
-			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name}, #{product_upload_date})")
-	public void insertProduct(ProductsVO product);
-	
 	//주문 완료 후 총 수량 수정
 	@Update("update products set product_count=#{1} where product_id=#{0}")
 	public void afterPayment(int product_id, int discount);
+	
+	//등록된 상품 수정(파일수정 x)
+	@Update("update products set product_name=#{product_name}, product_weight=#{product_weight}, product_count=#{product_count}, product_price=#{product_price}, product_info=#{product_info} where product_id=#{product_id}")
+	public void updateProduct(ProductsVO productVo);
+	//등록된 상품 수정(파일수정 o)
+	@Update("update products set product_img=#{product_img}, product_img_name=#{product_img_name}, product_name=#{product_name}, product_weight=#{product_weight}, product_count=#{product_count}, product_price=#{product_price}, product_info=#{product_info} where product_id=#{product_id}")
+	public void updateProductWithImage(ProductsVO productVo);
+
+	//insert======================================
+	//상품입고
+	@Insert("insert into products "
+			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name) "
+			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
+	public void insertProduct(ProductsVO product);
+
 	
 }

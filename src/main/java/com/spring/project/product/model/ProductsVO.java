@@ -14,6 +14,14 @@ public class ProductsVO {
 	private String product_img_name;
 	private Date product_upload_date;
 	
+	@Override
+	public String toString() {
+		return "ProductsVO [product_id=" + product_id + ", member_id=" + member_id + ", product_info=" + product_info
+				+ ", product_name=" + product_name + ", product_count=" + product_count + ", product_price="
+				+ product_price + ", product_weight=" + product_weight
+				+ ", product_img_name=" + product_img_name + ", product_upload_date=" + product_upload_date + "]";
+	}
+
 	public Date getProduct_upload_date() {
 		return product_upload_date;
 	}

@@ -46,5 +46,15 @@ public class ProductService {
 			int discount = (productRepository.getProduct(product_ids[i]).getProduct_count()-order_product_counts[i]); 
 			productRepository.afterPayment(product_ids[i], discount);
 		}
+	}
+	// 등록된 상품 수정
+	public void updateProduct(ProductsVO productVo) {
+		productRepository.updateProduct(productVo);
+		
+	}
+
+	public void updateProductWithImage(ProductsVO productVo) {
+		productRepository.updateProductWithImage(productVo);
+		
 	} 
 }

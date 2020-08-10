@@ -19,7 +19,7 @@
 			<td colspan="7"><input type="button" value="삭제"></td> 
 		</tr>
 		<tr>
-			<th><input type="checkbox"></th>
+			<th><input type="checkbox"></th>	
 			<th>번호</th>
 			<th>제품명</th>
 			<th>상품가격</th>
@@ -27,7 +27,7 @@
 			<th>등록일</th>
 			<th>수정</th>
 		</tr>
-			<c:forEach var="product" items="${productList}">
+			<c:forEach var="product" items="${productList}" varStatus="status">
 		<tr>
 				<td><input type="checkbox"></td>
 				<td></td>
@@ -35,7 +35,7 @@
 				<td>${product.product_price}</td>
 				<td>${product.product_count}</td>
 				<td>${product.product_upload_date}</td>
-				<td><input type="button" value="수정"></td>
+				<td><input type="button" value="수정" onclick="location.href='/project/product/upload/${product.product_id}'"></td>
 		</tr>
 			</c:forEach>
 	</table>
