@@ -9,7 +9,7 @@ import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.repository.IProductRepository;
 
 @Service
-public class ProductService{
+public class ProductService {
 	
 	@Autowired
 	IProductRepository productRepository;
@@ -17,6 +17,13 @@ public class ProductService{
 	public List<ProductsVO> getProductList(){
 		return productRepository.getProductList();
 	}
+	
+	public List<ProductsVO> getSellerProductList(String login_id){
+		return productRepository.getSellerProductList(login_id);
+	}
+	
+	
+	
 	public ProductsVO getProduct(int product_id) {
 		return productRepository.getProduct(product_id);
 	}

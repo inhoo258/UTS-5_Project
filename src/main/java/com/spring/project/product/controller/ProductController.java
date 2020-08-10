@@ -232,6 +232,15 @@ public class ProductController {
 		productService.insertProduct(product);
 		return "redirect:/product/list";
 	}
+	
+	//판매자페이지에서의 상품 조회
+	@GetMapping("/sellerProductList")
+	public void viewSellerProductList(Model model, Authentication authentication ){
+		String login_id = authentication.getName();
+		model.addAttribute("productList", productService.getSellerProductList(login_id));
+		
+	}
+	
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
 //	public String deleteProduct(@PathVariable int product_id) {

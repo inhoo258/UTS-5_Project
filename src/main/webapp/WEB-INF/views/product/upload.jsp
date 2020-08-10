@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품등록</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/product/upload.css'/>" />
 
 <!-- include libraries(jQuery, bootstrap) --> 
@@ -24,14 +24,21 @@
 <!--         <div id="upload_tit">상품 등록</div> -->
 <%-- <jsp:include page="../header&footer/sidebar.jsp"></jsp:include> --%>
 <!-- 	 <div id="main_menu"> -->
-<%--     	<jsp:include page="../header&footer/header.jsp"></jsp:include> --%>
+    	
+    	<jsp:include page="../header&footer/header.jsp"></jsp:include>
+    	<jsp:include page="../member/info.jsp"></jsp:include>
+    	
+    	<div class="wrapper_div">
+<!-- 	    	<div> -->
+<!-- 	    	</div> -->
+    	
     	<div id=upload>
 				<div id="upload_tit">상품 등록</div>
 			<c:set var="member_id">
 				<sec:authentication property="principal.username"/>
 			</c:set>
 	        <form action='<c:url value="/product/upload"/>' method="post" enctype="multipart/form-data" id=upload_form>
-	         <table id="upload_table" >
+	         <table id="upload_table">
 	            <tr>
 	                <th>상품 이미지</th>
 	                <td>
@@ -58,20 +65,22 @@
 	            </tr>
 	            <tr>
 	                <th>상세 설명</th>
-	                <td class="td_detail"><textarea name="product_info" id="product_info"></textarea></td>        
+	                <td class="td_detail">
+	              	  <textarea name="product_info" id="product_info"></textarea>
+	                </td>        
 	            </tr>
 	            <tr>
 	                <th colspan="2">
 	                    <div id="div_btn" >
-	                        <input type="button" value="등록" id="submitBtn" onclick="productUpload(this.form)">
-	                        <input type="reset" value="취소" id="resetBtn">
+	                        <input type="submit" value="등록" id="submitBtn" onclick="productUpload(this.form)">
+	                        <input type="button" value="취소" id="resetBtn" onclick="location.href='<c:url value="/member/info"/>'">
 	                    </div>
 	                </th>
 	            </tr>
 	            </table>
 	        </form>
 		</div>
-	</div>
+		</div>
 <script>
 $("#file_upload").change(function(){
    readURL(this);
@@ -101,7 +110,7 @@ $(document).ready(function() {
 	    	placeholder: '글 내용을 입력해주세요.(최대 2048자)',
         minHeight: 370,
         maxHeight: null,
-        width:1050,
+        width:900,
         focus: true, 
         lang : 'ko-KR',
         toolbar: [
@@ -120,23 +129,8 @@ $(document).ready(function() {
          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
   });
 });
-
+// 등록 버튼 클릭 시
 function productUpload(form) {
-<<<<<<< HEAD
-// 	var product_name = form.product_name.value;
-// 	var product_count = form.product_count.value;
-// 	var product_price = form.product_price.value;
-// 	var product_weight = form.product_weight.value;
-// 	var product_info = form.product_info.value;
-=======
-	var product_name = form.product_name.value;
-	var product_count = form.product_count.value;
-	var product_price = form.product_price.value;
-	var product_weight = form.product_weight.value;
-	var product_info = form.product_info.value;
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
-	
-<<<<<<< HEAD
 // 	if (product_name.trim() == ''){
 // 		return false;
 // 	}
@@ -152,25 +146,8 @@ function productUpload(form) {
 // 	if (product_info.trim() == ''){
 // 		return false;
 // 	}
-=======
-	if (product_name.trim() == ''){
-		return false;
-	}
-	if (product_count.trim() == ''){
-		return false;
-	}
-	if (product_price.trim() == ''){
-		return false;
-	}
-	if (product_weight.trim() == ''){
-		return false;
-	}
-	if (product_info.trim() == ''){
-		return false;
-	}
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
-	form.submit();
 }
+
 </script>
 </body>
 </html>

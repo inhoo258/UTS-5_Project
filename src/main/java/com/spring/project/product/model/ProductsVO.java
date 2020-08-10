@@ -1,5 +1,7 @@
 package com.spring.project.product.model;
 
+import java.sql.Date;
+
 public class ProductsVO {
 	private int product_id;
 	private String member_id;
@@ -10,8 +12,15 @@ public class ProductsVO {
 	private int product_weight;
 	private byte[] product_img;
 	private String product_img_name;
+	private Date product_upload_date;
 	
-	
+	public Date getProduct_upload_date() {
+		return product_upload_date;
+	}
+
+	public void setProduct_upload_date(Date product_upload_date) {
+		this.product_upload_date = product_upload_date;
+	}
 
 	public byte[] getProduct_img() {
 		return product_img;
