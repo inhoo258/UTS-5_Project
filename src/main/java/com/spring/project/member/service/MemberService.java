@@ -20,12 +20,10 @@ public class MemberService implements IMemberService {
 	public String getMemberPassword(String userId) {
 		return memberRepository.getMemberPassword(userId);
 	}
-
 	@Override
 	public MemberVO getMemberInfo(String userId) {
 		return memberRepository.getMemberInfo(userId);
 	}
-
 	@Override
 	public List<MemberVO> getMemberList(int memberPage, String member_word) {
 		int start = (memberPage - 1) * 10 + 1;
@@ -106,25 +104,21 @@ public class MemberService implements IMemberService {
 	}
 
 	@Override
-	public void permission(String permission_id) {
-		memberRepository.permission(permission_id);
+	public void member_enable(int enable , String member_id) {
+		memberRepository.member_enable(enable ,member_id);
 	}
 
-	@Override
-	@Transactional(value = "tsManager")
-	public void permissions(String[] permission_ids) {
-		for (int i = 0; i < permission_ids.length; i++) {
-			memberRepository.permission(permission_ids[i]);
-		}
-	}
+//	@Override
+//	@Transactional(value = "tsManager")
+//	public void permissions(String[] permission_ids) {
+//		for (int i = 0; i < permission_ids.length; i++) {
+//			memberRepository.permission(permission_ids[i]);
+//		}
+//	}
 	@Override
 	public MemberVO getMemberEmail(String member_email) {
 		return memberRepository.getEmail(member_email);
 	}
-	
-	
-	
-	
 	
 	
 //------------------ seller_info queries-----------------------------------

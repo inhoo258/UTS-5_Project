@@ -23,17 +23,17 @@
                 <form action="<c:url value='/member/certification'/>" method="post">
                     <div class="collectionfinder">
                         <div class="namefind">
-                            <input type="text" name="member_name" placeholder="이름을 입력해주세요." autofocus="autofocus" autocomplete="off">
+                            <input class="className" type="text" name="member_name" placeholder="이름을 입력해주세요." autofocus="autofocus" autocomplete="off">
                         </div>
                         <div class="idfind">
-                            <input type="text" name="member_id" placeholder="가입하신 아이디를 입력하세요." autocomplete="off">
+                            <input class="className" type="text" name="member_id" placeholder="가입하신 아이디를 입력하세요." autocomplete="off">
                         </div>
                         <div class="emailfind">
-                            <input type="text" name="member_email" placeholder="가입하신 이메일을 입력하세요."  autocomplete="off">
+                            <input class="className" type="text" name="member_email" placeholder="가입하신 이메일을 입력하세요."  autocomplete="off">
                         </div>
                         <div class="findbtn">
                         	<input type="hidden" name="choice" value="${chocie }">
-                            <input type="submit" value="찾기">
+                            <input class="className" type="submit" value="찾기">
                         </div>
                     </div>
                 </form>
