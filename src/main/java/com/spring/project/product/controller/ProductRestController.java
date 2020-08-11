@@ -3,11 +3,14 @@ package com.spring.project.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
 
@@ -53,5 +56,11 @@ public class ProductRestController {
 			return false;
 		}
 		return true;
+	}
+	@GetMapping("/orderlist/{member_id}")
+	public List<List<OrdersVO>> myOrderLIst(@PathVariable("member_id") String member_id) {
+//		System.out.println(orderService.getOrderList(member_id).get(0).get(4).get+"여기야");
+		
+		return orderService.getOrderList(member_id);
 	}
 }

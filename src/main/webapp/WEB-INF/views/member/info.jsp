@@ -211,20 +211,14 @@
                         </li>
                         <!--============================================================================= orderlist-->
                         <li id="orderlist" name="adminpage" style="display: none;">
-<%-- 							<jsp:include page="../product/orderlist.jsp" flush="false"> --%>
-<%-- 								<jsp:param value="${member.member_id}" name="member_id"/> --%>
-<%-- 							</jsp:include> --%>
-<%-- 							<c:import url="../product/orderlist/${member.member_id }"></c:import> --%>
-                        		
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                       		<div>
+                       			<div id="ajaxlistlayout">
+                       				
+                       			
+                       			
+                       			</div>
+                       		</div>
                         </li>
-                        
                         <!--====================================================================================== uploadproduct-->
                         <li id="uploadproduct" name="adminpage" style="display: none;">
                             <div class="productadminframe">
@@ -412,6 +406,25 @@
 					document.getElementById("pw_section_form").style.display = "none";
 					document.getElementsByName("member_pw")[0].value="";
                     adminPage[index].style.display = "block";
+                    if (index == 0) {
+                        console.log(0);
+                    } else if (index == 1) {
+						$.ajax({
+							url:'<c:url value="/product/rest/orderlist/${member.member_id}"/>',
+							type:'GET',
+							success:function(orderlist){
+								showMyOrderList(orderlist);
+							},error:function(){
+								alert('실패');	
+							}
+						})                     
+                    } else if (index == 2) {
+                        console.log(2);
+                    } else if (index == 3) {
+                        console.log(3);
+                    } else{
+                        console.log(4);
+                    }
                     for (var b = 0; b < myinfocollection.length; b++) { //각각의 인덱스에 있는 페이지 닫아주는 역할
                         if (index != b) {
                             adminPage[b].style.display = "none";
@@ -419,6 +432,35 @@
                     }
                 })
             })(i);
+        }
+        function showMyOrderList(orderList){
+        	for(var i = 0 ;i < orderList[0].length ; i++){
+	        	let order_list ="<div>"+
+	        	"<p>"+orderList[0][i].member_id+"</p>"+
+		       	"<p>"+orderList[0][i].product_name+"</p>"+
+		       	"<p>"+orderList[0][i].product_id+"</p>"+
+		       	"<p>"+orderList[0][i].order_date+"</p>"+
+		       	"<p>"+orderList[0][i].order_receiver_main_address+"</p>"+
+		       	"<p>"+orderList[0][i].order_receiver_sub_address+"</p>"+
+		       	"<p>"+orderList[0][i].order_receiver_name+"</p>"+
+		       	"<p>"+orderList[0][i].order_receiver_tel+"</p>"+
+		       	"<p>"+orderList[0][i].order_product_count+"</p>"+
+		       	"<p>"+orderList[0][i].order_price+"</p>"+
+		       	"<p>"+orderList[0][i].order_request+"</p>"+
+		       	"<p>"+orderList[0][i].order_status+"</p>"+
+		       	"<p>"+orderList[0][i].order_number+"</p>"+
+		       	"<p>"+orderList[0][i].order_group_number+"</p>"+
+		       	"<p>"+orderList[0][i].review_check+"</p>"+
+		       	"<p>"+orderList[0][i].product_weight+"</p>"+
+		       	"<p>"+orderList[0][i].seller_company_name+"</p>"+
+		       	"<p>"+orderList[0][i].seller_company_tel+"</p>"+
+		       	"<p>"+orderList[0][i].order_delivery_price+"</p>"+
+		       	"</div>"
+        	$("#ajaxlistlayout").append(order_list)
+        	}
+        	
+        	
+        	
         }
 
         for (let c = 0; c < orderbtn.length; c++) {
@@ -428,5 +470,6 @@
                 })
             })(c);
         }
+        
     </script>
 </html>

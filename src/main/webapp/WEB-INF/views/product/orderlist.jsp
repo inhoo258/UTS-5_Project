@@ -64,7 +64,7 @@
                 </section>
             </c:when>
             <c:otherwise>
-                주문 내역이 없습니다.
+                	주문 내역이 없습니다.
             </c:otherwise>
         </c:choose>
     </div>
