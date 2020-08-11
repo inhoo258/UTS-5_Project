@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
+import com.spring.project.product.service.ProductService;
 
 @RestController
 @RequestMapping("/product/rest")
@@ -18,6 +19,8 @@ public class ProductRestController {
 	CartService cartService;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	ProductService productService;
 	@PostMapping("/updateCart")
 	public void updateCart(String member_id, @RequestParam("product_ids[]") List<Integer> product_ids,
 			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts) {
@@ -53,5 +56,10 @@ public class ProductRestController {
 			return false;
 		}
 		return true;
+	}
+	//판매자 페이지===================================
+	@PostMapping("/deleteSellerProduct")
+	public void deleteSellerProduct(@RequestParam("product_ids[]") int[] product_ids) {
+		productService.deleteSellerProduct(product_ids);
 	}
 }

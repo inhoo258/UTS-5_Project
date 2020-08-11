@@ -223,10 +223,7 @@ public class ProductController {
 	
 	
 	@PostMapping("/upload")
-	public String insertProduct(@RequestParam("file")MultipartFile file,@ModelAttribute ProductsVO product) {
-		System.out.println(product.toString());
-		System.out.println("insert start");
-		System.out.println("product_info : " + product.getProduct_info());
+	public String insertProduct(@RequestParam(value = "file" ,required = false)MultipartFile file, ProductsVO product) {
 		try {
 			product.setProduct_img(file.getBytes());
 			product.setProduct_img_name(file.getOriginalFilename());

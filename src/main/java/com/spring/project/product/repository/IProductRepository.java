@@ -28,10 +28,9 @@ public interface IProductRepository {
 	public int getMaxProductId();
 
 	//delete======================================
-	//재고 삭제
+	// 판매자 페이지 등록된 상품 삭제
 	@Delete("delete from products where product_id=#{product_id}")
-	public void deleteProduct(int product_id);
-	
+	public void deleteSellerProduct(int product_id);
 	//update======================================
 	//물량 감소
 	@Update("update products set product_count=product_count-#{minusCount} where product_id=#{product_id}")
@@ -58,6 +57,8 @@ public interface IProductRepository {
 			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name) "
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
+
+	
 
 	
 }

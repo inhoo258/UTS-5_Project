@@ -27,9 +27,7 @@ public class ProductService {
 	public ProductsVO getProduct(int product_id) {
 		return productRepository.getProduct(product_id);
 	}
-	public void deleteProduct(int product_id) {
-		productRepository.deleteProduct(product_id);
-	}
+	
 	public void minusProductCount(int minusCount, int product_id) {
 		productRepository.minusProductCount(minusCount, product_id);
 	}
@@ -56,5 +54,11 @@ public class ProductService {
 	public void updateProductWithImage(ProductsVO productVo) {
 		productRepository.updateProductWithImage(productVo);
 		
+	}
+	////판매자 페이지에서 등록된 상품 삭제
+	public void deleteSellerProduct(int[] product_ids) {
+		for (int i = 0; i < product_ids.length; i++) {
+			productRepository.deleteSellerProduct(product_ids[i]);
+		}
 	} 
 }

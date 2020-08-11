@@ -26,7 +26,7 @@
 <!-- 	 <div id="main_menu"> -->
     	
     	<jsp:include page="../header&footer/header.jsp"></jsp:include>
-    	<jsp:include page="../member/info.jsp"></jsp:include>
+<%--     	<jsp:include page="../member/info.jsp"></jsp:include> --%>
     	
 			    <div class="wrapper_div">
 			<!-- 	    	<div> -->
@@ -39,7 +39,9 @@
 						</c:set>
 						
 				        <form action='<c:url value="/product/${msg}"/>' method="post" enctype="multipart/form-data" id=upload_form>
-				        <input type="hidden" name="product_id" value='${product.product_id}'>
+				        <c:if test="${msg eq 'updata'}">
+					        <input type="hidden" name="product_id" value='${product.product_id}'>
+				        </c:if>
 				         <table id="upload_table">
 				            <tr>
 				                <th>상품 이미지</th>
@@ -140,11 +142,13 @@ $(document).ready(function() {
 });
 // 등록 버튼 클릭 시
 function productCheck(form) {
+	console.log("rr")
 	var product_name = form.product_name.value;
 	   var product_count = form.product_count.value;
 	   var product_price = form.product_price.value;
 	   var product_weight = form.product_weight.value;
 	   var product_info = form.product_info.value;
+	   
 	if (product_name.trim() == ''){
 		return false;
 	}
