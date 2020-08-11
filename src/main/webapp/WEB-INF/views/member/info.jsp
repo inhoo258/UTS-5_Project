@@ -204,12 +204,22 @@
                                 </div>
                             </form>
                         </li>
-                        <!--                         ============================================================================= orderlist-->
+                        <!--============================================================================= orderlist-->
                         <li id="orderlist" name="adminpage" style="display: none;">
-                            <div>
-                                	나의 구매내역
-                            </div>
+<%-- 							<jsp:include page="../product/orderlist.jsp" flush="false"> --%>
+<%-- 								<jsp:param value="${member.member_id}" name="member_id"/> --%>
+<%-- 							</jsp:include> --%>
+<%-- 							<c:import url="../product/orderlist/${member.member_id }"></c:import> --%>
+                        		
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         </li>
+                        
                         <!--====================================================================================== uploadproduct-->
                         <li id="uploadproduct" name="adminpage" style="display: none;">
                             <div class="productadminframe">
@@ -307,7 +317,11 @@
 		let message = "${message }";
 		alert(message );
 		console.log(message)
-
+		
+		
+		
+		
+		
         $(function () {
             var $productmenu = $('#productbar_menu ul li');
             $contentsproduct = $('#productadminbarpage > div');
@@ -362,15 +376,7 @@
             (function (index) {
                 myinfocollection[index].addEventListener("click", function () {
                     adminPage[index].style.display = "block";
-                    if (index == 0) {
-                        console.log(0);
-                    } else if (index == 1) {
-                        console.log(1);
-                    } else if (index == 2) {
-                        console.log(2);
-                    } else if (index == 3) {
-                        console.log(3);
-                    }
+                 
                     for (var b = 0; b < myinfocollection.length; b++) { //각각의 인덱스에 있는 페이지 닫아주는 역할
                         if (index != b) {
                             adminPage[b].style.display = "none";
