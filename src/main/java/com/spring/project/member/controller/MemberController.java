@@ -39,20 +39,28 @@ public class MemberController {
 	}
 	
 	@PostMapping("/checkpwd")
-	public String checkemail(MemberVO membervo, RedirectAttributes redirectAttributes) {
+	public String checkemail(MemberVO membervo,Model model) {
+		System.out.println("힘찬: 여기들어옴??? /checkpwd");
 		System.out.println("여기 : " + membervo.getMember_id());
 		System.out.println("인코더하고 비교 : "+pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id())));
-		if(pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id()))) {
-			redirectAttributes.addAttribute("userId",membervo.getMember_id());
-			return "redirect:/member/form";
+		if(pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id()))) { // 1번째 방법
+			String userId = membervo.getMember_id();
+			return "redirect:/member/form/"+userId;
 		}else {
-			redirectAttributes.addAttribute("message","error");
+			model.addAttribute("message", "nomatchpw");
 			return "redirect:/member/info";
 		}
+//		if(pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id()))) { // 2번째 방법
+//			redirectAttributes.addFlashAttribute("message", "succespwd");
+//		}else {
+//			redirectAttributes.addFlashAttribute("message", "errorpwd");
+//		}
+//		return "redirect:/member/info";
 	}
 	
 	@GetMapping("/form/{userId}")
 	public String form(@PathVariable("userId") String userId, Model model) {
+		System.out.println("힘찬: 여기들어옴??? /form/{userId}");
 		model.addAttribute("member", memberSerivce.getMemberInfo(userId));
 		model.addAttribute("message", "update");
 		return "member/form";
@@ -141,7 +149,7 @@ public class MemberController {
 		if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))) {
 			return "redirect:/member/list";
 		}
-		return "redirect:/member/info/" + member.getMember_id();
+		return "redirect:/member/info";
 	}
 	
 	@PostMapping("/changepwd")
