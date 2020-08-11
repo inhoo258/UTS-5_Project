@@ -36,6 +36,7 @@ public class MemberController {
 	@GetMapping("/form")
 	public void form(Model model) {
 		model.addAttribute("message", "insert");
+		System.out.println("여기는 입력");
 	}
 	
 	@PostMapping("/checkpwd")
@@ -63,6 +64,7 @@ public class MemberController {
 		System.out.println("힘찬: 여기들어옴??? /form/{userId}");
 		model.addAttribute("member", memberSerivce.getMemberInfo(userId));
 		model.addAttribute("message", "update");
+		System.out.println("여기는 수정");
 		return "member/form";
 	}
 	

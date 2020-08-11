@@ -1,9 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-decoration: none;
-}
 #info-main{
     width: 100%;
     height: 900px;
@@ -50,10 +44,16 @@
     height: 600px; 
     justify-content: center;
 }
+
+#pw_section_form{
+	display: none;
+}
+
 #info-main>div:nth-child(2)>div{
     display: flex;
-    width: 95%;
-    height: 600px;
+    width: 100%;
+    max-width:1800px;
+    min-width:1800px;
 }
 #info-main>div:nth-child(2)>div>div:nth-child(1){
     width: 10%;
@@ -63,7 +63,7 @@
 }
 #info-main>div:nth-child(2)>div>div:nth-child(2){
     width: 90%;
-    height: 1000px; 
+    height: 100%; 
     /* background-color:s yellowgreen; */
 }
 .maininfo>p{

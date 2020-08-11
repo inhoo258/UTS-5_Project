@@ -112,6 +112,9 @@
     	</section>
    </sec:authorize>
    <sec:authorize access="hasRole('ROLE_SELLER')"> <!--============================================ 여기는 판매자 권한인 사람 -->
+  <!--============================================ 여기는 판매자 권한인 사람 -->
+    <!--============================================ 여기는 판매자 권한인 사람 -->
+    <!--============================================ 여기는 판매자 권한인 사람 -->
    <section id="info-main">
         <div class="first">
             <div>
@@ -185,24 +188,26 @@
                     <ul>
                         <!--                         ============================================================================= myinfomodify-->
                         <li id="myinfomodify" name="adminpage" style="display: none;">
-                            <div id="myinfomodifysubtitle">
-                                <h2>비밀번호 재확인</h2>
-                                <h5>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h5>
-                                <hr>
-                            </div>
-                            <form action="<c:url value='/member/checkpwd'/>" method="post">
-                                <div id="myinfomodifyform">
-                                    <div id="myinfomodifyframe">
-                                        <div class="frameA ">
-                                            <input type="hidden" name="member_id" value="${member.member_id}">
-                                            <input type="password" name="member_pw" placeholder="비밀번호를 입력해주세요">
-                                        </div>
-                                        <div class="frameA">
-                                            <input type="submit" value="전송">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                        	<section id=pw_section_test>
+	                            <div id="myinfomodifysubtitle">
+	                                <h2>비밀번호 재확인</h2>
+	                                <h5>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h5>
+	                                <hr>
+	                            </div>
+	                            <div id="myinfomodifyform">
+	                            	<div id="myinfomodifyframe">
+										<div class="frameA ">
+											<input type="password" name="member_pw" placeholder="비밀번호를 입력해주세요">
+		                                </div>
+										<div class="frameA">
+		                                	<input type="button" value="전송" onclick="pwd_send()">
+										</div>
+	                                </div>
+	                             </div>
+                             </section>
+                             <section id=pw_section_form>
+	                             <jsp:include page="form.jsp"/>
+                             </section>
                         </li>
                         <!--                         ============================================================================= orderlist-->
                         <li id="orderlist" name="adminpage" style="display: none;">
@@ -284,6 +289,41 @@
         </div>
     </section>
 </sec:authorize>
+	<script>
+		function pwd_send(){
+			var xhr = new XMLHttpRequest();
+	        xhr.open("post", "/project/member/rest/password_test");
+	        xhr.setRequestHeader("content-type", "application/json");
+// 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+			let member = {
+				member_id:"${member.member_id}",
+				member_pw:document.getElementsByName("member_pw")[0].value
+			}
+			xhr.send(JSON.stringify(member));
+			xhr.onreadystatechange = function () {
+                if (xhr.readyState === xhr.LOADING) {
+//                     $("#loding").show();
+                }
+                if (xhr.readyState === xhr.DONE) {
+                    if (xhr.status === 200 || xhr.status === 201) {
+                    	let test = xhr.responseText
+						if(test == "true"){
+							document.getElementById("pw_section_test").style.display = "none";
+							document.getElementById("pw_section_form").style.display = "block";
+						}else{
+							console.log("false")
+// 							실패
+						}
+                    }
+                }
+			}
+		}
+	
+	
+	</script>
+
+
+
 	    
 <%-- 		1: ${sellerInfo}<br> --%>
 <%-- 		4: ${sellerInfo.seller_company_info}<br> --%>
@@ -305,8 +345,6 @@
         let adminPage = document.getElementsByName("adminpage");
         let orderbtn = document.getElementsByName("orderadminbtn");
 		let message = "${message }";
-		alert(message );
-		console.log(message)
 
         $(function () {
             var $productmenu = $('#productbar_menu ul li');
@@ -361,16 +399,10 @@
         for (let i = 0; i < myinfocollection.length; i++) {
             (function (index) {
                 myinfocollection[index].addEventListener("click", function () {
+                	document.getElementById("pw_section_test").style.display = "block";
+					document.getElementById("pw_section_form").style.display = "none";
+					document.getElementsByName("member_pw")[0].value="";
                     adminPage[index].style.display = "block";
-                    if (index == 0) {
-                        console.log(0);
-                    } else if (index == 1) {
-                        console.log(1);
-                    } else if (index == 2) {
-                        console.log(2);
-                    } else if (index == 3) {
-                        console.log(3);
-                    }
                     for (var b = 0; b < myinfocollection.length; b++) { //각각의 인덱스에 있는 페이지 닫아주는 역할
                         if (index != b) {
                             adminPage[b].style.display = "none";

@@ -3,6 +3,7 @@ package com.spring.project.member.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,8 @@ import com.spring.project.member.service.IMemberService;
 public class MemberRestController {
 	@Autowired
 	IMemberService memberSerivce;
+	@Autowired
+	BCryptPasswordEncoder pwEncoder;
 
 	@PostMapping("/memberCheck")
 	public int memberCheck(@RequestParam("member_id") String member_id) {
@@ -124,6 +127,20 @@ public class MemberRestController {
 		} else {
 			memberSerivce.member_enable(0, member.getMember_id());
 		}
+	}
+	
+	@PostMapping("/password_test")
+	public String password_test(@RequestBody MemberVO member) {
+		System.out.println(member.getMember_id());
+		System.out.println(member.getMember_pw());
+		String str = null;
+		if(pwEncoder.matches(member.getMember_pw() , memberSerivce.getMemberPassword(member.getMember_id()))) {
+			str = "true";
+		}else {
+			str = "false";
+		}
+		
+		return str;
 	}
 
 }
