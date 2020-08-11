@@ -59,7 +59,7 @@ public class ProductController {
 	// 개인의 장바구니 목록 조회
 	@RequestMapping("/cart")
 	public String getCart(Authentication authentication, Model model) {
-		model.addAttribute("cartList", cartService.getCart(authentication.getName()));
+//		model.addAttribute("cartList", cartService.getCart(authentication.getName()));
 		return "product/cart";
 	}
 

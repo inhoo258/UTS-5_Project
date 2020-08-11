@@ -8,11 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>eventList</title>
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/board/list.css'/>" />
-<script src="https://kit.fontawesome.com/c2524284bc.js"
-	crossorigin="anonymous"></script>
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/board/notice/list.css'/>" />
+<script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../../header&footer/header.jsp" />
@@ -23,11 +21,9 @@
 		</div>
 		<div align="center">
 			<form action="">
-				<sec:authorize access="hasRole('ROLE_MASTER,ROLE_SELLER')">
-					<div class="btn_write">
-						<a href="<c:url value='/board/notice/form'/>">글 쓰기</a>
-					</div>
-				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_MASTER')">
+					<div class="btn_write"><a href="<c:url value='/board/notice/form'/>">글 쓰기</a></div>
+        	</sec:authorize>
 				<table class="notice_table">
 					<thead>
 						<tr class="tr_notice th_notice">
