@@ -209,12 +209,22 @@
 	                             <jsp:include page="form.jsp"/>
                              </section>
                         </li>
-                        <!--                         ============================================================================= orderlist-->
+                        <!--============================================================================= orderlist-->
                         <li id="orderlist" name="adminpage" style="display: none;">
-                            <div>
-                                	나의 구매내역
-                            </div>
+<%-- 							<jsp:include page="../product/orderlist.jsp" flush="false"> --%>
+<%-- 								<jsp:param value="${member.member_id}" name="member_id"/> --%>
+<%-- 							</jsp:include> --%>
+<%-- 							<c:import url="../product/orderlist/${member.member_id }"></c:import> --%>
+                        		
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         </li>
+                        
                         <!--====================================================================================== uploadproduct-->
                         <li id="uploadproduct" name="adminpage" style="display: none;">
                             <div class="productadminframe">
@@ -345,7 +355,6 @@
         let adminPage = document.getElementsByName("adminpage");
         let orderbtn = document.getElementsByName("orderadminbtn");
 		let message = "${message }";
-
         $(function () {
             var $productmenu = $('#productbar_menu ul li');
             $contentsproduct = $('#productadminbarpage > div');

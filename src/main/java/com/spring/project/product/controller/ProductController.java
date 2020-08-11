@@ -148,6 +148,7 @@ public class ProductController {
 	// 결제 완료 후 나의 주문내역 ===========================================지현
 	@GetMapping("/orderlist/{member_id}")
 	public String myOrderLIst(@PathVariable("member_id") String member_id, Model model) {
+		System.out.println("여기 들어올꺼야 member_id: "+member_id);
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
