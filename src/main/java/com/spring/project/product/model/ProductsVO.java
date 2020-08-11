@@ -10,18 +10,7 @@ public class ProductsVO {
 	private int product_weight;
 	private byte[] product_img;
 	private String product_img_name;
-	private int product_delivery_price;
 	
-	
-
-	public int getProduct_delivery_price() {
-		return product_delivery_price;
-	}
-
-	public void setProduct_delivery_price(int product_delivery_price) {
-		this.product_delivery_price = product_delivery_price;
-	}
-
 	public byte[] getProduct_img() {
 		return product_img;
 	}

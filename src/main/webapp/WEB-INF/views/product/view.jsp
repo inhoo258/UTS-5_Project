@@ -26,7 +26,7 @@
                 <div class="p_product_desc">
                     <div class="p_product_explain">
                         <div class="p_product_title">
-                            <span id="title"><span id="titletext">${product.product_name}</span></span>
+                            <span id="title"><span id="titletext">[${sellerInfo.seller_company_name}]${product.product_name}</span></span>
                         </div>
                         <div>
                             <span id="key"><span id="keytext">상품 가격</span></span>
@@ -80,7 +80,7 @@
                         	<span id="key"><span id="keytext">배송비</span></span>
                         	<span id="value">
                         		<span id="text">
-                        			<span id="p_delivery_price"><fmt:formatNumber value="${product.product_delivery_price}" pattern="#,### 원"/></span>
+                        			<span id="p_delivery_price"><fmt:formatNumber value="${sellerInfo.product_delivery_price}" pattern="#,### 원"/></span>
                         			<span id="free_del_condition">5만원 이상 구매 시 무료배송</span>
                         		</span>
                         	</span>
@@ -241,7 +241,7 @@
 		let member_id = document.getElementById("pOrder_member_id").value;
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
 		let originalPrice = parseInt('${product.product_price}');
-		let deliveryPrice = parseInt('${product.product_delivery_price}');
+		let deliveryPrice = parseInt('${sellerInfo.product_delivery_price}');
 		console.log("product_id : " + product_id);
 		console.log("member_id : "+member_id);
 		console.log("p_num : "+p_num);
