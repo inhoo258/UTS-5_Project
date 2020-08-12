@@ -15,8 +15,28 @@ public class CartService{
 	@Autowired
 	ICartRepository cartRepository;
 	
-	public List<CartVO> getCart(String member_id) {
-		return cartRepository.getCart(member_id);
+	public List<List<CartVO>> getCart(String member_id) {
+		List<CartVO> totalList = cartRepository.getCart(member_id);
+		List<CartVO> cartListByRegNum = new ArrayList<CartVO>();
+		List<List<CartVO>> cartList = new ArrayList<List<CartVO>>();
+		for (int i = 0; i < totalList.size(); i++) {
+			System.out.println(totalList.get(i).toString());
+			if(i==0) { 
+				cartListByRegNum.add(totalList.get(i));
+				if(totalList.size()==1)cartList.add(cartListByRegNum);
+			}
+			else if(totalList.get(i-1).getSeller_company_name().equals(totalList.get(i).getSeller_company_name())) {
+				cartListByRegNum.add(totalList.get(i));
+				if(i==totalList.size()-1)cartList.add(cartListByRegNum);
+			}
+			else {
+				cartList.add(cartListByRegNum);
+				cartListByRegNum = new ArrayList<CartVO>();
+				cartListByRegNum.add(totalList.get(i));
+				if(i==totalList.size()-1)cartList.add(cartListByRegNum);
+			}
+		}
+		return cartList; 
 	}
 	
 	public void deleteCart(String member_id, int[] product_ids){
@@ -25,6 +45,7 @@ public class CartService{
 		}
 	}
 	public int insertCart(String member_id, int product_id, int cart_product_count) throws Exception {
+		System.out.println("insert cart member_id : " + cartRepository.getMemberId(member_id,product_id));
 		if(cartRepository.getMemberId(member_id,product_id)==null) {
 			cartRepository.insertCart(member_id, product_id, cart_product_count);
 			return 1;

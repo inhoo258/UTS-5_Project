@@ -62,8 +62,8 @@ public class OrderService{
 		return orderRepository.getOrderByOrderNumber(order_number);
 	}
 
-	public void deleteOrder(String seller_company_name,String member_id) {
-		orderRepository.deleteOrder(seller_company_name,member_id);
+	public void deleteOrder(int order_group_number, String member_id) {
+		orderRepository.deleteOrder(order_group_number, member_id);
 	}
 	public List<List<OrdersVO>> getOrder(String member_id, int order_group_number) {
 		List<OrdersVO> totalList = orderRepository.getOrder(member_id, order_group_number);

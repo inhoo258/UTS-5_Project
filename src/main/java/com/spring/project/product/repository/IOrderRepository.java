@@ -56,8 +56,8 @@ public interface IOrderRepository {
 	@Update("update orders set review_check = 1 where order_number=#{order_number}")
 	public void updateReviewCheck(int order_number);
 
-	@Delete("delete orders where seller_company_name=#{0} and member_id=#{1}")
-	public void deleteOrder(String seller_company_name,String member_id);
+	@Delete("delete orders where order_group_number=#{0} and member_id=#{1}")
+	public void deleteOrder(int order_group_number, String member_id);
 
 	@Select("select ord.product_id product_id, order_number, prd.product_name, order_price, order_product_count, order_request, order_status, "
 			+ "ord.member_id, review_check, order_delivery_price, seller_company_name "
