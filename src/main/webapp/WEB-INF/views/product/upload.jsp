@@ -37,9 +37,8 @@
 						<c:set var="member_id">
 							<sec:authentication property="principal.username"/>
 						</c:set>
-						
 				        <form action='<c:url value="/product/${msg}"/>' method="post" enctype="multipart/form-data" id=upload_form>
-				        <c:if test="${msg eq 'updata'}">
+				        <c:if test="${msg eq 'update'}">
 					        <input type="hidden" name="product_id" value='${product.product_id}'>
 				        </c:if>
 				         <table id="upload_table">
