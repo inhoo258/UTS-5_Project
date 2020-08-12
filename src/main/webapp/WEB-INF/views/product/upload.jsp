@@ -142,13 +142,11 @@ $(document).ready(function() {
 });
 // 등록 버튼 클릭 시
 function productCheck(form) {
-	console.log("rr")
 	var product_name = form.product_name.value;
-	   var product_count = form.product_count.value;
-	   var product_price = form.product_price.value;
-	   var product_weight = form.product_weight.value;
-	   var product_info = form.product_info.value;
-	   
+	var product_count = form.product_count.value;
+	var product_price = form.product_price.value;
+	var product_weight = form.product_weight.value;
+	var product_info = form.product_info.value;
 	if (product_name.trim() == ''){
 		return false;
 	}

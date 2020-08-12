@@ -3,11 +3,14 @@ package com.spring.project.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
 import com.spring.project.product.service.ProductService;
@@ -48,14 +51,19 @@ public class ProductRestController {
 	public int cartCheck(@RequestParam("member_id") String member_id, @RequestParam("product_id") int product_id) {
 		return cartService.checkCart(member_id, product_id);
 	}
-	@PostMapping("/orderCancel")
-	public boolean orderCancel(@RequestParam("order_number")int order_number) {
-		try {
-			orderService.deleteOrder(order_number);
-		}catch(Exception e) {
-			return false;
-		}
-		return true;
+	
+//	@PostMapping("/orderCancel")
+//	public boolean orderCancel(@RequestParam("seller_company_name")String seller_company_name, @RequestParam("member_id")String member_id) {
+//		try {
+//			orderService.deleteOrder(seller_company_name,member_id);
+//		}catch(Exception e) {
+//			return false;
+//		}
+//		return true;
+//	}
+	@GetMapping("/orderlist/{member_id}")
+	public List<List<OrdersVO>> myOrderLIst(@PathVariable("member_id") String member_id) {
+		return orderService.getOrderList(member_id);
 	}
 	//판매자 페이지===================================
 	@PostMapping("/deleteSellerProduct")

@@ -62,28 +62,28 @@ public class OrderService{
 		return orderRepository.getOrderByOrderNumber(order_number);
 	}
 
-	public void deleteOrder(int order_number) {
-		orderRepository.deleteOrder(order_number);
+	public void deleteOrder(int order_group_number, String member_id) {
+		orderRepository.deleteOrder(order_group_number, member_id);
 	}
 	public List<List<OrdersVO>> getOrder(String member_id, int order_group_number) {
 		List<OrdersVO> totalList = orderRepository.getOrder(member_id, order_group_number);
-		List<OrdersVO> orderListByGroupNum = new ArrayList<OrdersVO>();
+		List<OrdersVO> orderListByCompanyName = new ArrayList<OrdersVO>();
 		List<List<OrdersVO>> orderList = new ArrayList<List<OrdersVO>>();
 		for (int i = 0; i < totalList.size(); i++) {
 			System.out.println(totalList.get(i).toString());
 			if(i==0) {
-				orderListByGroupNum.add(totalList.get(i));
-				if(totalList.size()==1)orderList.add(orderListByGroupNum);
+				orderListByCompanyName.add(totalList.get(i));
+				if(totalList.size()==1)orderList.add(orderListByCompanyName);
 			}
-			else if(totalList.get(i-1).getOrder_group_number()==totalList.get(i).getOrder_group_number()) {
-				orderListByGroupNum.add(totalList.get(i));
-				if(i==totalList.size()-1)orderList.add(orderListByGroupNum);
+			else if(totalList.get(i-1).getSeller_company_name().equals(totalList.get(i).getSeller_company_name())) {
+				orderListByCompanyName.add(totalList.get(i));
+				if(i==totalList.size()-1)orderList.add(orderListByCompanyName);
 			}
 			else {
-				orderList.add(orderListByGroupNum);
-				orderListByGroupNum = new ArrayList<OrdersVO>();
-				orderListByGroupNum.add(totalList.get(i));
-				if(i==totalList.size()-1)orderList.add(orderListByGroupNum);
+				orderList.add(orderListByCompanyName);
+				orderListByCompanyName = new ArrayList<OrdersVO>();
+				orderListByCompanyName.add(totalList.get(i));
+				if(i==totalList.size()-1)orderList.add(orderListByCompanyName);
 			}
 		}
 		return orderList; 

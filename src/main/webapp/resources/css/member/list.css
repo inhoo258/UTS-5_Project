@@ -100,7 +100,7 @@ body {
 /*=============================================*/
 /*=============================================*/
 
-#memberlist_div input[type=button] , label , input[type=radio] {
+#memberlist_div input[type=button] , label , input[type=radio]  ,#memberlist_table_div input[type=button] , #memberinfo_div input[type=button]{
 	cursor: pointer;
 	outline: none;
 }
@@ -110,8 +110,18 @@ body {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 2000px;
 	align-items: center;
+}
+
+#memberlist_table_div{
+	display:flex;
+	justify-content:center;
+	width: 100%;
+}
+#memberlist_table_div>div:nth-child(1){
+	width: 100%;
+	max-width: 1400px;
+	min-width: 1400px;
 }
 
 #memberlist_div>div:nth-child(1) {
@@ -218,7 +228,7 @@ body {
 /*================================================================*/
 /*================================================================*/
 
- #memberlist_div>div:nth-child(2) {
+#memberlist_div>div:nth-child(2) {
 	display: flex;
 	width: 100%;
 	min-width: 1400px;
@@ -231,13 +241,15 @@ body {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding-left: 10px;
 }
 
-#member_table_div tr>th:nth-child(4) {
-	width: 250px;
+#member_table_div tr>th:nth-child(2) {
+	width: 50px;
 }
 #member_table_div tr>th:nth-child(5) {
+	width: 250px;
+}
+#member_table_div tr>th:nth-child(6) {
 	width: 50px;
 }
 
@@ -246,10 +258,10 @@ body {
 }
 
 #member_table_div>div:nth-child(2) {
-	padding: 20px 0 0 0;
+	padding: 20px 0 20px 0;
 }
 
-#member_table_div div:first-child>input[type=button] {
+#member_table_div div:first-child>input[type=button]{
 	width: 100px;
 	height: 40px;
 	margin-right: 20px;
@@ -263,7 +275,7 @@ body {
 	background-color: #2a365c;
 	color:white;
 }
-#member_table_div div:nth-child(2) input[type=button] {
+#member_table_div div:nth-child(2) input[type=button] ,#memberinfo_div input[type=button]{
 	width: 70px;
 	height: 30px;
 	border: 2px solid #2a365c;
@@ -272,7 +284,7 @@ body {
 	border-radius: 10px;
 }
 
-#member_table_div div:nth-child(2) input[type=button]:hover{
+#member_table_div div:nth-child(2) input[type=button]:hover ,#memberinfo_div input[type=button]:hover{
 	background-color: #2a365c;
 	color:white;
 }
@@ -307,6 +319,46 @@ body {
 #member_table_div th:last-child {
 	width: 100px;
 }
+
+#member_table_div th:last-child div {
+	display:flex;
+	margin: 0 auto;
+	justify-content:center;
+}
+
+
+/*================================================================*/
+/*================================================================*/
+/*================================================================*/
+
+
+.paging_span , #first , #back , #next , #last{
+	display:flex;
+	justify-content:center;
+	background-color:azure;
+	flex-direction:column;
+	width:40px;
+	height : 40px;
+	border:1px solid #2a365c;
+	margin: 5px;
+	color:black;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+
+.paging_span:hover , #first:hover , #back:hover , #next:hover , #last:hover{
+	background-color:#000000;
+	color:white;
+}
+
+
+
+
+
+
+
+
 
 /*================================================================*/
 /*================================================================*/
@@ -385,7 +437,31 @@ button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 �
 	to {transform: scale(1,1);}
 }
 
+/*=====================================================================*/
+/*=====================================================================*/
+/* 					회원 상세 정보  */
+/*=====================================================================*/
+/*=====================================================================*/
 
+#memberinfo_div>div:nth-child(1) {
+    width: 100%;
+    max-width: 1400px;
+    min-width: 1400px;
+}
 
+#memberinfo_div{
+	display: flex;
+	justify-content: center;
+}
+
+#memberinfo_div tr>th:nth-child(1) {
+	width: 50px;
+}
+#memberinfo_div tr>th:nth-child(4) {
+	width: 250px;
+}
+#memberinfo_div tr>th:nth-child(5) {
+	width: 50px;
+}
 
 

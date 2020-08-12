@@ -59,7 +59,7 @@ public class ProductController {
 	// 개인의 장바구니 목록 조회
 	@RequestMapping("/cart")
 	public String getCart(Authentication authentication, Model model) {
-		model.addAttribute("cartList", cartService.getCart(authentication.getName()));
+		model.addAttribute("cartLists", cartService.getCart(authentication.getName()));
 		return "product/cart";
 	}
 
@@ -148,29 +148,22 @@ public class ProductController {
 	// 결제 완료 후 나의 주문내역 ===========================================지현
 	@GetMapping("/orderlist/{member_id}")
 	public String myOrderLIst(@PathVariable("member_id") String member_id, Model model) {
+		System.out.println("여기 들어올꺼야 member_id: "+member_id);
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
 	@PostMapping("/orderview")
 	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
 		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
+		model.addAttribute("order_group_number",order_group_number);
+	}
+	@PostMapping("/deleteOrder")
+	public String deleteOrder(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number) {
+		orderService.deleteOrder(order_group_number, member_id);
+		return "redirect:/product/orderlist/"+member_id;
 	}
 
-	// ===========================================================지현
-//	// 주문 취소시 삭제
-//	@RequestMapping("")
-//	public String deleteOrder(@PathVariable String member_id, int product_id) {
-//		orderService.deleteOrder(member_id, product_id);
-//		return "";
-//	}
-//
-//	// 배송 전/중/완료
-//	@RequestMapping("")
-//	public String deliveryOrder(@PathVariable String member_id, int product_id, String order_status) {
-//		orderService.deliveryOrder(member_id, product_id, order_status);
-//		return "";
-//	}
-//
+
 //	// =======================================
 //	// -------------Product------------
 //	// 전체 상품 목록
