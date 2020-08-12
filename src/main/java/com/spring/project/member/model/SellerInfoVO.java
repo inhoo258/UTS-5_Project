@@ -10,7 +10,15 @@ public class SellerInfoVO {
 	private String seller_company_email;
 	private String seller_company_name;
 	private String seller_company_head_name;
+	private int product_delivery_price;
 	
+	
+	public int getProduct_delivery_price() {
+		return product_delivery_price;
+	}
+	public void setProduct_delivery_price(int product_delivery_price) {
+		this.product_delivery_price = product_delivery_price;
+	}
 	public String getSeller_company_main_address() {
 		return seller_company_main_address;
 	}

@@ -1,5 +1,7 @@
 package com.spring.project.product.model;
 
+import java.sql.Date;
+
 public class ProductsVO {
 	private int product_id;
 	private String member_id;
@@ -10,8 +12,34 @@ public class ProductsVO {
 	private int product_weight;
 	private byte[] product_img;
 	private String product_img_name;
+	private Date product_upload_date;
+	private int product_rn;
 	
 	
+	@Override
+	public String toString() {
+		return "ProductsVO [product_id=" + product_id + ", member_id=" + member_id + ", product_info=" + product_info
+				+ ", product_name=" + product_name + ", product_count=" + product_count + ", product_price="
+				+ product_price + ", product_weight=" + product_weight
+				+ ", product_img_name=" + product_img_name + ", product_upload_date=" + product_upload_date + "]";
+	}
+
+	
+	public int getProduct_rn() {
+		return product_rn;
+	}
+
+	public void setProduct_rn(int product_rn) {
+		this.product_rn = product_rn;
+	}
+
+	public Date getProduct_upload_date() {
+		return product_upload_date;
+	}
+
+	public void setProduct_upload_date(Date product_upload_date) {
+		this.product_upload_date = product_upload_date;
+	}
 
 	public byte[] getProduct_img() {
 		return product_img;

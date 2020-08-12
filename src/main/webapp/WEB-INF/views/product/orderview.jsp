@@ -23,7 +23,7 @@
 			<c:forEach var="order" items="${orderList}">
 			<tr class="tr_order">
 			<td class="td_product_img"><img id="orderlist_product_img"
-				src='<c:url value = "/product/img/${order.product_id}"/>' width="300px"> <input
+				src='<c:url value = "/product/img/${order.product_id}"/>' width="200px"> <input
 				type="hidden" class="order_number" value="${order.order_number}">
 			</td>
 			<td>
@@ -50,15 +50,16 @@
 			</td>
 		</tr>
 		</c:forEach>
-			<tr>
-				<td colspan="4">
-					배송비 : ${orderList[0].order_delivery_price} 
-					<input class="cancel_btn" type="button" value="주문 취소">
-					<input type="hidden" class="seller_company_name" value="${orderList[0].seller_company_name}">
-				</td>
-			</tr>
+		<tr>
+			<td colspan="4">배송비 : ${orderList[0].order_delivery_price}</td>
+		</tr>
 	</table>
 	</c:forEach>
+	<form action="/project/product/deleteOrder" method="post" onsubmit="return deleteCheck()" >
+		<input type="hidden" name="order_group_number" value='${order_group_number}'>
+		<input type="hidden" name="member_id" value="${member_id}">
+		<input id="cancel_btn" type="submit" value="주문 취소">
+	</form>
 </body>
 <script type="text/javascript">
    $(".review_check").each(function(){
@@ -85,6 +86,10 @@
    });
    $(".review_popup_btn").on("click",function() {
             let idx = $(".review_popup_btn").index(this);
+            if($(".order_status").get(idx).innerText!="배송완료"){
+            	alert("후기는 배송완료 후 가능");
+            	return ;
+            }
             let reviewForm;
             if ($(".review_popup_btn").length > 1)
                reviewForm = document.reviewForm[idx];
@@ -97,30 +102,11 @@
             reviewForm.target = "reviewForm";
             reviewForm.submit();
     });
-   $(".cancel_btn").on("click", function(){
-	   let idx = $(".cancel_btn").index(this);
-	   console.log("idx : "+idx);
-	   let seller_company_name =$(".seller_company_name").get(idx).value;
-	   let member_id = '${member_id}';
-	   console.log("member_id : "+member_id);
-	   console.log("company name : "+seller_company_name);
+   function deleteCheck(){
 	   let conf = confirm("주문을 취소 하시겠습니까?");
 	   if(conf){
-		   $.ajax({
-			  url:'<c:url value="/product/rest/orderCancel"/>',
-			  type:"POST",
-			  data:{
-				  seller_company_name:seller_company_name,
-				  member_id:member_id
-			  },success:function(result){
-				  if(result){
-					  $(".orderlist_table").get(idx).remove();
-				  }else{
-					  console.log("returned "+result);
-				  }
-			  }
-		   });
-	   }
-   });
+		   return true;
+	   }else return false;
+   }
    </script>
 </html>

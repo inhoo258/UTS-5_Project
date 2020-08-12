@@ -26,7 +26,7 @@
                 <div class="p_product_desc">
                     <div class="p_product_explain">
                         <div class="p_product_title">
-                            <span id="title"><span id="titletext">${product.product_name}</span></span>
+                            <span id="title"><span id="titletext">[${sellerInfo.seller_company_name}]${product.product_name}</span></span>
                         </div>
                         <div>
                             <span id="key"><span id="keytext">상품 가격</span></span>
@@ -74,8 +74,15 @@
                         	<span id="key"><span id="keytext">총 상품 금액</span ></span>
                         	<span id="value">
 	                        	<span id="text">
-	                        		<span id= "p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span> 원
+	                        		<span id= "p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,### 원"/></span>
 	                        	</span>
+                        	</span>
+                        	<span id="key"><span id="keytext">배송비</span></span>
+                        	<span id="value">
+                        		<span id="text">
+                        			<span id="p_delivery_price"><fmt:formatNumber value="${sellerInfo.product_delivery_price}" pattern="#,### 원"/></span>
+                        			<span id="free_del_condition">5만원 이상 구매 시 무료배송</span>
+                        		</span>
                         	</span>
                         </div>
 						<div>
@@ -86,8 +93,6 @@
 								<input class="btn" type="button" value ="주문하기" onclick="redirectOrder()"> 
 								<input class="btn" type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
 							</form>
-<%-- 							<form action ='<c:url value ="/product/cart/${member_id}"/>'> --%>
-<!-- 							</form> -->
 						</div>
                     </div>
                 </div>
@@ -235,7 +240,8 @@
 		let product_id = document.getElementById("pOrder_product_id").value;
 		let member_id = document.getElementById("pOrder_member_id").value;
 		let p_num = parseInt(document.getElementById("p_count_num").innerText);
-		let originalPrice = parseInt('${product.product_price}')
+		let originalPrice = parseInt('${product.product_price}');
+		let deliveryPrice = parseInt('${sellerInfo.product_delivery_price}');
 		console.log("product_id : " + product_id);
 		console.log("member_id : "+member_id);
 		console.log("p_num : "+p_num);
@@ -244,7 +250,11 @@
 		document.getElementById("p_minus_btn").disabled=false;
 		p_num += 1;
 		document.getElementById("p_count_num").innerText=p_num;
-		document.getElementById("p_tprice_value").innerText=(originalPrice*p_num).toLocaleString();
+		document.getElementById("p_tprice_value").innerText=(originalPrice*p_num).toLocaleString()+" 원";
+		if(originalPrice*p_num>=50000){
+			document.getElementById("p_delivery_price").innerText='무료배송';
+			document.getElementById("free_del_condition").innerText='';
+		}
 	}
 	function p_count_minus() {
 		if(p_num > 1){
@@ -254,6 +264,10 @@
 			}
 		document.getElementById("p_count_num").innerText=p_num;
 		document.getElementById("p_tprice_value").innerText=(originalPrice*p_num).toLocaleString();
+		if(originalPrice*p_num<50000){
+			document.getElementById("p_delivery_price").innerText=deliveryPrice.toLocaleString()+" 원";
+			document.getElementById("free_del_condition").innerText='5만원 이상 구매 시 무료배송';
+		}
 		}
 	}
 	function redirectOrder(){
@@ -272,15 +286,6 @@
 					document.myForm.action = '<c:url value="/product/ordersheet"/>';
 					document.myForm.method = 'post';
 					document.myForm.submit();
-					
-					switch (key) {
-					case value:
-						
-						break;
-
-					default:
-						break;
-					}
 				}else{
 					let ans = confirm("이미 동일한 상품이 장바구니에 존재합니다.\n장바구니로 이동하시겠습니까?");
 					if(ans){
