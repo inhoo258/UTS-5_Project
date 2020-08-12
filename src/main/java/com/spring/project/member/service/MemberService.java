@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.project.member.model.MemberVO;
+import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.repository.IMemberRepository;
 
@@ -25,25 +26,15 @@ public class MemberService implements IMemberService {
 		return memberRepository.getMemberInfo(userId);
 	}
 	@Override
-	public List<MemberVO> getMemberList(int memberPage, String member_word) {
+	public List<MemberVO> getMemberList(int memberPage, SelectVO select) {
 		int start = (memberPage - 1) * 10 + 1;
 		int end = start + 9;
-		if (member_word != null) {
-			if (!member_word.equals("")) {
-				return memberRepository.getSelectMemberList(start, end, member_word);
-			}
-		}
-		return memberRepository.getMemberList(start, end);
+		return memberRepository.getSelectMemberList(start, end , select.getSelect_auth() , select.getSelect_enabled() , select.getSelect_word());
 	}
 
 	@Override
-	public int getMemberCount(String member_word) {
-		if (member_word != null) {
-			if (!member_word.equals("")) {
-				return memberRepository.getSelectMemberCount(member_word);
-			}
-		}
-		return memberRepository.getMemberCount();
+	public int getMemberCount(SelectVO select) {
+		return memberRepository.getMemberCount(select.getSelect_auth() , select.getSelect_enabled() , select.getSelect_word());
 	}
 
 	@Override

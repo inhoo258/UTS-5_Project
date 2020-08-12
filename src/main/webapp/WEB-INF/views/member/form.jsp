@@ -15,9 +15,16 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-    <jsp:include page="../header&footer/header.jsp"></jsp:include>
+	<c:if test="${!empty message}">
+	    <jsp:include page="../header&footer/header.jsp"></jsp:include>
+	</c:if>
 	<section id=form>
+	<c:if test="${!empty message}">
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
+    </c:if>
+    <c:if test="${empty message}">
+        <form action='<c:url value="/member/update"/>' method="post" onsubmit="return inputCheck()">
+    </c:if> 
 	        <div class="joinmain">
 	            <div class="joinbox">
 	                <div class="jointitle">
@@ -44,7 +51,7 @@
 	                            <font id="pw_check_msg"></font>
 	                        </div>
 	                        <div class="joininfokey">
-	                            <input type="text" value="${member.member_name}" name="member_name" id="member_name" autocomplete="off" placeholder='이름을 입력하세요'>
+	                            <input type="text" value="${member.member_name}" ${not empty member ? "readonly":"" } name="member_name" id="member_name" autocomplete="off" placeholder='이름을 입력하세요'>
 	                        </div>
 	                        <div class="joininfovalue">
 	                            <font id="name_check"></font>
@@ -88,10 +95,10 @@
 								</c:otherwise>
 							</c:choose>
 	                        <div class="joininfokey">
-	                            <input type="text" value="${member.member_email}" name="member_email" id="member_email"  autocomplete="off" placeholder='이메일을 입력하세요. (예 : huh_say@uts.com)'>
+	                            <input type="text" value="${member.member_email}" name="member_email" id="member_email"  autocomplete="off" ${not empty member ? "readonly":"placeholder='이메일을 입력하세요.(예: huh_say@uts.com)' autocomplete='off'"}>
 	                        </div>
 	                        <div class="joininfovalue">
-	                            <input type="button" id="certifyemail" disabled="" value="중복 확인" >
+	                            <input type=${not empty member ? "hidden":"button"} id="certifyemail" disabled="" value="중복 확인"  >
 	                        </div>
 	                        <c:if test="${empty member}">
 	                            <sec:authorize access="isAnonymous()">
@@ -113,7 +120,7 @@
 	                      		 </div>
 	                        </div>
 	                        <div class="joininbtn">
-		                        <input type="submit" id="signupbtn" value="${message eq 'insert' ? '가입완료' : '수정완료'}">
+		                        <input type="submit" id="${message eq 'insert' ? 'signupbtn':'signupbtn2'}" value="${message eq 'insert' ? '가입완료' : '수정완료'}">
 	                        </div>
 	                        <div class="joininbtn">
 	                        	<input type="button" id="cancelbtn" value="취소" onclick="window.history.back()">
