@@ -36,7 +36,6 @@ public class MemberController {
 	@GetMapping("/form")
 	public void form(Model model) {
 		model.addAttribute("message", "insert");
-		System.out.println("여기는 입력");
 	}
 	
 	@PostMapping("/checkpwd")
@@ -51,12 +50,6 @@ public class MemberController {
 			model.addAttribute("message", "nomatchpw");
 			return "redirect:/member/info";
 		}
-//		if(pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id()))) { // 2번째 방법
-//			redirectAttributes.addFlashAttribute("message", "succespwd");
-//		}else {
-//			redirectAttributes.addFlashAttribute("message", "errorpwd");
-//		}
-//		return "redirect:/member/info";
 	}
 	
 	@GetMapping("/form/{userId}")
@@ -72,12 +65,10 @@ public class MemberController {
 	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes,@RequestParam(value="seller_reg_num",required=false) String seller_reg_num) {
 		System.out.println("------------------\nmember-insert process---------------------\n");
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
-//		for(int i = 0 ; i < 1000 ; i++) {
 			if (member.getMember_auth().equals("ROLE_CUSTOMER"))
 				member.setMember_enabled(1);
 			System.out.println("seller_reg_num : "+seller_reg_num);
 			memberSerivce.memberInsert(member);
-//			}
 		if(!seller_reg_num.equals(""))memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
 		return "redirect:/";
 	}
@@ -87,47 +78,6 @@ public class MemberController {
 	public void getMemberList() {
 	}
 
-	@PostMapping("/permission")
-	public String permission(@RequestParam(value = "permission_id", required = false) String permission_id,
-			@RequestParam(required = false) String[] permission_ids, RedirectAttributes attributes,
-			@RequestParam(required = false) String permission_word,
-			@RequestParam(value = "permissionpage", required = false, defaultValue = "1") int permissionpage,
-			@RequestParam(value = "memberpage", required = false, defaultValue = "1") int memberpage) {
-		if (permission_ids != null) {
-//			memberSerivce.permissions(permission_ids);
-		}
-		if (permission_id != null) {
-//			memberSerivce.permission(permission_id);
-		}
-		attributes.addAttribute("permission_word" , permission_word);
-		attributes.addAttribute("permissionpage", permissionpage);
-		attributes.addAttribute("memberpage", memberpage);
-		return "redirect:/member/list";
-	}
-
-	@PostMapping("/delete")
-	public String delete(@RequestParam(value = "member_id", required = false) String member_id,
-			@RequestParam(required = false) String[] member_ids, RedirectAttributes attributes,
-			@RequestParam(required = false) String member_word,
-			@RequestParam(value = "permissionpage", required = false, defaultValue = "1") int permissionpage,
-			@RequestParam(value = "memberpage", required = false, defaultValue = "1") int memberpage) {
-		System.out.println("permissionpage : : " + permissionpage);
-		System.out.println("memberpage : : " + memberpage);
-		if (member_ids != null) {
-			memberSerivce.membersDelete(member_ids);
-		}
-		if (member_id != null) {
-			memberSerivce.memberDelete(member_id);
-		}
-		attributes.addAttribute("member_word" , member_word);
-		attributes.addAttribute("permissionpage", permissionpage);
-		attributes.addAttribute("memberpage", memberpage);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MASTER"))) {
-			return "redirect:/member/list";
-		}
-		return "redirect:/logout";
-	}
 
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/info")
