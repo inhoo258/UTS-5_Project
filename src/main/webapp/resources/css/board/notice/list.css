@@ -194,6 +194,9 @@
 	width: 150px;
 }
 
+#contents_qna_table tr:nth-child(n+2) th:nth-child(3) {
+	text-align: left;
+}
 
 
 

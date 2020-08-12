@@ -98,16 +98,13 @@
                                 <th>카테고리</th>
                                 <th>제목</th>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <th>배송문의</th>
-                                <td>배송 취소</td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <th>주문문의</th>
-                                <td>주문 취소</td>
-                            </tr>
+                            <c:forEach var="list" items="${faqList}" varStatus="status">
+		                  		<tr>
+			                    	<th>${list.fre_number}</th>
+			                     	<th>${list.fre_category}</th>
+				                    <th>${list.fre_title}</th>
+		                  		</tr>
+		               		</c:forEach>
                         </table>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ import com.spring.project.board.model.NoticeVO;
 import com.spring.project.board.repository.INoticeRepository;
 
 @Service
-public class NoticeService implements IBoardService{
+public class NoticeService {
 
 	@Autowired
 	INoticeRepository noticeRepository;
