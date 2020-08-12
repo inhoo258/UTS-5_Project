@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>list</title>
+<title>Notice list</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/board/notice/list.css'/>" />
 <script src="https://kit.fontawesome.com/c2524284bc.js" crossorigin="anonymous"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -99,7 +99,6 @@
          </form>
       </div>
    </div>
-	<div> 글 하나도 없을 때 끝으로 가기 페이지 안보이게 해야함!!!!!!!!!!!!!!!!!!!!!1</div>
    <jsp:include page="../../header&footer/footer.jsp"/>
 	<script type="text/javascript">
 	let index = 0;

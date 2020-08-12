@@ -13,25 +13,25 @@
 	<jsp:include page='../../header&footer/header.jsp' />
 	<div class="noice_section">
 		<div style="padding-bottom: 45px;">
-			<h2 class="tit">공지사항</h2>
-			<span class="tit_sub">새로운 소식들과 유용한 정보들을 한곳에서 공유하세요.</span>
+			<h2 class="tit">Event</h2>
+			<span class="tit_sub">Event 등록하기</span>
 		</div>
-		<form action='<c:url value="/board/notice/${msg}"/>' method="post" enctype="multipart/form-data">
+		<form action='<c:url value="/board/event/${msg}"/>' method="post" enctype="multipart/form-data">
 			<table class="form_table">
 				<tr>
 					<th >글제목</th>
 					<td> 
-						<input type="text" name="notice_title" class="th_title" value="${notice.notice_title}">
+						<input type="text" name="event_title" class="th_title" value="${event.event_title}">
 						<c:if test="${msg eq 'update'}">
-							<input type="hidden" name='notice_number' value="${notice.notice_number}">
-							<input type="hidden" name='notice_rn' value="${notice.notice_rn}">
+							<input type="hidden" name='event_number' value="${event.event_number}">
+							<input type="hidden" name='event_rn' value="${event.event_rn}">
 						</c:if>
 					</td>
 				</tr>
 				<tr>
 					<th >글내용</th>
 					<td>
-						<textarea rows="30" cols="110" name="notice_content" class="td_content">${notice.notice_content}</textarea>
+						<textarea rows="30" cols="110" name="event_content" class="td_content">${event.event_content}</textarea>
           			</td>
 				</tr>
 				<tr>

@@ -12,13 +12,9 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/member/info.css'/>" />
 </head>
 <body>
-<<<<<<< HEAD
 <jsp:include page="../header&footer/header.jsp"/>
    <sec:authorize access="hasRole('ROLE_CUSTERMER')"> 
    <section id="info-main">
-=======
-<section id="info-main">
->>>>>>> refs/remotes/origin/getout
         <div class="first">
             <div>
                 <div class="myinfotextframe">
@@ -76,9 +72,6 @@
                             <a href="#" onClick="orderLists()">나의 주문 내역<p>></p></a>
                         </li>
                         <li>
-<<<<<<< HEAD
-                            <a href="#myinfomodifyform">회원 정보 수정<p>></p></a>
-=======
                             <a href="#myinfomodifyform" onClick="myinfomodify()">개인 정보 수정<p>></p></a>
                         </li>
                         <li>
@@ -104,7 +97,6 @@
 <!--                         </li> -->
                         <li>
                             <a href="#">판매자 정보 수정<p>></p></a>
->>>>>>> refs/remotes/origin/getout
                         </li>
                     </ul>
                 </div>
