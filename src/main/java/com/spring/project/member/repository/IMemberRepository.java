@@ -54,17 +54,14 @@ public interface IMemberRepository {
 	// ==============================================================================
 
 	// 회원 목록 출력=====================================================================
-	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_main_addr,member_sub_addr, member_email, member_enabled, au.authority as member_auth"
-			+ " from members m join authorities au on m.member_id=au.member_id) where rn between #{0} and #{1}")
-	public List<MemberVO> getMemberList(int start, int end);
 
 	@Select("select * from (select rownum rn , m.member_id , member_pw, member_name, member_tel, member_main_addr,member_sub_addr, member_email, member_enabled, au.authority as member_auth "
-			+ "from members m join authorities au on m.member_id=au.member_id where m.member_id like '%'||#{2}||'%' or m.member_name like '%'||#{2}||'%') "
+			+ "from members m join authorities au on m.member_id=au.member_id where ${param3} and ${param4} and ${param5} ) "
 			+ "where rn between #{0} and #{1}")
-	public List<MemberVO> getSelectMemberList(int start, int end, String member_word);
+	public List<MemberVO> getSelectMemberList(int start, int end, String auth , String enable , String word);
 
-	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id")
-	public int getMemberCount();
+	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where ${param1} and ${param2} and ${param3}")
+	public int getMemberCount(String auth , String enable , String word);
 	
 	@Select("select count(*) from members m join authorities au on m.member_id=au.member_id where m.member_id like '%'||#{0}||'%' or m.member_name like '%'||#{0}||'%'")
 	public int getSelectMemberCount(String member_word);

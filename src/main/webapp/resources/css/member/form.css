@@ -3,7 +3,7 @@
 
 
 .joinmain{
-	height: 2000px;
+	height: 100%;
 }
 .joinbox{
 	margin: 0 auto;
@@ -85,11 +85,20 @@
 .selectuser>input[type=radio]:hover, .selectuser>label:hover{
 	cursor: pointer;
 }
-
 #signupbtn{
 	float: left;
 	width: 420px;
 	height: 50px;
+	margin-left: 90px;
+	color: white;
+	border: none;
+	background-color: #2a365c;
+}
+#signupbtn2{
+	float: left;
+	width: 420px;
+	height: 50px;
+	margin-top: 30px;
 	margin-left: 90px;
 	color: white;
 	border: none;

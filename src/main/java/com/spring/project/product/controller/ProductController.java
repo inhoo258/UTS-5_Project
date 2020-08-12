@@ -59,7 +59,7 @@ public class ProductController {
 	// 개인의 장바구니 목록 조회
 	@RequestMapping("/cart")
 	public String getCart(Authentication authentication, Model model) {
-//		model.addAttribute("cartList", cartService.getCart(authentication.getName()));
+		model.addAttribute("cartLists", cartService.getCart(authentication.getName()));
 		return "product/cart";
 	}
 
@@ -148,29 +148,22 @@ public class ProductController {
 	// 결제 완료 후 나의 주문내역 ===========================================지현
 	@GetMapping("/orderlist/{member_id}")
 	public String myOrderLIst(@PathVariable("member_id") String member_id, Model model) {
+		System.out.println("여기 들어올꺼야 member_id: "+member_id);
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
 	@PostMapping("/orderview")
 	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
 		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
+		model.addAttribute("order_group_number",order_group_number);
+	}
+	@PostMapping("/deleteOrder")
+	public String deleteOrder(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number) {
+		orderService.deleteOrder(order_group_number, member_id);
+		return "redirect:/product/orderlist/"+member_id;
 	}
 
-	// ===========================================================지현
-//	// 주문 취소시 삭제
-//	@RequestMapping("")
-//	public String deleteOrder(@PathVariable String member_id, int product_id) {
-//		orderService.deleteOrder(member_id, product_id);
-//		return "";
-//	}
-//
-//	// 배송 전/중/완료
-//	@RequestMapping("")
-//	public String deliveryOrder(@PathVariable String member_id, int product_id, String order_status) {
-//		orderService.deliveryOrder(member_id, product_id, order_status);
-//		return "";
-//	}
-//
+
 //	// =======================================
 //	// -------------Product------------
 //	// 전체 상품 목록
@@ -217,21 +210,57 @@ public class ProductController {
 
 	// 상품 입고화면
 	@GetMapping("/upload")
-	public void insertProduct() {
+	public void insertProduct(Model model) {
+		model.addAttribute("msg","upload");
 	}
-
+	
+	
 	@PostMapping("/upload")
-	public String insertProduct(@RequestParam("file")MultipartFile file,@ModelAttribute ProductsVO product) {
-		System.out.println("insert start");
-		System.out.println("product_info : " + product.getProduct_info());
+	public String insertProduct(@RequestParam(value = "file" ,required = false)MultipartFile file, ProductsVO product) {
 		try {
 			product.setProduct_img(file.getBytes());
 			product.setProduct_img_name(file.getOriginalFilename());
 		} catch (IOException e) {
 		}
 		productService.insertProduct(product);
-		return "redirect:/product/list";
+		return "redirect:/product/sellerProductList";
 	}
+	
+	//sellerProductList에서 수정 버튼 클릭 시
+	@GetMapping("/upload/{product_id}")
+	public String modify(@PathVariable("product_id") int product_id, Model model) {
+		model.addAttribute("product", productService.getProduct(product_id));
+		model.addAttribute("msg", "update");
+		return "product/upload";
+	}
+	
+	//상품 등록 수정
+	@PostMapping("/update")
+	public String updateUpload(@RequestParam MultipartFile file, @ModelAttribute ProductsVO productVo) {
+		System.out.println(productVo.toString());
+		if(file!=null && !file.isEmpty()) {
+			try {
+				productVo.setProduct_img(file.getBytes());
+				System.out.println("file img : "+file.getBytes());
+				productVo.setProduct_img_name(file.getOriginalFilename());
+				System.out.println("file img name : "+file.getOriginalFilename());
+				productService.updateProductWithImage(productVo);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		productService.updateProduct(productVo);
+		return "redirect:/product/sellerProductList";
+	}
+	
+	
+	//판매자페이지에서의 상품 조회
+	@GetMapping("/sellerProductList")
+	public void viewSellerProductList(Model model, Authentication authentication ){
+		String login_id = authentication.getName();
+		model.addAttribute("productList", productService.getSellerProductList(login_id));
+	}
+	
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
 //	public String deleteProduct(@PathVariable int product_id) {

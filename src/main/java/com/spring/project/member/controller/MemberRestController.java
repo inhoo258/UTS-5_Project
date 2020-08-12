@@ -3,6 +3,7 @@ package com.spring.project.member.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,8 @@ import com.spring.project.member.service.IMemberService;
 public class MemberRestController {
 	@Autowired
 	IMemberService memberSerivce;
-
+	@Autowired
+	BCryptPasswordEncoder pwEncoder;
 
 	@PostMapping("/memberCheck")
 	public int memberCheck(@RequestParam("member_id") String member_id) {
@@ -49,57 +51,96 @@ public class MemberRestController {
 
 	@PostMapping("/list")
 	public List<MemberVO> memberList(@RequestBody SelectVO select) {
-		
-//		if((select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() == null )
-//				||(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() != null && select.getSelect_word() == null)){
-//			return memberSerivce.getMemberList(select.getPage(), "");
-////			초기값
-//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() != null) {
-////			word 만 있을경우
-//			return null;
-//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() != null && select.getSelect_word() != null) {
-////			word 에 옵션 ++
-//			return null;
-//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()!=null && select.getSelect_option() == null && select.getSelect_word() == null) {
-////			enabled만 있을때
-//			return null;
-//		}else if(select.getSelect_auth() != null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() == null) {
-////			활성화 여부만
-//			return null;
-//		}else if(select.getSelect_auth() != null && select.getSelect_enabled()!=null && select.getSelect_option() == null && select.getSelect_word() == null) {
-////			활성화 권한 두개
-//			return null;
-//		}else if(select.getSelect_auth() != null && select.getSelect_enabled()==null && select.getSelect_option() != null && select.getSelect_word() != null) {
-////			권한 + 옵션 + 워드
-//			return null;
-//		}else if(select.getSelect_auth() == null && select.getSelect_enabled()==null && select.getSelect_option() == null && select.getSelect_word() == null) {
-//			return null;
-//		}
-		System.out.println(select.getSelect_auth());
-		System.out.println(select.getSelect_enabled());
-		System.out.println(select.getSelect_option());
-		System.out.println(select.getSelect_word());
-		return memberSerivce.getMemberList(1, "");
+		if (select.getSelect_auth() == null) {
+			select.setSelect_auth("au.authority != ' '");
+		} else {
+			select.setSelect_auth("au.authority = '" + select.getSelect_auth() + "'");
+		}
+
+		if (select.getSelect_enabled() == null) {
+			select.setSelect_enabled("m.member_enabled != ' '");
+		} else {
+			select.setSelect_enabled("m.member_enabled = '" + select.getSelect_enabled() + "'");
+		}
+
+		if (select.getSelect_word() == null) {
+			if (select.getSelect_option() == null || select.getSelect_option() != null) {
+				select.setSelect_word("(m.member_name != ' ' and m.member_tel != ' ' and m.member_email != ' ')");
+			}
+		} else {
+			if (select.getSelect_option() == null) {
+				select.setSelect_word("(m.member_name like '%" + select.getSelect_word()
+						+ "%' or m.member_tel like '%" + select.getSelect_word()
+						+ "%' or m.member_email like '%" + select.getSelect_word() + "%')");
+			} else {
+				select.setSelect_word(
+						"m." + select.getSelect_option() + " like '%" + select.getSelect_word() + "%'");
+			}
+		}
+		return memberSerivce.getMemberList(select.getPage(), select);
+
 	}
-	
-	@RequestMapping("/page_numbering")
-	public PagingManager page_Numbering(@RequestParam(value="page" , defaultValue = "1")int page , @RequestParam(value = "word" , required = false) String word) {
-		return new PagingManager(memberSerivce.getMemberCount(word), page);
+
+	@RequestMapping(value = "/page_numbering", produces = "application/json;charset=UTF-8")
+	public PagingManager page_Numbering(@RequestBody SelectVO select) {
+
+		if (select.getSelect_auth() == null) {
+			select.setSelect_auth("au.authority != ' '");
+		} else {
+			select.setSelect_auth("au.authority = '" + select.getSelect_auth() + "'");
+		}
+
+		if (select.getSelect_enabled() == null) {
+			select.setSelect_enabled("m.member_enabled != ' '");
+		} else {
+			select.setSelect_enabled("m.member_enabled = '" + select.getSelect_enabled() + "'");
+		}
+
+		if (select.getSelect_word() == null) {
+			if (select.getSelect_option() == null || select.getSelect_option() != null) {
+				select.setSelect_word("(m.member_name != ' ' and m.member_tel != ' ' and m.member_email != ' ')");
+			}
+		} else {
+			if (select.getSelect_option() == null) {
+				select.setSelect_word("(m.member_name like '%" + select.getSelect_word()
+						+ "%' or m.member_tel like '%" + select.getSelect_word()
+						+ "%' or m.member_email like '%" + select.getSelect_word() + "%')");
+			} else {
+				select.setSelect_word(
+						"m." + select.getSelect_option() + " like '%" + select.getSelect_word() + "%'");
+			}
+		}
+
+		return new PagingManager(memberSerivce.getMemberCount(select), select.getPage());
 	}
 
 	@PostMapping("/choice_delete")
 	public void choice_delete(@RequestBody String member_id) {
+		System.out.println(member_id);
 		memberSerivce.memberDelete(member_id);
 	}
 
-	@PostMapping(value="/member_enable" , produces="application/json;charset=UTF-8")
-	public void member_enable (@RequestBody MemberVO member) {
-		if(member.getMember_enabled() == 0) {
+	@PostMapping(value = "/member_enable", produces = "application/json;charset=UTF-8")
+	public void member_enable(@RequestBody MemberVO member) {
+		if (member.getMember_enabled() == 0) {
 			memberSerivce.member_enable(1, member.getMember_id());
-		}else {
+		} else {
 			memberSerivce.member_enable(0, member.getMember_id());
 		}
 	}
 	
+	@PostMapping("/password_test")
+	public String password_test(@RequestBody MemberVO member) {
+		System.out.println(member.getMember_id());
+		System.out.println(member.getMember_pw());
+		String str = null;
+		if(pwEncoder.matches(member.getMember_pw() , memberSerivce.getMemberPassword(member.getMember_id()))) {
+			str = "true";
+		}else {
+			str = "false";
+		}
+		
+		return str;
+	}
 
 }

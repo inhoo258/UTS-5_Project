@@ -3,6 +3,7 @@ package com.spring.project.member.service;
 import java.util.List;
 
 import com.spring.project.member.model.MemberVO;
+import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.model.SellerInfoVO;
 
 public interface IMemberService {
@@ -10,8 +11,8 @@ public interface IMemberService {
 	public MemberVO getMemberInfo(String member_id);
 	public void memberInsert(MemberVO member);
 	public void updateMember(MemberVO member);
-	public List<MemberVO> getMemberList(int memberPage , String member_word);
-	public int getMemberCount(String member_word);
+	public List<MemberVO> getMemberList(int memberPage , SelectVO select);
+	public int getMemberCount(SelectVO select);
 	public void membersDelete(String[] member_ids);
 	public void memberDelete(String member_id);
 	public MemberVO getMemberEmail(String member_email);
