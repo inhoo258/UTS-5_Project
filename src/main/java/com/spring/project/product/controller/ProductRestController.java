@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
+import com.spring.project.product.service.ProductService;
 
 @RestController
 @RequestMapping("/product/rest")
@@ -21,6 +22,8 @@ public class ProductRestController {
 	CartService cartService;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	ProductService productService;
 	@PostMapping("/updateCart")
 	public void updateCart(String member_id, @RequestParam("product_ids[]") List<Integer> product_ids,
 			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts) {
@@ -59,8 +62,11 @@ public class ProductRestController {
 	}
 	@GetMapping("/orderlist/{member_id}")
 	public List<List<OrdersVO>> myOrderLIst(@PathVariable("member_id") String member_id) {
-//		System.out.println(orderService.getOrderList(member_id).get(0).get(4).get+"여기야");
-		
 		return orderService.getOrderList(member_id);
+	}
+	//판매자 페이지===================================
+	@PostMapping("/deleteSellerProduct")
+	public void deleteSellerProduct(@RequestParam("product_ids[]") int[] product_ids) {
+		productService.deleteSellerProduct(product_ids);
 	}
 }

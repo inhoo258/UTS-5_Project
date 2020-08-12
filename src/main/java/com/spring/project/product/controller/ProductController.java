@@ -218,21 +218,57 @@ public class ProductController {
 
 	// 상품 입고화면
 	@GetMapping("/upload")
-	public void insertProduct() {
+	public void insertProduct(Model model) {
+		model.addAttribute("msg","upload");
 	}
-
+	
+	
 	@PostMapping("/upload")
-	public String insertProduct(@RequestParam("file")MultipartFile file,@ModelAttribute ProductsVO product) {
-		System.out.println("insert start");
-		System.out.println("product_info : " + product.getProduct_info());
+	public String insertProduct(@RequestParam(value = "file" ,required = false)MultipartFile file, ProductsVO product) {
 		try {
 			product.setProduct_img(file.getBytes());
 			product.setProduct_img_name(file.getOriginalFilename());
 		} catch (IOException e) {
 		}
 		productService.insertProduct(product);
-		return "redirect:/product/list";
+		return "redirect:/product/sellerProductList";
 	}
+	
+	//sellerProductList에서 수정 버튼 클릭 시
+	@GetMapping("/upload/{product_id}")
+	public String modify(@PathVariable("product_id") int product_id, Model model) {
+		model.addAttribute("product", productService.getProduct(product_id));
+		model.addAttribute("msg", "update");
+		return "product/upload";
+	}
+	
+	//상품 등록 수정
+	@PostMapping("/update")
+	public String updateUpload(@RequestParam MultipartFile file, @ModelAttribute ProductsVO productVo) {
+		System.out.println(productVo.toString());
+		if(file!=null && !file.isEmpty()) {
+			try {
+				productVo.setProduct_img(file.getBytes());
+				System.out.println("file img : "+file.getBytes());
+				productVo.setProduct_img_name(file.getOriginalFilename());
+				System.out.println("file img name : "+file.getOriginalFilename());
+				productService.updateProductWithImage(productVo);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		productService.updateProduct(productVo);
+		return "redirect:/product/sellerProductList";
+	}
+	
+	
+	//판매자페이지에서의 상품 조회
+	@GetMapping("/sellerProductList")
+	public void viewSellerProductList(Model model, Authentication authentication ){
+		String login_id = authentication.getName();
+		model.addAttribute("productList", productService.getSellerProductList(login_id));
+	}
+	
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
 //	public String deleteProduct(@PathVariable int product_id) {

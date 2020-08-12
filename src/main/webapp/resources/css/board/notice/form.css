@@ -22,12 +22,13 @@
 }
 
 .th_title {
-	width: 99.5%; height: 47px; 
-/* 	border: none;  */
+	width: 99.5%; 
+	height: 47px; 
+	border: none; 
 }
 
 .td_content{
-/*  border: none;  */
+ border: none; 
  margin: 10px;
 }
 

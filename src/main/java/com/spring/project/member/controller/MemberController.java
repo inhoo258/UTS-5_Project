@@ -72,12 +72,10 @@ public class MemberController {
 	public String insertMember(MemberVO member, RedirectAttributes redirectAttributes,@RequestParam(value="seller_reg_num",required=false) String seller_reg_num) {
 		System.out.println("------------------\nmember-insert process---------------------\n");
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
-//		for(int i = 0 ; i < 1000 ; i++) {
 			if (member.getMember_auth().equals("ROLE_CUSTOMER"))
 				member.setMember_enabled(1);
 			System.out.println("seller_reg_num : "+seller_reg_num);
 			memberSerivce.memberInsert(member);
-//			}
 		if(!seller_reg_num.equals(""))memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
 		return "redirect:/";
 	}
