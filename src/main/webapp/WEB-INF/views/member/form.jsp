@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/form.css'/>" />
-<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script> -->
 <!-- 주소 찾기 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -18,7 +18,6 @@
 	<c:if test="${!empty message}">
 	    <jsp:include page="../header&footer/header.jsp"></jsp:include>
 	</c:if>
-	<section id=form>
 	<c:if test="${!empty message}">
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
     </c:if>
@@ -28,7 +27,7 @@
 	        <div class="joinmain">
 	            <div class="joinbox">
 	                <div class="jointitle">
-	                    <h2>회 원 ${message eq 'insert' ? '가 입' : '수 정'}</h2>
+	                    <h1>회 원 ${message eq 'insert' ? '가 입' : '수 정'}</h1>
 	                </div>
 	                <div class="joinidinfo">
 	                    <div class="joinidinfo2">
@@ -130,8 +129,6 @@
 	            </div>
 	        </div>
         </form>
-    </section>
-	</div>
 	<script type="text/javascript">
 	let member = '${member}';
 	console.log("member : " + member);
