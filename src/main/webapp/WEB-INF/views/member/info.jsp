@@ -14,7 +14,7 @@
 <body>
 <<<<<<< HEAD
 <jsp:include page="../header&footer/header.jsp"/>
-   <sec:authorize access="hasRole('ROLE_CUSTERMER')"> 
+   <sec:authorize access="hasRole('ROLE_CUSTOMER')"> 
    <section id="info-main">
 =======
 <section id="info-main">
