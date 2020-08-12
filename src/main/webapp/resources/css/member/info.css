@@ -1,409 +1,107 @@
-#info-main{
-    width: 100%;
-    height: 900px;
-    justify-content: center;
-}
-#info-main>div:nth-child(1){
-    display: flex;
-    width: 100%;
-    height: 300px;
-    justify-content: center;
-    background-color: rgba(42, 54, 92, 1); 
-}
-#info-main>div:nth-child(1)>div:nth-child(1){
-    width: 70%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    justify-content: space-between;
-}
-#info-main>div:nth-child(1)>div:nth-child(1)>div:nth-child(n+1){
-    width: 250px;
-    height: 200px;
-    margin: 0 4px 0 4px ;
-    background-color: azure;
-}
-#info-main>div:nth-child(1)>div:nth-child(1)>div:first-child{
-    width: 300px;
-    height: 200px;
-}
-#info-main>div:nth-child(1)>div:nth-child(1)>div:nth-child(2){
-    width: 500px;
-    height: 200px;
-}
-#info-main>div:nth-child(1)>div:nth-child(1)>div:last-child{
-	width: 200px;
-	height: 200px;
-}
-#info-main>div:nth-child(2){
-    margin: 0 auto;
-    margin-top: 20px;
-    display: flex;
-    width: 100%;
-    height: 600px; 
-    justify-content: center;
+#center_div {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
 }
 
+#center_div>div:first-child {
+	max-width: 1400px;
+	min-width: 1400px;
+	height: 100%;
+	display: flex;
+}
+
+#center_div>div:first-child>div:nth-child(1) {
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+	height: 500px;
+	margin: 20px 10px 20px 10px;
+}
+
+#center_div>div:first-child>div:nth-child(1) h1 {
+	display: flex;
+	width: 100%;
+	height: 100px;
+	align-items: center;
+	margin-bottom: 10px;
+	padding-left: 10px;
+}
+
+#center_div>div:first-child>div:nth-child(2) {
+	width: 1100px;
+	height: 1200px;;
+	overflow: hidden;
+	margin: 20px;
+	/* background-color: azure; */
+}
+
+#center_menu_section {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	background-color: azure;
+	border: 1px solid #2a365c;
+}
+
+#center_menu_section ul {
+	width: 100%;
+}
+
+#center_menu_section>ul>li {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 20%;
+	cursor: pointer;
+	align-items: center;
+}
+
+#center_menu_section>ul li.on {
+	background-color: #2a365c;
+	color: azure;
+}
+
+#center_menu_section>ul>li:hover {
+	background-color: #2a365c;
+	color: azure;
+}
+
+#contents_div>div:nth-child(n+1) {
+	display: none;
+	width: 100%;
+	height: 1200px;
+}
+
+#contents_div h2 {
+	display: flex;
+	width: 170px;
+	align-items: center;
+	height: 70px;
+	padding-left: 10px;
+}
+
+#contents_div>div>h4 {
+	display: flex;
+	align-items: center;
+	height: 70px;
+	width: 800px;
+	font-size: 20px;
+	background-color: blue;
+	color: rgb(71, 68, 68);
+}
 #pw_section_form{
 	display: none;
 }
-
-#info-main>div:nth-child(2)>div{
-    display: flex;
-    width: 100%;
-    max-width:1800px;
-    min-width:1800px;
-}
-#info-main>div:nth-child(2)>div>div:nth-child(1){
-    width: 10%;
-    height: 600px; 
-    background-color: #2a365c;
-    color: white ;
-}
-#info-main>div:nth-child(2)>div>div:nth-child(2){
-    width: 90%;
-    height: 100%; 
-    /* background-color:s yellowgreen; */
-}
-.maininfo>p{
-	margin-top: 2px;
-}
-.maininfo>p:nth-child(1){
-	padding-left: 10px;
-}
-.maininfo>p:nth-child(2){
-	padding-left: 11px;
-}
-.myinfotextframe{
-    border: 2px solid white;
-    border-radius: 3px;
-}
-.myinfotextframe>div:nth-child(1){
-    height: 50px;
-    padding-top: 16px;
-    background-color: #2a365c;
-    border-bottom: 1px solid white;
-}
-.myinfotextframe>div:nth-child(1)>h2{
-    color: white;
-    padding-left: 18px;
-}
-.subinfo{
-	display: flex;
-}
-.subinfo>#keyframe{
-	width: 80px;
-}
-.subinfo>#valueframe{
-	width: 500px;
-}
-
-.subinfo>p{
-	display: flex;
-	height: 20px;
-}
-.subinfo>div>p{
-	height: 26.5px;
-}
-.subinfo>div>p>#key{
-	display: inline-block;
-	font-size: 15px;
-	width: 100%;
-	text-align:center;
-	margin-top: 3px;
-	color: black;
-	justify-content: space-between;
-}
-.subinfo>div>p>#value{
-	display: inline-block;
-	font-size: 14px;
-	margin-top: 3px;
-	width: 400px;
-	color: black;
-	margin-left: 2px;
-}
-
-
-
-/*========================================여기부터*/
-
-.infoframeB>div:nth-child(1)>h2{
-    
-}
-.myinfotextframe>div:nth-child(2){
-    background-color: azure;
-    height: 133px;
-}
-.myinfotextframe>div:nth-child(2)>p{
-	padding-top:10px;
-/*     padding-left: 10px; */
-    color: #2a365c;
-    font-size: 20px;
-}
-.myinfotextframe>div:nth-child(2)>p:nth-child(1)>span:nth-child(1){
-    padding-left: 4px;
-    font-size: 40px;
-}
-.infoframeB>div:nth-child(2)>p:nth-child(1)>span:nth-child(1){
-	font-size: 22px;
-}
-
-.infoframeB{
-	border: 2px solid white;
-    border-radius: 3px;
-}
-
-
-.infoframeB>div:nth-child(even){
-	height:47px;
-	font-size: 30px;
-	text-align: center;
-}
-.infoframeB>div:nth-child(even)>p>span{
-    font-size: 25px;
-}
-.infoframeB>div:nth-child(odd){
-	height: 37px;
-	font-size: 13px;
-	color: white;
-	text-align: center;
-	padding-top: 14px;
-	background-color: #2a365c;
-}
-
-.infoframeB>div:nth-child(3){
-	border-top: 2px solid white;
-	border-bottom: 2px solid white;
-}
-
-
-
-/*========================================여기부터*/
-
-
-
-.secondsection>div>div:nth-child(1)>p{
-    font-size: 27px;
-    padding: 20px 10px;
-}
-.secondsection>div>div:nth-child(1)>ul{
-    border: 2px solid #2a365c;
-    color: #2a365c;
-}
-.secondsection>div>div:nth-child(1)>ul>li{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-bottom: 2px solid #2a365c;
-    background-color: #2a365c;
-    height: 40px;
-}
-.secondsection>div>div:nth-child(1)>ul>li:last-child{
-    border-bottom: none;
-}
-.secondsection>div>div:nth-child(1)>ul>li>a{
-    font-size: 12px;
-    display: flex;
-    color: white;
-    width: 100%;
-    justify-content: space-between;
-    margin:0 10px 0 10px;
-}
-.secondsection>div>div:nth-child(1)>ul>li>a>p{
-    display: flex;
-    font-size: 12px;
-}
-.secondsection>div>div:nth-child(2)>p{
-    font-size: 20px;
-    padding: 25px 14px;
-    height: 26px;
-}
-.secondsection>div>div:nth-child(2)>hr{
-    background-color: #2a365c;
-    height: 2px;
-    border: none;
-}
-
-#myinfomodifyform{
-    padding-top: 10px;
-    height: 170px;
-}
 #myinfomodifyframe{
-    margin: auto; 
-    width: 600px; 
-    height: 130px;
-    margin-top: 10px; 
+	background-color: red;
+	height: 800px;
 }
-#myinfomodifysubtitle>h2{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding-left: 50px;
+#myinfomodifyframe>div{
+	margin: 0 auto;
+	background-color: skyblue;
+	width: 500px;
+	height: 400px;
 }
-#myinfomodifysubtitle>h5{
-    margin-bottom: 20px;
-    padding-left: 50px;
-}
-.frameA {
-    margin: auto;
-	width: 400px;
-	height: 50px;
-    margin-top: 15px;
-}
-#secondbody li{
-    display: none;
-}
-.frameA>input[type=text]{
-    width: 100%;
-    height: 100%;
-    outline: none;
-    border: 1px solid #2a365c;
-    text-indent: 0.9em;
-}
-
-.frameA>input[type=password]{
-    width: 100%;
-    height: 100%;
-    outline: none;
-    border: 1px solid #2a365c;
-    text-indent: 0.9em;
-}
-.frameA>input[type=submit]{
-    width: 100%;
-    color: white;
-    height: 100%;
-    border:none;
-    outline: none;
-    background-color: #2a365c;
-    text-indent: 0.9em;
-}
-.frameA>input[type=submit]{
-    cursor: pointer;
-}
-#infotitle{
-    display: inline-block;
-    width: 200px;
-    height: 33px;
-    font-size: 17px;
-    padding-top: 7px;
-    padding-left: 70px;
-    color: #2a365c;
-    border: 2px solid #2a365c;
-}
-
-
-
-
-/*========================================= 상품관리*/
-.productadminframe{
-    height: 900px;
-    border: 2px solid #2a365c;
-}
-.productadminframe>div>ul{
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-}
-.productadminbar>ul>li{
-    width: 150px;
-    height: 40px;
-    margin-left: 5px;
-    display: flex;
-    text-align: center;
-    border: 1px solid #2a365c;
-    border-bottom: none;
-    border-radius: 3px;
-}
-.productadminbar>ul>li>a{
-    width: 100%;
-    padding-top: 8px;
-    color: #2a365c;
-    background-color:white;
-}
-.productadminbar>ul>li.on a{
-    color: white;
-    background-color: #2a365c; 
-    font-weight: bold;
-}
-.productpageframe{
-    overflow: hidden;
-    width: 100%; 
-    height: 800px;
-}
-.productadminbarpage{
-    position: relative;
-    height: 800px;
-}
-
-.productadminbarpage>div{
-    margin-left: 10px;
-    width: 1330px;
-    height: 800px;
-    color: #2a365c;
-    background-color: yellowgreen;
-}
-.productadminbarpage>div>h3{
-    text-align: center;
-    padding: 10px 0;
-    border-bottom: 2px solid #2a365c;
-}
-/*=========================================상품관리*/
-
-
-
-/*=========================================주문관리*/
-.orderadminframe{
-    height: 900px;
-    border: 2px solid #2a365c;
-}
-.orderadminframe>div>ul{
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-}
-.orderadminbar>ul>li{
-    width: 150px;
-    height: 40px;
-    margin-left: 5px;
-    display: flex;
-    text-align: center;
-    border: 1px solid #2a365c;
-    border-bottom: none;
-    border-radius: 3px;
-}
-.orderadminbar>ul>li>a{
-    width: 100%;
-    padding-top: 8px;
-    color: #2a365c;
-    background-color:white;
-}
-.orderadminbar>ul>li.on a{
-    color: white;
-    background-color: #2a365c; 
-    font-weight: bold;
-}
-.orderpageframe{
-    overflow: hidden;
-    width: 100%; 
-    height: 800px;
-}
-.orderadminbarpage{
-    position: relative;
-    height: 800px;
-}
-
-.orderadminbarpage>div{
-    margin-left: 10px;
-    width: 1330px;
-    height: 800px;
-    color: #2a365c;
-    background-color: yellowgreen;
-}
-.orderadminbarpage>div>h3{
-    text-align: center;
-    padding: 10px 0;
-    border-bottom: 2px solid #2a365c;
-}
-
-/*=========================================주문관리*/
 
