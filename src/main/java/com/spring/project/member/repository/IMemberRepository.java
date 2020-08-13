@@ -93,6 +93,8 @@ public interface IMemberRepository {
 	//--------------------seller_info queries--------------------------------------
 	@Insert("insert into seller_info (member_id, seller_reg_num) values(#{0},#{1})")
 	public void insertSellerRegNum(String member_id, String seller_reg_num);
+	
+	
 	@Select("select * from seller_info where member_id=#{member_id}")
 	public SellerInfoVO getSellerInfo(String member_id);
 	@Select("select seller_reg_num from seller_info where seller_reg_num =#{seller_reg_num}")

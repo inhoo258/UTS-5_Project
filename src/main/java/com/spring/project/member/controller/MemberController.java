@@ -44,9 +44,6 @@ public class MemberController {
 	
 	@PostMapping("/checkpwd")
 	public String checkemail(MemberVO membervo,Model model) {
-		System.out.println("힘찬: 여기들어옴??? /checkpwd");
-		System.out.println("여기 : " + membervo.getMember_id());
-		System.out.println("인코더하고 비교 : "+pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id())));
 		if(pwEncoder.matches(membervo.getMember_pw(), memberSerivce.getMemberPassword(membervo.getMember_id()))) { // 1번째 방법
 			String userId = membervo.getMember_id();
 			return "redirect:/member/form/"+userId;
@@ -58,10 +55,8 @@ public class MemberController {
 	
 	@GetMapping("/form/{userId}")
 	public String form(@PathVariable("userId") String userId, Model model) {
-		System.out.println("힘찬: 여기들어옴??? /form/{userId}");
 		model.addAttribute("member", memberSerivce.getMemberInfo(userId));
 		model.addAttribute("message", "update");
-		System.out.println("여기는 수정");
 		return "member/form";
 	}
 	
@@ -73,9 +68,27 @@ public class MemberController {
 				member.setMember_enabled(1);
 			System.out.println("seller_reg_num : "+seller_reg_num);
 			memberSerivce.memberInsert(member);
-		if(!seller_reg_num.equals(""))memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
+		if(!seller_reg_num.equals("")) {
+			memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
+			redirectAttributes.addAttribute("userId", member.getMember_id());
+			return "redirect:/member/sellerinfoform";
+		}
 		return "redirect:/";
 	}
+	
+	//=========================seller_info============================================
+		@GetMapping("/sellerinfoform") //판매자는 회원가입하고 나면 바로 여기로 들어옴
+		public void sellerInfoForm(@RequestParam("userId")String userId, Model model) {
+//			Authentication authentication
+//			authentication.getPrincipal()
+//			MemberVO member = (MemberVO)authentication.getPrincipal();
+			model.addAttribute("sellerInfo",memberSerivce.getSellerInfo(userId));
+		}
+		@PostMapping("/sellerinfoupdate")
+		public String sellerInfoUpdate(SellerInfoVO sellerInfo) {
+			memberSerivce.updateSellerInfo(sellerInfo);
+			return "redirect:/";
+		}
 	
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@RequestMapping("/list")
@@ -121,15 +134,6 @@ public class MemberController {
 		memberSerivce.changePwd(pwEncoder.encode(memberVO.getMember_pw()), memberVO.getMember_id());
 		redirectAttributes.addAttribute("message","update");
 		return "redirect:/login";
-	}
-	
-	//=========================seller_info============================================
-	@GetMapping("/sellerinfoform")
-	public void sellerInfoForm(Authentication authentication, Model model) {
-		System.out.println("userId : "+authentication.getPrincipal());
-		MemberVO member = (MemberVO)authentication.getPrincipal();
-		System.out.println(memberSerivce.getSellerInfo(member.getMember_id()).getSeller_reg_num());
-		model.addAttribute("sellerInfo",memberSerivce.getSellerInfo(member.getMember_id()));
 	}
 	
 	//아이디 비번 찾기
@@ -190,9 +194,5 @@ public class MemberController {
 		return "/member/lastfindidpwd";
 	}
 
-	@PostMapping("/sellerinfoupdate")
-	public String sellerInfoUpdate(SellerInfoVO sellerInfo) {
-		memberSerivce.updateSellerInfo(sellerInfo);
-		return "redirect:/member/info/"+sellerInfo.getMember_id();
-	}
+
 }
