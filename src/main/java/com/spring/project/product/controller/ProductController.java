@@ -223,7 +223,9 @@ public class ProductController {
 			product.setProduct_img_name(file.getOriginalFilename());
 		} catch (IOException e) {
 		}
+		for(int i=0; i<30; i++) {
 		productService.insertProduct(product);
+		}
 		return "redirect:/product/sellerProductList";
 	}
 	

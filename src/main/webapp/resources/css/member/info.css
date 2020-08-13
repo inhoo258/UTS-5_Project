@@ -82,26 +82,146 @@
 	padding-left: 10px;
 }
 
+#contents_modify {
+	margin-top: 20px;
+	border-top: 1px solid #2a365c;
+	border-bottom: 1px solid #2a365c;
+	height: 230px;
+	/* 	background-color: navy; */
+}
+
+#contents_modify>div>h4 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 70px;
+	/* 	background-color: yellow; */
+}
+
 #contents_div>div>h4 {
 	display: flex;
 	align-items: center;
 	height: 70px;
 	width: 800px;
 	font-size: 20px;
-	background-color: blue;
 	color: rgb(71, 68, 68);
+	/* 	background-color: blue; */
 }
-#pw_section_form{
+
+#pw_section_form {
 	display: none;
 }
-#myinfomodifyframe{
-	background-color: red;
+
+#myinfomodifyframe {
 	height: 800px;
+	/* 	background-color: red; */
 }
-#myinfomodifyframe>div{
+
+#myinfomodifyframe>div {
 	margin: 0 auto;
-	background-color: skyblue;
 	width: 500px;
 	height: 400px;
+	/* 	background-color: skyblue; */
 }
+
+.frameA {
+	width: 400px;
+	height: 50px;
+	margin: 0 auto;
+	padding-top: 10px;
+}
+
+.frameA>input[type=password] {
+	width: 100%;
+	height: 100%;
+	outline: none;
+	border: 1px solid #2a365c;
+	text-indent: 0.9em;
+}
+
+.frameA>input[type=button] {
+	width: 100%;
+	color: white;
+	height: 100%;
+	border: none;
+	outline: none;
+	background-color: #2a365c;
+	text-indent: 0.9em;
+}
+
+.frameA>input[type=button] {
+	cursor: pointer;
+}
+/*=======================================나의 구매 목록*/
+#contents_bouthlist_search{
+	width: 100%;
+	height: 230px;
+	background-color: yellowgreen;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+#contents_bouthlist_search table{
+	width: 100%;
+	height: 100%;
+}
+
+
+#contents_bouthlist_table {
+	width: 100%;
+	height: 100%;
+	clear: both;
+	display: flex;
+	justify-content: center;
+	/* background-color: yellowgreen; */
+}
+
+#contents_bouthlist_table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#contents_bouthlist_table>table tr {
+	height: 30px;
+}
+
+#contents_bouthlist_table>table tr:nth-child(1) {
+	border-top: 3px solid #2a365c;
+}
+#contents_bouthlist_table>table tr:last-child {
+	border-bottom: 3px solid #2a365c;
+}
+#contents_bouthlist_table>table th{
+	background-color: azure;
+	text-align:center;
+	border-top: 1px solid #2a365c;
+}
+#contents_bouthlist_table>table td{
+	text-align: center;
+}
+
+/*=======================================================상품목록*/
+#contents_productlist_search{
+	width: 100%;
+	height: 230px;
+	background-color: yellowgreen;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+#contents_productlist_search table{
+	width: 100%;
+	height: 100%;
+}
+/*========================================================주문관리*/
+#contents_orderlist_search{
+	width: 100%;
+	height: 230px;
+	background-color: yellowgreen;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+#contents_orderlist_search table{
+	width: 100%;
+	height: 100%;
+}
+
 
