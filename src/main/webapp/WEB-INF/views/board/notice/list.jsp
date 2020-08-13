@@ -54,20 +54,20 @@
 		               		<tr>
 		               			<th colspan="5">
 		               			<div>
-								<c:if test="${pagingManager.nowPage ne 1}">
-				                     <a class="a_paging" href="<c:url value='/board/notice/list?page=1'/>">처음</a>
+								<c:if test="${notice_pagingManager.nowPage ne 1}">
+				                     <a class="a_paging" href="<c:url value='/board/notice/list?notice_page=1'/>">처음</a>
 				                </c:if> 
-				                <c:if test="${pagingManager.nowBlock gt 1 }">
-				                     <a class="a_paging" href='<c:url value="/board/notice/list?page=${pagingManager.startPage-1}"/>'>이전</a>
+				                <c:if test="${notice_pagingManager.nowBlock gt 1 }">
+				                     <a class="a_paging" href='<c:url value="/board/notice/list?notice_page=${notice_pagingManager.startPage-1}"/>'>이전</a>
 				                </c:if> 
-				                <c:forEach var="i" begin="${pagingManager.startPage}" end="${pagingManager.endPage}">
-				                      <a class="a_paging a_num" href='<c:url value="/board/notice/list?page=${i}"/>' onclick="change_color_pagingBtn()">${i}</a>
+				                <c:forEach var="i" begin="${notice_pagingManager.startPage}" end="${notice_pagingManager.endPage}">
+				                      <a class="a_paging a_num" href='<c:url value="/board/notice/list?notice_page=${i}"/>' onclick="change_color_pagingBtn()">${i}</a>
 				                </c:forEach> 
-				                <c:if test="${pagingManager.nowBlock lt pagingManager.totalBlock}">
-				                     <a class="a_paging" href="<c:url value='/board/notice/list?page=${pagingManager.endPage+1}'/>">다음</a>
+				                <c:if test="${notice_pagingManager.nowBlock lt notice_pagingManager.totalBlock}">
+				                     <a class="a_paging" href="<c:url value='/board/notice/list?notice_page=${notice_pagingManager.endPage+1}'/>">다음</a>
 				                </c:if> 
-				                <c:if test="${pagingManager.nowPage ne pagingManager.totalPage}">
-				                     <a class="a_paging end_paging " href="<c:url value='/board/notice/list?page=${pagingManager.totalPage}'/>">끝</a>
+				                <c:if test="${notice_pagingManager.nowPage ne notice_pagingManager.totalPage}">
+				                     <a href="<c:url value='/board/notice/list?notice_page=${notice_pagingManager.totalPage}'/>">끝</a>
 				                </c:if>
 				                </div>
 				                </th>
@@ -91,7 +91,7 @@
                             <option value="">기타</option>
                         </select>
                     </div>
-                    <div id=contents_qna_table>
+                    <div id=contents_fre_table>
                         <table>
                             <tr>
                                 <th>번호</th>
@@ -99,12 +99,33 @@
                                 <th>제목</th>
                             </tr>
                             <c:forEach var="list" items="${faqList}" varStatus="status">
-		                  		<tr>
+		                  		<tr onclick="content(${list.fre_number},${status.index}+1)">
 			                    	<th>${list.fre_number}</th>
 			                     	<th>${list.fre_category}</th>
 				                    <th>${list.fre_title}</th>
 		                  		</tr>
 		               		</c:forEach>
+		               		<tr>
+		               			<th colspan="5">
+		               			<div>
+								<c:if test="${fre_PagingManager.nowPage ne 1}">
+				                     <a class="a_paging" href="<c:url value='/board/notice/list?fre_page=1&fre=fre'/>">처음</a>
+				                </c:if> 
+				                <c:if test="${fre_PagingManager.nowBlock gt 1 }">
+				                     <a class="a_paging" href='<c:url value="/board/notice/list?fre_page=${fre_PagingManager.startPage-1}&fre=fre"/>'>이전</a>
+				                </c:if> 
+				                <c:forEach var="i" begin="${fre_PagingManager.startPage}" end="${fre_PagingManager.endPage}">
+				                      <a class="a_paging a_num" href='<c:url value="/board/notice/list?fre_page=${i}&fre=fre"/>' onclick="change_color_pagingBtn()">${i}</a>
+				                </c:forEach> 
+				                <c:if test="${fre_PagingManager.nowBlock lt fre_PagingManager.totalBlock}">
+				                     <a class="a_paging" href="<c:url value='/board/notice/list?fre_page=${fre_PagingManager.endPage+1}&fre=fre'/>">다음</a>
+				                </c:if> 
+				                <c:if test="${fre_PagingManager.nowPage ne fre_PagingManager.totalPage}">
+				                     <a class="a_paging end_paging " href="<c:url value='/board/notice/list?fre_page=${fre_PagingManager.totalPage}&fre=fre'/>">끝</a>
+				                </c:if>
+				                </div>
+				                </th>
+		               		</tr>
                         </table>
                     </div>
                 </div>
@@ -117,8 +138,13 @@
     </div>
     
    <script>
+   if(${!empty freMessage}){
+        $("#center_menu_section>ul li:nth-child(2)").addClass("on");
+        $("#contents_div>div:nth-child(2)").css({"display" : "block"})
+   }else{
         $("#center_menu_section>ul li:nth-child(1)").addClass("on");
         $("#contents_div>div:nth-child(1)").css({"display" : "block"})
+   }
 
         $("#center_menu_section>ul li").click(function() {
 			$(this).addClass("on");
@@ -132,74 +158,56 @@
             $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"})
         })
     </script>
+    
+    <script>
+
+		function content(fre_number , tr_num){
+			
+			if($("#content_data").length != 0){
+				$("#content_data").remove();
+			}
+			
+			var xhr = new XMLHttpRequest();
+	        xhr.open("get", "/project/board/rest/fre_content?fre_number="+fre_number);
+	        xhr.setRequestHeader("content-type", "application/json");
+			xhr.send();
+			xhr.onreadystatechange = function () {
+                if (xhr.readyState === xhr.LOADING) {
+//                     $("#loding").show();
+                }
+                if (xhr.readyState === xhr.DONE) {
+                    if (xhr.status === 200 || xhr.status === 201) {
+                    	console.log(xhr.responseText)
+                    	let add_div = "<tr id='content_data'>"+
+              						  "<td colspan='3' style='padding: 0 0 0 100px;'>"+
+          							  "<div style='height:100px;padding:30px 0 0 0'>"+
+          							  " >> " +xhr.responseText+
+          							  "</div>"+
+				   					  "</td>"+
+          							  "</tr>"
+						$("#contents_fre_table tr:nth-child("+(tr_num+1)+")").after(add_div);      
+          						
+                    }
+                }
+            }
+		}
+    
+    </script>
+    
    
-   
-<!--    <div class="noice_section"> -->
-<!--       <div style="padding-bottom: 45px; "> -->
-<!--          <h2 class="tit">공지사항</h2> -->
-<!--          <span class="tit_sub">새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</span> -->
-<!--       </div> -->
-<!--       <div align="center"> -->
-<!--          <form action="">  -->
-<%-- 			<sec:authorize access="hasRole('ROLE_MASTER')"> --%>
-<%--            	 <div class="btn_write"><a href="<c:url value='/board/notice/form'/>">글 쓰기</a></div> --%>
-<%--         	</sec:authorize> --%>
-<!--          <table class="notice_table" > -->
-<!--             <thead> -->
-<!--                <tr class="tr_notice th_notice"> -->
-<!--                   <th style="width: 70px;">글번호</th> -->
-<!--                   <th>제 목</th> -->
-<!--                   <th style="width: 130px;">작성일</th> -->
-<!--                   <th style="width: 70px;">조회</th> -->
-<!--                </tr> -->
-<!--             </thead> -->
-<!--                 varStatus="status" 이용시 idx 가져오기 가능 -->
-<!--             <tbody> -->
-              
-<!--             </tbody> -->
-<!--             <tr align="center"> -->
-<!--                <td colspan="4" align="center"> -->
-<!--                <div class="notice_paging"> -->
-<!--                <div style="display: inline-block;"> -->
-<!--                <div style="display:flex; border-left:1px solid #ddd;"> -->
-                  
-<!--                   </div> -->
-<!--                   </div> -->
-<!--                   </div> -->
-<!--                </td> -->
-<!--             </tr> -->
-<!--             <tr> -->
-<!--                <td style="width: 130px;">> 검색어 </td>    -->
-<!--                <td align="left" style="width: 300px;"> -->
-<!--                   <input type="checkbox" name="search_title"> 제목 &nbsp;&nbsp; -->
-<!--                   <input type="checkbox" name="search_content"> 내용 -->
-<!--                </td>    -->
-<!--                <td colspan="2"> -->
-<!--                   <div class="notice_search" > -->
-<!--                      <input type="text" style="height: 40px; width:270px; border: 1px solid #d3d3d3;"> -->
-<!--                      <div class="search_img" align="center"> -->
-<!--                      	<a><i class="fas fa-search"></i></a> -->
-<!--                      </div> -->
-<!--                   </div> -->
-<!--                </td>    -->
-<!--             </tr> -->
-<!--          </table> -->
-<!--          </form> -->
-<!--       </div> -->
-<!--    </div> -->
    <jsp:include page="../../header&footer/footer.jsp"/>
 	<script type="text/javascript">
-	let index = 0;
-		$(".a_num").click(function() {
-			index = $(this).index()
-			$.cookie("change_color", index);
-		});
-// 		$.cookie("change_color")
+// 	let index = 0;
+// 		$(".a_num").click(function() {
+// 			index = $(this).index()
+// 			$.cookie("change_color", index);
+// 		});
+// // 		$.cookie("change_color")
 		
-// 		if($.cookie("change_color"))
-		function change_color_pagingBtn() {
-		$(".a_num").get(index).css({"background-color" : "#f7f7f7"})
-		}
+// // 		if($.cookie("change_color"))
+// 		function change_color_pagingBtn() {
+// 		$(".a_num").get(index).css({"background-color" : "#f7f7f7"})
+// 		}
 	</script>
 </body>
 </html>
