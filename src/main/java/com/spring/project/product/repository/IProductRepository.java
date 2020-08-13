@@ -17,8 +17,9 @@ public interface IProductRepository {
 	@Select("select * from products")
 	public ArrayList<ProductsVO> getProductList();
 	
-	@Select("select * from products where member_id = #{0}")
-	public ArrayList<ProductsVO> getSellerProductList(String login_id);
+	@Select("select * from(select * from(select rownum product_rn,n.* from (select * from products where member_id = #{0} order by product_upload_date desc) n)) "
+			+ "where product_rn between #{1} and #{2}")
+	public ArrayList<ProductsVO> getSellerProductList(String member_id, int start, int end);
 	
 	//상품 한개의 정보 가져오기
 	@Select("select * from products where product_id=#{product_id}")
@@ -26,6 +27,10 @@ public interface IProductRepository {
 	
 	@Select("select nvl(max(product_id),0) from products")
 	public int getMaxProductId();
+	
+	//판매자 등록 상품 총 갯수
+	@Select("select count(*) from products where member_id=#{member_id} ")
+	public int getTotalCount(String member_id);
 
 	//delete======================================
 	// 판매자 페이지 등록된 상품 삭제
@@ -57,6 +62,9 @@ public interface IProductRepository {
 			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name) "
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
+
+	
+
 
 	
 

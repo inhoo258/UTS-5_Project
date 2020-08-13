@@ -46,6 +46,7 @@ public class ProductController {
 	private JavaMailSender mailSender;
 	@Autowired
 	ReviewService reviewService;
+	
 
 	// -------------cart------------
 	// 전체 장바구니 목록(관리자용)
@@ -237,29 +238,43 @@ public class ProductController {
 	//상품 등록 수정
 	@PostMapping("/update")
 	public String updateUpload(@RequestParam MultipartFile file, @ModelAttribute ProductsVO productVo) {
-		System.out.println(productVo.toString());
+		System.out.println("=======================================productVo:"+productVo.toString());
+		System.out.println("=====================================file.isEmpty:"+file.isEmpty());
+		System.out.println("=====================================file:"+file);
 		if(file!=null && !file.isEmpty()) {
 			try {
 				productVo.setProduct_img(file.getBytes());
-				System.out.println("file img : "+file.getBytes());
+				System.out.println("=============================file img : "+file.getBytes());
 				productVo.setProduct_img_name(file.getOriginalFilename());
-				System.out.println("file img name : "+file.getOriginalFilename());
+				System.out.println("============================file img name : "+file.getOriginalFilename());
 				productService.updateProductWithImage(productVo);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else {
+			productService.updateProduct(productVo);
 		}
-		productService.updateProduct(productVo);
 		return "redirect:/product/sellerProductList";
 	}
 	
 	
 	//판매자페이지에서의 상품 조회
 	@GetMapping("/sellerProductList")
-	public void viewSellerProductList(Model model, Authentication authentication ){
-		String login_id = authentication.getName();
-		model.addAttribute("productList", productService.getSellerProductList(login_id));
+	public void viewSellerProductList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model, Authentication authentication ){
+		String member_id = authentication.getName();
+		model.addAttribute("productList", productService.getSellerProductList(member_id, page));
+		model.addAttribute("totalCount", productService.getTotalCount(member_id));
+		PagingManager pagingManager = new PagingManager(productService.getTotalCount(member_id), page);
+		model.addAttribute("pagingManager",pagingManager); //이전 다음 페이지번호
 	}
+	
+	//판매자 페이지 등록된 상품 삭제
+	@PostMapping("/deleteSellerPoduct")
+	public String deleteSellerProduct(@RequestParam int[] product_ids) {
+		productService.deleteSellerProduct(product_ids);
+		return "redirect:/product/sellerProductList";
+	}
+	
 	
 //	// 상품 출고,재고없음
 //	@RequestMapping("")
