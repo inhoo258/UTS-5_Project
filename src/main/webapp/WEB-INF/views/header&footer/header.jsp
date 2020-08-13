@@ -13,14 +13,11 @@
 
 </head>
 <body>
-	<!--로딩화면 -->
-<!-- 	<div id="mask"></div> -->
-<!-- 	<div class="loader"></div> -->
 	<header id=header>
 	<div>
 	 	 <div id=header_div>
 	            <div id="header_img">
-	                <img src="/project/resources/img/main_logo.png">
+	                <a href="/project/"><img src="/project/resources/img/main_logo.png"></a>
 	            </div>
 	            <span id=header_search_span>
 	                <input type="text" id="header_search">
@@ -105,18 +102,22 @@
 	                    </div>
 	                    <div>
 	                        <ul>
-	                            <li><a href="#">회원정보</a></li>
-	                            <li><a href="#">회원정보</a></li>
-	                            <li><a href="#">회원정보</a></li>
+	                        <sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
+	                            <li><a href="#">개인 정보 수정</a></li>
+	                            <li><a href="#">나의 구매 내역</a></li>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated() and hasRole('ROLE_SELLER')">
+	                            <li><a href="#">상품 관리</a></li>
+	                            <li><a href="#">주문 관리</a></li>
+	                        </sec:authorize>
 	                        </ul>
 	                        <ul>
 	                            <li><a href="/project/board/notice/list">공지 사항</a></li>
-	                            <li><a href="/project/board/qna/list">QNA 게시판</a></li>
 	                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
 	                        </ul>
 	                        <ul>
+	                            <li><a href="/project/board/qna/list">자주하는 질문</a></li>
 	                            <li><a href="#">1:1 문의</a></li>
-	                            <li><a href="#">온라인 문의</a></li>
 	                            <li><a href="#">이메일 문의</a></li>
 	                        </ul>
 	                    </div>
