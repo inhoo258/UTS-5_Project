@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,16 +56,51 @@
                 <div>
                     <h2>나의 구매 목록 </h2>
 					<div id=contents_bouthlist_table>
-						<table id="order_table" border="1">
-                       		 <tr>
-	                            <th>제품번호</th>
-	                            <th>제 품 명</th>
-	                            <td>구매수량</td>
-	                            <td>결제금액</td>
-	                            <td>결제기간</td>
-	                            <td>결제상태</td>
-               				 </tr>
-						</table>
+						<c:set var="totalCost" value="0" />
+					    <div class="orderlist_section">
+					        <c:choose>
+					            <c:when test="${not empty orderLists}">
+					                <section>
+					                    <c:forEach var="orderList" items="${orderLists}">
+					                        <c:set var="totalCost" value="0" />
+					                        <c:forEach var="order" items="${orderList }">
+					                            <c:set var="totalCost" value="${totalCost + order.order_price}" />
+					                        </c:forEach>
+					                        <table class="orderlist_table" border="1" style="border-collapse: collapse;">
+					                            <tr>
+					                                <td>
+					                                    <span class="order_num">
+					                                        	주문번호 <span class="order_group_number">${orderList[0].order_group_number}</span>
+					                                    </span>
+					                                    <i class="fas fa-chevron-right"></i>
+					                                </td>
+					                            </tr>
+					                            <tr>
+					                                <td>
+					                                    <div id=main_content_div>
+					                                        <span class="span_order_info span_three">상 품 명  </span><span>${orderList[0].product_name} 외 ${fn:length(orderList)-1}개</span>
+					                                    </div>
+					                                        <div><span class="span_order_info">결제 일시 </span><fmt:formatDate value="${orderList[0].order_date}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
+					                                        <c:set var="order_tel" value="${orderList[0].order_receiver_tel}" />
+					                                        <c:set var="order_tel_len" value="${fn:length(order_tel)}" />
+					                                        <c:set var="order_tel_len_check" value="${order_tel_len eq 10 ? 6:7}" />
+					                                        <c:set var="order_tel_first" value="${fn:substring(order_tel,0,3)}" />
+					                                        <c:set var="order_tel_second" value="${fn:substring(order_tel,3,order_tel_len_check)}" />
+					                                        <c:set var="order_tel_third" value="${fn:substring(order_tel,order_tel_len_check,order_tel_len)}" />
+					                                        <div><span class="span_order_info span_three">연 락 처  </span>${order_tel_first}-${order_tel_second}-${order_tel_third}</div>
+					                                        <div><span class="span_order_info span_three">배 송 지  </span>${orderList[0].order_receiver_main_address} ${orderList[0].order_receiver_sub_address}</div>
+					                                        <div><span class="span_order_info">결제 금액  </span><fmt:formatNumber value="${totalCost}" pattern="#,###" /></div>
+					                                </td>
+					                            </tr>
+					                        </table>
+					                    </c:forEach>
+					                </section>
+					            </c:when>
+					            <c:otherwise>
+					                	주문 내역이 없습니다.
+					            </c:otherwise>
+					        </c:choose>
+					    </div>
 					</div>
                 </div>
                 <div>
@@ -109,7 +147,7 @@
                     		<tr>
                     			<td>51</td>
                     			<td>52</td>
-                    			<td><input type="button" value = "등록"></td>
+                    			<td><input type="button" value = "등록" onclick="location.href='/project/product/upload'"></td>
                     			<td><input type="button" value = "취소"></td>
                     		</tr>
                     	</table>
@@ -205,23 +243,14 @@
 	                $("#contents_div>div:nth-child("+i+")").css({"display" : "none"});
 	            }
 	            if(contents_div_index == 2){
-	            	$.ajax({
-	    				url:'<c:url value="/product/rest/orderlist/${member.member_id}"/>',
-	    				type:'GET',
-	    				success:function(orderlist){
-	    					showMyOrderList(orderlist);
-	    				},error:function(){
-	    					alert('실패');
-	    				}
-	    			}) 
+	            	console.log("나의 구매 목록")
 	            }else if(contents_div_index == 3){
 	            	$.ajax({
 	    				url:'<c:url value="/product/sellerProductList"/>',
 	    				type:'GET',
 	    				success:function(seller_product_list){
-	    					showMyOrderList(seller_product_list);
-	    					alert(seller_product_list);
-	    					$('#contents_sellerprdoct_list').append(seller_product_list);
+// 	    					alert(seller_product_list);
+// 	    					$('#contents_sellerprdoct_list').append(seller_product_list);
 	    				},error:function(){
 	    					alert('실패');
 	    				}
@@ -229,201 +258,27 @@
 	            }
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
 	        });
-	    
 	        
-	        
-	        function showMyOrderList(orderList){
-	        	let order_list;
-	        	for(var i = 0 ;i < orderList[0].length ; i++){
-					order_list += 
-						'<tr>'
-						+'<td>'+orderList[0][i].order_number+'</td>'
-						+'<td>'+orderList[0][i].product_name+'</td>'
-						+'<td>'+orderList[0][i].order_product_count+'</td>'
-						+'<td>'+orderList[0][i].order_price+'</td>'
-						+'<td>'+orderList[0][i].order_date+'</td>'
-						+'<td>'+orderList[0][i].order_status+'</td>'
-						+'</tr>'
-	        	}
-	        	$("#order_table").append(order_list);
-	        };
-	        
-	        function paging_ajax(selectVO){
-	    		//page numbering ajax
-	    	    	var xhr = new XMLHttpRequest();
-	    	        xhr.open("POST", "/project/member/rest/page_numbering");
-	    	        xhr.setRequestHeader("content-type", "application/json");
-	    			xhr.send(JSON.stringify(selectVO));
-	    			xhr.onreadystatechange = function () {
-	    	            if (xhr.readyState === xhr.LOADING) {
-	    	                $("#loding").show();
-	    	            }
-	    	            if (xhr.readyState === xhr.DONE) {
-	    	                if (xhr.status === 200 || xhr.status === 201) {
-	    	                	$("#loding").hide();
-	    	                	let pagingManager = JSON.parse(xhr.responseText);
-	    	                	 let paging = null;
-	    	                	(function(){
-	    	                		if(pagingManager.totalPage != 0){
-	    			                	return paging = "<tr>"+
-	    				            		"<th  colspan='6'>"+
-	    				            		"<div>"+
-	    						            "<span id='first'>처음</span>"+
-	    				            		(function(){
-	    					            		if(pagingManager.nowBlock > 1){
-	    											return "<span id='back'>이전</span>"     			
-	    					            		}else{
-	    					            			return ""
-	    					            		}
-	    				            		})()
-	    				            		+
-	    				            		(function(){
-	    				            			var a_paging = ""
-	    				            			for(var i = pagingManager.startPage ; i <= pagingManager.endPage ; i++){
-	    											a_paging += "<span class='paging_span'>"+i+"</span>"    				
-	    				            			}
-	    				            			return a_paging;
-	    				            		})()
-	    				            		+
-	    				            		(function(){
-	    					            		if(pagingManager.nowBlock >= pagingManager.totalBlock){
-	    											return ""     			
-	    					            		}else{
-	    					            			return "<span id='next'>다음</span>"
-	    					            		}
-	    				            		})()
-	    				            		+
-	    					            	"<span id='last'>끝</span>"+
-	    				            		"</div>"+
-	    				            		"</th>"+
-	    				            		"</tr>"
-	    	                		}else{
-	    	                			return paging = "";
-	    	                		}
-	    	                	})()
-	    	                	$("#order_table").append(paging);
-// 	    	                	if($("#memberlist_menubar>ul>li:nth-child(1) a").attr("class") == "on"){
-// 	                        	}else{
-// 	    	                    	$("#order_table").append(paging);
-// 	                        	}
-	    	                	
-	    	                	
-// 	    	            	if(pagingManager.totalPage != 0){
-// 	    		            	document.getElementsByClassName("paging_span")[save_page-1].style.backgroundColor = "#2a365c";
-// 	    		            	document.getElementsByClassName("paging_span")[save_page-1].style.color = "white";
-// 	    	            	}
-	    	            	
-	    	                $("#list_table").on("click",".paging_span.on", function(){
-	                        	let now_page = ($(".paging_span").index(this)+1);
-	                        	save_page = now_page;
-	                        	let select_page = document.getElementsByClassName("paging_span")[now_page-1].innerText;
-	                       		$("#order_table tr:nth-child(n+2)").remove();
-	                       		$("#order_table").off();
-	                       		document.getElementById("Check_All").checked = false;
-	                           	check_in_out = true;
-	                           	console.log(selectVO)
-	                           	selectVO={
-	                           		page : select_page,
-	                           		select_word:selectVO.select_word,
-	                        		select_option:selectVO.select_option,
-	                        		select_auth:selectVO.select_auth,
-	                        		select_enabled:selectVO.select_enabled
-	                           	}
-	                       		load_list_ajax(selectVO);						
-	                       	});
-	    	                
-	    	                $("#order_table").on("click","#first.on", function(){
-	                        	save_page = 1;
-	                       		$("#order_table tr:nth-child(n+2)").remove();
-	                       		$("#order_table").off();
-	                       		document.getElementById("Check_All").checked = false;
-	                           	check_in_out = true;
-	                           	selectVO={
-	                                page : 1,
-	                                select_word:selectVO.select_word,
-	                        		select_option:selectVO.select_option,
-	                        		select_auth:selectVO.select_auth,
-	                        		select_enabled:selectVO.select_enabled
-	                            }
-	                       		load_list_ajax(selectVO);						
-	                       	});
-	    	                
-	    	                $("#order_table").on("click","#next.on", function(){
-	                       		$("#order_table tr:nth-child(n+2)").remove();
-	                       		$("#order_table").off();
-	                       		document.getElementById("Check_All").checked = false;
-	                           	check_in_out = true;
-	                           	save_page = 1;
-	                           	selectVO={
-	                               	page : pagingManager.nowBlock * 10 + 1,
-	                               	select_word:selectVO.select_word,
-	                        		select_option:selectVO.select_option,
-	                        		select_auth:selectVO.select_auth,
-	                        		select_enabled:selectVO.select_enabled
-	    						}
-	                       		load_list_ajax(selectVO);						
-	                       	});
-	    	                
-	    	                $("#order_table").on("click","#back.on", function(){
-	                       		$("#order_table tr:nth-child(n+2)").remove();
-	                       		$("#order_table").off();
-	                       		document.getElementById("Check_All").checked = false;
-	                           	check_in_out = true;
-	                           	save_page = 1;
-	                        	selectVO={
-	    							page : (pagingManager.nowBlock -1) * 10 - 9,
-	    							select_word:selectVO.select_word,
-	                        		select_option:selectVO.select_option,
-	                        		select_auth:selectVO.select_auth,
-	                        		select_enabled:selectVO.select_enabled
-	        					}
-	                       		load_list_ajax(selectVO);						
-	                       	});
-	    	                
-	    	                $("#order_table").on("click","#last.on", function(){
-	                       		$("#order_table tr:nth-child(n+2)").remove();
-	                       		$("#order_table").off();
-	                       		document.getElementById("Check_All").checked = false;
-	                           	check_in_out = true;
-	                           	save_page = pagingManager.totalPage - (pagingManager.totalBlock - 1) * 10 
-	                           	selectVO={
-	    							page : pagingManager.totalPage,
-	    							select_word:selectVO.select_word,
-	                        		select_option:selectVO.select_option,
-	                        		select_auth:selectVO.select_auth,
-	                        		select_enabled:selectVO.select_enabled
-	        					}
-	                       		load_list_ajax(selectVO);						
-	                       	});
-	    	                
-	                       		$(".paging_span").addClass("on");
-	                       		$("#first").addClass("on");
-	                       		$("#next").addClass("on");
-	                       		$("#back").addClass("on");
-	                       		$("#last").addClass("on");
-	    	                }
-	    	            }
-	    			}
-	    		}
-	// 	        	"<p>"member_id : +orderList[0][i].member_id+"</p>"+
-	// 		       	"<p>"product_name : +orderList[0][i].product_name+"</p>"+
-	// 		       	"<p>"+orderList[0][i].product_id+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_date+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_receiver_main_address+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_receiver_sub_address+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_receiver_name+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_receiver_tel+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_product_count+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_price+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_request+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_status+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_number+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_group_number+"</p>"+
-	// 		       	"<p>"+orderList[0][i].review_check+"</p>"+
-	// 		       	"<p>"+orderList[0][i].product_weight+"</p>"+
-	// 		       	"<p>"+orderList[0][i].seller_company_name+"</p>"+
-	// 		       	"<p>"+orderList[0][i].seller_company_tel+"</p>"+
-	// 		       	"<p>"+orderList[0][i].order_delivery_price+"</p>"
+	    	// 	        	"<p>"member_id : +orderList[0][i].member_id+"</p>"+
+	    	// 		       	"<p>"product_name : +orderList[0][i].product_name+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].product_id+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_date+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_receiver_main_address+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_receiver_sub_address+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_receiver_name+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_receiver_tel+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_product_count+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_price+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_request+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_status+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_number+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_group_number+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].review_check+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].product_weight+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].seller_company_name+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].seller_company_tel+"</p>"+
+	    	// 		       	"<p>"+orderList[0][i].order_delivery_price+"</p>"
+
     </script>
 	    
 <%-- 		1: ${sellerInfo}<br> --%>

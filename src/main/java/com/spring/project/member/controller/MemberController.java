@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.service.IMemberService;
+import com.spring.project.product.service.OrderService;
 
 @Controller
 @RequestMapping("/member")
@@ -32,6 +33,9 @@ public class MemberController {
 	BCryptPasswordEncoder pwEncoder;
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	OrderService orderService;
 	
 	@GetMapping("/form")
 	public void form(Model model) {
@@ -81,11 +85,17 @@ public class MemberController {
 
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/info")
-	public String getMember(Authentication authentication, Model model) {
+	public String getMember(Authentication authentication, Model model ,@RequestParam(value="member_id", required = false , defaultValue = "user") String member_id) {
 		MemberVO member =  memberSerivce.getMemberInfo(authentication.getName());
 		model.addAttribute("member",member);
+		
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
 			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
+		}
+		if(!member_id.equals("user")) {
+			model.addAttribute("orderLists", orderService.getOrderList(member_id));
+		}else {
+			model.addAttribute("orderLists", orderService.getOrderList(authentication.getName()));
 		}
 		return "member/info";
 	}
@@ -118,6 +128,7 @@ public class MemberController {
 	public void sellerInfoForm(Authentication authentication, Model model) {
 		System.out.println("userId : "+authentication.getPrincipal());
 		MemberVO member = (MemberVO)authentication.getPrincipal();
+		System.out.println(memberSerivce.getSellerInfo(member.getMember_id()).getSeller_reg_num());
 		model.addAttribute("sellerInfo",memberSerivce.getSellerInfo(member.getMember_id()));
 	}
 	

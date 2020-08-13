@@ -153,75 +153,151 @@
 	cursor: pointer;
 }
 /*=======================================나의 구매 목록*/
-#contents_bouthlist_search{
+.orderlist_section {
 	width: 100%;
-	height: 230px;
-	background-color: yellowgreen;
-	margin-top: 20px;
-	margin-bottom: 40px;
+	margin: 0 auto;
 }
-#contents_bouthlist_search table{
+
+
+.qna_register {
+	font-size: 17px;
+	font-weight: 650px;
+}
+
+.qna_register a {
+	font-weight: 700;
+	color: #5f0080;
+}
+
+.order_num {
+	margin-bottom: 10px;
+	margin: 10px 0;
+	font-size: 21px;
+	font-weight: 550;
+	color: #5f0080;
+	display: inline-block;
+	width: 98%;
+}
+
+.fa-chevron-right {
+	color: #5f0080;
+}
+
+.span_order_info {
+	display: inline-block;
+	width: 100px;
+	font-weight: 600;
+	margin-bottom: 8px;
+	font-size: 17px;
+	color: #424044;
+}
+
+.span_three {
+	letter-spacing: 3px;
+}
+
+.orderlist_order_date {
+	font-size: 17px;
+	font-weight: 500;
+	color: #424044;
+}
+
+/* orderlist table css */
+.orderlist_table {
+	border-top: 3px solid #5f0080;
 	width: 100%;
-	height: 100%;
+	margin-bottom: 50px;
+	border-left: none;
+	border-right: none;
+	margin-top: 50px;
 }
 
-
-#contents_bouthlist_table {
-	width: 100%;
-	height: 100%;
-	clear: both;
-	display: flex;
-	justify-content: center;
-	/* background-color: yellowgreen; */
+.orderlist_table td {
+	padding: 10px;
 }
 
-#contents_bouthlist_table table {
-	width: 100%;
-	border-collapse: collapse;
+.orderlist_table tr {
+	border-bottom: 2px solid #ddd;
 }
 
-#contents_bouthlist_table>table tr {
-	height: 30px;
+#main_content_div{
+	
 }
 
-#contents_bouthlist_table>table tr:nth-child(1) {
-	border-top: 3px solid #2a365c;
+.td_product_img {
+	width: 130px;
 }
-#contents_bouthlist_table>table tr:last-child {
-	border-bottom: 3px solid #2a365c;
+
+#orderlist_product_img {
+	width: 130px;
+	height: 150px;
 }
-#contents_bouthlist_table>table th{
-	background-color: azure;
-	text-align:center;
-	border-top: 1px solid #2a365c;
+
+.orderlist_product_name {
+	font-size: 20px;
+	font-weight: 600;
 }
-#contents_bouthlist_table>table td{
+
+.orderlist_order_price {
+	font-size: 18px;
+	font-weight: 550;
+}
+
+.orderlist_order_count {
+	font-size: 15px;
+	font-weight: 530;
+	color: #65616f;
+}
+
+.order_status {
+	font-size: 18px;
+	font-weight: 550;
 	text-align: center;
 }
 
+.td_status_and_btn {
+	width: 120px;
+}
+
+.review_popup_btn, .cancel_btn {
+	width: 130px;
+	height: 42px;
+	padding-bottom: 2px;
+	margin: 5px;
+	border: 1px solid #5f0080;
+	background-color: #5f0080;
+	color: #fff;
+	letter-spacing: -.3px;
+	text-align: center;
+	font-family: noto sans;
+	font-weight: 550;
+	font-size: 13px;
+	border: 1px solid #5f0080;
+}
+
 /*=======================================================상품목록*/
-#contents_productlist_search{
+#contents_productlist_search {
 	width: 100%;
 	height: 230px;
 	background-color: yellowgreen;
 	margin-top: 20px;
 	margin-bottom: 40px;
 }
-#contents_productlist_search table{
+
+#contents_productlist_search table {
 	width: 100%;
 	height: 100%;
 }
 /*========================================================주문관리*/
-#contents_orderlist_search{
+#contents_orderlist_search {
 	width: 100%;
 	height: 230px;
 	background-color: yellowgreen;
 	margin-top: 20px;
 	margin-bottom: 40px;
 }
-#contents_orderlist_search table{
+
+#contents_orderlist_search table {
 	width: 100%;
 	height: 100%;
 }
-
-

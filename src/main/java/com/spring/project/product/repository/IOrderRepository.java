@@ -28,7 +28,8 @@ public interface IOrderRepository {
 			+ "from orders ord "
 			+ "join products prd "
 			+ "on ord.product_id = prd.product_id "
-			+ "where ord.member_id = #{member_id}")
+			+ "where ord.member_id = #{member_id} "
+			+ "order by order_group_number desc")
 	public List<OrdersVO> getOrderList(String member_id);
 	
 	
@@ -69,4 +70,10 @@ public interface IOrderRepository {
 			+ "where ord.member_id =#{0} and order_group_number =#{1} "
 			+ "order by seller_company_name desc")
 	public List<OrdersVO> getOrder(String member_id, int order_group_number);
+
+	@Select("select count(*) from orders where member_id = #{member_id}")
+	public int getTotalCount(String member_id);
+
+	@Select("select * from orders where member_id = #{member_id}")
+	public List<OrdersVO> getMyOrderList(String member_id);
 }
