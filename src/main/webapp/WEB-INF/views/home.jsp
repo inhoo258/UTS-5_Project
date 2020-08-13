@@ -67,6 +67,8 @@
     <section id=home_main_section>
     	<div id=home_div_one>
 	    	<div>
+	    		<img src="/project/resources/img/main_img5.png">
+	    		<img src="/project/resources/img/main_img4.png">
 	    		<img src="/project/resources/img/main_img1.png">
 	    		<img src="/project/resources/img/main_img2.png">
 	    		<img src="/project/resources/img/main_img3.png">
@@ -75,18 +77,57 @@
     	
     		<!--      상품리스트 	 -->
     	<div id=home_div_two>
-    	
 	     <section class="new_product_list">
 	        <h1 class="new_product_tit">오늘의 신상품</h1>
 	        <fieldset>
-	        	<legend><span class="new_product_sub_tit">새로 업로드 된 상품을 지금 바로 만나보세요.</span></legend>
+	        	<legend><span class="new_product_sub_tit">새로 업로드 된 상품을 지금 바로 만나보세요</span></legend>
 	        </fieldset>
 	        <div class="product_list_frame">
 		        <div class="div_product_list">
 			        <c:forEach var="product" items="${productList}">
 				             <div class="productframe">
 				                <div class="imgframe">
-				                    <img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'>
+				                    <a href='<c:url value="/product/${product.product_id}"/>'>
+				                   	 	<img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'>
+				                   	</a>
+				                </div>
+				                <div class="productname">
+				                    <label id="productname">
+					                    <a href='<c:url value="/product/${product.product_id}"/>'>
+					                    	[${product.seller_company_name}]${product.product_name}
+					                    </a>
+				                    </label>
+				                </div>
+				                <div class="productprice">
+				                    <label id="productprice">
+				                    <fmt:formatNumber value="${product.product_price }" pattern="#,###"/>원
+				                    </label>
+				                </div>
+				            </div>
+			        </c:forEach>
+		        </div>
+	        </div>
+	    </section>
+    	</div>
+    	
+	    <div>
+	    	<img src="/project/resources/img/main2.png" style="width: 100%; margin-bottom: 120px;">
+	    </div>
+    	
+    	<div id=home_div_three>
+	     <section class="new_product_list">
+	        <h1 class="new_product_tit">언더더씨 인기상품</h1>
+	        <fieldset>
+	        	<legend><span class="new_product_sub_tit">언더더씨에서 가장 많이 팔린 인기상품을 지금 만나보세요</span></legend>
+	        </fieldset>
+	        <div class="product_list_frame">
+		        <div class="div_product_list">
+			        <c:forEach var="product" items="${productList}">
+				             <div class="productframe">
+				                <div class="imgframe">
+				                    <a href='<c:url value="/product/${product.product_id}"/>'>
+				                   	 	<img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'>
+				                   	</a>
 				                </div>
 				                <div class="productname">
 				                    <label id="productname">
@@ -105,8 +146,6 @@
 		        </div>
 	        </div>
 	    </section>
-	    
-	    
     	</div>
     </section>
 

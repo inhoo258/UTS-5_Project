@@ -34,7 +34,12 @@ public interface IProductRepository {
 	public int getTotalCount(String member_id);
 	
 	//메인 페이지 오늘의 신상품
-	@Select("select * from products where rownum<=4 order by product_upload_date desc")
+	@Select("select prd.product_id, prd.member_id, prd.product_name, prd.product_price, sel.seller_company_name "
+			+ "from products prd "
+			+ "join seller_info sel "
+			+ "on prd.member_id = sel.member_id "
+			+ "where rownum <=4 "
+			+ "order by prd.product_upload_date desc")
 	public List<ProductsVO> getNewestProducts();
 
 	//delete======================================
