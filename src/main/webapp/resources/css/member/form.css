@@ -16,7 +16,7 @@
 	height: 70px;
 	color: #2a365c;
 }
-.jointitle>h2{
+.jointitle>h1{
 	height: 55px;
 	text-align: center;
 	padding-top: 15px;
@@ -70,14 +70,12 @@
 	margin-top: 15px;
 	width: 100%;
 }
-
 .selectuser{
 	float: left;
 	margin-left: 230px; 
 	margin-top: 30px;
  	width: 200px;
 	height: 50px;
-
 }
 .selectuser>input[type=radio],.selectuser>label{
 	margin-left: 5px;
@@ -132,11 +130,9 @@
 #findaddrbtn:hover, #signupbtn:hover, #cancelbtn:hover, #certifyemail:hover{
 	cursor: pointer;
 }
-
 .forSeller{
 	display: none;
 }
-
 #forseller2{
 	float: left;
 	margin-top: 30px;

@@ -10,7 +10,7 @@ import com.spring.project.board.repository.IReviewRepository;
 import com.spring.project.product.repository.IOrderRepository;
 
 @Service
-public class ReviewService implements IBoardService{
+public class ReviewService{
 	
 	@Autowired
 	IReviewRepository reviewRepository;

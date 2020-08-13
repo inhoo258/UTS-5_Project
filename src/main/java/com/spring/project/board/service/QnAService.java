@@ -9,7 +9,7 @@ import com.spring.project.board.model.QnAVO;
 import com.spring.project.board.repository.IQnARepository;
 
 @Service
-public class QnAService implements IBoardService{
+public class QnAService{
 
 	@Autowired
 	IQnARepository qnARepository;

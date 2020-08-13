@@ -13,6 +13,8 @@ public class ProductsVO {
 	private byte[] product_img;
 	private String product_img_name;
 	private Date product_upload_date;
+	private int product_rn;
+	
 	
 	@Override
 	public String toString() {
@@ -20,6 +22,15 @@ public class ProductsVO {
 				+ ", product_name=" + product_name + ", product_count=" + product_count + ", product_price="
 				+ product_price + ", product_weight=" + product_weight
 				+ ", product_img_name=" + product_img_name + ", product_upload_date=" + product_upload_date + "]";
+	}
+
+	
+	public int getProduct_rn() {
+		return product_rn;
+	}
+
+	public void setProduct_rn(int product_rn) {
+		this.product_rn = product_rn;
 	}
 
 	public Date getProduct_upload_date() {

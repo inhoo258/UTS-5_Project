@@ -9,7 +9,7 @@ import com.spring.project.board.model.EventVO;
 import com.spring.project.board.repository.IEventRepository;
 
 @Service
-public class EventService implements IBoardService {
+public class EventService{
 
 	@Autowired
 	IEventRepository eventRepository;
