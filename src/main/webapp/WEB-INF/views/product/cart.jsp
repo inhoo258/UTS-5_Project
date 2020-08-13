@@ -80,6 +80,7 @@
 		</th>
 	</tr>
 </table>
+<input type="button" value="주문하기" id="orderBtn">
 <div>
 	<span id="totalPriceWithoutDel"></span>
 	<span id="totalDel"></span>
@@ -87,45 +88,54 @@
 </div>
 <script type="text/javascript">
 	let member_id = '${member_id}';
-	let totalPriceWithoutDel=0;
-	let totalDel=0;
-	let totalPriceWithDel=0;
 	let checkOneLength = $(".checkOne").length;
+	console.log("first checkOneLength : "+checkOneLength);
 	$(document).ready(function(){
 		$(".checkAll").prop("checked",true);
 		$(".checkOne").prop("checked",true);
-		$(".totalPriceForEachCompany").each(function(){
-			totalPriceWithoutDel+=parseInt($(this).text().replace(/,/gi,""));
-		});
-		$(".productDeliveryPrice").each(function(){
-			totalDel+=parseInt($(this).text().replace(/,/gi,""));
-		});
-		totalPriceWithDel = totalPriceWithoutDel+totalDel;
 		documentCheck();
 	});
 	function documentCheck(){
+		let totalPriceWithoutDel=0;
+		let totalDel=0;
+		let totalPriceWithDel=0;
+		$("table table").each(function(){
+			let idx = $(this).attr("id");
+			console.log("idx : " +$(this).attr("id"));
+			let totalPriceForEachCompany=0;
+			$("table table#"+idx+" input:checkbox.checkOne").each(function(){
+				if($(this).prop("checked")){
+					let checkIdx = $("table table#"+idx+" input:checkbox.checkOne").index(this);
+					totalPriceForEachCompany+=parseInt($("table table#"+idx+" span.productTotalPrice").get(checkIdx).innerText.replace(/,/gi,""));
+				}
+			});
+			console.log(totalPriceForEachCompany)
+			$("table table#"+idx+" .totalPriceForEachCompany").text(totalPriceForEachCompany.toLocaleString());
+			totalPriceWithoutDel+=totalPriceForEachCompany;
+		});		
+		
 		$(".totalPriceForEachCompany").each(function(){
-			if($(this).text().replace(/,/gi,"")>=50000){
 				let idx = $(".totalPriceForEachCompany").index(this);
 				let productDeliveryPrice = parseInt($(".productDeliveryPrice").get(idx).innerText.replace(/,/gi,""));
- 				if($(".freeDelivery").get(idx).style.display=="none")totalDel-=productDeliveryPrice;
+			if($(this).text().replace(/,/gi,"")>=50000){
 				$(".productDeliveryPrice").get(idx).style.display="none";
 				$(".freeDelivery").get(idx).style.display="block";
-				
 			}else if(0<$(this).text().replace(/,/gi,"") && $(this).text().replace(/,/gi,"")<50000){
-				let idx = $(".totalPriceForEachCompany").index(this);
-				let productDeliveryPrice = parseInt($(".productDeliveryPrice").get(idx).innerText.replace(/,/gi,""));
-				if($(".freeDelivery").get(idx).style.display=="block")totalDel+=productDeliveryPrice;
 				$(".productDeliveryPrice").get(idx).style.display="block";
 				$(".freeDelivery").get(idx).style.display="none";
+			//상점당 총액이 0일때
 			}else{
-				let idx = $(".totalPriceForEachCompany").index(this);
-				let productDeliveryPrice = parseInt($(".productDeliveryPrice").get(idx).innerText.replace(/,/gi,""));
-				if($(".productDeliveryPrice").get(idx).style.display=="block")totalDel-=productDeliveryPrice;
 				$(".productDeliveryPrice").get(idx).style.display="none";
 				$(".freeDelivery").get(idx).style.display="block";
 			}
 		});
+		$(".productDeliveryPrice").each(function(){
+			let idx =$(".productDeliveryPrice").index(this);
+			if($(".freeDelivery").get(idx).style.display=="none"){
+				totalDel+=parseInt($(this).text().replace(/,/gi,""));
+			}
+		});
+		totalPriceWithDel = totalPriceWithoutDel+totalDel;
 		$("#totalPriceWithoutDel").text(totalPriceWithoutDel.toLocaleString());
 		$("#totalDel").text(totalDel.toLocaleString());
 		$("#totalPriceWithDel").text(totalPriceWithDel.toLocaleString());
@@ -145,9 +155,6 @@
 			//상품 개당 총금액 변경
 			$(".productTotalPrice").get(idx).innerText=(productTotalPrice+productPrice).toLocaleString();
 			//상점 당 금액 변경
-			$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany+productPrice).toLocaleString());
-			totalPriceWithDel+=productPrice;
-			totalPriceWithoutDel+=productPrice;
 			documentCheck();
 		}
 	});
@@ -166,9 +173,6 @@
 			//상품 개당 총금액 변경
 			$(".productTotalPrice").get(idx).innerText=(productTotalPrice-productPrice).toLocaleString();
 			//상점 당 금액 변경
-			$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany-productPrice).toLocaleString());
-			totalPriceWithDel-=productPrice;
-			totalPriceWithoutDel-=productPrice;
 			documentCheck();
 		}
 	});
@@ -188,16 +192,18 @@
 				let innerTableId = $(".innerTableId").get(idx).value;
 				let innerTableLength = $(".innerTable#"+innerTableId+" tr.trForEachCompany").length;
 				//전체 상품가격에서 차감
-				let productTotalPrice = parseInt($(".productTotalPrice").get(idx).innerText.replace(/,/gi,""));
-				let totalPriceForEachCompany = parseInt($(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text().trim().replace(/,/gi,""));
-				$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany-productTotalPrice).toLocaleString());
-				totalPriceWithDel-=productTotalPrice;
-				totalPriceWithoutDel-=productTotalPrice;
+				if($(".checkOne").get(idx).checked){
+					let productTotalPrice = parseInt($(".productTotalPrice").get(idx).innerText.replace(/,/gi,""));
+					let totalPriceForEachCompany = parseInt($(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text().trim().replace(/,/gi,""));
+					$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany-productTotalPrice).toLocaleString());
+				}
 				//해당 열 삭제
 				$(".trForEachCompany").get(idx).remove();
 				if(innerTableLength-1==0){
 					$(".innerTable#"+innerTableId).remove();
 				}
+				checkOneLength--;
+				console.log("checkOneLength: "+checkOneLength);
 				documentCheck();
 			},error:function(){
 				alert("no~~");
@@ -212,41 +218,36 @@
 				let idx = $(".checkOne").index(this);
 				product_ids.push(parseInt($(".product_ids").get(idx).value));
 			}
-			if(product_ids.length!=0){
-				$.ajax({
-					url:'/project/product/rest/deleteFromCart',
-					type:'POST',
-					data:{
-						member_id:member_id,
-						product_ids:product_ids
-					},success:function(){
-						$(product_ids).each(function(i){
-							$(".product_ids").each(function(j){
-								if($(this).val()==product_ids[i]){
-									//테이블 길이 확인
-									let innerTableId = $(".innerTableId").get(j).value;
-									let innerTableLength = $(".innerTable#"+innerTableId+" tr.trForEachCompany").length;
-									//전체 상품가격에서 차감
-									let productTotalPrice = parseInt($(".productTotalPrice").get(j).innerText.replace(/,/gi,""));
-									let totalPriceForEachCompany = parseInt($(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text().trim().replace(/,/gi,""));
-									$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany-productTotalPrice).toLocaleString());
-									totalPriceWithDel-=productTotalPrice;
-									totalPriceWithoutDel-=productTotalPrice;
-									//해당 열 삭제
-									$(".trForEachCompany").get(j).remove();
-									if(innerTableLength-1==0){
-										$(".innerTable#"+innerTableId).remove();
-									}
-								}
-							});
-						});
-						documentCheck();
-					},error:function(){
-						alert("no~~");
-					}
-				})
-			}
 		});
+		console.log("product_ids : "+product_ids);
+		if(product_ids.length!=0){
+			$.ajax({
+				url:'/project/product/rest/deleteFromCart',
+				type:'POST',
+				data:{
+					member_id:member_id,
+					product_ids:product_ids
+				},success:function(){
+					$(product_ids).each(function(i){
+						$(".product_ids").each(function(j){
+							if($(this).val()==product_ids[i]){
+								let innerTableId = $(".innerTableId").get(j).value;
+								let innerTableLength = $(".innerTable#"+innerTableId+" tr.trForEachCompany").length;
+								$(".trForEachCompany").get(j).remove();
+								if(innerTableLength-1==0){
+									$(".innerTable#"+innerTableId).remove();
+								}
+							}
+						});
+					});
+					checkOneLength-=product_ids.length;
+					console.log("checkOneLenghth : "+checkOneLength);
+					documentCheck();
+				},error:function(){
+					alert("no~~");
+				}
+			});
+		}
 	});
 	$(".checkAll").on("click",function(){
 		if($(this).prop("checked")){
@@ -258,33 +259,53 @@
 			$(".checkAll").prop("checked",false);
 			checkOneLength = 0;
 		}
+		documentCheck();
 	});
 	$(".checkOne").on("click",function(){
-		if($(this).prop("checked")){
-			let idx = $(".checkOne").index(this);
-			let productTotalPrice = parseInt($(".productTotalPrice").get(idx).innerText.replace(/,/,""));
-			totalPriceWithDel+=productTotalPrice;
-			totalPriceWithoutDel+=productTotalPrice;
-			
-			let innerTableId = $(".innerTableId").get(idx).value;
-			let totalPriceForEachCompany = parseInt($(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text().trim().replace(/,/gi,""));
-			$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany+productTotalPrice).toLocaleString());
-			checkOneLength++;
-		}
-		else{
-			let idx = $(".checkOne").index(this);
-			let productTotalPrice = parseInt($(".productTotalPrice").get(idx).innerText.replace(/,/,""));
-			totalPriceWithDel-=productTotalPrice;
-			totalPriceWithoutDel-=productTotalPrice;
-			
-			let innerTableId = $(".innerTableId").get(idx).value;
-			let totalPriceForEachCompany = parseInt($(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text().trim().replace(/,/gi,""));
-			$(".innerTable#"+innerTableId+" tr:last-child span.totalPriceForEachCompany").text((totalPriceForEachCompany-productTotalPrice).toLocaleString());
-			checkOneLength--;
-		}
+		if($(this).prop("checked"))checkOneLength++;
+		else checkOneLength--;
 		if(checkOneLength==$(".checkOne").length)$(".checkAll").prop("checked",true);
 		else $(".checkAll").prop("checked",false);
 		documentCheck();
+	});
+	$("#orderBtn").on("click",function(){
+		let product_ids = [];
+		let cart_product_counts = [];
+		$(".checkOne").each(function(){
+			if($(this).prop("checked")){
+				let idx = $(".checkOne").index(this);
+				product_ids.push(parseInt($(".product_ids").get(idx).value));
+				cart_product_counts.push(parseInt($(".cartProductCount").get(idx).value));
+			}
+		});
+		$.ajax({
+			url:"/project/product/rest/updateCart",
+			type:"POST",
+			data:{
+				member_id:member_id,
+				product_ids:product_ids,
+				cart_product_counts:cart_product_counts
+			},success:function(){
+				 let order_form = document.createElement("form");
+				 order_form.name = "order_form";
+	             order_form.action = '/project/product/ordersheet';
+	             order_form.method = "post";
+	             let input_product_ids = document.createElement("input");
+	             let input_member_id = document.createElement("input");
+	             input_product_ids.setAttribute("type", 'hidden');
+	             input_member_id.setAttribute("type", 'hidden');
+	             input_product_ids.setAttribute("name","product_ids");
+	             input_member_id.setAttribute("name","member_id");
+	             input_product_ids.setAttribute("value",product_ids);
+	             input_member_id.setAttribute("value",member_id);
+	             order_form.appendChild(input_product_ids);
+	             order_form.appendChild(input_member_id);
+	             document.body.appendChild(order_form);
+	             order_form.submit();
+			},error:function(e){
+				alert("error"+e)
+			}
+		});
 	});
 </script>
 </body>

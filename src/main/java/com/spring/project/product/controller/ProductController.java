@@ -86,7 +86,7 @@ public class ProductController {
 			@RequestParam(value = "product_id", required = false, defaultValue = "0") int product_id,
 			@RequestParam(value = "pOrder_count", required = false, defaultValue = "0") int pOrder_count,
 			@RequestParam(value = "product_ids", required = false) int[] product_ids, Model model) {
-		System.out.println("-------------------ordersheet in");
+		System.out.println("----------------------------------------ordersheet in-----------------------------------------------------");
 		System.out.println("member_id : " + member_id);
 		System.out.println("product_id : " + product_id);
 		System.out.println("pOrder_count : " + pOrder_count);
@@ -98,7 +98,6 @@ public class ProductController {
 			ProductsVO product = productService.getProduct(product_id);
 			model.addAttribute("productInfo", product); // 개인구매상품 정보
 			model.addAttribute("productMemInfo", memberService.getMemberInfo(product.getMember_id())); // 독립상품 구매시 판매자
-																										// 정보
 			model.addAttribute("pOrder_count", pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
 			model.addAttribute("cartList", cartService.getCart(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
 			// 장바구니 통한 구매 요청 처리
