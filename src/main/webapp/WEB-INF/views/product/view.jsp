@@ -105,7 +105,8 @@
         </div>
 		<div class= "p_product_explain2">
 			<nav class="container">
-			   <ul id="tab1" class="tab">
+			   <div class="tab_class" id="tab1"></div> 
+			   <ul class="tab">
 			      <li><a href="#tab1" class="on">상품 설명</a></li>
 			      <li><a href="#tab2">업체 정보</a></li>
 			      <li><a href="#tab3">고객 후기(<span id="reviewCounts">${reviewPagingManager.totalCount}</span>)</a></li>
@@ -114,7 +115,8 @@
 			    <ul class="panel">
 			         <li>${product.product_info }</li>
 			    </ul>
-			   <ul id="tab2" class="tab">
+			   <div class="tab_class" id="tab2"></div>
+			   <ul class="tab">
 			      <li><a href="#tab1" >상품 설명</a></li>
 			      <li><a href="#tab2" class="on">업체 정보</a></li>
 			      <li><a href="#tab3">고객 후기(<span id="reviewCounts">${reviewPagingManager.totalCount}</span>)</a></li>
@@ -133,7 +135,8 @@
 						${sellerInfo.seller_company_head_name}<br>
 			         </li>
 			    </ul>
-			   <ul id="tab3" class="tab">
+			   <div class="tab_class" id="tab3"></div>
+			   <ul class="tab">
 			      <li><a href="#tab1" >상품 설명</a></li>
 			      <li><a href="#tab2">업체 정보</a></li>
 			      <li><a href="#tab3" class="on">고객 후기(<span id="reviewCounts">${reviewPagingManager.totalCount}</span>)</a></li>
@@ -220,7 +223,8 @@
 	         		</table>
 		          </li>
 			   </ul>
-			   <ul id="tab4" class="tab">
+			   <div class="tab_class" id="tab4"></div>
+			   <ul class="tab">
 			      <li><a href="#tab1">상품 설명</a></li>
 			      <li><a href="#tab2">업체 정보</a></li>
 			      <li><a href="#tab3">고객 후기(<span id="reviewCounts">${reviewPagingManager.totalCount}</span>)</a></li>
@@ -233,7 +237,7 @@
         </div>
         	
     </section>
-    </div>
+<!--     </div> -->
 <hr>
 </body>
 <script type="text/javascript">
