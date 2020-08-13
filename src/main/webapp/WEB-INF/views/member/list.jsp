@@ -265,7 +265,6 @@
 	        		}
         		} 
         	})()	
-        	
         	selectVO = {
         		page:1,
         		select_word:select_word,
@@ -273,7 +272,6 @@
         		select_auth:select_auth,
         		select_enabled:select_enabled
         	}
-        	
         	load_list_ajax(selectVO);
 		}else{
 // 			상세정보 select button click

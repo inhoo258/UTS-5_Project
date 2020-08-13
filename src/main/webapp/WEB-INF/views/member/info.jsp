@@ -30,7 +30,7 @@
                 <div>
 	                <div id=pw_section_test>
 	                    <h2>개인정보 수정</h2>
-	                    <div id=contents_notis_table>
+	                    <div id=contents_modify>	
 	                        <div>
 	                    		<h4>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h4>
 	                    	</div>
@@ -51,9 +51,9 @@
 					</div>            
                 </div>
                 <div>
-                    <h2>나의 구매 목록</h2>
-					<div>
-						<table id="order_table">
+                    <h2>나의 구매 목록 </h2>
+					<div id=contents_bouthlist_table>
+						<table id="order_table" border="1">
                        		 <tr>
 	                            <th>제품번호</th>
 	                            <th>제 품 명</th>
@@ -66,109 +66,364 @@
 					</div>
                 </div>
                 <div>
-                    <h2>상품 총 관리</h2>
-                    <h4></h4>
+                    <h2>상품 관리</h2>
+                    <div id="contents_productlist_search">
+                    	<table border="1">
+                    		<tr>
+                    			<td colspan="4">재고상태</td>
+                    			<td>
+	                    			<input type="radio" name="statusproduct" id="statusproduct"><font for="#statusproduct">품절</font>
+	                    			<input type="radio" name="statusproduct" id="statusproduct"><font for="#statusproduct">품절</font>
+                    			</td>
+	                    	</tr>
+                    		<tr>
+                    			<td colspan="4">검색조건</td>
+                    			<td>
+	                    			<select>
+	                    				<option>1</option>
+	                    				<option>2</option>
+	                    				<option>3</option>
+	                    				<option>4</option>
+	                    			</select>
+                    				<input type="text"><input type="button" value="검색">
+                    			</td>
+	                    	</tr>
+                    		<tr>
+                    			<td>21</td>
+                    			<td>22</td>
+                    			<td>23</td>
+                    			<td>24</td>
+                    		</tr>
+                    		<tr>
+                    			<td>31</td>
+                    			<td>32</td>
+                    			<td>33</td>
+                    			<td>34</td>
+                    		</tr>
+                    		<tr>
+                    			<td>41</td>
+                    			<td>42</td>
+                    			<td>43</td>
+                    			<td>44</td>
+                    		</tr>
+                    		<tr>
+                    			<td>51</td>
+                    			<td>52</td>
+                    			<td><input type="button" value = "등록"></td>
+                    			<td><input type="button" value = "취소"></td>
+                    		</tr>
+                    	</table>
+                    </div>
+                    <div id=contents_sellerprdoct_list>
+<!-- 						<table id="order_table" border="1"> -->
+<!--                        		 <tr> -->
+<!-- 	                            <th>제품번호</th> -->
+<!-- 	                            <th>제 품 명</th> -->
+<!-- 	                            <td>상품가격</td> -->
+<!-- 	                            <td>재고</td> -->
+<!-- 	                            <td>등록일</td> -->
+<!-- 	                            <td>수정</td> -->
+<!--                				 </tr> -->
+<!-- 						</table> -->
+					</div> 
+                    
+                    
                 </div>
                 <div>
                     <h2>주문 총 관리</h2>
-                    <h4></h4>
+                    <div id="contents_orderlist_search">
+                    	<table border="1">
+                    		<tr>
+                    			<td>검 색</td>
+                    			<td><input type="text"></td>
+                    			<td>13</td>
+                    			<td>14</td>
+	                    	</tr>
+                    		<tr>
+                    			<td>21</td>
+                    			<td>22</td>
+                    			<td>23</td>
+                    			<td>24</td>
+                    		</tr>
+                    		<tr>
+                    			<td>21</td>
+                    			<td>22</td>
+                    			<td>23</td>
+                    			<td>24</td>
+                    		</tr>
+                    		<tr>
+                    			<td>21</td>
+                    			<td>22</td>
+                    			<td>23</td>
+                    			<td>24</td>
+                    		</tr>
+                    	</table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-    function pwd_send(){
-		var xhr = new XMLHttpRequest();
-        xhr.open("post", "/project/member/rest/password_test");
-        xhr.setRequestHeader("content-type", "application/json");
-//	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
-		let member = {
-			member_id:"${member.member_id}",
-			member_pw:document.getElementsByName("member_pw")[0].value
+	    function pwd_send(){
+			var xhr = new XMLHttpRequest();
+	        xhr.open("post", "/project/member/rest/password_test");
+	        xhr.setRequestHeader("content-type", "application/json");
+	//	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+			let member = {
+				member_id:"${member.member_id}",
+				member_pw:document.getElementsByName("member_pw")[0].value
+			}
+			xhr.send(JSON.stringify(member));
+			xhr.onreadystatechange = function () {
+	            if (xhr.readyState === xhr.LOADING) {
+	                $("#loding").show();
+	            }
+	            if (xhr.readyState === xhr.DONE) {
+	                if (xhr.status === 200 || xhr.status === 201) {
+	                	let test = xhr.responseText;
+						if(test == "true"){
+							document.getElementById("pw_section_test").style.display = "none";
+							document.getElementById("pw_section_form").style.display = "block";
+						}else{
+							console.log("false");
+							alert('비밀번호가 틀립니다. 다시 입력해주세요.');
+						}
+	                }
+	            }
+			}
 		}
-		xhr.send(JSON.stringify(member));
-		xhr.onreadystatechange = function () {
-            if (xhr.readyState === xhr.LOADING) {
-                $("#loding").show();
-            }
-            if (xhr.readyState === xhr.DONE) {
-                if (xhr.status === 200 || xhr.status === 201) {
-                	let test = xhr.responseText;
-					if(test == "true"){
-						document.getElementById("pw_section_test").style.display = "none";
-						document.getElementById("pw_section_form").style.display = "block";
-					}else{
-						console.log("false");
-						alert('비밀번호가 틀립니다. 다시 입력해주세요.');
-					}
-                }
-            }
-		}
-	}
     </script>
-    
     <script type="text/javascript">
-    $("#center_menu_section>ul li:nth-child(1)").addClass("on");
-    $("#contents_div>div:nth-child(1)").css({"display" : "block"})
-    $("#center_menu_section>ul li").click(function() {
-         $(this).addClass("on");
-         $(this).siblings().removeClass("on");
-            let contents_div_index = $("#center_menu_section>ul li").index(this) + 1;
-            let li_count = $('#center_menu_section>ul li').length + 1;
-            for(var i = 0 ; i < li_count ; i++){
-                $("#contents_div>div:nth-child("+i+")").css({"display" : "none"});
-            }
-            if(contents_div_index == 2){
-            	alert("여기");
-            	$.ajax({
-    				url:'<c:url value="/product/rest/orderlist/${member.member_id}"/>',
-    				type:'GET',
-    				success:function(orderlist){
-    					showMyOrderList(orderlist);
-    				},error:function(){
-    					alert('실패');
-    				}
-    			}) 
-            }
-            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
-        });
-    
-        
-        
-        function showMyOrderList(orderList){
-        	let order_list;
-        	for(var i = 0 ;i < orderList[0].length ; i++){
-				order_list += 
-					'<tr>'
-					+'<td>'+orderList[0][i].order_number+'</td>'
-					+'<td>'+orderList[0][i].product_name+'</td>'
-					+'<td>'+orderList[0][i].order_product_count+'</td>'
-					+'<td>'+orderList[0][i].order_price+'</td>'
-					+'<td>'+orderList[0][i].order_date+'</td>'
-					+'<td>'+orderList[0][i].order_status+'</td>'
-					+'</tr>'
-        	}
-        	$("#order_table").append(order_list);
-        };
-// 	        	"<p>"member_id : +orderList[0][i].member_id+"</p>"+
-// 		       	"<p>"product_name : +orderList[0][i].product_name+"</p>"+
-// 		       	"<p>"+orderList[0][i].product_id+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_date+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_receiver_main_address+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_receiver_sub_address+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_receiver_name+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_receiver_tel+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_product_count+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_price+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_request+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_status+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_number+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_group_number+"</p>"+
-// 		       	"<p>"+orderList[0][i].review_check+"</p>"+
-// 		       	"<p>"+orderList[0][i].product_weight+"</p>"+
-// 		       	"<p>"+orderList[0][i].seller_company_name+"</p>"+
-// 		       	"<p>"+orderList[0][i].seller_company_tel+"</p>"+
-// 		       	"<p>"+orderList[0][i].order_delivery_price+"</p>"
+	    $("#center_menu_section>ul li:nth-child(1)").addClass("on");
+	    $("#contents_div>div:nth-child(1)").css({"display" : "block"})
+	    $("#center_menu_section>ul li").click(function() {
+	         $(this).addClass("on");
+	         $(this).siblings().removeClass("on");
+	            let contents_div_index = $("#center_menu_section>ul li").index(this) + 1;
+	            let li_count = $('#center_menu_section>ul li').length + 1;
+	            for(var i = 0 ; i < li_count ; i++){
+	                $("#contents_div>div:nth-child("+i+")").css({"display" : "none"});
+	            }
+	            if(contents_div_index == 2){
+	            	$.ajax({
+	    				url:'<c:url value="/product/rest/orderlist/${member.member_id}"/>',
+	    				type:'GET',
+	    				success:function(orderlist){
+	    					showMyOrderList(orderlist);
+	    				},error:function(){
+	    					alert('실패');
+	    				}
+	    			}) 
+	            }else if(contents_div_index == 3){
+	            	$.ajax({
+	    				url:'<c:url value="/product/sellerProductList"/>',
+	    				type:'GET',
+	    				success:function(seller_product_list){
+	    					showMyOrderList(seller_product_list);
+	    					alert(seller_product_list);
+	    					$('#contents_sellerprdoct_list').append(seller_product_list);
+	    				},error:function(){
+	    					alert('실패');
+	    				}
+	    			}) 
+	            }
+	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
+	        });
+	    
+	        
+	        
+	        function showMyOrderList(orderList){
+	        	let order_list;
+	        	for(var i = 0 ;i < orderList[0].length ; i++){
+					order_list += 
+						'<tr>'
+						+'<td>'+orderList[0][i].order_number+'</td>'
+						+'<td>'+orderList[0][i].product_name+'</td>'
+						+'<td>'+orderList[0][i].order_product_count+'</td>'
+						+'<td>'+orderList[0][i].order_price+'</td>'
+						+'<td>'+orderList[0][i].order_date+'</td>'
+						+'<td>'+orderList[0][i].order_status+'</td>'
+						+'</tr>'
+	        	}
+	        	$("#order_table").append(order_list);
+	        };
+	        
+	        function paging_ajax(selectVO){
+	    		//page numbering ajax
+	    	    	var xhr = new XMLHttpRequest();
+	    	        xhr.open("POST", "/project/member/rest/page_numbering");
+	    	        xhr.setRequestHeader("content-type", "application/json");
+	    			xhr.send(JSON.stringify(selectVO));
+	    			xhr.onreadystatechange = function () {
+	    	            if (xhr.readyState === xhr.LOADING) {
+	    	                $("#loding").show();
+	    	            }
+	    	            if (xhr.readyState === xhr.DONE) {
+	    	                if (xhr.status === 200 || xhr.status === 201) {
+	    	                	$("#loding").hide();
+	    	                	let pagingManager = JSON.parse(xhr.responseText);
+	    	                	 let paging = null;
+	    	                	(function(){
+	    	                		if(pagingManager.totalPage != 0){
+	    			                	return paging = "<tr>"+
+	    				            		"<th  colspan='6'>"+
+	    				            		"<div>"+
+	    						            "<span id='first'>처음</span>"+
+	    				            		(function(){
+	    					            		if(pagingManager.nowBlock > 1){
+	    											return "<span id='back'>이전</span>"     			
+	    					            		}else{
+	    					            			return ""
+	    					            		}
+	    				            		})()
+	    				            		+
+	    				            		(function(){
+	    				            			var a_paging = ""
+	    				            			for(var i = pagingManager.startPage ; i <= pagingManager.endPage ; i++){
+	    											a_paging += "<span class='paging_span'>"+i+"</span>"    				
+	    				            			}
+	    				            			return a_paging;
+	    				            		})()
+	    				            		+
+	    				            		(function(){
+	    					            		if(pagingManager.nowBlock >= pagingManager.totalBlock){
+	    											return ""     			
+	    					            		}else{
+	    					            			return "<span id='next'>다음</span>"
+	    					            		}
+	    				            		})()
+	    				            		+
+	    					            	"<span id='last'>끝</span>"+
+	    				            		"</div>"+
+	    				            		"</th>"+
+	    				            		"</tr>"
+	    	                		}else{
+	    	                			return paging = "";
+	    	                		}
+	    	                	})()
+	    	                	$("#order_table").append(paging);
+// 	    	                	if($("#memberlist_menubar>ul>li:nth-child(1) a").attr("class") == "on"){
+// 	                        	}else{
+// 	    	                    	$("#order_table").append(paging);
+// 	                        	}
+	    	                	
+	    	                	
+// 	    	            	if(pagingManager.totalPage != 0){
+// 	    		            	document.getElementsByClassName("paging_span")[save_page-1].style.backgroundColor = "#2a365c";
+// 	    		            	document.getElementsByClassName("paging_span")[save_page-1].style.color = "white";
+// 	    	            	}
+	    	            	
+	    	                $("#list_table").on("click",".paging_span.on", function(){
+	                        	let now_page = ($(".paging_span").index(this)+1);
+	                        	save_page = now_page;
+	                        	let select_page = document.getElementsByClassName("paging_span")[now_page-1].innerText;
+	                       		$("#order_table tr:nth-child(n+2)").remove();
+	                       		$("#order_table").off();
+	                       		document.getElementById("Check_All").checked = false;
+	                           	check_in_out = true;
+	                           	console.log(selectVO)
+	                           	selectVO={
+	                           		page : select_page,
+	                           		select_word:selectVO.select_word,
+	                        		select_option:selectVO.select_option,
+	                        		select_auth:selectVO.select_auth,
+	                        		select_enabled:selectVO.select_enabled
+	                           	}
+	                       		load_list_ajax(selectVO);						
+	                       	});
+	    	                
+	    	                $("#order_table").on("click","#first.on", function(){
+	                        	save_page = 1;
+	                       		$("#order_table tr:nth-child(n+2)").remove();
+	                       		$("#order_table").off();
+	                       		document.getElementById("Check_All").checked = false;
+	                           	check_in_out = true;
+	                           	selectVO={
+	                                page : 1,
+	                                select_word:selectVO.select_word,
+	                        		select_option:selectVO.select_option,
+	                        		select_auth:selectVO.select_auth,
+	                        		select_enabled:selectVO.select_enabled
+	                            }
+	                       		load_list_ajax(selectVO);						
+	                       	});
+	    	                
+	    	                $("#order_table").on("click","#next.on", function(){
+	                       		$("#order_table tr:nth-child(n+2)").remove();
+	                       		$("#order_table").off();
+	                       		document.getElementById("Check_All").checked = false;
+	                           	check_in_out = true;
+	                           	save_page = 1;
+	                           	selectVO={
+	                               	page : pagingManager.nowBlock * 10 + 1,
+	                               	select_word:selectVO.select_word,
+	                        		select_option:selectVO.select_option,
+	                        		select_auth:selectVO.select_auth,
+	                        		select_enabled:selectVO.select_enabled
+	    						}
+	                       		load_list_ajax(selectVO);						
+	                       	});
+	    	                
+	    	                $("#order_table").on("click","#back.on", function(){
+	                       		$("#order_table tr:nth-child(n+2)").remove();
+	                       		$("#order_table").off();
+	                       		document.getElementById("Check_All").checked = false;
+	                           	check_in_out = true;
+	                           	save_page = 1;
+	                        	selectVO={
+	    							page : (pagingManager.nowBlock -1) * 10 - 9,
+	    							select_word:selectVO.select_word,
+	                        		select_option:selectVO.select_option,
+	                        		select_auth:selectVO.select_auth,
+	                        		select_enabled:selectVO.select_enabled
+	        					}
+	                       		load_list_ajax(selectVO);						
+	                       	});
+	    	                
+	    	                $("#order_table").on("click","#last.on", function(){
+	                       		$("#order_table tr:nth-child(n+2)").remove();
+	                       		$("#order_table").off();
+	                       		document.getElementById("Check_All").checked = false;
+	                           	check_in_out = true;
+	                           	save_page = pagingManager.totalPage - (pagingManager.totalBlock - 1) * 10 
+	                           	selectVO={
+	    							page : pagingManager.totalPage,
+	    							select_word:selectVO.select_word,
+	                        		select_option:selectVO.select_option,
+	                        		select_auth:selectVO.select_auth,
+	                        		select_enabled:selectVO.select_enabled
+	        					}
+	                       		load_list_ajax(selectVO);						
+	                       	});
+	    	                
+	                       		$(".paging_span").addClass("on");
+	                       		$("#first").addClass("on");
+	                       		$("#next").addClass("on");
+	                       		$("#back").addClass("on");
+	                       		$("#last").addClass("on");
+	    	                }
+	    	            }
+	    			}
+	    		}
+	// 	        	"<p>"member_id : +orderList[0][i].member_id+"</p>"+
+	// 		       	"<p>"product_name : +orderList[0][i].product_name+"</p>"+
+	// 		       	"<p>"+orderList[0][i].product_id+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_date+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_receiver_main_address+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_receiver_sub_address+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_receiver_name+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_receiver_tel+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_product_count+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_price+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_request+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_status+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_number+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_group_number+"</p>"+
+	// 		       	"<p>"+orderList[0][i].review_check+"</p>"+
+	// 		       	"<p>"+orderList[0][i].product_weight+"</p>"+
+	// 		       	"<p>"+orderList[0][i].seller_company_name+"</p>"+
+	// 		       	"<p>"+orderList[0][i].seller_company_tel+"</p>"+
+	// 		       	"<p>"+orderList[0][i].order_delivery_price+"</p>"
     </script>
 	    
 <%-- 		1: ${sellerInfo}<br> --%>
