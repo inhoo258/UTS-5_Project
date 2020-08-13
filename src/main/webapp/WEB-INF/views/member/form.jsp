@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/form.css'/>" />
-<!-- <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script> -->
+<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 <!-- 주소 찾기 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
@@ -129,6 +129,7 @@
 	            </div>
 	        </div>
         </form>
+        <div>
 	<script type="text/javascript">
 	let member = '${member}';
 	console.log("member : " + member);
@@ -255,7 +256,6 @@
                 tel_check=true;
             }
         });
-       
         $("#member_email").blur(function(){
         let member_email = document.getElementById("member_email").value
         if(member_email.length==0){
@@ -411,7 +411,6 @@
 			}
 		}
 	});
-	
 	$("#certifyemail").on("click", function(){
 		let member_email = document.getElementById("member_email").value
 		$.ajax({
@@ -433,6 +432,7 @@
 	})
 
     </script>
+    </div>
 <%--     <jsp:include page="../header&footer/footer.jsp"/> --%>
 </body>
 </html>

@@ -28,7 +28,6 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 		System.out.println("==provvider===");
 		System.out.println("인증 ID : " + authentication.getPrincipal());
 		System.out.println("인증 PW : " + authentication.getCredentials());
-		
 		String userId = (String) authentication.getPrincipal();
 		String password = (String) authentication.getCredentials();
 		String dbpw = memberService.getMemberPassword(userId);
@@ -39,7 +38,6 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("비밀번호가 다릅니다.");
 		}
 		MemberVO member = memberService.getMemberInfo(userId);
-		
 		if (!member.isEnabled()) {
 			throw new DisabledException("정지당한 계정입니다. 관리자에게 문의하세요");
 		}
