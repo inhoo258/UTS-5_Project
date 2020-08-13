@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <script src="https://kit.fontawesome.com/c2524284bc.js"	crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href='<c:url value="/resources/css/product/ordersheet.css"/>' />
 </head>
 <body>
@@ -51,6 +52,9 @@
                                 </th>
                                 <th>${pOrder_count }</th>
                                 <th><fmt:formatNumber value="${productInfo.product_price * pOrder_count}" pattern="#,###"/></th>
+                            </tr>
+                            <tr>
+                            	<td>${delivery_price}</td>
                             </tr>
                         </table>
                     </div>
@@ -100,6 +104,9 @@
                             		<th><fmt:formatNumber value = "${cartList.cart_product_count*cartList.product_price }"/></th>
                             	</tr>
                             </c:forEach>
+                            <tr>
+                            	<td>${cartList[0].cart_delivery_price}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -123,7 +130,11 @@
                             </tr>
                             <tr>
                                 <th>주 소 *</th>
-                                <th><input type = "text" id="useraddr" readonly="readonly" style="width: 360px" value =${memberInfo.member_main_addr } > </th>
+                                <th><input type = "text" id="usermainaddr" readonly="readonly" style="width: 360px" value =${memberInfo.member_main_addr }></th>
+                            </tr>
+                            <tr>
+                                <th>상 세 주 소</th>
+                                <th><input type = "text" id="usersubaddr" readonly="readonly" style="width: 360px" value =${memberInfo.member_sub_addr }></th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -159,8 +170,13 @@
                             </tr>
                             <tr>
                                 <th>주   소 *</th>
-                                <th><input type = "text" id="member_addr" name="order_receiver_address" required style="width: 360px" > </th>
+                                <th><input type = "text" id="member_main_addr" name="order_receiver_main_address" required style="width: 360px" > </th>
                             </tr>
+                            <tr>
+                                <th>상 세 주 소</th>
+                                <th><input type = "text" id="member_sub_addr" name="order_receiver_sub_address" required style="width: 360px" > </th>
+                            </tr>
+                            
                         </table>
                      </div>
                 </div>
@@ -175,19 +191,20 @@
                 <div>
 	                <input type="hidden" name = "member_id" value = <sec:authentication property="principal.username"/>>
 						                	
+	                	<input type="hidden" name="order_delivery_price" value="${delivery_price + cartList[0].cart_delivery_price}">
                 	<c:if test="${not empty productInfo}">
 	                	<input type="hidden" name = "product_ids" value = "${productInfo.product_id}">
 	                	<input type="hidden" name = "order_prices" value = "${productInfo.product_price }">
 	                	<input type="hidden" name = "order_product_counts" value="${pOrder_count }">
-	                	<input type="hidden" name = order_status value = "전">
-	                	<input type="hidden" name = "order_request" value = "22">
+	                	<input type="hidden" name = order_status value = "배송전">
+	                	<input type="hidden" name = "order_request" value = "request">
                 	</c:if>
                 	<c:forEach var="cart" items="${cartList }">
                 		<input type="hidden" name = "product_ids" value = ${cart.product_id }>
                 		<input type="hidden" name = "order_prices" value = "${cart.product_price }">
                 		<input type="hidden" name = "order_product_counts" value = ${cart.cart_product_count }> 
-	                	<input type="hidden" name = order_status value = "전">
-	                	<input type="hidden" name = "order_request" value = "22">
+	                	<input type="hidden" name = order_status value = "배송전">
+	                	<input type="hidden" name = "order_request" value = "request">
                 	</c:forEach>
                     	<input type="submit" value="결제하기" class="paymentbtn" >
                 </div>
@@ -212,19 +229,29 @@
 		document.getElementById('show_cart_btn').style.display="none";
 	}
 	function addrcheck(){
-		console.log("in")
-		let username = document.getElementById('username').value
-		let usertel = document.getElementById('usertel').value
-		let useraddr = document.getElementById('useraddr').value
+		let username = document.getElementById('username').value;
+		let usertel = document.getElementById('usertel').value;
+		let usermainaddr = document.getElementById('usermainaddr').value;
+		let usersubaddr = document.getElementById('usersubaddr').value;
 		var checkAddrbox = document.getElementsByName('chkaddr')[0];
 		if(checkAddrbox.checked){
-			document.getElementById('member_name').value = username
-			document.getElementById('member_tel').value = usertel
-			document.getElementById('member_addr').value = useraddr
+			document.getElementById('member_name').value = username;
+			document.getElementById('member_name').readOnly=true;
+			document.getElementById('member_tel').value = usertel;
+			document.getElementById('member_tel').readOnly=true;
+			document.getElementById('member_main_addr').value = usermainaddr;
+			document.getElementById('member_main_addr').readOnly=true;
+			document.getElementById('member_sub_addr').value = usersubaddr;
+			document.getElementById('member_sub_addr').readOnly=true;
 		}else{
-			document.getElementById('member_name').value = ""
-			document.getElementById('member_tel').value = ""
-			document.getElementById('member_addr').value = ""
+			document.getElementById('member_name').value = "";
+			document.getElementById('member_name').readOnly=false;
+			document.getElementById('member_tel').value = "";
+			document.getElementById('member_tel').readOnly=false;
+			document.getElementById('member_main_addr').value = "";
+			document.getElementById('member_main_addr').readOnly=false;
+			document.getElementById('member_sub_addr').value = "";
+			document.getElementById('member_sub_addr').readOnly=false;
 		}
 	}
 </script>

@@ -44,16 +44,16 @@ public class CartService{
 			cartRepository.deleteCart(member_id, product_ids[i]);
 		}
 	}
-	public int insertCart(String member_id, int product_id, int cart_product_count) throws Exception {
+	public int insertCart(String member_id, int product_id, int cart_product_count,int cart_delivery_price) throws Exception {
 		System.out.println("insert cart member_id : " + cartRepository.getMemberId(member_id,product_id));
 		if(cartRepository.getMemberId(member_id,product_id)==null) {
-			cartRepository.insertCart(member_id, product_id, cart_product_count);
+			cartRepository.insertCart(member_id, product_id, cart_product_count, cart_delivery_price);
 			return 1;
 		}else return 0;
 	}
-	public void updateCart(String member_id, List<Integer> product_ids, List<Integer> cart_product_counts) {
+	public void updateCart(String member_id, List<Integer> product_ids, List<Integer> cart_product_counts,int cart_delivery_price) {
 		for (int i = 0; i < product_ids.size(); i++) {
-			cartRepository.updateCart(member_id,product_ids.get(i),cart_product_counts.get(i));
+			cartRepository.updateCart(member_id,product_ids.get(i),cart_product_counts.get(i),cart_delivery_price);
 		}
 	}
 
@@ -68,5 +68,9 @@ public class CartService{
 			cartList.add(cartRepository.getSelectedCart(member_id,product_ids[i]));
 		}
 		return cartList;
+	}
+
+	public List<CartVO> getCartInOrderSheet(String member_id) {
+		return cartRepository.getCartInOrderSheet(member_id);
 	}
 }
