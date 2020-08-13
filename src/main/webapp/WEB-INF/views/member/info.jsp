@@ -13,7 +13,7 @@
 <jsp:include page="../header&footer/header.jsp"/>
    <sec:authorize access="hasRole('ROLE_CUSTERMER')"></sec:authorize>
    <sec:authorize access="hasRole('ROLE_SELLER')"></sec:authorize>
-<div id=center_div>
+	<div id=center_div>
         <div>
             <div>
                 <h1>마이메뉴</h1>

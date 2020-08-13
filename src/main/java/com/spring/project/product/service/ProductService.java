@@ -18,11 +18,11 @@ public class ProductService {
 		return productRepository.getProductList();
 	}
 	
-	public List<ProductsVO> getSellerProductList(String login_id){
-		return productRepository.getSellerProductList(login_id);
+	public List<ProductsVO> getSellerProductList(String member_id, int page){
+		int end = page*10;
+		int start = end-9;
+		return productRepository.getSellerProductList(member_id, start, end);
 	}
-	
-	
 	
 	public ProductsVO getProduct(int product_id) {
 		return productRepository.getProduct(product_id);
@@ -55,10 +55,14 @@ public class ProductService {
 		productRepository.updateProductWithImage(productVo);
 		
 	}
-	////판매자 페이지에서 등록된 상품 삭제
+	//판매자 페이지에서 등록된 상품 삭제
 	public void deleteSellerProduct(int[] product_ids) {
 		for (int i = 0; i < product_ids.length; i++) {
 			productRepository.deleteSellerProduct(product_ids[i]);
 		}
-	} 
+	}
+	//판매자 페이지 페이징 처리 &판매자 등록 상품 총 갯수
+	public int getTotalCount(String member_id) {
+		return productRepository.getTotalCount(member_id);
+	}
 }

@@ -18,7 +18,7 @@ public interface ICartRepository {
 //	public ArrayList<CartVO> getCartList();
 	
 	//내 장바구니 보기(products, members 테이블 join - 추가적으로 필요한 정보 끌어옴
-	@Select("select c.member_id as member_id, c.product_id as product_id, cart_product_count, product_info, product_name, product_price, sel.seller_company_name, sel.product_delivery_price, cart_product_count * product_price product_total_price "
+	@Select("select c.member_id as member_id, c.product_id as product_id, cart_product_count, product_name, product_price, sel.seller_company_name, sel.product_delivery_price, cart_product_count * product_price product_total_price "
 			+ "from cart c "
 			+ "join products p "
 			+ "on c.product_id = p.product_id "
