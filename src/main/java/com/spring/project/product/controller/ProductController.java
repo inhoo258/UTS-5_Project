@@ -150,11 +150,13 @@ public class ProductController {
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
-	@PostMapping("/orderview")
-	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
-		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
-		model.addAttribute("order_group_number",order_group_number);
-	}
+//	@PostMapping("/orderview")
+//	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
+//		System.out.println(member_id);
+//		System.out.println(order_group_number);
+//		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
+//		model.addAttribute("order_group_number",order_group_number);
+//	}
 	@PostMapping("/deleteOrder")
 	public String deleteOrder(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number) {
 		orderService.deleteOrder(order_group_number, member_id);

@@ -70,6 +70,12 @@ public class ProductRestController {
 		String member_id = authentication.getName();
 		return orderService.getMyOrderList(member_id);
 	}
+	
+	@PostMapping("/orderview")
+	public List<List<OrdersVO>> orderView(@RequestParam(value="member_id") String member_id, @RequestParam(value="order_group_number")int order_group_number) {
+		System.out.println(orderService.getOrder(member_id, order_group_number).get(0).toString());
+		return orderService.getOrder(member_id, order_group_number);
+	}
 	//판매자 페이지===================================
 //	@PostMapping("/deleteSellerProduct")
 //	public void deleteSellerProduct(@RequestParam("product_ids[]") int[] product_ids) {
