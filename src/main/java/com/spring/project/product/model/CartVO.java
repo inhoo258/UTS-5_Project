@@ -10,45 +10,8 @@ public class CartVO {
 	private String seller_company_name;
 	private String product_delivery_price;
 	private String product_total_price;
+	private int cart_delivery_price;
 	
-//	private String seller_name;
-//	// 각각의 상품 판매자 필요한 정보 추가 -> chan
-//	private String seller_email;
-//	private String seller_id;
-//	private String seller_tel;
-//	
-	
-//	public String getSeller_email() {
-//		return seller_email;
-//	}
-//
-//	public void setSeller_email(String seller_email) {
-//		this.seller_email = seller_email;
-//	}
-//
-//	public String getSeller_id() {
-//		return seller_id;
-//	}
-//
-//	public void setSeller_id(String seller_id) {
-//		this.seller_id = seller_id;
-//	}
-//
-//	public String getSeller_tel() {
-//		return seller_tel;
-//	}
-//
-//	public void setSeller_tel(String seller_tel) {
-//		this.seller_tel = seller_tel;
-//	}
-//
-//	public String getSeller_name() {
-//		return seller_name;
-//	}
-//
-//	public void setSeller_name(String seller_name) {
-//		this.seller_name = seller_name;
-//	}
 	
 	@Override
 	public String toString() {
@@ -56,7 +19,15 @@ public class CartVO {
 				+ cart_product_count + ", product_info=" + product_info + ", product_name=" + product_name
 				+ ", product_price=" + product_price + ", seller_company_name=" + seller_company_name
 				+ ", product_delivery_price=" + product_delivery_price + ", product_total_price=" + product_total_price
-				+ "]";
+				+ ", cart_delivery_price=" + cart_delivery_price + "]";
+	}
+
+	public int getCart_delivery_price() {
+		return cart_delivery_price;
+	}
+
+	public void setCart_delivery_price(int cart_delivery_price) {
+		this.cart_delivery_price = cart_delivery_price;
 	}
 
 	public String getProduct_info() {

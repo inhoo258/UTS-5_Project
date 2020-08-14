@@ -43,11 +43,14 @@ public class OrderService{
 //		return orderRepository.getOrderList(member_id);
 //	}
 	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price) {
+		ordersVO.setOrder_group_number(orderRepository.getMaxOrderGroupNumber()+1);
 		for (int i = 0; i < product_id.length; i++) {
 			System.out.println("Start : " + i);
+			ordersVO.setOrder_number(orderRepository.getMaxOrderNumber()+1);
 			ordersVO.setProduct_id(product_id[i]);
 			ordersVO.setOrder_product_count(order_product_count[i]);
 			ordersVO.setOrder_price(order_price[i]);
+			System.out.println(ordersVO);
 			orderRepository.paymentInOrder(ordersVO);
 		}
 	}
