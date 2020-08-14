@@ -17,7 +17,7 @@
 <jsp:include page="../header&footer/header.jsp"></jsp:include>
 <table border="1" style="border-collapse:collapse; border-color:red;" id="outerTable">
 	<tr>
-		<th><input type="checkbox" class="checkAll">전체선택(/)</th>		
+		<th><input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</th>		
 		<th>상품정보</th>
 		<th>수량</th>
 		<th>금액</th>
@@ -75,16 +75,19 @@
 	</c:forEach>
 	<tr>
 		<th colspan="5">
-			<input type="checkbox" class="checkAll">전체선택(/)
+			<input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)
 			<input type="button" id="deleteSelected" value="선택삭제">
 		</th>
 	</tr>
 </table>
 <input type="button" value="주문하기" id="orderBtn">
-<div>
+<div id="notEmptyList">
 	<span id="totalPriceWithoutDel"></span>
 	<span id="totalDel"></span>
 	<span id="totalPriceWithDel"></span>
+</div>
+<div id="emptyList" style="display:none;">
+	<span>장바구니에 등록된 상품이 없습니다.</span>
 </div>
 <script type="text/javascript">
 	let member_id = '${member_id}';
@@ -99,6 +102,20 @@
 		let totalPriceWithoutDel=0;
 		let totalDel=0;
 		let totalPriceWithDel=0;
+		let checkedLength=0;
+		if($(".checkOne").length==0){
+			$(".checkAll").prop("disabled",true);
+			$("#orderBtn").prop("disabled",true);
+			$("#notEmptyList").hide();
+			$("#emptyList").show();
+		}
+		$(".restListLength").text($(".checkOne").length);
+		$(".checkOne").each(function(){
+			if($(this).prop("checked")){
+				checkedLength++;
+			}
+		});
+		$(".checkedLength").text(checkedLength);
 		$("table table").each(function(){
 			let idx = $(this).attr("id");
 			console.log("idx : " +$(this).attr("id"));

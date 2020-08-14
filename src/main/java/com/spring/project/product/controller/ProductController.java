@@ -2,12 +2,15 @@ package com.spring.project.product.controller;
 
 import java.io.IOException;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,7 +98,7 @@ public class ProductController {
 		System.out.println("product_ids : " + product_ids);
 		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id)); // 구매중인 회원정보
 		// 장바구니 통하지 않은 바로 구매 요청 처리
-		if (product_id != 0 && pOrder_count != 0 && product_ids == null && delivery_price!=0) {
+		if (product_id != 0 && pOrder_count != 0 && product_ids == null && delivery_price!=-1) {
 			System.out.println("product/view 통한 요청처리");
 			ProductsVO product = productService.getProduct(product_id);
 			model.addAttribute("productInfo", product); // 개인구매상품 정보
@@ -119,30 +122,31 @@ public class ProductController {
 	public String payment(OrdersVO ordersVO, @RequestParam(value = "product_ids") int[] product_ids,
 			@RequestParam(value = "order_product_counts") int[] order_product_counts,
 			@RequestParam(value = "order_prices") int[] order_prices,
+			@RequestParam("order_requests")String[]order_requests,
+			@RequestParam("order_statuses")String[] order_statuses,
 			Model model) {
-		System.out.println("들어왓음");
-		orderService.paymentInOrder(ordersVO, product_ids, order_product_counts, order_prices); // 주문하는 곳에 넣는거고
-//		productService.afterPayment(product_ids, order_product_counts); // 상품 주문후 전체 수량에서 빼기
-//		cartService.deleteCart(ordersVO.getMember_id(), product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
-//		for (int i = 0; i < product_ids.length; i++) {
-//			String setfrom = "underthesea5@naver.com";
-//			String tomail = memberService.getMemberInfo(productService.getProduct(product_ids[i]).getMember_id()).getMember_email(); // 받는 사람 이메일
-//			String title = productService.getProduct(product_ids[i]).getProduct_name() + "을 " + ordersVO.getMember_id()  +" 님이 주문하셧습니다."; // 제목
-//			String content = "주문서 보내고싶다."; // 내용
-//			try {
-//				MimeMessage message = mailSender.createMimeMessage();
-//				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-//				messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-//				messageHelper.setTo(tomail); // 받는사람 이메일
-//				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-//				messageHelper.setText(content); // 메일 내용
-//				mailSender.send(message);
-//				System.out.println("메일 보내기 성공!!!!");
-//			} catch (Exception e) {
-//				System.out.println(e);
-//			}
-//		}
-//		model.addAttribute(attributeValue) 주문서 
+		orderService.paymentInOrder(ordersVO, product_ids, order_product_counts, order_prices,order_requests,order_statuses); // 주문하는 곳에 넣는거고
+		productService.afterPayment(product_ids, order_product_counts); // 상품 주문후 전체 수량에서 빼기
+		cartService.deleteCart(ordersVO.getMember_id(), product_ids); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보삭제
+		for (int i = 0; i < product_ids.length; i++) {
+			String setfrom = "underthesea5@naver.com";
+			String tomail = memberService.getMemberInfo(productService.getProduct(product_ids[i]).getMember_id()).getMember_email(); // 받는 사람 이메일
+			String title = productService.getProduct(product_ids[i]).getProduct_name() + "을 " + ordersVO.getMember_id()  +" 님이 주문하셧습니다."; // 제목
+			String content = "주문서 보내고싶다."; // 내용
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+				messageHelper.setTo(tomail); // 받는사람 이메일
+				messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+				messageHelper.setText(content); // 메일 내용
+				mailSender.send(message);
+				System.out.println("메일 보내기 성공!!!!");
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		model.addAttribute("orderResult",orderService.getOrderResult(ordersVO.getOrder_group_number()));
 		return "product/payment";
 	}
 	// ===========================================================힘찬
@@ -150,7 +154,6 @@ public class ProductController {
 	// 결제 완료 후 나의 주문내역 ===========================================지현
 	@GetMapping("/orderlist/{member_id}")
 	public String myOrderLIst(@PathVariable("member_id") String member_id, Model model) {
-		System.out.println("여기 들어올꺼야 member_id: "+member_id);
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
@@ -179,12 +182,7 @@ public class ProductController {
 
 	@RequestMapping("/img/{product_id}")
 	public ResponseEntity<byte[]> getImage(@PathVariable("product_id") int product_id) {
-		System.out.println("getImage in ! by product id = " + product_id);
 		ProductsVO product = productService.getProduct(product_id);
-		System.out.println("product_img_name = "+product.getProduct_img_name());
-		System.out.println("product_img_name size = "+product.getProduct_img_name().split("\\.").length);
-		System.out.println("product_img_name[0] = "+product.getProduct_img_name().split("\\.")[0]);
-		System.out.println("product_img_name[1] = "+product.getProduct_img_name().split("\\.")[1]);
 		String product_type = product.getProduct_img_name().split("\\.")[1];
 		byte[] product_img = product.getProduct_img();
 		final HttpHeaders header = new HttpHeaders();

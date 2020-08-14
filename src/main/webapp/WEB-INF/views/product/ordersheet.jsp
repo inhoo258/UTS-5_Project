@@ -196,15 +196,15 @@
 	                	<input type="hidden" name = "product_ids" value = "${productInfo.product_id}">
 	                	<input type="hidden" name = "order_prices" value = "${productInfo.product_price }">
 	                	<input type="hidden" name = "order_product_counts" value="${pOrder_count }">
-	                	<input type="hidden" name = order_status value = "배송전">
-	                	<input type="hidden" name = "order_request" value = "request">
+	                	<input type="hidden" name = order_statuses value = "배송전">
+	                	<input type="hidden" name = "order_requests" value = "request">
                 	</c:if>
                 	<c:forEach var="cart" items="${cartList }">
                 		<input type="hidden" name = "product_ids" value = ${cart.product_id }>
                 		<input type="hidden" name = "order_prices" value = "${cart.product_price }">
                 		<input type="hidden" name = "order_product_counts" value = ${cart.cart_product_count }> 
-	                	<input type="hidden" name = order_status value = "배송전">
-	                	<input type="hidden" name = "order_request" value = "request">
+	                	<input type="hidden" name = order_statuses value = "배송전">
+	                	<input type="hidden" name = "order_requests" value = "request">
                 	</c:forEach>
                     	<input type="submit" value="결제하기" class="paymentbtn" >
                 </div>

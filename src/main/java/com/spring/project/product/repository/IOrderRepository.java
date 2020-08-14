@@ -35,8 +35,11 @@ public interface IOrderRepository {
 	
 	// 결제하기 버튼 클릭 후 주문완료 페이지 띄우기 전에 주문목록에 넣어주는 sql
 	@Insert("insert into orders"
-			+ "(member_id,product_id,order_receiver_main_address,order_receiver_sub_address,order_receiver_name,order_receiver_tel,order_product_count,order_price,order_request,order_status) "
-			+ "values(#{member_id},#{product_id},#{order_receiver_main_address},#{order_receiver_sub_address},#{order_receiver_name},#{order_receiver_tel},#{order_product_count},#{order_price},#{order_request},#{order_status})")
+			+ "(member_id,product_id,order_receiver_main_address,order_receiver_sub_address,order_receiver_name,"
+			+ "order_receiver_tel,order_product_count,order_price,order_request,order_number,order_group_number,order_delivery_price) "
+			+ "values"
+			+ "(#{member_id},#{product_id},#{order_receiver_main_address},#{order_receiver_sub_address},#{order_receiver_name},"
+			+ "#{order_receiver_tel},#{order_product_count},#{order_price},#{order_request},#{order_number},#{order_group_number},#{order_delivery_price})")
 	public void paymentInOrder(OrdersVO ordersVO);
 	
 //	//주문취소시 삭제
@@ -46,7 +49,7 @@ public interface IOrderRepository {
 	//배송전/중/완료 수정
 	@Update("update orders set order_status=#{order_status}")
 	public void deliveryOrder(String member_id, int product_id, String order_status);
-
+	
 	@Select("select ord.member_id member_id, order_date, ord.product_id product_id, prd.product_name product_name, order_product_count, order_number, product_weight "
 			+ "from orders ord "
 			+ "join products prd "
@@ -81,4 +84,7 @@ public interface IOrderRepository {
 	public int getMaxOrderGroupNumber();
 	@Select("select nvl(max(order_number),0) from orders")
 	public int getMaxOrderNumber();
+
+	@Select("select * ")
+	public Object getOrderResult(int order_group_number);
 }

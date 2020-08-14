@@ -42,7 +42,7 @@ public class OrderService{
 //	public List<OrdersVO> getOrderList(String member_id){
 //		return orderRepository.getOrderList(member_id);
 //	}
-	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price) {
+	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price, String[] order_requests, String[] order_statuses) {
 		ordersVO.setOrder_group_number(orderRepository.getMaxOrderGroupNumber()+1);
 		for (int i = 0; i < product_id.length; i++) {
 			System.out.println("Start : " + i);
@@ -50,6 +50,8 @@ public class OrderService{
 			ordersVO.setProduct_id(product_id[i]);
 			ordersVO.setOrder_product_count(order_product_count[i]);
 			ordersVO.setOrder_price(order_price[i]);
+			ordersVO.setOrder_request(order_requests[i]);
+			ordersVO.setOrder_status(order_statuses[i]);
 			System.out.println(ordersVO);
 			orderRepository.paymentInOrder(ordersVO);
 		}
@@ -97,5 +99,8 @@ public class OrderService{
 	}
 	public List<OrdersVO> getMyOrderList(String member_id) {
 		return orderRepository.getMyOrderList(member_id);
+	}
+	public Object getOrderResult(int order_group_number) {
+		return orderRepository.getOrderResult(order_group_number);
 	}
 }

@@ -10,7 +10,7 @@ public class ProductsVO {
 	private String product_name;
 	private int product_count;
 	private int product_price;
-	private int product_weight;
+	private float product_weight;
 	private byte[] product_img;
 	private String product_img_name;
 	private Date product_upload_date;
@@ -117,11 +117,11 @@ public class ProductsVO {
 		this.product_price = product_price;
 	}
 
-	public int getProduct_weight() {
+	public float getProduct_weight() {
 		return product_weight;
 	}
 
-	public void setProduct_weight(int product_weight) {
+	public void setProduct_weight(float product_weight) {
 		this.product_weight = product_weight;
 	}
 }
