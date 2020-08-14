@@ -18,5 +18,13 @@ public class FAQService {
 		int start = end-9;
 		return faqRepository.getFAQList(start, end);
 	}
+
+	public int getTotalCount() {
+		return faqRepository.getTotalCount();
+	}
+
+	public String getContent(int fre_number) {
+		return faqRepository.getContent(fre_number);
+	}
 	
 }

@@ -102,8 +102,11 @@
 	                    </div>
 	                    <div>
 	                        <ul>
+	                        <sec:authorize access="isAnonymous()">
+	                        	<li><a href="/project/member/form">회원 가입</a></li>
+	                        </sec:authorize>
 	                        <sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
-	                            <li><a href="#">개인 정보 수정</a></li>
+	                            <li><a href="/project/member/info">개인 정보 수정</a></li>
 	                            <li><a href="#">나의 구매 내역</a></li>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated() and hasRole('ROLE_SELLER')">

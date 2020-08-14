@@ -46,11 +46,20 @@ public class BoardController {
 	
 	//공지사항 게시판
 	@GetMapping("/notice/list")
-	public void noticeList(@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model) {
-		model.addAttribute("noticeList", noticeService.getNoticeList(page));
-		model.addAttribute("faqList",faqService.getNoticeList(page));
-		PagingManager pagingManager = new PagingManager(noticeService.getTotalCount(), page);
-		model.addAttribute("pagingManager", pagingManager);
+	public void noticeList(@RequestParam(value = "notice_page", required = false, defaultValue = "1") int notice_page, 
+			@RequestParam(value = "fre_page", required = false, defaultValue = "1") int fre_page,
+			@RequestParam(value = "fre", required = false) String freMessage
+			,Model model) {
+		model.addAttribute("noticeList", noticeService.getNoticeList(notice_page));
+		PagingManager noitce_PagingManager = new PagingManager(noticeService.getTotalCount(), notice_page);
+		model.addAttribute("notice_pagingManager", noitce_PagingManager);
+		
+		if(freMessage != null) {
+			model.addAttribute("freMessage" , freMessage);
+		}
+		model.addAttribute("faqList",faqService.getNoticeList(fre_page));
+		PagingManager fre_PagingManager = new PagingManager(faqService.getTotalCount(), fre_page);
+		model.addAttribute("fre_PagingManager", fre_PagingManager);
 	}
 
 	@GetMapping("/notice/{notice_rn}")

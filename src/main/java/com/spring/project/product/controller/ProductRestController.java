@@ -3,13 +3,14 @@ package com.spring.project.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.project.common.PagingManager;
 import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
@@ -34,6 +35,17 @@ public class ProductRestController {
 		cartService.updateCart(member_id, product_ids, cart_product_counts);
 		System.out.println("--------------------------------------------------rest updateCart out");
 	}
+	
+	@RequestMapping("/orderlist_paging")
+	public PagingManager orderlist_paging(@RequestParam(value="page" , required = false , defaultValue = "1")int page , 
+			Authentication authentication) {
+		String member_id = authentication.getName();
+		return new PagingManager(orderService.getTotalCount(member_id), page); 
+	}
+	
+	
+	
+	
 
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id") String member_id,
@@ -52,18 +64,11 @@ public class ProductRestController {
 		return cartService.checkCart(member_id, product_id);
 	}
 	
-//	@PostMapping("/orderCancel")
-//	public boolean orderCancel(@RequestParam("seller_company_name")String seller_company_name, @RequestParam("member_id")String member_id) {
-//		try {
-//			orderService.deleteOrder(seller_company_name,member_id);
-//		}catch(Exception e) {
-//			return false;
-//		}
-//		return true;
-//	}
-	@GetMapping("/orderlist/{member_id}")
-	public List<List<OrdersVO>> myOrderLIst(@PathVariable("member_id") String member_id) {
-		return orderService.getOrderList(member_id);
+	@GetMapping("/orderlist")
+	public List<OrdersVO> myOrderLIst(@RequestParam(value="page" , required = false ,defaultValue = "1")int page ,
+			Authentication authentication) {
+		String member_id = authentication.getName();
+		return orderService.getMyOrderList(member_id);
 	}
 	//판매자 페이지===================================
 //	@PostMapping("/deleteSellerProduct")

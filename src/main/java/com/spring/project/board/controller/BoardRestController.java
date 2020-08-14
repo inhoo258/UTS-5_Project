@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.project.board.model.ReviewVO;
 import com.spring.project.board.service.EventService;
+import com.spring.project.board.service.FAQService;
 import com.spring.project.board.service.NoticeService;
 import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
@@ -27,6 +28,9 @@ public class BoardRestController {
 	EventService eventService;
 	@Autowired
 	NoticeService noticeService;
+	@Autowired
+	FAQService faqService;
+	
 	@PostMapping("/review/upload")
 	public void reviewInsert(@RequestParam(value = "file", required = false) MultipartFile file, ReviewVO reviewVO, int order_number) {
 		System.out.println("review new in");
@@ -41,5 +45,12 @@ public class BoardRestController {
 		reviewService.insertReview(reviewVO, order_number);
 		System.out.println(reviewVO.toString());
 	}
+	
+	@RequestMapping(value="/fre_content" , produces = "application/json;charset=UTF-8")
+	public String fre_content(@RequestParam(value="fre_number")int fre_number) {
+		System.out.println("왜안옴 ?");
+		return faqService.getContent(fre_number); 
+	}
+	
 
 }

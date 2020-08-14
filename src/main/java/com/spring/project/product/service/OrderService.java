@@ -89,4 +89,10 @@ public class OrderService{
 		return orderList; 
 
 	}
+	public int getTotalCount(String member_id) {
+		return orderRepository.getTotalCount(member_id);
+	}
+	public List<OrdersVO> getMyOrderList(String member_id) {
+		return orderRepository.getMyOrderList(member_id);
+	}
 }

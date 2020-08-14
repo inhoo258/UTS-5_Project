@@ -14,4 +14,10 @@ public interface IFAQRepository {
 			+ "where rn between #{0} and #{1}")
 	public List<FreVO> getFAQList(int start, int end);
 
+	@Select("select count(*) from Frequently_Asked_Questions")
+	public int getTotalCount();
+
+	@Select("select fre_content from Frequently_Asked_Questions where fre_number = #{fre_number}")
+	public String getContent(int fre_number);
+
 }

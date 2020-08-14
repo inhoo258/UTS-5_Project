@@ -126,3 +126,16 @@
 	font-size: 13px;
 	border: 1px solid #5f0080;
 }
+#orderlist_div{
+	width: 100%;
+	background-color: blue;
+}
+
+
+#orderlist_div>div:nth-child(1){
+	width: 100%;
+	height: 1000px;
+	min-width:1400px;
+	max-width:1400px;
+	background-color: red;
+}

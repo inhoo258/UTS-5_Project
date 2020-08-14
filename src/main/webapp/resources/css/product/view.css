@@ -166,6 +166,10 @@
 	margin-top: 30px;
 }
 
+.tab_class{
+	height: 78px;
+}
+
 .container ul.tab {
 	display: flex;
 	height: 60px;

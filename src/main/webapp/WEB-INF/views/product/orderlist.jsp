@@ -23,51 +23,51 @@
     <!-- 주문내역에서 필요한 것들 -->
     <!-- 사진, 결제방법 -->
     <c:set var="totalCost" value="0" />
-    <div class="orderlist_section">
-        <div class="orderlist_tit">주문 내역</div>
-        <c:choose>
-            <c:when test="${not empty orderLists}">
-                <section>
-                    <c:forEach var="orderList" items="${orderLists}">
-                        <c:set var="totalCost" value="0" />
-                        <c:forEach var="order" items="${orderList }">
-                            <c:set var="totalCost" value="${totalCost + order.order_price}" />
-                        </c:forEach>
-                        <table class="orderlist_table" border="1" style="border-collapse: collapse;">
-                            <tr>
-                                <td>
-                                    <span class="order_num">
-                                        주문번호 <span class="order_group_number">${orderList[0].order_group_number}</span>
-                                    </span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="span_order_info span_three">상 품 명  </span><span>${orderList[0].product_name} 외 ${fn:length(orderList)-1}개</span>
-                                    </div>
-                                        <span class="span_order_info">결제 일시 </span> <span class="orderlist_order_date"><fmt:formatDate value="${orderList[0].order_date}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
-                                        <c:set var="order_tel" value="${orderList[0].order_receiver_tel}" />
-                                        <c:set var="order_tel_len" value="${fn:length(order_tel)}" />
-                                        <c:set var="order_tel_len_check" value="${order_tel_len eq 10 ? 6:7}" />
-                                        <c:set var="order_tel_first" value="${fn:substring(order_tel,0,3)}" />
-                                        <c:set var="order_tel_second" value="${fn:substring(order_tel,3,order_tel_len_check)}" />
-                                        <c:set var="order_tel_third" value="${fn:substring(order_tel,order_tel_len_check,order_tel_len)}" />
-                                        <div><span class="span_order_info span_three">연 락 처  </span>${order_tel_first}-${order_tel_second}-${order_tel_third}</div>
-                                        <div><span class="span_order_info span_three">배 송 지  </span>${orderList[0].order_receiver_main_address} ${orderList[0].order_receiver_sub_address}</div>
-                                        <div><span class="span_order_info">결제 금액  </span><fmt:formatNumber value="${totalCost}" pattern="#,###" /></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </c:forEach>
-                </section>
-            </c:when>
-            <c:otherwise>
-                	주문 내역이 없습니다.
-            </c:otherwise>
-        </c:choose>
-    </div>
+	    <div class="orderlist_section">
+	        <div class="orderlist_tit">주문 내역</div>
+	        <c:choose>
+	            <c:when test="${not empty orderLists}">
+	                <section>
+	                    <c:forEach var="orderList" items="${orderLists}">
+	                        <c:set var="totalCost" value="0" />
+	                        <c:forEach var="order" items="${orderList }">
+	                            <c:set var="totalCost" value="${totalCost + order.order_price}" />
+	                        </c:forEach>
+	                        <table class="orderlist_table" border="1" style="border-collapse: collapse;">
+	                            <tr>
+	                                <td>
+	                                    <span class="order_num">
+	                                        주문번호 <span class="order_group_number">${orderList[0].order_group_number}</span>
+	                                    </span>
+	                                    <i class="fas fa-chevron-right"></i>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td>
+	                                    <div>
+	                                        <span class="span_order_info span_three">상 품 명  </span><span>${orderList[0].product_name} 외 ${fn:length(orderList)-1}개</span>
+	                                    </div>
+	                                        <span class="span_order_info">결제 일시 </span> <span class="orderlist_order_date"><fmt:formatDate value="${orderList[0].order_date}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+	                                        <c:set var="order_tel" value="${orderList[0].order_receiver_tel}" />
+	                                        <c:set var="order_tel_len" value="${fn:length(order_tel)}" />
+	                                        <c:set var="order_tel_len_check" value="${order_tel_len eq 10 ? 6:7}" />
+	                                        <c:set var="order_tel_first" value="${fn:substring(order_tel,0,3)}" />
+	                                        <c:set var="order_tel_second" value="${fn:substring(order_tel,3,order_tel_len_check)}" />
+	                                        <c:set var="order_tel_third" value="${fn:substring(order_tel,order_tel_len_check,order_tel_len)}" />
+	                                        <div><span class="span_order_info span_three">연 락 처  </span>${order_tel_first}-${order_tel_second}-${order_tel_third}</div>
+	                                        <div><span class="span_order_info span_three">배 송 지  </span>${orderList[0].order_receiver_main_address} ${orderList[0].order_receiver_sub_address}</div>
+	                                        <div><span class="span_order_info">결제 금액  </span><fmt:formatNumber value="${totalCost}" pattern="#,###" /></div>
+	                                </td>
+	                            </tr>
+	                        </table>
+	                    </c:forEach>
+	                </section>
+	            </c:when>
+	            <c:otherwise>
+	                	주문 내역이 없습니다.
+	            </c:otherwise>
+	        </c:choose>
+	    </div>
     <script type="text/javascript">
         $("span.order_num").on("click", function () {
             let order_form = document.createElement("form");

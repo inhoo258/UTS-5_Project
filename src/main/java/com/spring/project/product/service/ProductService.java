@@ -65,4 +65,8 @@ public class ProductService {
 	public int getTotalCount(String member_id) {
 		return productRepository.getTotalCount(member_id);
 	}
+	//메인 페이지 오늘의 신상품
+	public List<ProductsVO> getNewestProducts() {
+		return productRepository.getNewestProducts();
+	}
 }

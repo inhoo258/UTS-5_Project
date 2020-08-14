@@ -81,7 +81,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
-			if(${totalCount == 0}){
+			if(${totalCount eq 0}){
 				$("#emptyProduct").show();
 			}
 			else{

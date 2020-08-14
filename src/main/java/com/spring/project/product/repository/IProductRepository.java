@@ -1,6 +1,7 @@
 package com.spring.project.product.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -31,6 +32,10 @@ public interface IProductRepository {
 	//판매자 등록 상품 총 갯수
 	@Select("select count(*) from products where member_id=#{member_id} ")
 	public int getTotalCount(String member_id);
+	
+	//메인 페이지 오늘의 신상품
+	@Select("select * from products where rownum<=4 order by product_upload_date desc")
+	public List<ProductsVO> getNewestProducts();
 
 	//delete======================================
 	// 판매자 페이지 등록된 상품 삭제
@@ -62,6 +67,8 @@ public interface IProductRepository {
 			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name) "
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
+	
+
 
 	
 
