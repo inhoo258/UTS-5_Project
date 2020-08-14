@@ -104,7 +104,9 @@ public class MemberController {
 		
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
 			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
-		}
+			model.addAttribute("monthly_sales", memberSerivce.getMonthlySales(member_id));
+ 		}
+		
 		if(!member_id.equals("user")) {
 			model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		}else {

@@ -22,6 +22,10 @@ public interface IMemberRepository {
 			+ "where m.member_id=#{member_id}")
 	public MemberVO getMemberInfo(String member_id);
 	
+	//판매자 페이지 월별 판매량
+	@Select("")
+	
+	public Object getMonthlySales(String member_id);
 	
 	// 권한 수정========================================================================
 	@Update("update members set member_enabled=#{0} where member_id = #{1}")

@@ -11,6 +11,12 @@
 <title>Insert title here</title>
 <script	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/resources/css/member/info.css'/>" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
+        integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+        integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+        crossorigin="anonymous"></script>
 </head>
 <body>
 <jsp:include page="../header&footer/header.jsp"/>
@@ -26,10 +32,12 @@
                         <li><a>&nbsp;&nbsp;나의 구매 목록</a>>&nbsp;&nbsp;</li>
                         <li><a>&nbsp;&nbsp;상품 총 관리</a>>&nbsp;&nbsp;</li>
                         <li><a>&nbsp;&nbsp;주문 총 관리</a>>&nbsp;&nbsp;</li>
+                        <li><a>&nbsp;&nbsp;월별 매출 통계</a>>&nbsp;&nbsp;</li>
                     </ul>
                 </section>
             </div>
             <div id=contents_div>
+            	<!-- 1. 개인 정보 수정 -->
                 <div>
 	                <div id=pw_section_test>
 	                    <h2>개인정보 수정</h2>
@@ -53,6 +61,7 @@
 						<jsp:include page="form.jsp"/>
 					</div>            
                 </div>
+                <!-- 2. 나의 구매 목록 -->
                 <div>
                     <h2>나의 구매 목록 </h2>
 					<div id=contents_bouthlist_table>
@@ -103,6 +112,7 @@
 					    </div>
 					</div>
                 </div>
+                <!-- 3. 상품 관리 -->
                 <div>
                     <h2>상품 관리</h2>
                     <div id="contents_productlist_search">
@@ -164,9 +174,8 @@
 <!--                				 </tr> -->
 <!-- 						</table> -->
 					</div> 
-                    
-                    
                 </div>
+				<!--   4. 주문 관리 -->
                 <div>
                     <h2>주문 총 관리</h2>
                     <div id="contents_orderlist_search">
@@ -198,6 +207,15 @@
                     	</table>
                     </div>
                 </div>
+				<!--  5.월별 매출 통계 -->
+                <div>
+                	<h2>월별 매출 통계</h2>
+                		 <canvas id="myChart" width="500" height="400"></canvas>
+                	
+                </div>
+                
+                
+                
             </div>
         </div>
     </div>
@@ -346,7 +364,68 @@
 //                 }
 //             });
 //         });
-        
-        
     </script>
+    
+    
+    
+    <script>
+    
+   
+    var ctx = document.getElementById('myChart');
+	let monthly_sales = "${monthly_sales}"
+	console.log(monthly_sales)
+    	
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],   // 차트 라벨명=> 날짜가 들어와야함
+            datasets: [{
+                label: '# of Votes', 
+                data: [1월,2월,3월 ,4월,5월,6월,7월,8월,9월,10월,11월,12월],    //데이터 배열=> 판매 건수가 들어와야함
+               fill:false,
+                backgroundColor: [
+                    // 'rgba(255, 99, 132, 0.2)',
+                    // 'rgba(54, 162, 235, 0.2)',
+                    // 'rgba(255, 206, 86, 0.2)',
+                    // 'rgba(75, 192, 192, 0.2)',
+                    // 'rgba(153, 102, 255, 0.2)',
+                    // 'rgba(255, 159, 64, 0.2)'
+                    // 'rgba(255, 255, 255, 1)'
+                ],
+                borderColor: [
+                    // 'rgba(255, 99, 132, 1)',
+                    // 'rgba(54, 162, 235, 1)',
+                    // 'rgba(255, 206, 86, 1)',
+                    // 'rgba(75, 192, 192, 1)',
+                    // 'rgba(153, 102, 255, 1)',
+                    'rgba(80, 195, 195, 1)'
+                ],
+                borderWidth: 2    // 차트 테두리 두께
+            }]
+        },
+        options: {
+            responsive: false,
+            title: {
+                display: true,
+                text: '매출 건 수',
+                // fontColor: "red",
+                fontSize: 20
+            },
+            scales: {
+                yAxes: [{   //  y축에 관련된 옵션 
+                    ticks: {
+                        beginAtZero: true   //데이터 표기를 0부터 표기
+                    }
+                }]
+            },
+        }
+    });
+</script>
+    
+    </script>
+    
+    
+    
+    
+    
 </html>

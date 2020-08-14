@@ -27,4 +27,5 @@ public interface IMemberService {
 	public SellerInfoVO getSellerInfo(String member_id);
 	public boolean getSellerRegNum(String seller_reg_num);
 	public void updateSellerInfo(SellerInfoVO sellerInfo);
+	public Object getMonthlySales(String member_id);
 }

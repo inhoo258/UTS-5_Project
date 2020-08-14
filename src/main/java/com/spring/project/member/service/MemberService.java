@@ -111,6 +111,10 @@ public class MemberService implements IMemberService {
 		return memberRepository.getEmail(member_email);
 	}
 	
+	@Override
+	public Object getMonthlySales(String member_id) {
+		return memberRepository.getMonthlySales(member_id);
+	}
 	
 //------------------ seller_info queries-----------------------------------
 	@Override
