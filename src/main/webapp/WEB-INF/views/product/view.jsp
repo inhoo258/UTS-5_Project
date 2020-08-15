@@ -90,6 +90,7 @@
 								<input type="hidden" id = "pOrder_product_id" name="product_id" value="${product.product_id}">
 								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
 								<input type="hidden" id = "pOrder_member_id" name="member_id" value="<sec:authentication property="principal.username"/>">
+								<input type="hidden" id="pOrder_delivery_price" name="delivery_price" value="${sellerInfo.product_delivery_price}">
 								<input class="btn" type="button" value ="주문하기" onclick="redirectOrder()"> 
 								<input class="btn" type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
 							</form>
@@ -258,6 +259,7 @@
 		if(originalPrice*p_num>=50000){
 			document.getElementById("p_delivery_price").innerText='무료배송';
 			document.getElementById("free_del_condition").innerText='';
+			document.getElementById("pOrder_delivery_price").value=0;
 		}
 	}
 	function p_count_minus() {
@@ -271,6 +273,7 @@
 		if(originalPrice*p_num<50000){
 			document.getElementById("p_delivery_price").innerText=deliveryPrice.toLocaleString()+" 원";
 			document.getElementById("free_del_condition").innerText='5만원 이상 구매 시 무료배송';
+			document.getElementById("pOrder_delivery_price").value=deliveryPrice;
 		}
 		}
 	}
@@ -311,7 +314,9 @@
 			data : {
 				"member_id" : member_id,
 				"product_id" : product_id,
-				"pOrder_count" : p_num
+				"pOrder_count" : p_num,
+				pOrder_delivery_price : deliveryPrice
+				
 			},
 			success : function(data){
 				if(data==1){

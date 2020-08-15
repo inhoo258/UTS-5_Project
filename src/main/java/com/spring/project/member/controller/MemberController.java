@@ -101,12 +101,11 @@ public class MemberController {
 	public String getMember(Authentication authentication, Model model ,@RequestParam(value="member_id", required = false , defaultValue = "user") String member_id) {
 		MemberVO member =  memberSerivce.getMemberInfo(authentication.getName());
 		model.addAttribute("member",member);
-		
+//		
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
 			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
-			model.addAttribute("monthly_sales", memberSerivce.getMonthlySales(member_id));
  		}
-		
+//		
 		if(!member_id.equals("user")) {
 			model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		}else {

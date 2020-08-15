@@ -174,7 +174,7 @@
 	margin: 10px 0;
 	font-size: 21px;
 	font-weight: 550;
-	color: #5f0080;
+	color: #2a365c;
 	display: inline-block;
 	width: 98%;
 }
@@ -204,7 +204,7 @@
 
 /* orderlist table css */
 .orderlist_table {
-	border-top: 3px solid #5f0080;
+	border-top: 3px solid #2a365c;
 	width: 100%;
 	margin-bottom: 50px;
 	border-left: none;

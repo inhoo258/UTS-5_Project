@@ -5,6 +5,7 @@ import java.util.List;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.model.SellerInfoVO;
+import com.spring.project.product.model.OrdersVO;
 
 public interface IMemberService {
 	public String getMemberPassword(String member_id);
@@ -27,5 +28,5 @@ public interface IMemberService {
 	public SellerInfoVO getSellerInfo(String member_id);
 	public boolean getSellerRegNum(String seller_reg_num);
 	public void updateSellerInfo(SellerInfoVO sellerInfo);
-	public Object getMonthlySales(String member_id);
+	public List<List<OrdersVO>> getMonthlySales(String member_id, String year);
 }

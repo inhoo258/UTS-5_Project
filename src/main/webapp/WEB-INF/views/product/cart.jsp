@@ -271,6 +271,7 @@
 	$("#orderBtn").on("click",function(){
 		let product_ids = [];
 		let cart_product_counts = [];
+		let cart_delivery_price= parseInt($("#totalDel").text().replace(/,/gi,""));
 		$(".checkOne").each(function(){
 			if($(this).prop("checked")){
 				let idx = $(".checkOne").index(this);
@@ -284,7 +285,8 @@
 			data:{
 				member_id:member_id,
 				product_ids:product_ids,
-				cart_product_counts:cart_product_counts
+				cart_product_counts:cart_product_counts,
+				cart_delivery_price:cart_delivery_price
 			},success:function(){
 				 let order_form = document.createElement("form");
 				 order_form.name = "order_form";

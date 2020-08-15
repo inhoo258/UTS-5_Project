@@ -85,7 +85,9 @@ public class ProductController {
 	public String getOrderSheet(@RequestParam("member_id") String member_id,
 			@RequestParam(value = "product_id", required = false, defaultValue = "0") int product_id,
 			@RequestParam(value = "pOrder_count", required = false, defaultValue = "0") int pOrder_count,
-			@RequestParam(value = "product_ids", required = false) int[] product_ids, Model model) {
+			@RequestParam(value = "product_ids", required = false) int[] product_ids,
+			@RequestParam(value="delivery_price", required = false, defaultValue="0")int delivery_price,
+			Model model) {
 		System.out.println("----------------------------------------ordersheet in-----------------------------------------------------");
 		System.out.println("member_id : " + member_id);
 		System.out.println("product_id : " + product_id);
@@ -93,15 +95,16 @@ public class ProductController {
 		System.out.println("product_ids : " + product_ids);
 		model.addAttribute("memberInfo", memberService.getMemberInfo(member_id)); // 구매중인 회원정보
 		// 장바구니 통하지 않은 바로 구매 요청 처리
-		if (product_id != 0 && pOrder_count != 0 && product_ids == null) {
+		if (product_id != 0 && pOrder_count != 0 && product_ids == null && delivery_price!=0) {
 			System.out.println("product/view 통한 요청처리");
 			ProductsVO product = productService.getProduct(product_id);
 			model.addAttribute("productInfo", product); // 개인구매상품 정보
 			model.addAttribute("productMemInfo", memberService.getMemberInfo(product.getMember_id())); // 독립상품 구매시 판매자
 			model.addAttribute("pOrder_count", pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
-			model.addAttribute("cartList", cartService.getCart(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
+			model.addAttribute("cartList", cartService.getCartInOrderSheet(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
+			model.addAttribute("delivery_price",delivery_price);
 			// 장바구니 통한 구매 요청 처리
-		} else if (product_id == 0 && pOrder_count == 0 && product_ids != null) {
+		} else if (product_id == 0 && pOrder_count == 0 && product_ids != null && delivery_price==0) {
 			System.out.println("product/cart 통한 요청 처리");
 			System.out.println("product_ids.length : " + product_ids.length);
 			model.addAttribute("cartList", cartService.getSelectedCart(member_id, product_ids));// 선택된 상품의 정보와 상품 판매자 정보
@@ -115,7 +118,8 @@ public class ProductController {
 	@PostMapping("/payment")
 	public String payment(OrdersVO ordersVO, @RequestParam(value = "product_ids") int[] product_ids,
 			@RequestParam(value = "order_product_counts") int[] order_product_counts,
-			@RequestParam(value = "order_prices") int[] order_prices, Model model) {
+			@RequestParam(value = "order_prices") int[] order_prices,
+			Model model) {
 		System.out.println("들어왓음");
 		orderService.paymentInOrder(ordersVO, product_ids, order_product_counts, order_prices); // 주문하는 곳에 넣는거고
 //		productService.afterPayment(product_ids, order_product_counts); // 상품 주문후 전체 수량에서 빼기
@@ -150,11 +154,13 @@ public class ProductController {
 		model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		return "product/orderlist";
 	}
-	@PostMapping("/orderview")
-	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
-		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
-		model.addAttribute("order_group_number",order_group_number);
-	}
+//	@PostMapping("/orderview")
+//	public void orderView(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number, Model model) {
+//		System.out.println(member_id);
+//		System.out.println(order_group_number);
+//		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
+//		model.addAttribute("order_group_number",order_group_number);
+//	}
 	@PostMapping("/deleteOrder")
 	public String deleteOrder(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number) {
 		orderService.deleteOrder(order_group_number, member_id);

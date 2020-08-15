@@ -22,8 +22,11 @@ public class OrdersVO {
 	private String seller_company_name;
 	private String seller_company_tel;
 	private int order_delivery_price;
+	private int sales_month;
+	private int sales_year;
 	
 	
+
 	@Override
 	public String toString() {
 		return "OrdersVO [member_id=" + member_id + ", product_name=" + product_name + ", product_id=" + product_id
@@ -34,7 +37,24 @@ public class OrdersVO {
 				+ ", order_status=" + order_status + ", order_number=" + order_number + ", order_group_number="
 				+ order_group_number + ", review_check=" + review_check + ", product_weight=" + product_weight
 				+ ", seller_company_name=" + seller_company_name + ", seller_company_tel=" + seller_company_tel
-				+ ", order_delivery_price=" + order_delivery_price + "]";
+				+ ", order_delivery_price=" + order_delivery_price + ", sales_month=" + sales_month + ", sales_year="
+				+ sales_year + "]";
+	}
+
+	public int getSales_month() {
+		return sales_month;
+	}
+
+	public void setSales_month(int sales_month) {
+		this.sales_month = sales_month;
+	}
+
+	public int getSales_year() {
+		return sales_year;
+	}
+
+	public void setSales_year(int sales_year) {
+		this.sales_year = sales_year;
 	}
 
 	public int getOrder_delivery_price() {

@@ -24,7 +24,8 @@ public class TimeTracingManager {
 		Object result = null;
 
 		result = joinPoint.proceed(); // joinpoint 실행 HelloService say메소드 실행해줌
-		System.out.println(result);
+//		System.out.println("메소드 결과값: " +result);
+//		System.out.println("메소드 명 : " +methodName);
 		System.out.println("[Log]Finally: " + methodName + " End.");
 		long endTime = System.nanoTime();
 		System.out.println("[Log]After: " + methodName + " time check end");

@@ -3,6 +3,7 @@ package com.spring.project.member.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.spring.project.common.PagingManager;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.service.IMemberService;
+import com.spring.project.product.model.OrdersVO;
 
 @RestController
 @RequestMapping("/member/rest")
@@ -142,5 +144,15 @@ public class MemberRestController {
 		
 		return str;
 	}
+	
+	//월별 매출 통계
+	@PostMapping("/monthly_sales")
+	public List<List<OrdersVO>> monthly_sales(Authentication authentication, @RequestBody String year){
+		
+		System.out.println(authentication.getName());
+		System.out.println("year:"+year);
+		return memberSerivce.getMonthlySales(authentication.getName(), year);
+	}
+	
 
 }

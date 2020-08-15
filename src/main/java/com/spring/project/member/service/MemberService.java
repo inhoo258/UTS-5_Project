@@ -1,5 +1,6 @@
 package com.spring.project.member.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.repository.IMemberRepository;
+import com.spring.project.product.model.OrdersVO;
 
 @Service
 public class MemberService implements IMemberService {
@@ -112,8 +114,14 @@ public class MemberService implements IMemberService {
 	}
 	
 	@Override
-	public Object getMonthlySales(String member_id) {
-		return memberRepository.getMonthlySales(member_id);
+	public List<List<OrdersVO>> getMonthlySales(String member_id, String year) {
+		List<List<OrdersVO>> list = new ArrayList<List<OrdersVO>>();
+		for(int month = 1 ; month <= 12 ; month++) {
+			List<OrdersVO> innerList = memberRepository.getMonthlySales(member_id ,year, month);
+			System.out.println("innerList size : "+innerList.size());
+			list.add(innerList);
+		}
+		return list;
 	}
 	
 //------------------ seller_info queries-----------------------------------
