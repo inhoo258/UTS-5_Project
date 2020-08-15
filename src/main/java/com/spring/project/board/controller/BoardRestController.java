@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.project.board.model.QnAVO;
 import com.spring.project.board.model.ReviewVO;
 import com.spring.project.board.service.EventService;
 import com.spring.project.board.service.FAQService;
@@ -45,7 +46,10 @@ public class BoardRestController {
 		reviewService.insertReview(reviewVO, order_number);
 		System.out.println(reviewVO.toString());
 	}
-	
+	@PostMapping("/qna/insert")
+	public void qnaInsert(QnAVO qna) {
+		qnAService.insertQnA(qna);
+	}
 	@RequestMapping(value="/fre_content" , produces = "application/json;charset=UTF-8")
 	public String fre_content(@RequestParam(value="fre_number")int fre_number) {
 		System.out.println("왜안옴 ?");

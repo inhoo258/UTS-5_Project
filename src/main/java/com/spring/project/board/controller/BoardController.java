@@ -25,7 +25,10 @@ import com.spring.project.board.service.NoticeService;
 import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
 import com.spring.project.common.PagingManager;
+import com.spring.project.member.service.IMemberService;
+import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.OrderService;
+import com.spring.project.product.service.ProductService;
 
 @Controller
 @RequestMapping("/board")
@@ -42,7 +45,10 @@ public class BoardController {
 	OrderService orderService;
 	@Autowired
 	FAQService faqService;
-	
+	@Autowired
+	ProductService productService;
+	@Autowired
+	IMemberService memberService;
 	//공지사항 게시판
 	@GetMapping("/notice/list")
 	public void noticeList(@RequestParam(value = "notice_page", required = false, defaultValue = "1") int notice_page, 
@@ -140,17 +146,12 @@ public class BoardController {
 		
 	}
 	
-	//qna 게시판
-	@GetMapping("/qna/list")
-	public void qnaList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
-		model.addAttribute("eventList",eventService.getEventList(page));
-		PagingManager pagingManager = new PagingManager(eventService.getTotalCount(), page);
-		model.addAttribute("pagingManager",pagingManager);
-	}
-	
-	@GetMapping("/qna/form")
-	public void qnaForm() {
-		
+	@GetMapping("/qna/form/{product_id}")
+	public String qnaForm(@PathVariable("product_id")int product_id, Model model) {
+		ProductsVO product = productService.getProduct(product_id);
+		model.addAttribute("product",product);
+		model.addAttribute("sellerInfo",memberService.getSellerInfo(product.getMember_id()));
+		return "board/qna/form";
 	}
 	
 	//review
