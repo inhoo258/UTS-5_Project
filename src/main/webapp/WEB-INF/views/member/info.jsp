@@ -1,60 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" href="<c:url value='/resources/css/member/info.css'/>" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet"
+	href="<c:url value='/resources/css/member/info.css'/>" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
+	integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q=="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+	integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+	crossorigin="anonymous"></script>
 </head>
 <body>
-<jsp:include page="../header&footer/header.jsp"/>
-   <sec:authorize access="hasRole('ROLE_CUSTERMER')"></sec:authorize>
-   <sec:authorize access="hasRole('ROLE_SELLER')"></sec:authorize>
+	<jsp:include page="../header&footer/header.jsp" />
+	<sec:authorize access="hasRole('ROLE_CUSTERMER')"></sec:authorize>
+	<sec:authorize access="hasRole('ROLE_SELLER')"></sec:authorize>
 	<div id=center_div>
-        <div>
-            <div>
-                <h1>마이메뉴</h1>
-                <section id=center_menu_section>
-                    <ul>
-                        <li><a>&nbsp;&nbsp;개인 정보 수정</a>>&nbsp;&nbsp;</li>
-                        <li><a>&nbsp;&nbsp;나의 구매 목록</a>>&nbsp;&nbsp;</li>
-                        <li><a>&nbsp;&nbsp;상품 관리</a>>&nbsp;&nbsp;</li>
-                        <li><a>&nbsp;&nbsp;주문 관리</a>>&nbsp;&nbsp;</li>
-                    </ul>
-                </section>
-            </div>
-            <div id=contents_div>
-                <div>
-	                <div id=pw_section_test>
-	                    <h2>개인정보 수정</h2>
-	                    <div id=contents_modify>	
-	                        <div>
-	                    		<h4>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h4>
-	                    	</div>
+		<div>
+			<div>
+				<h1>마이메뉴</h1>
+				<section id=center_menu_section>
+					<ul>
+						<li><a>&nbsp;&nbsp;개인 정보 수정</a>>&nbsp;&nbsp;</li>
+						<li><a>&nbsp;&nbsp;나의 구매 목록</a>>&nbsp;&nbsp;</li>
+						<li><a>&nbsp;&nbsp;상품 총 관리</a>>&nbsp;&nbsp;</li>
+						<li><a>&nbsp;&nbsp;주문 총 관리</a>>&nbsp;&nbsp;</li>
+						<li><a>&nbsp;&nbsp;월별 매출 통계</a>>&nbsp;&nbsp;</li>
+					</ul>
+				</section>
+			</div>
+			<div id=contents_div>
+				<!-- 1. 개인 정보 수정 -->
+				<div>
+					<div id=pw_section_test>
+						<h2>개인정보 수정</h2>
+						<div id=contents_modify>
+							<div>
+								<h4>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h4>
+							</div>
 							<div id="myinfomodifyframe">
 								<div>
 									<div class="frameA ">
-										<input type="password" name="member_pw" placeholder="비밀번호를 입력해주세요">
+										<input type="password" name="member_pw"
+											placeholder="비밀번호를 입력해주세요">
 									</div>
 									<div class="frameA">
 										<input type="button" value="전송" onclick="pwd_send()">
 									</div>
 								</div>
 							</div>
-	                    </div>
-	                 </div>
-	                 <div id=pw_section_form>
-						<jsp:include page="form.jsp"/>
-					</div>            
-                </div>
-                <div>
-                    <h2>나의 구매 목록 </h2>
+						</div>
+					</div>
+					<div id=pw_section_form>
+						<jsp:include page="form.jsp" />
+					</div>
+				</div>
+				<!-- 2. 나의 구매 목록 -->
+				<div>
+					<h2>나의 구매 목록</h2>
 					<div id=contents_bouthlist_table>
 						<c:set var="totalCost" value="0" />
 					    <div class="orderlist_section">
@@ -99,8 +114,8 @@
 					            <c:otherwise>
 					                	주문 내역이 없습니다.
 					            </c:otherwise>
-					        </c:choose>
-					    </div>
+							</c:choose>
+						</div>
 					</div>
                 </div>
                 <div id="contens_sellerproduct">
@@ -195,6 +210,41 @@
                     	</table>
                     </div>
                 </div>
+                <!-- 지현 start ============================== -->
+				<!--  5.월별 매출 통계 -->
+				<div>
+					<h2>월별 매출 통계</h2>
+					<table>
+						<tr>
+							<td>
+								<table width="100%" border="0" align="center" cellpadding="0"
+									cellspacing="0"
+									style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0">
+									<tr height="0">
+										<td width="15%"></td>
+										<td width="*%"></td>
+									</tr>
+									<tr>
+										<td height="1" colspan="4" bgcolor="#dfdfdf"></td>
+									</tr>
+									<tr height="25">
+										<td class="item_title_border">년월선택</td>
+										<td class="item_input">
+										<select id="fd_year" name="fd_year" style="width: 130px;">
+											<option value=""></option>
+										</select> 
+										<select id="fd_month" name="fd_month" style="width: 130px;"></select>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<div style="width: 100%">
+						<canvas id="myChart" width="900" height="600"></canvas>
+					</div>
+				</div>
+				<!-- 지현  end============================== -->
             </div>
         </div>
     </div>
@@ -264,7 +314,7 @@
 			}
 		}
     </script>
-    <script type="text/javascript">
+	<script type="text/javascript">
 	    $("#center_menu_section>ul li:nth-child(1)").addClass("on");
 	    $("#contents_div>div:nth-child(1)").css({"display" : "block"})
 	    $("#center_menu_section>ul li").click(function() {
@@ -279,6 +329,19 @@
 	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
 	            }else if(contents_div_index == 3){
 					console.log('3번 클릭');	    			
+	            	$.ajax({
+	    				url:'<c:url value="/product/sellerProductList"/>',
+	    				type:'GET',
+	    				success:function(seller_product_list){
+// 	    					alert(seller_product_list);
+// 	    					$('#contents_sellerprdoct_list').append(seller_product_list);
+	    				},error:function(){
+	    					alert('실패');
+	    				}
+	    			}) 
+	            }else if(contents_div_index == 5){
+	            	console.log("매출 통계")
+	            	sales_month(2020);
 	            }
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
 	        });
@@ -394,5 +457,136 @@
 		}
 		
     </script>
+	<!-- 지현 start ============================== -->
+	<script>
+	// 날짜 선택  j쿼리
+    $(document).ready(function(){            
+        var now = new Date();
+        var nowYear = now.getFullYear();
+        var nowMonth = (now.getMonth()+1) > 9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);            
+        console.log(now)
+        console.log(nowYear)
+        console.log(nowMonth)
+        
+        //년도 selectbox만들기               
+        for(var sy = 2018 ; sy <= nowYear ; sy++) {
+            $('#fd_year').append('<option value="' + sy + '">' + sy + '년</option>');    
+        }
+
+        // 월별 selectbox 만들기            
+        for(var i=1; i <= 12; i++) {
+            var sm = i > 9 ? i : "0"+i ;            
+            $('#fd_month').append('<option value="' + sm + '">' + sm + '월</option>');    
+         }            
+        
+        $("#fd_year>option[value="+nowYear+"]").attr("selected", "true");    
+        $("#fd_month>option[value="+nowMonth+"]").attr("selected", "true");             
+    })
+    
+    
+    	//그래프 j쿼리
+	    var ctx = document.getElementById('myChart');
+	    
+	    function sales_month(year){
+	    	console.log(year);
+	    	let month_sales_cnt = [];
+		    var xhr = new XMLHttpRequest();
+	        xhr.open("post", "/project/member/rest/monthly_sales");
+	        xhr.setRequestHeader("content-type", "application/json");
+			//xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+			xhr.send(JSON.stringify(year));
+			xhr.onreadystatechange = function () {
+	            if (xhr.readyState === xhr.LOADING) {
+	                $("#loding").show();
+	            }
+	            if (xhr.readyState === xhr.DONE) {
+	                if (xhr.status === 200 || xhr.status === 201) {
+	                	let monthly_sales = JSON.parse(xhr.responseText)
+	                	console.log("monthly_sales : "+monthly_sales);
+	                	console.log(monthly_sales);
+	                	console.log(monthly_sales.length);
+	                	for (var i = 0; i < monthly_sales.length; i++) { 
+	                		console.log((i+1)+"월 : "+i)
+	                		if(monthly_sales[i].length!=0){
+	               				let cnt = 0 ;
+	                			for (var j = 0; j < monthly_sales[i].length; j++) {
+	                				console.log("구매건의  인덱스j : "+j);
+									console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
+									console.log("order_price : "+monthly_sales[i][j].order_price);
+									cnt+=monthly_sales[i][j].order_product_count
+								}
+								month_sales_cnt.push(cnt);
+	                		}else{
+	                			month_sales_cnt.push(0);
+	                		} 
+	                			
+						}
+	                	
+	                	
+	                }
+	                
+	                insertChart(month_sales_cnt)
+	            }
+	        }
+	    }
+	    function insertChart(month_sales_cnt){
+            
+	    var myChart = new Chart(ctx, {
+	        type: 'line',
+	        data: {
+	            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
+	            datasets: [{
+	                label: '#월별 상품 판매량 ', 
+	                data: [ month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5] ,
+	                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
+	                	],    //데이터 배열=> 판매 건수가 들어와야함
+	              	fill:false,
+// 	                backgroundColor: [
+// 	                ],
+	                borderColor: [
+	                    'rgba(80, 195, 195, 1)'
+	                ],
+	                borderWidth: 2    // 차트 테두리 두께
+	            }]
+	        },
+	        options: {
+	            responsive: false,
+	            title: {
+	                display: true,
+	                text: '년 매출 건 수',
+	                // fontColor: "red",
+	                fontSize: 20
+	            },
+	            scales: {
+	                yAxes: [{   //  y축에 관련된 옵션 
+	                    ticks: {
+	                        beginAtZero: true   //데이터 표기를 0부터 표기
+	                    }
+	                }]
+	            },
+	            animation: {
+					duration: 1,
+					onComplete: function () {
+						var chartInstance = this.chart,
+							ctx = chartInstance.ctx;
+						ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+						ctx.fillStyle = 'purple';
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'bottom';
+
+						this.data.datasets.forEach(function (dataset, i) {
+							var meta = chartInstance.controller.getDatasetMeta(i);
+							meta.data.forEach(function (bar, index) {
+								var data = dataset.data[index];							
+								ctx.fillText(data, bar._model.x, bar._model.y - 5);
+							});
+						});
+					}
+				}
+	        }
+	    });
+	    }
+	</script>
+	<!-- 지현 start ============================== -->
 </body>
 </html>

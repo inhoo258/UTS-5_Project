@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SellerInfoVO;
+import com.spring.project.product.model.OrdersVO;
 
 @Repository
 public interface IMemberRepository {
@@ -22,7 +23,18 @@ public interface IMemberRepository {
 			+ "where m.member_id=#{member_id}")
 	public MemberVO getMemberInfo(String member_id);
 	
-	
+//지현 start==============================	
+//	"select * from (select pro.member_id , EXTRACT(MONTH FROM order_date) as sales_month,"
+//	+ "EXTRACT(year FROM order_date) as sales_year ,ord.product_id, ord.order_product_count, ord.order_price from orders ord "
+//	+ "join products pro on pro.product_id = ord.product_id where pro.member_id = #{0}) "
+//	+ "where sales_year = #{} and sales_month = 7"
+	//판매자 페이지 월별 판매량
+	@Select("select * from (select pro.member_id , EXTRACT(MONTH FROM order_date) as sales_month,"
+			+ "EXTRACT(year FROM order_date) as sales_year ,ord.product_id, ord.order_product_count, ord.order_price from orders ord "
+			+ "join products pro on pro.product_id = ord.product_id where pro.member_id = #{0}) "
+			+ "where sales_year = #{1} and sales_month = #{2}")
+	public List<OrdersVO> getMonthlySales(String member_id, String year, int month);
+//지현 end==============================	
 	// 권한 수정========================================================================
 	@Update("update members set member_enabled=#{0} where member_id = #{1}")
 	public void member_enable(int enable ,String member_id);

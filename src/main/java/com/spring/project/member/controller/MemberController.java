@@ -106,9 +106,9 @@ public class MemberController {
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
 			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
 			model.addAttribute("totalCount", productService.getTotalCount(authentication.getName())); // 상품 총 등록 갯수
-			System.out.println("adsfasdf :" +productService.getSellerProductList(authentication.getName()));
 			model.addAttribute("productList", productService.getSellerProductList(authentication.getName()));
 		}
+	
 		if(!member_id.equals("user")) {
 			model.addAttribute("orderLists", orderService.getOrderList(member_id));
 		}else {
