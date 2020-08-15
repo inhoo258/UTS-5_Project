@@ -142,5 +142,13 @@ public class MemberRestController {
 		
 		return str;
 	}
-
+	
+	
+//	//판매자 페이지 등록된 상품 삭제  내일
+//	@PostMapping("/deleteSellerPoduct")
+//	public String deleteSellerProduct(@RequestParam int[] product_ids) {
+//		ProductService.deleteSellerProduct(product_ids);
+//		return "redirect:/product/sellerProductList";
+//	}
+	
 }
