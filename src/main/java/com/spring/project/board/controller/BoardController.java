@@ -155,8 +155,13 @@ public class BoardController {
 	
 	//review
 	@PostMapping("/review/form")
-	public void reviewForm(@RequestParam("member_id")String member_id, @RequestParam("order_number")int order_number, Model model) {
+	public void reviewForm(@RequestParam("member_id")String member_id, @RequestParam("order_number")int order_number,
+		@RequestParam("table_number_index") int table_number_index , @RequestParam("order_group_number") int order_group_number, Model model) {
+		System.out.println("table_number : "+table_number_index);
+		System.out.println("order_group_number : "+order_group_number);
 		model.addAttribute("order", orderService.getOrderByOrderNumber(order_number));
+		model.addAttribute("table_number_index" , table_number_index);
+		model.addAttribute("order_group_number" , order_group_number);
 	}
 	@RequestMapping("/review/img")
 	public ResponseEntity<byte[]> getImage(@RequestParam("product_id")int product_id, @RequestParam("review_number")int review_number) {

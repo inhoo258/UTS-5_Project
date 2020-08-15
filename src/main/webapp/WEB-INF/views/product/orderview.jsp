@@ -42,11 +42,9 @@
 			<td class="td_status_and_btn">
 				<form name="reviewForm">
 					<input type="hidden" name="member_id" value="${order.member_id}">
-					<input type="hidden" name="order_number"
-						value="${order.order_number}">
+					<input type="hidden" name="order_number" value="${order.order_number}">
 				</form> <input class="review_popup_btn" type="button" value="후기 쓰기">
-				<input type="hidden" class="review_check"
-				value="${order.review_check}">
+				<input type="hidden" class="review_check" value="${order.review_check}">
 			</td>
 		</tr>
 		</c:forEach>

@@ -24,8 +24,8 @@
                     <ul>
                         <li><a>&nbsp;&nbsp;개인 정보 수정</a>>&nbsp;&nbsp;</li>
                         <li><a>&nbsp;&nbsp;나의 구매 목록</a>>&nbsp;&nbsp;</li>
-                        <li><a>&nbsp;&nbsp;상품 총 관리</a>>&nbsp;&nbsp;</li>
-                        <li><a>&nbsp;&nbsp;주문 총 관리</a>>&nbsp;&nbsp;</li>
+                        <li><a>&nbsp;&nbsp;상품 관리</a>>&nbsp;&nbsp;</li>
+                        <li><a>&nbsp;&nbsp;주문 관리</a>>&nbsp;&nbsp;</li>
                     </ul>
                 </section>
             </div>
@@ -60,14 +60,14 @@
 					    <div class="orderlist_section">
 					        <c:choose>
 					            <c:when test="${not empty orderLists}">
-					                <section>
-					                    <c:forEach var="orderList" items="${orderLists}">
+					                <section id=table_section>
+					                    <c:forEach var="orderList" items="${orderLists}" varStatus="table_number">
 					                        <c:set var="totalCost" value="0" />
 					                        <c:forEach var="order" items="${orderList}">
 					                            <c:set var="totalCost" value="${totalCost + order.order_price}" />
 					                        </c:forEach>
 					                        <table class="orderlist_table" border="1" style="border-collapse: collapse;">
-					                            <tr onclick="pro_info(${orderList[0].order_group_number})">
+					                            <tr onclick="pro_info(${orderList[0].order_group_number} , ${table_number.index+1})">
 					                                <td>
 					                                    <span class="order_num">
 					                                        	주문번호 <span class="order_group_number">${orderList[0].order_group_number}</span>
@@ -75,7 +75,7 @@
 					                                    <i class="fas fa-chevron-right"></i>
 					                                </td>
 					                            </tr>
-					                            <tr>
+					                            <tr id="tr">
 					                                <td>
 					                                    <div id=main_content_div>
 					                                        <span class="span_order_info span_three">상 품 명  </span><span>${orderList[0].product_name} 외 ${fn:length(orderList)-1}개</span>
@@ -168,7 +168,7 @@
                     
                 </div>
                 <div>
-                    <h2>주문 총 관리</h2>
+                    <h2>주문 관리</h2>
                     <div id="contents_orderlist_search">
                     	<table border="1">
                     		<tr>
@@ -243,7 +243,7 @@
 	                $("#contents_div>div:nth-child("+i+")").css({"display" : "none"});
 	            }
 	            if(contents_div_index == 2){
-	            	console.log("나의 구매 목록")
+	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
 	            }else if(contents_div_index == 3){
 	            	$.ajax({
 	    				url:'<c:url value="/product/sellerProductList"/>',
@@ -259,11 +259,12 @@
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
 	        });
 	    
-	    function pro_info(order_number){
+	    function pro_info(order_number , table_number){
 	    	let member_id = "${member.member_id}"
 	    	
-	    	console.log(order_number)
-	    	console.log(member_id)
+	    	console.log("table_number : " + table_number)
+	    	console.log("order_number : " + order_number)
+	    	console.log("member_id : " + member_id)
 			$.ajax({
 				url:"/project/product/rest/orderview",
 				type:'POST',
@@ -271,26 +272,110 @@
 					member_id:member_id,
 					order_group_number:order_number
 				},success:function(order_list_info){
-					console.log(order_list_info[0][0])
+					$("#orderview_details_table").remove()
+// 					$("#table_section table:nth-child("+table_number+") tr:nth-child(2)").remove()
+					console.log(order_list_info[0][0].order_price)
 					console.log(order_list_info[0][1])
 					console.log(order_list_info.length)
 					console.log(order_list_info[0].length)
+					let orderview_details = "";
 					let orderview =(function(){
 						for(var i = 0 ; i < order_list_info.length ; i++){
-							return "<table>"+
-							"<div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div>"+
-							
-							"</table>"
+							return "<table id='orderview_details_table' border='1' style='background-color:red; width:100% ; height:300px;'><tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
+							+(function(){
+								for(var y = 0 ; y < order_list_info[0].length ; y++){
+									var price = numberWithCommas(order_list_info[0][y].order_price);
+									orderview_details += "<tr><th>"
+										+"<img id='orderlist_product_img' src='/project/product/img/"+order_list_info[0][y].product_id+"' width='200px'>"
+										+"<input type='hidden' value='${order.order_number}'>"
+										+"</th>"
+										+"<td>"
+										+"<div>["+order_list_info[0][y].seller_company_name+"]"+order_list_info[0][y].product_name+"</div>" 
+										+"<span>"+price+"원 </span>"
+										+"<span>"+order_list_info[0][y].order_product_count+"개 구매</span>"
+										+"<div>요청사항<span>"+order_list_info[0][y].order_request+"</span></div>"
+										+"</td>"
+										+"<td>"
+										+"<div class='order_status'>"+order_list_info[0][y].order_status+"</div>"
+										+"</td>"
+										+"<td>"
+										+"<form name='reviewForm'>"
+										+"<input type='hidden' name='member_id' value='"+order_list_info[0][y].member_id+"'>"
+										+"<input type='hidden' name='order_number' value='"+order_list_info[0][y].order_number+"'>"
+								    	+"<input type='hidden' name='table_number_index' value='"+table_number+"'>"
+								    	+"<input type='hidden' name='order_group_number' value='"+order_number+"'>"
+										+"<input type='button' value='후기 쓰기' class='review_writing'>"
+										+"</form>"
+										+"<input type='hidden' class='review_check' value='"+order_list_info[0][y].review_check+"'>"
+										+"<input type='hidden' value='"+order_list_info[0][y].review_check+"'>"
+										+"</td>"
+										+"</tr>"
+								}
+								return orderview_details
+							})()
+							+"<tr>"
+							+"<td colspan='2'>배송비 : "+order_list_info[0][i].order_delivery_price+"</td>"
+							+"<th colspan='2'>"
+							+"<input type='hidden' name='order_group_number' value='"+order_list_info[0][i].order_group_number+"'>"
+							+"<input type='hidden' name='member_id' value='${member_id}'>"
+							+"<input id='cancel_btn' type='submit' value='주문 취소'>"
+							+"</th>"
+							+"</tr>"
+							+"</table>"
 						}
-						
 					})()
-					
-					console.log(orderview)
+					$("#table_section table:nth-child("+table_number+")").append(orderview);
+					review_check();
+					$(".review_writing").addClass("on");
 				}
 			})
-			
-			
 	    }
+	    function review_check(){
+		    $(".review_check").each(function(){
+		 	   if($(this).val()!=0){
+		 		   let idx = $(".review_check").index(this);
+		 		   console.log("!=0 idx : "+idx);
+		 		   $(".review_writing").get(idx).disabled="true";
+		 		   $(".review_writing").get(idx).style.color="#908d8d";
+		 		   $(".review_writing").get(idx).style.backgroundColor="white";
+		 		   $(".review_writing").get(idx).style.border="1px solid #9a9a9a";
+		 		   $(".review_writing").get(idx).value="작성 완료";
+		 	   }
+		    });
+	    }
+	    
+	    $(".orderlist_table").on("click",".review_writing.on", function(){
+	    	let idx = $(".review_writing").index(this);
+            if($(".order_status").get(idx).innerText!="배송중"){
+            	alert("후기는 배송완료 후 가능");
+            	return ;
+            }
+            let reviewForm;
+            if ($(".review_writing").length > 1)
+               reviewForm = document.reviewForm[idx];
+            else
+               reviewForm = document.reviewForm;
+            window.open("", "reviewForm",
+                  "width=700, height=700, resizable=no");
+            reviewForm.action = "<c:url value='/board/review/form'/>";
+            reviewForm.method = "POST";
+            reviewForm.target = "reviewForm";
+            reviewForm.submit();
+       	});
+	    
+// 	    $(".review_writing").addClass("on");
+        
+	    
+	    
+	    
+	    
+// 		가격 패턴 함수
+		function numberWithCommas(value) {
+			return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		
+		
+
         
 	        
 

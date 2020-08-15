@@ -132,7 +132,6 @@
         <div>
 	<script type="text/javascript">
 	let member = '${member}';
-	console.log("member : " + member);
     let id_check=false;
     let pw_check=false;
     let pw_ok_check=false;

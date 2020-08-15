@@ -22,7 +22,7 @@ public class LoginController {
 		System.out.println("===권한===");
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-//		model.addAttribute("productList", productService.getNewestProducts());
+		model.addAttribute("productList", productService.getNewestProducts());
 		return "home";
 		}
 	@RequestMapping("/login")
