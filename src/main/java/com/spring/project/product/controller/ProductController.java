@@ -1,7 +1,5 @@
 package com.spring.project.product.controller;
 
-import java.io.IOException;
-
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.project.board.service.ReviewService;
 import com.spring.project.common.PagingManager;
@@ -215,16 +211,6 @@ public class ProductController {
 	}
 	
 	
-	@PostMapping("/upload")
-	public String insertProduct(@RequestParam(value = "file" ,required = false)MultipartFile file, ProductsVO product) {
-		try {
-			product.setProduct_img(file.getBytes());
-			product.setProduct_img_name(file.getOriginalFilename());
-		} catch (IOException e) {
-		}
-		productService.insertProduct(product);
-		return "redirect:/product/sellerProductList";
-	}
 	
 	//sellerProductList에서 수정 버튼 클릭 시
 	@GetMapping("/upload/{product_id}")
@@ -234,45 +220,27 @@ public class ProductController {
 		return "product/upload";
 	}
 	
-	//상품 등록 수정
-	@PostMapping("/update")
-	public String updateUpload(@RequestParam MultipartFile file, @ModelAttribute ProductsVO productVo) {
-		System.out.println("=======================================productVo:"+productVo.toString());
-		System.out.println("=====================================file.isEmpty:"+file.isEmpty());
-		System.out.println("=====================================file:"+file);
-		if(file!=null && !file.isEmpty()) {
-			try {
-				productVo.setProduct_img(file.getBytes());
-				System.out.println("=============================file img : "+file.getBytes());
-				productVo.setProduct_img_name(file.getOriginalFilename());
-				System.out.println("============================file img name : "+file.getOriginalFilename());
-				productService.updateProductWithImage(productVo);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}else {
-			productService.updateProduct(productVo);
-		}
-		return "redirect:/product/sellerProductList";
-	}
-	
-	
-	//판매자페이지에서의 상품 조회
-	@GetMapping("/sellerProductList")
-	public void viewSellerProductList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model, Authentication authentication ){
-		String member_id = authentication.getName();
-		model.addAttribute("productList", productService.getSellerProductList(member_id, page));
-		model.addAttribute("totalCount", productService.getTotalCount(member_id));
-		PagingManager pagingManager = new PagingManager(productService.getTotalCount(member_id), page);
-		model.addAttribute("pagingManager",pagingManager); //이전 다음 페이지번호
-	}
 	
 	//판매자 페이지 등록된 상품 삭제
 	@PostMapping("/deleteSellerPoduct")
 	public String deleteSellerProduct(@RequestParam int[] product_ids) {
 		productService.deleteSellerProduct(product_ids);
-		return "redirect:/product/sellerProductList";
+		return "redirect:/member/info";
 	}
+	
+//	//판매자페이지에서의 상품 조회
+//	@GetMapping("/sellerProductList")
+//	public void viewSellerProductList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model, Authentication authentication ){
+//		String member_id = authentication.getName();
+//		model.addAttribute("productList", productService.getSellerProductList(member_id, page));
+//		model.addAttribute("totalCount", productService.getTotalCount(member_id));
+//		PagingManager pagingManager = new PagingManager(productService.getTotalCount(member_id), page);
+//		model.addAttribute("pagingManager",pagingManager); //이전 다음 페이지번호
+//	}
+	
+	
+	
+
 	
 	
 //	// 상품 출고,재고없음

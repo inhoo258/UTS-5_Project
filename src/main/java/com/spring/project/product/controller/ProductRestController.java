@@ -1,17 +1,21 @@
 package com.spring.project.product.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.project.common.PagingManager;
 import com.spring.project.product.model.OrdersVO;
+import com.spring.project.product.model.ProductsVO;
 import com.spring.project.product.service.CartService;
 import com.spring.project.product.service.OrderService;
 import com.spring.project.product.service.ProductService;
@@ -43,10 +47,6 @@ public class ProductRestController {
 		String member_id = authentication.getName();
 		return new PagingManager(orderService.getTotalCount(member_id), page); 
 	}
-	
-	
-	
-	
 
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id") String member_id,
@@ -78,6 +78,40 @@ public class ProductRestController {
 		return orderService.getOrder(member_id, order_group_number);
 	}
 	//판매자 페이지===================================
+	@PostMapping("/upload")
+	public void insertProduct(@RequestParam MultipartFile file, ProductsVO product) {
+		try {
+			System.out.println("file.getBytes() : "+file.getBytes());
+			product.setProduct_img(file.getBytes());
+			product.setProduct_img_name(file.getOriginalFilename());
+		} catch (IOException e) {
+		}
+		productService.insertProduct(product);
+	}
+	//상품 등록 수정
+		@PostMapping("/update")
+		public String updateUpload(@RequestParam MultipartFile file, @ModelAttribute ProductsVO productVo) {
+			System.out.println("=======================================productVo:"+productVo.toString());
+			System.out.println("=====================================file.isEmpty:"+file.isEmpty());
+			System.out.println("=====================================file:"+file);
+			if(file!=null && !file.isEmpty()) {
+				try {
+					productVo.setProduct_img(file.getBytes());
+					System.out.println("=============================file img : "+file.getBytes());
+					productVo.setProduct_img_name(file.getOriginalFilename());
+					System.out.println("============================file img name : "+file.getOriginalFilename());
+					productService.updateProductWithImage(productVo);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else {
+				productService.updateProduct(productVo);
+			}
+			return "redirect:/member/info";
+		}
+	
+	
+	
 //	@PostMapping("/deleteSellerProduct")
 //	public void deleteSellerProduct(@RequestParam("product_ids[]") int[] product_ids) {
 //		productService.deleteSellerProduct(product_ids);

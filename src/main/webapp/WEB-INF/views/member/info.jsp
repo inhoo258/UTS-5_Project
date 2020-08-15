@@ -103,70 +103,67 @@
 					    </div>
 					</div>
                 </div>
-                <div>
+                <div id="contens_sellerproduct">
                     <h2>상품 관리</h2>
-                    <div id="contents_productlist_search">
-                    	<table border="1">
-                    		<tr>
-                    			<td colspan="4">재고상태</td>
-                    			<td>
-	                    			<input type="radio" name="statusproduct" id="statusproduct"><font for="#statusproduct">품절</font>
-	                    			<input type="radio" name="statusproduct" id="statusproduct"><font for="#statusproduct">품절</font>
-                    			</td>
-	                    	</tr>
-                    		<tr>
-                    			<td colspan="4">검색조건</td>
-                    			<td>
-	                    			<select>
-	                    				<option>1</option>
-	                    				<option>2</option>
-	                    				<option>3</option>
-	                    				<option>4</option>
-	                    			</select>
-                    				<input type="text"><input type="button" value="검색">
-                    			</td>
-	                    	</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    		<tr>
-                    			<td>31</td>
-                    			<td>32</td>
-                    			<td>33</td>
-                    			<td>34</td>
-                    		</tr>
-                    		<tr>
-                    			<td>41</td>
-                    			<td>42</td>
-                    			<td>43</td>
-                    			<td>44</td>
-                    		</tr>
-                    		<tr>
-                    			<td>51</td>
-                    			<td>52</td>
-                    			<td><input type="button" value = "등록" onclick="location.href='/project/product/upload'"></td>
-                    			<td><input type="button" value = "취소"></td>
-                    		</tr>
-                    	</table>
-                    </div>
-                    <div id=contents_sellerprdoct_list>
-<!-- 						<table id="order_table" border="1"> -->
-<!--                        		 <tr> -->
-<!-- 	                            <th>제품번호</th> -->
-<!-- 	                            <th>제 품 명</th> -->
-<!-- 	                            <td>상품가격</td> -->
-<!-- 	                            <td>재고</td> -->
-<!-- 	                            <td>등록일</td> -->
-<!-- 	                            <td>수정</td> -->
-<!--                				 </tr> -->
-<!-- 						</table> -->
-					</div> 
-                    
-                    
+                    <div id="contens_sellerproduct_list" style="text-align: center;">
+                    <p id="toptext">총 등록상품 <span id="total_product_count">${totalCount}</span>개</p>
+                    <form action="/project/product/deleteSellerPoduct" method="post">
+							<table border="1" style="border-collapse: collapse; text-align: center;">
+								<tr>
+									<td>
+									 전체 선택 
+									</td>
+									<td rowspan="2">제품번호</td>
+									<td rowspan="2">
+										제품명
+									</td>
+									<td rowspan="2">
+										상품가격
+									</td>
+									<td rowspan="2">
+										상품재고
+									</td>
+									<td>
+									 	상품 등록 : 
+									</td>
+									<td colspan="2"><input type="button" value="등록" id="btn_upload" onclick="window.open('/project/product/upload','새창','width:800px')"></td>
+								</tr>
+								<tr>
+									<th>
+										<input type="checkbox" id="checkAll">
+									</th>	
+									<th>
+										등록일
+									</th>	
+									<th colspan="2">수정 / 삭제</th>
+								</tr>
+									<c:forEach var="product" items="${productList}">
+										<tr>
+											<td><input type="checkbox" name="checkOne" class="checkOne"></td>
+											<td>${product.product_id}</td>
+											<td>
+												<div id="productimgframe"><img src='<c:url value="/product/img/${product.product_id}"/>'> </div>
+			                                <div id="producttextframe">
+			                                    <span>${product.product_name}asdjfklsadjfkljsdklfjlaksjdaklf</span>
+			                                </div>
+			                                <input type="hidden" value="${product.product_id }" class="hidden_product_id" name="product_ids">
+											</td>
+											<td>${product.product_price}</td>
+											<td>${product.product_count}</td>
+											<td>${product.product_upload_date}</td>
+											<td><input type="button" id="modifiBotton" value="수정" onclick="window.open('/project/product/upload/${product.product_id}','새창','width:800px')"></td>
+											<td><input type="submit" id="btn_delete" value="삭제"></td>
+										</tr>
+									</c:forEach>
+								<tr id="emptyProduct" style="display: none;">
+									<td colspan="7">등록된 상품이 없습니다.</td>
+								</tr>
+							</table>
+						</form>
+                	</div>
                 </div>
+                
+                
                 <div>
                     <h2>주문 관리</h2>
                     <div id="contents_orderlist_search">
@@ -201,12 +198,48 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
+		//전체 선택===========================================
+		let checkCnt = 0;
+
+		$("#checkAll").on("click",function(){
+			if($(this).prop("checked")){
+				$("input[name=checkOne]").prop("checked", true);
+				checkCnt = $("input[name=checkOne]").length;
+				console.log(checkCnt)
+			}else{
+				$("input[name=checkOne]").prop("checked", false);
+				checkCnt = 0;
+			}
+		});
+		//개별 선택===========================================
+		$(".checkOne").click(function(){
+			console.log('checkOne 클릭')
+			if($(this).prop("checked"))checkCnt++;
+			else checkCnt--;
+			console.log("개별 선택 checkCnt:"+checkCnt);
+			if(checkCnt==$("input[name=checkOne]").length)$("#checkAll").prop("checked",true);
+			else $("#checkAll").prop("checked",false);
+			
+		});
+		//삭제 버튼 클릭 ===========================================
+		let product_ids = [];
+		$("#btn_delete").click(function(){
+			$(".checkOne").each(function(){
+				if(!$(this).prop("checked")){
+					let idx = $(".checkOne").index(this);
+// 					product_ids.push(parseInt($(".hidden_product_id").get(idx).value));	
+// 					console.log("idx:"+$(".hidden_product_id").get(idx).value)
+					$(".hidden_product_id").get(idx).setAttribute('disabled', false);
+				}
+			});
+		})
+		
 	    function pwd_send(){
 			var xhr = new XMLHttpRequest();
 	        xhr.open("post", "/project/member/rest/password_test");
 	        xhr.setRequestHeader("content-type", "application/json");
-	//	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+// 		        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
 			let member = {
 				member_id:"${member.member_id}",
 				member_pw:document.getElementsByName("member_pw")[0].value
@@ -245,16 +278,7 @@
 	            if(contents_div_index == 2){
 	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
 	            }else if(contents_div_index == 3){
-	            	$.ajax({
-	    				url:'<c:url value="/product/sellerProductList"/>',
-	    				type:'GET',
-	    				success:function(seller_product_list){
-// 	    					alert(seller_product_list);
-// 	    					$('#contents_sellerprdoct_list').append(seller_product_list);
-	    				},error:function(){
-	    					alert('실패');
-	    				}
-	    			}) 
+					console.log('3번 클릭');	    			
 	            }
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
 	        });
@@ -363,22 +387,12 @@
             reviewForm.submit();
        	});
 	    
-// 	    $(".review_writing").addClass("on");
-        
-	    
-	    
-	    
 	    
 // 		가격 패턴 함수
 		function numberWithCommas(value) {
 			return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 		
-		
-
-        
-	        
-
     </script>
 </body>
 </html>

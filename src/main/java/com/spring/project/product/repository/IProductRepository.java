@@ -18,9 +18,8 @@ public interface IProductRepository {
 	@Select("select * from products")
 	public ArrayList<ProductsVO> getProductList();
 	
-	@Select("select * from(select * from(select rownum product_rn,n.* from (select * from products where member_id = #{0} order by product_upload_date desc) n)) "
-			+ "where product_rn between #{1} and #{2}")
-	public ArrayList<ProductsVO> getSellerProductList(String member_id, int start, int end);
+	@Select("select * from products where member_id = #{0}")
+	public ArrayList<ProductsVO> getSellerProductList(String member_id);
 	
 	//상품 한개의 정보 가져오기
 	@Select("select * from products where product_id=#{product_id}")

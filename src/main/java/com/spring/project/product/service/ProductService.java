@@ -18,10 +18,8 @@ public class ProductService {
 		return productRepository.getProductList();
 	}
 	
-	public List<ProductsVO> getSellerProductList(String member_id, int page){
-		int end = page*10;
-		int start = end-9;
-		return productRepository.getSellerProductList(member_id, start, end);
+	public List<ProductsVO> getSellerProductList(String member_id){
+		return productRepository.getSellerProductList(member_id);
 	}
 	
 	public ProductsVO getProduct(int product_id) {

@@ -23,6 +23,7 @@ import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.service.IMemberService;
 import com.spring.project.product.service.OrderService;
+import com.spring.project.product.service.ProductService;
 
 @Controller
 @RequestMapping("/member")
@@ -33,7 +34,8 @@ public class MemberController {
 	BCryptPasswordEncoder pwEncoder;
 	@Autowired
 	private JavaMailSender mailSender;
-	
+	@Autowired
+	ProductService productService;
 	@Autowired
 	OrderService orderService;
 	
@@ -101,9 +103,11 @@ public class MemberController {
 	public String getMember(Authentication authentication, Model model ,@RequestParam(value="member_id", required = false , defaultValue = "user") String member_id) {
 		MemberVO member =  memberSerivce.getMemberInfo(authentication.getName());
 		model.addAttribute("member",member);
-		
 		if(member.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
 			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
+			model.addAttribute("totalCount", productService.getTotalCount(authentication.getName())); // 상품 총 등록 갯수
+			System.out.println("adsfasdf :" +productService.getSellerProductList(authentication.getName()));
+			model.addAttribute("productList", productService.getSellerProductList(authentication.getName()));
 		}
 		if(!member_id.equals("user")) {
 			model.addAttribute("orderLists", orderService.getOrderList(member_id));
@@ -142,6 +146,7 @@ public class MemberController {
 		model.addAttribute("chocie",choice);
 		model.addAttribute("message",message);
 	}
+	
 	@PostMapping("/certification")
 	public String certification(Model model, @RequestParam(value = "choice")String choice, MemberVO memberVO , RedirectAttributes redirectAttributes) {
 		if( memberVO.getMember_email() == null ) {
