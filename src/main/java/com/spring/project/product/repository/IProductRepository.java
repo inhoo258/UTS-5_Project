@@ -18,9 +18,8 @@ public interface IProductRepository {
 	@Select("select * from products")
 	public ArrayList<ProductsVO> getProductList();
 	
-	@Select("select * from(select * from(select rownum product_rn,n.* from (select * from products where member_id = #{0} order by product_upload_date desc) n)) "
-			+ "where product_rn between #{1} and #{2}")
-	public ArrayList<ProductsVO> getSellerProductList(String member_id, int start, int end);
+	@Select("select * from products where member_id = #{0}")
+	public ArrayList<ProductsVO> getSellerProductList(String member_id);
 	
 	//상품 한개의 정보 가져오기
 	@Select("select * from products where product_id=#{product_id}")
@@ -56,8 +55,8 @@ public interface IProductRepository {
 	public void plusProductCount(int plusCount, int product_id);
 
 	//주문 완료 후 총 수량 수정
-	@Update("update products set product_count=#{1} where product_id=#{0}")
-	public void afterPayment(int product_id, int discount);
+	@Update("update products set product_count=product_count-#{1}, product_sold_count=product_sold_count+#{1} where product_id=#{0}")
+	public void afterPayment(int product_id, int order_product_count);
 	
 	//등록된 상품 수정(파일수정 x)
 	@Update("update products set product_name=#{product_name}, product_weight=#{product_weight}, product_count=#{product_count}, product_price=#{product_price}, product_info=#{product_info} where product_id=#{product_id}")

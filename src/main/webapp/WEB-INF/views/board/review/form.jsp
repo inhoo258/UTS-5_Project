@@ -118,7 +118,7 @@ $("#review_upload_btn").on("click",function(){
             contentType:false,
             processData:false,
             success:function(){
-                opener.document.location.reload();
+            	$(opener.location).attr("href", "javascript:pro_info(${order_group_number},${table_number_index});");
                 self.close();
             }
         });

@@ -45,7 +45,7 @@
 				<td>${product.product_price}</td>
 				<td>${product.product_count}</td>
 				<td>${product.product_upload_date}</td>
-				<td><input type="button" value="수정" onclick="location.href='/project/product/upload/${product.product_id}'"></td>
+				<td><input type="button" value="수정" ></td>
 		</tr>
 			</c:forEach>
 			<tr id="emptyProduct" style="display: none;">

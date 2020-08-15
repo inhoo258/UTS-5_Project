@@ -18,10 +18,8 @@ public class ProductService {
 		return productRepository.getProductList();
 	}
 	
-	public List<ProductsVO> getSellerProductList(String member_id, int page){
-		int end = page*10;
-		int start = end-9;
-		return productRepository.getSellerProductList(member_id, start, end);
+	public List<ProductsVO> getSellerProductList(String member_id){
+		return productRepository.getSellerProductList(member_id);
 	}
 	
 	public ProductsVO getProduct(int product_id) {
@@ -41,8 +39,7 @@ public class ProductService {
 	//각 상품들의 상품수량을 주문완료 후 빼는 역할
 	public void afterPayment(int[] product_ids,int[] order_product_counts) {
 		for(int i =0; i<product_ids.length; i++) {
-			int discount = (productRepository.getProduct(product_ids[i]).getProduct_count()-order_product_counts[i]); 
-			productRepository.afterPayment(product_ids[i], discount);
+			productRepository.afterPayment(product_ids[i], order_product_counts[i]);
 		}
 	}
 	// 등록된 상품 수정

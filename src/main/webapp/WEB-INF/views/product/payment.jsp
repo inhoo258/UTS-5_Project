@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,39 +9,28 @@
 </head>
 <body>
 	<jsp:include page="../header&footer/header.jsp"/>
-	<h1>payment.jsp</h1>
 	<div>
-		무통장입금 <br>
-		결제내역  : 무통장 입금 : 신한은행 110-354-543411 (예금주 : 이힘찬)<br>
-		(입금확인 후 배송이 됩니다.)<br>
-		입금자명 : --회원 NAME이 들어와야함---;<br>
+	<h1>주문이 확인되었습니다.</h1>
+	주문내역 및 배송에 관한 안내는 주문조회를 통하여 확인 가능합니다<br>
+	주문번호 : ${orderedList[0].order_group_number}<br>
+	주무일자 : ${orderedList[0].order_date}<br>
+	입금자 : ${orderList[0].orderer_name}, 계좌번호 : ${orderList[0].seller_bank_name} ${orderList[0].seller_bank_account}(${orderList[0].seller_company_name})
+		<table>
+		<c:forEach var="ordered" items="${orderedList}">
+			${ordered.ordered_price}<br>
+			${ordered.order_delivery_price}<br>
+			${ordered.order_receiver_name}<br>
+			${ordered.order_receiver_main_address}<br>
+			${ordered.order_receiver_sub_address}<br>
+			${ordered.order_receiver_tel}<br>
+			${ordered.order_request}<br>
+			${ordered.seller_bank_account}<br>
+			${ordered.seller_bank_name}<br>
+			${ordered.seller_company_name}<br>
+		</c:forEach>
+		</table>
 	</div>
-	<input type="button" onclick="gotolist()" value = "쇼핑 더 하기"><br>
-	<input type="button" onclick="myOrderList()" value = "나의 주문 내역"><br>
-    <form action='<c:url value="/product/rest/sendMail.do"/>' method="post">
-      <div>
-        <input type="text" name="tomail" size="120" style="width: 100%" placeholder="상대의 이메일" class="form-control">
-      </div>
-      <div align="center">
-        <!-- 제목 -->
-        <input type="text" name="title" size="120" style="width: 100%" placeholder="제목을 입력해주세요" class="form-control">
-      </div>
-        <p>
-          <div align="center">
-          <!-- 내용 -->
-            <textarea name="content" cols="120" rows="12" style="width: 100%; resize: none" placeholder="내용#" class="form-control"></textarea>
-          </div>
-        <p>
-      <div align="center">
-        <input type="submit" value="메일 보내기" class="btn btn-warning">
-      </div>
-    </form>
 
     <jsp:include page="../header&footer/footer.jsp"/>
 </body>
-<script type="text/javascript">
-	function gotolist(){
-		location.href = '<c:url value="/product/list"/>'
-	}
-</script>
 </html>

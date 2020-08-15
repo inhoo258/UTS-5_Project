@@ -152,7 +152,6 @@
             let li_count = $("#center_menu_section>ul li").length + 1;
             for(var i = 1 ; i < li_count ; i++){
                 $("#contents_div>div:nth-child("+i+")").css({"display" : "none"})
-
             }
             $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"})
         })
@@ -161,11 +160,9 @@
     <script>
 
 		function content(fre_number , tr_num){
-			
 			if($("#content_data").length != 0){
 				$("#content_data").remove();
 			}
-			
 			var xhr = new XMLHttpRequest();
 	        xhr.open("get", "/project/board/rest/fre_content?fre_number="+fre_number);
 	        xhr.setRequestHeader("content-type", "application/json");
