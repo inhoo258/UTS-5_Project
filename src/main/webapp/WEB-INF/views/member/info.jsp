@@ -214,35 +214,29 @@
 				<!--  5.월별 매출 통계 -->
 				<div>
 					<h2>월별 매출 통계</h2>
-					<table>
-						<tr>
-							<td>
-								<table width="100%" border="0" align="center" cellpadding="0"
-									cellspacing="0"
-									style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0">
-									<tr height="0">
-										<td width="15%"></td>
-										<td width="*%"></td>
-									</tr>
-									<tr>
-										<td height="1" colspan="4" bgcolor="#dfdfdf"></td>
-									</tr>
-									<tr height="25">
-										<td class="item_title_border">년월선택</td>
-										<td class="item_input">
-										<select id="fd_year" name="fd_year" style="width: 130px;">
-											<option value=""></option>
-										</select> 
-										<select id="fd_month" name="fd_month" style="width: 130px;"></select>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-					<div style="width: 100%">
+						<table style="border: 1px solid #dcdcdc; padding: 10px; width: 1080px;">
+							<tr>
+								<td class="item_title_border" style="padding-right: 10px">년월선택</td>
+								<td class="item_input">
+									<select id="fd_year" name="fd_year" style="width: 130px;"></select> 
+								</td>
+							</tr>
+						</table>
+					
+					
+<!-- 								<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0"> -->
+<!-- 									<tr style="bgcolor="#dfdfdf"> -->
+<!-- 										<td class="item_title_border">년월선택</td> -->
+<!-- 										<td class="item_input"> -->
+<!-- 											<select id="fd_year" name="fd_year" style="width: 130px;"></select>  -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
+<!-- 								</table> -->
+					<div class="div_myChart" align="center" id=div_myChart>
 						<canvas id="myChart" width="900" height="600"></canvas>
 					</div>
+					
+					
 				</div>
 				<!-- 지현  end============================== -->
             </div>
@@ -340,7 +334,9 @@
 	    				}
 	    			}) 
 	            }else if(contents_div_index == 5){
-	            	console.log("매출 통계")
+	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
+	            	$("#div_myChart").next().remove()
+	            	console.log("매출 통계");
 	            	sales_month(2020);
 	            }
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
@@ -460,36 +456,29 @@
 	<!-- 지현 start ============================== -->
 	<script>
 	// 날짜 선택  j쿼리
+    var now = new Date();
+    var nowYear = now.getFullYear();
     $(document).ready(function(){            
-        var now = new Date();
-        var nowYear = now.getFullYear();
-        var nowMonth = (now.getMonth()+1) > 9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);            
-        console.log(now)
-        console.log(nowYear)
-        console.log(nowMonth)
-        
         //년도 selectbox만들기               
         for(var sy = 2018 ; sy <= nowYear ; sy++) {
             $('#fd_year').append('<option value="' + sy + '">' + sy + '년</option>');    
         }
 
-        // 월별 selectbox 만들기            
-        for(var i=1; i <= 12; i++) {
-            var sm = i > 9 ? i : "0"+i ;            
-            $('#fd_month').append('<option value="' + sm + '">' + sm + '월</option>');    
-         }            
+//         // 월별 selectbox 만들기            
+//         for(var i=1; i <= 12; i++) {
+//             var sm = i > 9 ? i : "0"+i ;            
+//             $('#fd_month').append('<option value="' + sm + '">' + sm + '월</option>');    
+//          }            
         
         $("#fd_year>option[value="+nowYear+"]").attr("selected", "true");    
-        $("#fd_month>option[value="+nowMonth+"]").attr("selected", "true");             
-    })
-    
+	})
     
     	//그래프 j쿼리
 	    var ctx = document.getElementById('myChart');
-	    
+   		let cnt = 0 ;
+   		let month_sales_cnt = [];
 	    function sales_month(year){
-	    	console.log(year);
-	    	let month_sales_cnt = [];
+	    	console.log("year : " + year);
 		    var xhr = new XMLHttpRequest();
 	        xhr.open("post", "/project/member/rest/monthly_sales");
 	        xhr.setRequestHeader("content-type", "application/json");
@@ -508,38 +497,46 @@
 	                	for (var i = 0; i < monthly_sales.length; i++) { 
 	                		console.log((i+1)+"월 : "+i)
 	                		if(monthly_sales[i].length!=0){
-	               				let cnt = 0 ;
 	                			for (var j = 0; j < monthly_sales[i].length; j++) {
-	                				console.log("구매건의  인덱스j : "+j);
-									console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
-									console.log("order_price : "+monthly_sales[i][j].order_price);
-									cnt+=monthly_sales[i][j].order_product_count
+		                				console.log("구매건의  인덱스j : "+j);
+										console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
+										console.log("order_price : "+monthly_sales[i][j].order_price);
+									cnt += monthly_sales[i][j].order_product_count
+										console.log("cnt:"+cnt);
 								}
 								month_sales_cnt.push(cnt);
+								cnt = 0;
 	                		}else{
 	                			month_sales_cnt.push(0);
 	                		} 
-	                			
 						}
-	                	
-	                	
 	                }
-	                
-	                insertChart(month_sales_cnt)
+	                insertChart(month_sales_cnt);
+	                month_sales_cnt = [];
 	            }
 	        }
 	    }
+	    
+	    $("#fd_year").on("change",function(){
+	    	console.log($("#fd_year option:selected").val());
+	    	sales_month(parseInt($("#fd_year option:selected").val()));
+	    	$("#fd_month>option[value="+nowYear+"]").attr("selected", "true"); 
+	    	$("#div_myChart").next().remove()
+	    	
+	    });
+	    
 	    function insertChart(month_sales_cnt){
-            
+	    	console.log(month_sales_cnt)
 	    var myChart = new Chart(ctx, {
 	        type: 'line',
 	        data: {
 	            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
 	            datasets: [{
 	                label: '#월별 상품 판매량 ', 
-	                data: [ month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5] ,
-	                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
-	                	],    //데이터 배열=> 판매 건수가 들어와야함
+	                data: [ 
+		                	month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5],
+		                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
+	                	],    
 	              	fill:false,
 // 	                backgroundColor: [
 // 	                ],
@@ -564,7 +561,7 @@
 	                    }
 	                }]
 	            },
-	            animation: {
+	            animation: {  // 표 위에 데이터 표시 해주는 효과
 					duration: 1,
 					onComplete: function () {
 						var chartInstance = this.chart,
@@ -585,7 +582,44 @@
 				}
 	        }
 	    });
-	    }
+	    
+	    let chartData = "<div id='id_myChart'><div class='myChart_sub_tit'>2020년 매출 요약</div>"
+	    	+"<table class='table_myChart' border='1'>"
+			+"<tr>"
+			+"<th>월</th>"
+			+"<th>판매건 수 </th>"
+			+"<th>판매 수량</th>"
+			+"<th>매출 액</th>"
+			+"<th>배송비</th>"
+			+"<th>취소건 수</th>"
+			+"</tr>"
+// 	    chartData +=
+// 	    (function(){
+	
+	    	for(var y = 0 ; y < 12; y++){
+	    		chartData += "<tr>"
+				+"<td>"+(y+1)+"월</td>"
+				+"<td>3</td>"
+				+"<td>"+month_sales_cnt[y]+"</td>"
+				+"<td>2,1111원</td>"
+				+"<td>2250원</td>"
+				+"<td>1</td>"
+				+"</tr>"
+	    	}
+	    	
+	    	chartData +="<tr>"
+			+"<td colspan='6' class='myChart_total_price'>"
+			+"<span >총 매출액 : 111111222원</span>"
+			+"</td>"
+			+"</tr>"
+	    	+"</table>"
+			+"</div>"
+	    $("#div_myChart").after(chartData)
+		}
+// 	    })()
+	    
+// 	    console.log(chartData)
+// 	    }
 	</script>
 	<!-- 지현 start ============================== -->
 </body>
