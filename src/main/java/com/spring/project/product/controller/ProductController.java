@@ -104,7 +104,7 @@ public class ProductController {
 			model.addAttribute("productInfo", product); // 개인구매상품 정보
 			model.addAttribute("productMemInfo", memberService.getMemberInfo(product.getMember_id())); // 독립상품 구매시 판매자
 			model.addAttribute("pOrder_count", pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량
-			model.addAttribute("cartList", cartService.getCartInOrderSheet(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
+//			model.addAttribute("cartList", cartService.getCartInOrderSheet(member_id)); // 해당 개인장바구니의 상품의 정보와 상품판매자 정보
 			model.addAttribute("delivery_price",delivery_price);
 			// 장바구니 통한 구매 요청 처리
 		} else if (product_id == 0 && pOrder_count == 0 && product_ids != null && delivery_price==0) {
@@ -146,7 +146,7 @@ public class ProductController {
 				System.out.println(e);
 			}
 		}
-		model.addAttribute("orderResult",orderService.getOrderResult(ordersVO.getOrder_group_number()));
+		model.addAttribute("orderedList",orderService.getOrderResult(ordersVO.getOrder_group_number()));
 		return "product/payment";
 	}
 	// ===========================================================힘찬

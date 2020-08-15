@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.project.product.model.OrderedVO;
 import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.repository.IOrderRepository;
 
@@ -100,7 +101,8 @@ public class OrderService{
 	public List<OrdersVO> getMyOrderList(String member_id) {
 		return orderRepository.getMyOrderList(member_id);
 	}
-	public Object getOrderResult(int order_group_number) {
+	public List<OrderedVO> getOrderResult(int order_group_number) {
+		System.out.println("order_group_number : "+order_group_number);
 		return orderRepository.getOrderResult(order_group_number);
 	}
 }

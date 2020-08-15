@@ -51,7 +51,7 @@ public class ProductRestController {
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id") String member_id,
 			@RequestParam("product_ids[]") int[] product_ids) {
-//		cartService.deleteCart(member_id, product_ids);
+		cartService.deleteCart(member_id, product_ids);
 	}
 
 	@PostMapping("/insertCart")
