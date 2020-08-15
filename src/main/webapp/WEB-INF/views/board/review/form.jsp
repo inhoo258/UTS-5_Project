@@ -98,7 +98,8 @@
 $("#review_upload_btn").on("click",function(){
     let review_title = $("#review_title").val();
     let review_content = $("#review_content").val();
-    console.log(review_content);
+    
+    
     if(review_title.trime==""){
         alert("제목을 입력하세요.");
     }else if(review_content.trim()==""){

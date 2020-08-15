@@ -371,3 +371,40 @@
 	width: 100%;
 	height: 100%;
 }
+
+
+/* ==================================================== 주문내역*/
+
+#orderview_details_table{
+	width: 100%;
+}
+
+#orderview_details_table input[type=button] , input[type=submit]{
+	width: 200px;
+	height: 50px;
+	background-color: azure;
+	border: 1px solid #2a365c;
+	cursor: pointer;
+	
+}
+#orderview_details_table input[type=button]:hover , input[type=submit]:hover{
+	background-color: #2a365c;
+	border: 1px solid #2a365c;
+	color: azure;
+	
+}
+
+#orderview_details_table tr:nth-child(2) {
+	height: 50px;
+}
+#orderview_details_table tr:nth-child(1) {
+	height: 50px;
+}
+#orderview_details_table tr:nth-child(1) th {
+	text-align: right;
+	padding-right: 50px;
+}
+
+#orderview_details_table tr th:nth-child(1) {
+	width: 150px;
+}
