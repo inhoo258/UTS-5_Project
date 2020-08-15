@@ -66,8 +66,8 @@ public class MemberController {
 		member.setMember_pw(pwEncoder.encode(member.getPassword()));
 			if (member.getMember_auth().equals("ROLE_CUSTOMER"))
 				member.setMember_enabled(1);
-			System.out.println("seller_reg_num : "+seller_reg_num);
-			memberSerivce.memberInsert(member);
+		System.out.println("seller_reg_num : "+seller_reg_num);
+		memberSerivce.memberInsert(member);
 		if(!seller_reg_num.equals("")) {
 			memberSerivce.insertSellerRegNum(member.getMember_id(), seller_reg_num);
 			redirectAttributes.addAttribute("userId", member.getMember_id());

@@ -56,8 +56,8 @@ public interface IProductRepository {
 	public void plusProductCount(int plusCount, int product_id);
 
 	//주문 완료 후 총 수량 수정
-	@Update("update products set product_count=#{1} where product_id=#{0}")
-	public void afterPayment(int product_id, int discount);
+	@Update("update products set product_count=product_count-#{1}, product_sold_count=product_sold_count+#{1} where product_id=#{0}")
+	public void afterPayment(int product_id, int order_product_count);
 	
 	//등록된 상품 수정(파일수정 x)
 	@Update("update products set product_name=#{product_name}, product_weight=#{product_weight}, product_count=#{product_count}, product_price=#{product_price}, product_info=#{product_info} where product_id=#{product_id}")
