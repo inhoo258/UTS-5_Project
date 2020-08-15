@@ -360,58 +360,55 @@
 					order_group_number:order_number
 				},success:function(order_list_info){
 					$("#orderview_details_table").remove()
-// 					$("#table_section table:nth-child("+table_number+") tr:nth-child(2)").remove()
-					console.log(order_list_info[0][0].order_price)
-					console.log(order_list_info[0][1])
-					console.log(order_list_info.length)
-					console.log(order_list_info[0].length)
 					let orderview_details = "";
-					let orderview =(function(){
+					let orderview = "";
+					(function(){
 						for(var i = 0 ; i < order_list_info.length ; i++){
-							return "<table id='orderview_details_table' border='1' style='background-color:red; width:100% ; height:300px;'><tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
+							orderview = "<table id='orderview_details_table' border='1' style='background-color:red; width:100% ; height:300px;'><tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
 							+(function(){
-								for(var y = 0 ; y < order_list_info[0].length ; y++){
-									var price = numberWithCommas(order_list_info[0][y].order_price);
+								for(var y = 0 ; y < order_list_info[i].length ; y++){
+									var price = numberWithCommas(order_list_info[i][y].order_price);
 									orderview_details += "<tr><th>"
-										+"<img id='orderlist_product_img' src='/project/product/img/"+order_list_info[0][y].product_id+"' width='200px'>"
+										+"<img id='orderlist_product_img' src='/project/product/img/"+order_list_info[i][y].product_id+"' width='200px'>"
 										+"<input type='hidden' value='${order.order_number}'>"
 										+"</th>"
 										+"<td>"
-										+"<div>["+order_list_info[0][y].seller_company_name+"]"+order_list_info[0][y].product_name+"</div>" 
+										+"<div>["+order_list_info[i][y].seller_company_name+"]"+order_list_info[i][y].product_name+"</div>" 
 										+"<span>"+price+"원 </span>"
-										+"<span>"+order_list_info[0][y].order_product_count+"개 구매</span>"
-										+"<div>요청사항<span>"+order_list_info[0][y].order_request+"</span></div>"
+										+"<span>"+order_list_info[i][y].order_product_count+"개 구매</span>"
+										+"<div>요청사항<span>"+order_list_info[i][y].order_request+"</span></div>"
 										+"</td>"
 										+"<td>"
-										+"<div class='order_status'>"+order_list_info[0][y].order_status+"</div>"
+										+"<div class='order_status'>"+order_list_info[i][y].order_status+"</div>"
 										+"</td>"
 										+"<td>"
 										+"<form name='reviewForm'>"
-										+"<input type='hidden' name='member_id' value='"+order_list_info[0][y].member_id+"'>"
-										+"<input type='hidden' name='order_number' value='"+order_list_info[0][y].order_number+"'>"
+										+"<input type='hidden' name='member_id' value='"+order_list_info[i][y].member_id+"'>"
+										+"<input type='hidden' name='order_number' value='"+order_list_info[i][y].order_number+"'>"
 								    	+"<input type='hidden' name='table_number_index' value='"+table_number+"'>"
 								    	+"<input type='hidden' name='order_group_number' value='"+order_number+"'>"
 										+"<input type='button' value='후기 쓰기' class='review_writing'>"
 										+"</form>"
-										+"<input type='hidden' class='review_check' value='"+order_list_info[0][y].review_check+"'>"
-										+"<input type='hidden' value='"+order_list_info[0][y].review_check+"'>"
+										+"<input type='hidden' class='review_check' value='"+order_list_info[i][y].review_check+"'>"
+										+"<input type='hidden' value='"+order_list_info[i][y].review_check+"'>"
 										+"</td>"
 										+"</tr>"
 								}
 								return orderview_details
 							})()
 							+"<tr>"
-							+"<td colspan='2'>배송비 : "+order_list_info[0][i].order_delivery_price+"</td>"
+							+"<td colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</td>"
 							+"<th colspan='2'>"
-							+"<input type='hidden' name='order_group_number' value='"+order_list_info[0][i].order_group_number+"'>"
+							+"<input type='hidden' name='order_group_number' value='"+order_list_info[i][0].order_group_number+"'>"
 							+"<input type='hidden' name='member_id' value='${member_id}'>"
 							+"<input id='cancel_btn' type='submit' value='주문 취소'>"
 							+"</th>"
 							+"</tr>"
 							+"</table>"
 						}
-					})()
 					$("#table_section table:nth-child("+table_number+")").append(orderview);
+					})()
+					
 					review_check();
 					$(".review_writing").addClass("on");
 				}
@@ -433,7 +430,8 @@
 	    
 	    $(".orderlist_table").on("click",".review_writing.on", function(){
 	    	let idx = $(".review_writing").index(this);
-            if($(".order_status").get(idx).innerText!="배송중"){
+	    	console.log($(".order_status").get(idx).innerText);
+            if($(".order_status").get(idx).innerText!="배송전"){
             	alert("후기는 배송완료 후 가능");
             	return ;
             }
