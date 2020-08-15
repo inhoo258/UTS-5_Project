@@ -454,47 +454,6 @@
     </section>
 </sec:authorize>
 	<script>
-		function pwd_send(){
-			var xhr = new XMLHttpRequest();
-	        xhr.open("post", "/project/member/rest/password_test");
-	        xhr.setRequestHeader("content-type", "application/json");
-// 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
-			let member = {
-				member_id:"${member.member_id}",
-				member_pw:document.getElementsByName("member_pw")[0].value
-			}
-			xhr.send(JSON.stringify(member));
-			xhr.onreadystatechange = function () {
-                if (xhr.readyState === xhr.LOADING) {
-//                     $("#loding").show();
-                }
-                if (xhr.readyState === xhr.DONE) {
-                    if (xhr.status === 200 || xhr.status === 201) {
-                    	let test = xhr.responseText
-						if(test == "true"){
-							document.getElementById("pw_section_test").style.display = "none";
-							document.getElementById("pw_section_form").style.display = "block";
-						}else{
-							console.log("false")
-// 							실패
-						}
-                    }
-                }
-			}
-=======
-    </div>
-    <script>
-<<<<<<< HEAD
-    function pwd_send(){
-		var xhr = new XMLHttpRequest();
-        xhr.open("post", "/project/member/rest/password_test");
-        xhr.setRequestHeader("content-type", "application/json");
-//	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
-		let member = {
-			member_id:"${member.member_id}",
-			member_pw:document.getElementsByName("member_pw")[0].value
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
-=======
 	    function pwd_send(){
 			var xhr = new XMLHttpRequest();
 	        xhr.open("post", "/project/member/rest/password_test");
@@ -522,7 +481,6 @@
 	                }
 	            }
 			}
->>>>>>> branch 'master' of https://github.com/inhoo258/UTS-5_Project.git
 		}
     </script>
     <script type="text/javascript">
