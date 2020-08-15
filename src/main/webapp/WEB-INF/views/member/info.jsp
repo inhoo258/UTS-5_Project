@@ -125,21 +125,13 @@
                     <form action="/project/product/deleteSellerPoduct" method="post">
 							<table border="1" style="border-collapse: collapse; text-align: center;">
 								<tr>
-									<td>
-									 전체 선택 
-									</td>
+									<td> 전체선택 </td>
 									<td rowspan="2">제품번호</td>
-									<td rowspan="2">
-										제품명
-									</td>
-									<td rowspan="2">
-										상품가격
-									</td>
-									<td rowspan="2">
-										상품재고
-									</td>
+									<td rowspan="2"> 제품명 </td>
+									<td rowspan="2"> 상품가격 </td>
+									<td rowspan="2"> 상품재고 </td>
 									<td>
-									 	상품 등록 : 
+									 	상품 등록 >>
 									</td>
 									<td colspan="2"><input type="button" value="등록" id="btn_upload" onclick="window.open('/project/product/upload','새창','width:800px')"></td>
 								</tr>
@@ -159,7 +151,7 @@
 											<td>
 												<div id="productimgframe"><img src='<c:url value="/product/img/${product.product_id}"/>'> </div>
 			                                <div id="producttextframe">
-			                                    <span>${product.product_name}asdjfklsadjfkljsdklfjlaksjdaklf</span>
+			                                    <span>${product.product_name}</span>
 			                                </div>
 			                                <input type="hidden" value="${product.product_id }" class="hidden_product_id" name="product_ids">
 											</td>
@@ -251,7 +243,6 @@
     <script type="text/javascript">
 		//전체 선택===========================================
 		let checkCnt = 0;
-
 		$("#checkAll").on("click",function(){
 			if($(this).prop("checked")){
 				$("input[name=checkOne]").prop("checked", true);
@@ -327,18 +318,6 @@
 	            }
 	            if(contents_div_index == 2){
 	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
-	            }else if(contents_div_index == 3){
-					console.log('3번 클릭');	    			
-	            	$.ajax({
-	    				url:'<c:url value="/product/sellerProductList"/>',
-	    				type:'GET',
-	    				success:function(seller_product_list){
-// 	    					alert(seller_product_list);
-// 	    					$('#contents_sellerprdoct_list').append(seller_product_list);
-	    				},error:function(){
-	    					alert('실패');
-	    				}
-	    			}) 
 	            }else if(contents_div_index == 5){
 	            	console.log("매출 통계")
 	            	sales_month(2020);
@@ -585,7 +564,7 @@
 				}
 	        }
 	    });
-	    }
+    }
 	</script>
 	<!-- 지현 start ============================== -->
 </body>
