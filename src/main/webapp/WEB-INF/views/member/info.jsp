@@ -370,8 +370,8 @@
 					(function(){
 						for(var i = 0 ; i < order_list_info.length ; i++){
 							orderview = "<table id='orderview_details_table'>"
-							+"<tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
 							+"<tr><th>상품이미지</th><th>상품상세정보</th><th>배송상태</th><th>후기/확인/취소</th>"
+							+"<tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
 							+(function(){
 								for(var y = 0 ; y < order_list_info[i].length ; y++){
 									var price = numberWithCommas(order_list_info[i][y].order_price);
@@ -389,7 +389,7 @@
 										+"<td>"
 										+"<div class='order_status'>"+order_list_info[i][y].order_status+"</div>"
 										+"</td>"
-										+"<th>"
+										+"<td>"
 										+"<form name='reviewForm'>"
 										+"<input type='hidden' name='member_id' value='"+order_list_info[i][y].member_id+"'>"
 										+"<input type='hidden' name='order_number' value='"+order_list_info[i][y].order_number+"'>"
@@ -399,7 +399,7 @@
 										+"</form>"
 										+"<input type='hidden' class='review_check' value='"+order_list_info[i][y].review_check+"'>"
 										+"<input type='hidden' value='"+order_list_info[i][y].review_check+"'>"
-										+"</th>"
+										+"</td>"
 										+"</tr>"
 								}
 								return orderview_details
