@@ -63,11 +63,11 @@
 					                <section>
 					                    <c:forEach var="orderList" items="${orderLists}">
 					                        <c:set var="totalCost" value="0" />
-					                        <c:forEach var="order" items="${orderList }">
+					                        <c:forEach var="order" items="${orderList}">
 					                            <c:set var="totalCost" value="${totalCost + order.order_price}" />
 					                        </c:forEach>
 					                        <table class="orderlist_table" border="1" style="border-collapse: collapse;">
-					                            <tr>
+					                            <tr onclick="pro_info(${orderList[0].order_group_number})">
 					                                <td>
 					                                    <span class="order_num">
 					                                        	주문번호 <span class="order_group_number">${orderList[0].order_group_number}</span>
@@ -270,7 +270,7 @@
                     </ul>
                 </div>
             </div>
-            </div>
+        </div>
    <sec:authorize access="hasRole('ROLE_SELLER')"> <!--============================================ 여기는 판매자 권한인 사람 -->
   <!--============================================ 여기는 판매자 권한인 사람 -->
     <!--============================================ 여기는 판매자 권한인 사람 -->
@@ -453,6 +453,7 @@
         </div>
     </section>
 </sec:authorize>
+	</div>
 	<script>
 	    function pwd_send(){
 			var xhr = new XMLHttpRequest();
@@ -510,95 +511,36 @@
 	            }
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
 	        });
-	        
-	    	// 	        	"<p>"member_id : +orderList[0][i].member_id+"</p>"+
-	    	// 		       	"<p>"product_name : +orderList[0][i].product_name+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].product_id+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_date+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_receiver_main_address+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_receiver_sub_address+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_receiver_name+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_receiver_tel+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_product_count+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_price+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_request+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_status+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_number+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_group_number+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].review_check+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].product_weight+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].seller_company_name+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].seller_company_tel+"</p>"+
-	    	// 		       	"<p>"+orderList[0][i].order_delivery_price+"</p>"
-
-    </script>
 	    
-<%-- 		1: ${sellerInfo}<br> --%>
-<%-- 		4: ${sellerInfo.seller_company_info}<br> --%>
-<%-- 		5: ${sellerInfo.seller_company_tel}<br> --%>
-<%-- 		6: ${sellerInfo.seller_company_main_address}<br> --%>
-<%-- 		7: ${sellerInfo.seller_company_sub_address }<br> --%>
-<%-- 		8: ${sellerInfo.seller_company_email }<br> --%>
-<%-- 		9: ${sellerInfo.seller_company_name}<br> --%>
-<%-- 		10: ${sellerInfo.seller_company_head_name}<br> --%>
-</body>
-<script type="text/javascript">
-
-//         let infotitle = document.getElementById("infotitle");
-//         let orderList = document.getElementById("orderlist");
-//         let modify = document.getElementById("myinfomodify");
-//         let upload = document.getElementById("uploadproduct");
-//         let myinfocollection = document.getElementsByName("myinfocollection");
-//         let adminPage = document.getElementsByName("adminpage");
-//         let orderbtn = document.getElementsByName("orderadminbtn");
-// 		let message = "${message }";
-//         $(function () {
-//             var $productmenu = $('#productbar_menu ul li');
-//             $contentsproduct = $('#productadminbarpage > div');
-//             $productmenu.click(function (y) {
-//                 y.preventDefault();
-//                 $productmenu.removeClass('on');
-//                 $(this).addClass('on');
-//                 var pidx = $(this).index();
-//                 console.log(pidx)
-//                 if (pidx == 0) {
-//                     $('#productadminbarpage').animate({ "top": "0px" }, 500)
-//                 } else if (pidx == 1) {
-//                     $('#productadminbarpage').animate({ "top": "-800px" }, 500)
-//                 } else if (pidx == 2) {
-//                     $('#productadminbarpage').animate({ "top": "-1600px" }, 500)
-//                 } else {
-//                     $('#productadminbarpage').animate({ "top": "-2400px" }, 500)
-//                 }
-//             });
-//         })
-
-//         $(function () {
-//             var $menu = $('#orderbar_menu ul li'),
-//                 $contents = $('#orderadminbarpage > div');
-//             $menu.click(function (x) {
-//                 x.preventDefault();
-//                 $menu.removeClass('on');
-//                 $(this).addClass('on');
-//                 var idx = $(this).index();
-//                 if (idx == 0) {
-//                     $('#orderadminbarpage').animate({ "top": "0px" }, 500)
-//                 } else if (idx == 1) {
-//                     $('#orderadminbarpage').animate({ "top": "-800px" }, 500)
-//                 } else if (idx == 2) {
-//                     $('#orderadminbarpage').animate({ "top": "-1600px" }, 500)
-//                 } else if (idx == 3) {
-//                     $('#orderadminbarpage').animate({ "top": "-2400px" }, 500)
-//                 } else if (idx == 4) {
-//                     $('#orderadminbarpage').animate({ "top": "-3200px" }, 500)
-//                 } else if (idx == 5) {
-//                     $('#orderadminbarpage').animate({ "top": "-4000px" }, 500)
-//                 } else {
-//                     $('#orderadminbarpage').animate({ "top": "-4800px" }, 500)
-//                 }
-//             });
-//         });
-        
-        
+	    function pro_info(order_number){
+	    	let member_id = "${member.member_id}"
+	    	
+	    	console.log(order_number)
+	    	console.log(member_id)
+			$.ajax({
+				url:"/project/product/rest/orderview",
+				type:'POST',
+				data:{
+					member_id:member_id,
+					order_group_number:order_number
+				},success:function(order_list_info){
+					console.log(order_list_info[0][0])
+					console.log(order_list_info[0][1])
+					console.log(order_list_info.length)
+					console.log(order_list_info[0].length)
+					let orderview =(function(){
+						for(var i = 0 ; i < order_list_info.length ; i++){
+							return "<table>"+
+							"<div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div>"+
+							
+							"</table>"
+						}
+						
+					})
+					console.log(orderview)
+				}
+			})
+	    }
     </script>
+</body>
 </html>

@@ -27,12 +27,13 @@ public class ProductRestController {
 	ProductService productService;
 	@PostMapping("/updateCart")
 	public void updateCart(String member_id, @RequestParam("product_ids[]") List<Integer> product_ids,
-			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts) {
+			@RequestParam("cart_product_counts[]") List<Integer> cart_product_counts,
+			@RequestParam("cart_delivery_price")int cart_delivery_price) {
 		System.out.println("--------------------------------------------------rest updateCart in");
 		System.out.println("member_id : " + member_id);
 		System.out.println("product_ids[] len : " + product_ids);
 		System.out.println("cart_product_counts[] len : " + cart_product_counts);
-		cartService.updateCart(member_id, product_ids, cart_product_counts);
+		cartService.updateCart(member_id, product_ids, cart_product_counts,cart_delivery_price);
 		System.out.println("--------------------------------------------------rest updateCart out");
 	}
 	
@@ -50,13 +51,13 @@ public class ProductRestController {
 	@PostMapping("/deleteFromCart")
 	public void deleteFromCart(@RequestParam("member_id") String member_id,
 			@RequestParam("product_ids[]") int[] product_ids) {
-//		cartService.deleteCart(member_id, product_ids);
+		cartService.deleteCart(member_id, product_ids);
 	}
 
 	@PostMapping("/insertCart")
 	public int insertCart(@RequestParam("member_id") String member_id, @RequestParam("product_id") int product_id,
-			@RequestParam("pOrder_count") int product_count) throws Exception {
-		return cartService.insertCart(member_id, product_id, product_count);
+			@RequestParam("pOrder_count") int product_count, @RequestParam("pOrder_delivery_price")int cart_delivery_price) throws Exception {
+		return cartService.insertCart(member_id, product_id, product_count,cart_delivery_price);
 	}
 
 	@PostMapping("/cartCheck")
@@ -69,6 +70,12 @@ public class ProductRestController {
 			Authentication authentication) {
 		String member_id = authentication.getName();
 		return orderService.getMyOrderList(member_id);
+	}
+	
+	@PostMapping("/orderview")
+	public List<List<OrdersVO>> orderView(@RequestParam(value="member_id") String member_id, @RequestParam(value="order_group_number")int order_group_number) {
+		System.out.println(orderService.getOrder(member_id, order_group_number).get(0).toString());
+		return orderService.getOrder(member_id, order_group_number);
 	}
 	//판매자 페이지===================================
 //	@PostMapping("/deleteSellerProduct")

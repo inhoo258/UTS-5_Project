@@ -283,13 +283,13 @@ body {
 }
 
 #home_div_two{
-	margin-top: 79px;
+	margin-top: 100px;
 	display:flex;
 	position: relative;
 	width: 1400px;
-	height: 100%;
-	border: 1px solid red;
-	background-color: pink;
+/* 	height: 100%; */
+/* 	border: 1px solid red; */
+/* 	background-color: pink; */
 }
 .product_list_frame{
 	display: flex;
@@ -298,13 +298,13 @@ body {
 .new_product_list{
 	height: 650px;
 	width: 100%;
-	background-color: gray;	
+/* 	background-color: gray;	 */
+	margin-bottom: 120px;
 }
 .div_product_list{
 	display:flex;
 	justify-content:center;
 	width: 1300px;
-/* 	background-color: skyblue; */
 }
 
 .new_product_tit{

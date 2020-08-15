@@ -95,20 +95,20 @@
 		}
 	}
 	function sendit(){
-		var frm = document.loginForm;
-		if(!frm.l_id_input.value){
-			frm.l_id_input.focus();
-			return;
-		}
-		if(!frm.l_pwd_input.value){
-			frm.l_pwd_input.focus();
-		}
-		console.log(document.loginForm.saveid.checked);
-		if(document.loginForm.saveid.checked == true){
-			setCookie("userid",document.loginForm.l_id_input.value, 7);
-		} else {
-			setCookie("userid", document.loginForm.l_id_input.value, 0);
-		}
+// 		var frm = document.loginForm;
+// 		if(!frm.l_id_input.value){
+// 			frm.l_id_input.focus();
+// 			return;
+// 		}
+// 		if(!frm.l_pwd_input.value){
+// 			frm.l_pwd_input.focus();
+// 		}
+// 		console.log(document.loginForm.saveid.checked);
+// 		if(document.loginForm.saveid.checked == true){
+// 			setCookie("userid",document.loginForm.l_id_input.value, 7);
+// 		} else {
+// 			setCookie("userid", document.loginForm.l_id_input.value, 0);
+// 		}
 		document.loginFrom.submit();
 	}
 	
