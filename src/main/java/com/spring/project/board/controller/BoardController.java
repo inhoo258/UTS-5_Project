@@ -61,7 +61,7 @@ public class BoardController {
 		PagingManager fre_PagingManager = new PagingManager(faqService.getTotalCount(), fre_page);
 		model.addAttribute("fre_PagingManager", fre_PagingManager);
 	}
-
+	
 	@GetMapping("/notice/{notice_rn}")
 	public String noticeView(Model model, @PathVariable("notice_rn") int notice_rn) {
 		model.addAttribute("notice", noticeService.getNotice(notice_rn));

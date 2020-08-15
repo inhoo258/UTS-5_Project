@@ -119,7 +119,7 @@
 	                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
 	                        </ul>
 	                        <ul>
-	                            <li><a href="/project/board/notice/list">자주하는 질문</a></li>
+	                            <li><a href="/project/board/notice/list/">자주하는 질문</a></li>
 	                            <li><a href="#">1:1 문의</a></li>
 	                            <li><a href="#">이메일 문의</a></li>
 	                        </ul>
