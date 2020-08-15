@@ -15,15 +15,9 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-	<c:if test="${!empty message}">
-	    <jsp:include page="../header&footer/header.jsp"></jsp:include>
-	</c:if>
+    <jsp:include page="../header&footer/header.jsp"></jsp:include>
 	<c:if test="${!empty message}">
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
-    </c:if>
-    <c:if test="${empty message}">
-        <form action='<c:url value="/member/update"/>' method="post" onsubmit="return inputCheck()">
-    </c:if> 
 	        <div class="joinmain">
 	            <div class="joinbox">
 	                <div class="jointitle">
@@ -97,7 +91,7 @@
 	                            <input type="text" value="${member.member_email}" name="member_email" id="member_email"  autocomplete="off" ${not empty member ? "readonly":"placeholder='이메일을 입력하세요.(예: huh_say@uts.com)' autocomplete='off'"}>
 	                        </div>
 	                        <div class="joininfovalue">
-	                            <input type=${not empty member ? "hidden":"button"} id="certifyemail" disabled="" value="중복 확인"  >
+	                            <input type=${not empty member ? "hidden":"button"} id="certifyemail" value="중복 확인"  >
 	                        </div>
 	                        <c:if test="${empty member}">
 	                            <sec:authorize access="isAnonymous()">
@@ -129,6 +123,7 @@
 	            </div>
 	        </div>
         </form>
+	</c:if>
         <div>
 	<script type="text/javascript">
 	let member = '${member}';

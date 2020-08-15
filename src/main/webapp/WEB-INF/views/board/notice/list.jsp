@@ -6,14 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>list</title>
+<title>Notice list</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/board/notice/list.css'/>" />
 <script src="https://kit.fontawesome.com/c2524284bc.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
    <jsp:include page="../../header&footer/header.jsp" />
-   
       <div id=center_div>
         <div>
             <div>
@@ -153,7 +152,6 @@
             let li_count = $("#center_menu_section>ul li").length + 1;
             for(var i = 1 ; i < li_count ; i++){
                 $("#contents_div>div:nth-child("+i+")").css({"display" : "none"})
-
             }
             $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"})
         })
@@ -162,11 +160,9 @@
     <script>
 
 		function content(fre_number , tr_num){
-			
 			if($("#content_data").length != 0){
 				$("#content_data").remove();
 			}
-			
 			var xhr = new XMLHttpRequest();
 	        xhr.open("get", "/project/board/rest/fre_content?fre_number="+fre_number);
 	        xhr.setRequestHeader("content-type", "application/json");

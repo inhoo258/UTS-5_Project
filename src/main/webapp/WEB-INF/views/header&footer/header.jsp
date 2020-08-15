@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Under The Sea</title>
 <link rel="stylesheet" href="<c:url value='/resources/css/header.css'/>" />
 
 </head>
@@ -119,7 +119,7 @@
 	                            <li><a href="/project/board/event/list">이벤트 게시판</a></li>
 	                        </ul>
 	                        <ul>
-	                            <li><a href="/project/board/qna/list">자주하는 질문</a></li>
+	                            <li><a href="/project/board/notice/list">자주하는 질문</a></li>
 	                            <li><a href="#">1:1 문의</a></li>
 	                            <li><a href="#">이메일 문의</a></li>
 	                        </ul>
@@ -135,8 +135,6 @@
 	    	</div>
 		</div>
 	</header>
-
-
 
     <script>
         let Scroll_sangtae;

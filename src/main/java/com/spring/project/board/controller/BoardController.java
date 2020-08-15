@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.project.board.model.EventVO;
 import com.spring.project.board.model.NoticeVO;
 import com.spring.project.board.model.ReviewVO;
 import com.spring.project.board.service.EventService;
@@ -79,6 +80,7 @@ public class BoardController {
 		return "board/notice/form";
 	}
 	
+	
 	//notice view에서 수정 버튼 클릭 시	
 	@GetMapping("/notice/form/{notice_rn}")
 	public String getView(@PathVariable("notice_rn") int notice_rn, Model model) {
@@ -119,7 +121,7 @@ public class BoardController {
 		return "redirect:/board/notice/list";
 	}
 	
-	//이벤트 게시판
+	//이벤트 게시판========================================================================
 	@GetMapping("/event/list")
 	public void eventList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
 		model.addAttribute("eventList",eventService.getEventList(page));
@@ -128,7 +130,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/event/{event_rn}")
-	public String eventView(Model model, @PathVariable("event_rn")String event_rn) {
+	public String eventView(Model model, @PathVariable("event_rn")int event_rn) {
 		int totalCount = eventService.getTotalCount();
 		model.addAttribute("event",eventService.getEvent(event_rn));
 		model.addAttribute("totalCount",totalCount);
@@ -136,11 +138,47 @@ public class BoardController {
 	}
 	
 	@GetMapping("/event/form")
-	public void eventForm() {
-		
+	public String eventForm(Model model) {
+		model.addAttribute("msg", "new");
+		return "board/event/form";
 	}
 	
-	//qna 게시판
+	@PostMapping("/event/new")
+	public String eventInsert(@ModelAttribute EventVO eventVO, Model model, @RequestParam(value = "file", required = false) MultipartFile file) {
+		if (file != null&&!file.isEmpty()) {
+			try {
+				eventVO.setEvent_img(file.getBytes());
+				System.out.println("getBytes : "+file.getBytes());
+				eventVO.setEvent_img_name(file.getOriginalFilename());
+				System.out.println("originalFileName : "+file.getOriginalFilename());
+			} catch (IOException e) {
+			}
+			eventService.insertEventWithFile(eventVO);
+		}
+		else eventService.insertEvent(eventVO);
+		return "redirect:/board/event/list";
+	}
+	
+	@GetMapping("/event/delete/{event_number}")
+	public String deleteEventView(@PathVariable("event_number") int event_number) {
+		eventService.deleteView(event_number);
+		return "redirect:/board/event/list";
+	}
+	
+	@GetMapping("/event/form/{event_rn}")
+	public String getEventView(@PathVariable("event_rn") int event_rn, Model model) {
+		model.addAttribute("event", eventService.getNoticeInfo(event_rn) );
+		model.addAttribute("msg" , "update");
+		return "board/event/form";
+	}
+	
+	@PostMapping("/event/update")
+	public String updateEventView(EventVO eventVO ) {
+		eventService.updateEvent(eventVO);
+		return "redirect:/board/event/"+eventVO.getEvent_rn();
+	}
+	
+	//qna 게시판==========================================================
 	@GetMapping("/qna/list")
 	public void qnaList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
 		model.addAttribute("eventList",eventService.getEventList(page));

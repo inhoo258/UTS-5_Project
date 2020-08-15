@@ -4,14 +4,30 @@ import java.sql.Date;
 
 public class EventVO {
 	private int event_rn;
+	private int event_number;
 	private String member_id;
 	private String event_title;
 	private String event_content;
 	private byte[] event_img;
 	private Date event_date;
 	private int event_views;
-	private int event_group;
-	private int event_step;
+	private String event_img_name;
+	
+	public int getEvent_number() {
+		return event_number;
+	}
+
+	public void setEvent_number(int event_number) {
+		this.event_number = event_number;
+	}
+
+	public String getEvent_img_name() {
+		return event_img_name;
+	}
+
+	public void setEvent_img_name(String event_img_name) {
+		this.event_img_name = event_img_name;
+	}
 
 	public int getEvent_rn() {
 		return event_rn;
@@ -35,22 +51,6 @@ public class EventVO {
 
 	public void setEvent_views(int event_views) {
 		this.event_views = event_views;
-	}
-
-	public int getEvent_group() {
-		return event_group;
-	}
-
-	public void setEvent_group(int event_group) {
-		this.event_group = event_group;
-	}
-
-	public int getEvent_step() {
-		return event_step;
-	}
-
-	public void setEvent_step(int event_step) {
-		this.event_step = event_step;
 	}
 
 	public String getMember_id() {
