@@ -198,33 +198,33 @@
 				                   <td><input type="button" value="발송처리"></td>
 				                   <td><input type="button" value="발송취소"></td>
 									<td>
-				               		order_group_number : ${sellerOrderList.order_group_number }<br>
-				               		order_date : ${sellerOrderList.order_date }<br>
-				               		ordered_price : ${sellerOrderList.ordered_price }<br>
-				               		orderer_name : ${sellerOrderList.orderer_name }<br>
-				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br>
-				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br>
-				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br>
-				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br>
-				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br>
-				               		order_request : ${sellerOrderList.order_request }<br>
-				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br>
-				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br>
-				               		seller_company_name : ${sellerOrderList.seller_company_name }<br>
-				               		member_id : ${sellerOrderList.member_id}<br>
-				               		product_id : ${sellerOrderList.product_id}<br>
-				               		order_date : ${sellerOrderList.order_date}<br>
-				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br>
-				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br>
-				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br>
-				               		order_product_count : ${sellerOrderList.order_product_count}<br>
-				               		order_price : ${sellerOrderList.order_price}<br>
-				               		order_status : ${sellerOrderList.order_status}<br>
-				               		order_number : ${sellerOrderList.order_number}<br>
-				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br>
-				               		order_request : ${sellerOrderList.order_request}<br>
-				               		order_group_number : ${sellerOrderList.order_group_number}<br>
-				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br>
+<%-- 				               		order_group_number : ${sellerOrderList.order_group_number }<br> --%>
+<%-- 				               		order_date : ${sellerOrderList.order_date }<br> --%>
+<%-- 				               		ordered_price : ${sellerOrderList.ordered_price }<br> --%>
+<%-- 				               		orderer_name : ${sellerOrderList.orderer_name }<br> --%>
+<%-- 				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br> --%>
+<%-- 				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br> --%>
+<%-- 				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br> --%>
+<%-- 				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br> --%>
+<%-- 				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br> --%>
+<%-- 				               		order_request : ${sellerOrderList.order_request }<br> --%>
+<%-- 				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br> --%>
+<%-- 				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br> --%>
+<%-- 				               		seller_company_name : ${sellerOrderList.seller_company_name }<br> --%>
+<%-- 				               		member_id : ${sellerOrderList.member_id}<br> --%>
+<%-- 				               		product_id : ${sellerOrderList.product_id}<br> --%>
+<%-- 				               		order_date : ${sellerOrderList.order_date}<br> --%>
+<%-- 				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br> --%>
+<%-- 				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br> --%>
+<%-- 				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br> --%>
+<%-- 				               		order_product_count : ${sellerOrderList.order_product_count}<br> --%>
+<%-- 				               		order_price : ${sellerOrderList.order_price}<br> --%>
+<%-- 				               		order_status : ${sellerOrderList.order_status}<br> --%>
+<%-- 				               		order_number : ${sellerOrderList.order_number}<br> --%>
+<%-- 				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br> --%>
+<%-- 				               		order_request : ${sellerOrderList.order_request}<br> --%>
+<%-- 				               		order_group_number : ${sellerOrderList.order_group_number}<br> --%>
+<%-- 				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br> --%>
 				               </td>
 				               </tr>				               		
 				               		<hr>
