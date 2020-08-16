@@ -555,7 +555,7 @@
 	                		} 
 						}
 	                }
-	                insertChart(month_sales_cnt);
+	                insertChart(month_sales_cnt,year);
 	                month_sales_cnt = [];
 	                month_order_cnt = [];
 	                month_total_price = [];
@@ -572,65 +572,66 @@
 	    	
 	    });
 	    
-	    function insertChart(month_sales_cnt){
+	    function insertChart(month_sales_cnt,year){
 	    	console.log(month_sales_cnt)
-	   		var myChart = new Chart(ctx, {
-	        type: 'line',
-	        data: {
-	            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
-	            datasets: [{
-	                label: '#월별 상품 판매 수량 ', 
-	                data: [ 
-		                	month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5],
-		                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
-	                	],    
-	              	fill:false,
-// 	                backgroundColor: [
-// 	                ],
-	                borderColor: [
-	                    'rgba(80, 195, 195, 1)'
-	                ],
-	                borderWidth: 2    // 차트 테두리 두께
-	            }]
-	        },
-	        options: {
-	            responsive: false,
-	            title: {
-	                display: true,
-	                text: '년 매출 건 수',
-	                // fontColor: "red",
-	                fontSize: 20
-	            },
-	            scales: {
-	                yAxes: [{   //  y축에 관련된 옵션 
-	                    ticks: {
-	                        beginAtZero: true   //데이터 표기를 0부터 표기
-	                    }
-	                }]
-	            },
-	            animation: {  // 표 위에 데이터 표시 해주는 효과
-					duration: 1,
-					onComplete: function () {
-						var chartInstance = this.chart,
-							ctx = chartInstance.ctx;
-						ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-						ctx.fillStyle = 'purple';
-						ctx.textAlign = 'center';
-						ctx.textBaseline = 'bottom';
-
-						this.data.datasets.forEach(function (dataset, i) {
-							var meta = chartInstance.controller.getDatasetMeta(i);
-							meta.data.forEach(function (bar, index) {
-								var data = dataset.data[index];							
-								ctx.fillText(data, bar._model.x, bar._model.y - 5);
+		    var myChart = new Chart(ctx, {
+		        type: 'line',
+		        data: {
+		            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
+		            datasets: [{
+		                label: '#월별 상품 판매 수량 ', 
+		                data: [ 
+			                	month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5],
+			                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
+		                	],    
+		              	fill:false,
+	// 	                backgroundColor: [
+	// 	                ],
+		                borderColor: [
+		                    'rgba(80, 195, 195, 1)'
+		                ],
+		                borderWidth: 2    // 차트 테두리 두께
+		            }]
+		        },
+		        options: {
+		            responsive: false,
+		            title: {
+		                display: true,
+		                text: year+' 년 매출 건 수',
+		                // fontColor: "red",
+		                fontSize: 20
+		            },
+		            scales: {
+		                yAxes: [{   //  y축에 관련된 옵션 
+		                    ticks: {
+		                        beginAtZero: true   //데이터 표기를 0부터 표기
+		                    }
+		                }]
+		            },
+		            animation: {  // 표 위에 데이터 표시 해주는 효과
+						duration: 1,
+						onComplete: function () {
+							var chartInstance = this.chart,
+								ctx = chartInstance.ctx;
+							ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+							ctx.fillStyle = 'purple';
+							ctx.textAlign = 'center';
+							ctx.textBaseline = 'bottom';
+	
+							this.data.datasets.forEach(function (dataset, i) {
+								var meta = chartInstance.controller.getDatasetMeta(i);
+								meta.data.forEach(function (bar, index) {
+									var data = dataset.data[index];							
+									ctx.fillText(data, bar._model.x, bar._model.y - 5);
+								});
 							});
-						});
+						}
 					}
-				}
-	        }
-	    });
+		        }
+		    });
 	    
-	    let chartData = "<div id='id_myChart'><div class='myChart_sub_tit'><span id='selected_year'>2020</span>년 매출 요약</div>"
+	    let chartData = "<div id='id_myChart'>"
+	   		+"<div class='myChart_sub_tit'><span id='selected_year'>"+year+"</span>년 매출 요약</div>"
 	    	+"<table class='table_myChart' border='1'>"
 			+"<tr>"
 			+"<th>월</th>"
