@@ -148,7 +148,17 @@
 	    </section>
     	</div>
     </section>
-
+	
+	<script type="text/javascript">
+		if(sessionStorage.getItem("mainCheck") == "true"){
+			$("#main_home").css({"display":"none"});
+			$("header").css({"display" : "inline"});
+            $("#header>div:nth-child(1)").animate({"opacity":"1"},2000);
+            $("body").css({"height" : "2000px"});
+            $("#home_main_section").css({"display" : "flex"});
+            $("#home_main_section").animate({"opacity":"1"},2000);
+		}
+	</script>
     
 	<script>
         let index_save;
@@ -181,7 +191,7 @@
 	            $("body").css({"height" : "2000px"});
 	            $("#home_main_section").css({"display" : "flex"});
 	            $("#home_main_section").animate({"opacity":"1"},2000);
-	            
+	            sessionStorage.setitem("mainCheck" , "true");
 	        },2000);
 	        
 	    })

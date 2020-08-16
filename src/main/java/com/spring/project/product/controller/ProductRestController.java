@@ -74,7 +74,9 @@ public class ProductRestController {
 	
 	@PostMapping("/orderview")
 	public List<List<OrdersVO>> orderView(@RequestParam(value="member_id") String member_id, @RequestParam(value="order_group_number")int order_group_number) {
-		System.out.println(orderService.getOrder(member_id, order_group_number).get(0).toString());
+		
+		System.out.println("order 0 : "+orderService.getOrder(member_id, order_group_number).get(0).toString());
+		System.out.println("order 1 : "+orderService.getOrder(member_id, order_group_number).get(1).toString());
 		return orderService.getOrder(member_id, order_group_number);
 	}
 	//판매자 페이지===================================

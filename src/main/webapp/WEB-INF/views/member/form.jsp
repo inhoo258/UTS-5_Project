@@ -15,9 +15,15 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-    <jsp:include page="../header&footer/header.jsp"></jsp:include>
 	<c:if test="${!empty message}">
+    	<jsp:include page="../header&footer/header.jsp"></jsp:include>
+   	</c:if>
+   	<c:if test="${!empty message}">
         <form action='<c:url value="/member/${message}"/>' method="post" onsubmit="return inputCheck()">
+    </c:if>
+    <c:if test="${empty message}">
+        <form action='<c:url value="/member/update"/>' method="post" onsubmit="return inputCheck()">
+    </c:if> 
 	        <div class="joinmain">
 	            <div class="joinbox">
 	                <div class="jointitle">
@@ -123,7 +129,7 @@
 	            </div>
 	        </div>
         </form>
-	</c:if>
+<%-- 	</c:if> --%>
         <div>
 	<script type="text/javascript">
 	let member = '${member}';

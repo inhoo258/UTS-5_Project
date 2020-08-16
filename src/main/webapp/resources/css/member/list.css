@@ -365,7 +365,7 @@ body {
 /*================================================================*/
 
 
-button[type="button"]:focus{outline: none;} /* chan : 버튼 클릭시 바깥 쪽에 생기는 선 제거해주는 역할이예요*/
+button[type="button"]:focus{outline: none;} /* 
 
 /* ================================== Chan : 체스박스 CSS START */
 

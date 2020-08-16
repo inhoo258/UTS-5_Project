@@ -1,3 +1,76 @@
+/*
+	체크박스
+*/
+.checkbox{
+	margin-left: 10px;
+	padding-top: 5px;
+/* 	width: 30px; */
+	height: 30px;
+	
+}
+.checkbox input {
+	display: none;
+}
+
+.checkbox span {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.text{
+	width: 100%;
+}
+.checkbox .icon {
+	position: relative;
+	width: 17px;
+	height: 17px;
+	border: 1px solid #c8ccd4;
+	border-radius: 3px;
+	transition: background 0.1s ease;
+	background-color: white;
+}
+
+.checkbox .icon::after {
+ 	content:''; 
+	position: absolute;
+	top: 1px;
+	left: 5px;
+	width: 5px;
+	height: 11px;
+	border-right: 2px solid white;
+	border-bottom: 2px solid white;
+	transform:rotate(45) scale(0);
+	transition: all 0.3s ease;
+}
+
+.checkbox .text {
+	margin-left: 5px;
+	width: 30px;
+	font-weight: bold;
+}
+
+.checkbox input:checked ~ .icon {
+	border-color: transparent;
+	background: #0066cc;
+	animation: jelly 0.6s ease;
+}
+.checkbox input:checked ~ .icon::after {
+	opacity:1;
+	transform:rotate(45deg) scale(1);
+}
+
+@keyframes jelly{
+	from {transform: scale(1,1);}
+	30% {transform: scale(1.25,0.75);}
+	40% {transform: scale(0.75,1.25);}
+	50% {transform: scale(1.15,0.85);}
+	65% {transform: scale(0.95,1.05);}
+	75% {transform: scale(1.05,0.95);}
+	to {transform: scale(1,1);}
+}
+/*=============================================*/
+
+
 #center_div {
 	width: 100%;
 	height: 100%;
@@ -290,9 +363,6 @@
 #contens_sellerproduct {
 	width: 100%;
 }
-#contens_sellerproduct_list{
-	background-color: pink;
-}
 
 #contens_sellerproduct_list table {
 	width: 100%;
@@ -311,17 +381,17 @@
     height: 120px;
 }
 #contens_sellerproduct_list td:nth-child(1){
-    width: 50px;
+    width: 70px;
 }
 #contens_sellerproduct_list td:nth-child(2){
-    width: 40px;
+    width: 70px;
 }
 #contens_sellerproduct_list td:nth-child(3){
     width: 500px;
     font-size: 25px;
 }
 #contens_sellerproduct_list td:nth-child(3) div{
-    display: flex;
+    display: inline-block;
 }
 #productimgframe{
     width: 100px;
@@ -333,16 +403,12 @@
 }
 #producttextframe{
     overflow: auto;
-    width: 400px;
-    height: 100px;
+    width: 300px;
+    margin-bottom: 25px;
 }
 #producttextframe>span{
     font-size: 30px;
-    height: 50px;
-    margin-top: 25px;
-    padding-left: 20px;
 }
-
 #contens_sellerproduct_list td:nth-child(4){
     font-size: 20px;
 }
@@ -350,13 +416,41 @@
     font-size: 20px;
 }
 #btn_upload{
-    width: 150px;
-    height: 35px;
+    width: 80px;
+    height: 26px;
+    margin: 10px;
+	border: 2px solid azure;
+	background-color: azure;
+	color: #2a365c;
+	font-weight: bold;
+	font-size: 15px;
+}
+#btn_upload:hover{
+	color: white;
+	border: 2px solid white;
+	background-color: #2a365c;
 }
 #btn_delete, #modifiBotton{
     width: 50px;
     height: 30px;
+    margin: 10px;
+	border: 2px solid #2a365c;
+	background-color: azure;
+	color: #2a365c;
+	font-weight: bold;
+	font-size: 15px;
 }
+
+
+#btn_delete:hover, #modifiBotton:hover {
+	background-color: #2a365c;
+	color: white;
+	outline: none
+	cursor: pointer;
+}
+
+
+
 
 /*========================================================주문관리*/
 #contents_orderlist_search {
@@ -371,3 +465,77 @@
 	width: 100%;
 	height: 100%;
 }
+
+
+/* ==================================================== 주문내역*/
+
+#orderview_details_table{
+	width: 100%;
+}
+
+#orderview_details_table input[type=button] , input[type=submit]{
+	width: 200px;
+	height: 50px;
+	background-color: azure;
+	border: 1px solid #2a365c;
+	cursor: pointer;
+	
+}
+#orderview_details_table input[type=button]:hover , input[type=submit]:hover{
+	background-color: #2a365c;
+	border: 1px solid #2a365c;
+	color: azure;
+	
+}
+
+#orderview_details_table tr:nth-child(2) {
+	height: 50px;
+}
+#orderview_details_table tr:nth-child(1) {
+	height: 50px;
+}
+#orderview_details_table tr:nth-child(1) th {
+	text-align: right;
+	padding-right: 50px;
+}
+
+#orderview_details_table tr th:nth-child(1) {
+	width: 150px;
+}
+/*=======================================================월별 매출 관리*/
+.div_myChart{
+	padding-top: 30px;
+}
+
+/*표*/
+.myChart_sub_tit{
+	text-align: center;
+	color: #333c43;
+	margin-top: 50px;
+	font-size: 23px;
+	font-weight: 600;
+}
+.table_myChart{
+	border: 1px solid #909090;
+	border-collapse: collapse;
+	width: 900px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.table_myChart tr{
+	height: 40px;
+}
+
+.table_myChart th{
+	background-color: #f3f3f3;
+	
+}
+
+.myChart_total_price{
+		text-align: left;
+		padding-left: 10px;
+}
+
+

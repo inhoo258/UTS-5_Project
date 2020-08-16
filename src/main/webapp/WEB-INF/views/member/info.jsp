@@ -125,21 +125,13 @@
                     <form action="/project/product/deleteSellerPoduct" method="post">
 							<table border="1" style="border-collapse: collapse; text-align: center;">
 								<tr>
-									<td>
-									 전체 선택 
-									</td>
+									<td> 전체선택 </td>
 									<td rowspan="2">제품번호</td>
-									<td rowspan="2">
-										제품명
-									</td>
-									<td rowspan="2">
-										상품가격
-									</td>
-									<td rowspan="2">
-										상품재고
-									</td>
+									<td rowspan="2"> 제품명 </td>
+									<td rowspan="2"> 상품가격 </td>
+									<td rowspan="2"> 상품재고 </td>
 									<td>
-									 	상품 등록 : 
+									 	상품 등록 >>
 									</td>
 									<td colspan="2"><input type="button" value="등록" id="btn_upload" onclick="window.open('/project/product/upload','새창','width:800px')"></td>
 								</tr>
@@ -159,7 +151,7 @@
 											<td>
 												<div id="productimgframe"><img src='<c:url value="/product/img/${product.product_id}"/>'> </div>
 			                                <div id="producttextframe">
-			                                    <span>${product.product_name}asdjfklsadjfkljsdklfjlaksjdaklf</span>
+			                                    <span>${product.product_name}</span>
 			                                </div>
 			                                <input type="hidden" value="${product.product_id }" class="hidden_product_id" name="product_ids">
 											</td>
@@ -177,70 +169,116 @@
 						</form>
                 	</div>
                 </div>
-                
-                
                 <div>
                     <h2>주문 관리</h2>
-                    <div id="contents_orderlist_search">
-                    	<table border="1">
-                    		<tr>
-                    			<td>검 색</td>
-                    			<td><input type="text"></td>
-                    			<td>13</td>
-                    			<td>14</td>
-	                    	</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    	</table>
-                    </div>
+				       <div id="order_div_list">
+				           <table border="1">
+				               <tr>
+				                   <td>전체선택</td>
+				                   <td>주문번호</td>
+				                   <td>주문일</td>
+				                   <td>배송추적</td>
+				                   <td>발송일</td>
+				                   <td colspan="2">발송/취소</td>
+<!-- 				                   	발주 완료되고 신규 주문에서 개수 빠지고 배송중 등으로 변경  -->
+				               </tr>
+				               <tr>
+				               		<td><input type="checkbox"></td>
+				               		<td></td>
+				               </tr>
+				               <c:forEach var="sellerOrderList" items="${sellerOrderList }" >
+				               <div>
+				               <tr>
+				                   <td><input type="checkbox"></td>
+<!-- 				                   주문번호를 클릭하면 해당 주문의 상세내역이 나올수 있게 -->
+				                   <td><a href="#">주문번호넣어주세요</a></td>
+				                   <td>주문한날짜넣어주세요</td>
+				                   <td>배송 전 중 후</td>
+				                   <td>발송일</td>
+				                   <td><input type="button" value="발송처리"></td>
+				                   <td><input type="button" value="발송취소"></td>
+									<td>
+				               		order_group_number : ${sellerOrderList.order_group_number }<br>
+				               		order_date : ${sellerOrderList.order_date }<br>
+				               		ordered_price : ${sellerOrderList.ordered_price }<br>
+				               		orderer_name : ${sellerOrderList.orderer_name }<br>
+				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br>
+				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br>
+				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br>
+				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br>
+				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br>
+				               		order_request : ${sellerOrderList.order_request }<br>
+				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br>
+				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br>
+				               		seller_company_name : ${sellerOrderList.seller_company_name }<br>
+				               		member_id : ${sellerOrderList.member_id}<br>
+				               		product_id : ${sellerOrderList.product_id}<br>
+				               		order_date : ${sellerOrderList.order_date}<br>
+				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br>
+				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br>
+				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br>
+				               		order_product_count : ${sellerOrderList.order_product_count}<br>
+				               		order_price : ${sellerOrderList.order_price}<br>
+				               		order_status : ${sellerOrderList.order_status}<br>
+				               		order_number : ${sellerOrderList.order_number}<br>
+				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br>
+				               		order_request : ${sellerOrderList.order_request}<br>
+				               		order_group_number : ${sellerOrderList.order_group_number}<br>
+				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br>
+				               </td>
+				               </tr>				               		
+				               		<hr>
+				               </c:forEach>
+				           </table>
+				    </div>	
+                    
                 </div>
                 <!-- 지현 start ============================== -->
 				<!--  5.월별 매출 통계 -->
 				<div>
 					<h2>월별 매출 통계</h2>
-					<table>
+<!-- 					<table> -->
+<!-- 						<tr> -->
+<!-- 							<td> -->
+<!-- 								<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0"> -->
+<!-- 									<tr height="0"> -->
+<!-- 										<td width="15%"></td> -->
+<!-- 										<td width="*%"></td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td height="1" colspan="4" bgcolor="#dfdfdf"></td> -->
+<!-- 									</tr> -->
+<!-- 									<tr height="25"> -->
+<!-- 										<td class="item_title_border">년월선택</td> -->
+<!-- 										<td class="item_input"> -->
+<!-- 										<select id="fd_year" name="fd_year" style="width: 130px;"> -->
+<!-- 											<option value=""></option> -->
+<!-- 										</select>  -->
+<!-- 										<select id="fd_month" name="fd_month" style="width: 130px;"></select> -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
+<!-- 								</table> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+				<div style="width: 100%">
+					<table style="border: 1px solid #dcdcdc; padding: 10px; width: 1080px;">
 						<tr>
-							<td>
-								<table width="100%" border="0" align="center" cellpadding="0"
-									cellspacing="0"
-									style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0">
-									<tr height="0">
-										<td width="15%"></td>
-										<td width="*%"></td>
-									</tr>
-									<tr>
-										<td height="1" colspan="4" bgcolor="#dfdfdf"></td>
-									</tr>
-									<tr height="25">
-										<td class="item_title_border">년월선택</td>
-										<td class="item_input">
-										<select id="fd_year" name="fd_year" style="width: 130px;">
-											<option value=""></option>
-										</select> 
-										<select id="fd_month" name="fd_month" style="width: 130px;"></select>
-										</td>
-									</tr>
-								</table>
+							<td class="item_title_border" style="padding-right: 10px">년월선택</td>
+							<td class="item_input">
+								<select id="fd_year" name="fd_year" style="width: 130px;"></select> 
 							</td>
 						</tr>
 					</table>
-					<div style="width: 100%">
+<!-- 								<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0"> -->
+<!-- 									<tr style="bgcolor="#dfdfdf"> -->
+<!-- 										<td class="item_title_border">년월선택</td> -->
+<!-- 										<td class="item_input"> -->
+<!-- 											<select id="fd_year" name="fd_year" style="width: 130px;"></select>  -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
+<!-- 								</table> -->
+					<div class="div_myChart" align="center" id=div_myChart>
 						<canvas id="myChart" width="900" height="600"></canvas>
 					</div>
 				</div>
@@ -251,7 +289,6 @@
     <script type="text/javascript">
 		//전체 선택===========================================
 		let checkCnt = 0;
-
 		$("#checkAll").on("click",function(){
 			if($(this).prop("checked")){
 				$("input[name=checkOne]").prop("checked", true);
@@ -327,20 +364,10 @@
 	            }
 	            if(contents_div_index == 2){
 	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
-	            }else if(contents_div_index == 3){
-					console.log('3번 클릭');	    			
-	            	$.ajax({
-	    				url:'<c:url value="/product/sellerProductList"/>',
-	    				type:'GET',
-	    				success:function(seller_product_list){
-// 	    					alert(seller_product_list);
-// 	    					$('#contents_sellerprdoct_list').append(seller_product_list);
-	    				},error:function(){
-	    					alert('실패');
-	    				}
-	    			}) 
 	            }else if(contents_div_index == 5){
-	            	console.log("매출 통계")
+	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
+	            	$("#div_myChart").next().remove()
+	            	console.log("매출 통계");
 	            	sales_month(2020);
 	            }
 	            $("#contents_div>div:nth-child("+contents_div_index+")").css({"display" : "block"});
@@ -359,59 +386,64 @@
 					member_id:member_id,
 					order_group_number:order_number
 				},success:function(order_list_info){
-					$("#orderview_details_table").remove()
-// 					$("#table_section table:nth-child("+table_number+") tr:nth-child(2)").remove()
-					console.log(order_list_info[0][0].order_price)
+					console.log(order_list_info[0][0])
 					console.log(order_list_info[0][1])
-					console.log(order_list_info.length)
-					console.log(order_list_info[0].length)
+					console.log(order_list_info[1][0])
+					console.log(order_list_info[1][1])
+					console.log(order_list_info[1][0].order_group_number)
+					$("#orderview_details_table").remove()
 					let orderview_details = "";
-					let orderview =(function(){
+					let orderview = "";
+					(function(){
 						for(var i = 0 ; i < order_list_info.length ; i++){
-							return "<table id='orderview_details_table' border='1' style='background-color:red; width:100% ; height:300px;'><tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
+							orderview = "<table id='orderview_details_table'>"
+							+"<tr><th>상품이미지</th><th>상품상세정보</th><th>배송상태</th><th>후기/확인/취소</th>"
+							+"<tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
 							+(function(){
-								for(var y = 0 ; y < order_list_info[0].length ; y++){
-									var price = numberWithCommas(order_list_info[0][y].order_price);
+								for(var y = 0 ; y < order_list_info[i].length ; y++){
+									var price = numberWithCommas(order_list_info[i][y].order_price);
 									orderview_details += "<tr><th>"
-										+"<img id='orderlist_product_img' src='/project/product/img/"+order_list_info[0][y].product_id+"' width='200px'>"
+										+"<img id='orderlist_product_img' src='/project/product/img/"+order_list_info[i][y].product_id+"' width='200px'>"
 										+"<input type='hidden' value='${order.order_number}'>"
 										+"</th>"
 										+"<td>"
-										+"<div>["+order_list_info[0][y].seller_company_name+"]"+order_list_info[0][y].product_name+"</div>" 
-										+"<span>"+price+"원 </span>"
-										+"<span>"+order_list_info[0][y].order_product_count+"개 구매</span>"
-										+"<div>요청사항<span>"+order_list_info[0][y].order_request+"</span></div>"
+										+"<div>["+order_list_info[i][y].seller_company_name+"]</div>" 
+										+"<div>상품 이름 : "+order_list_info[i][y].product_name+"</div>"
+										+"<span>"+order_list_info[i][y].order_product_count+"개 구매 / 주문 그룹 번호  : "+order_list_info[i][0].order_group_number+"</span><br>"
+										+"<span>가격 : "+price+"원 </span>"
+										+"<div>요청사항 : <span>"+order_list_info[i][y].order_request+"</span></div>"
 										+"</td>"
 										+"<td>"
-										+"<div class='order_status'>"+order_list_info[0][y].order_status+"</div>"
+										+"<div class='order_status'>"+order_list_info[i][y].order_status+"</div>"
 										+"</td>"
 										+"<td>"
 										+"<form name='reviewForm'>"
-										+"<input type='hidden' name='member_id' value='"+order_list_info[0][y].member_id+"'>"
-										+"<input type='hidden' name='order_number' value='"+order_list_info[0][y].order_number+"'>"
+										+"<input type='hidden' name='member_id' value='"+order_list_info[i][y].member_id+"'>"
+										+"<input type='hidden' name='order_number' value='"+order_list_info[i][y].order_number+"'>"
 								    	+"<input type='hidden' name='table_number_index' value='"+table_number+"'>"
 								    	+"<input type='hidden' name='order_group_number' value='"+order_number+"'>"
-										+"<input type='button' value='후기 쓰기' class='review_writing'>"
+										+"<input type='button' value='상품 평 작성 >' class='review_writing'>"
 										+"</form>"
-										+"<input type='hidden' class='review_check' value='"+order_list_info[0][y].review_check+"'>"
-										+"<input type='hidden' value='"+order_list_info[0][y].review_check+"'>"
+										+"<input type='hidden' class='review_check' value='"+order_list_info[i][y].review_check+"'>"
+										+"<input type='hidden' value='"+order_list_info[i][y].review_check+"'>"
 										+"</td>"
 										+"</tr>"
 								}
 								return orderview_details
 							})()
 							+"<tr>"
-							+"<td colspan='2'>배송비 : "+order_list_info[0][i].order_delivery_price+"</td>"
+							+"<td colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</td>"
 							+"<th colspan='2'>"
-							+"<input type='hidden' name='order_group_number' value='"+order_list_info[0][i].order_group_number+"'>"
+							+"<input type='hidden' name='order_group_number' value='"+order_list_info[i][0].order_group_number+"'>"
 							+"<input type='hidden' name='member_id' value='${member_id}'>"
 							+"<input id='cancel_btn' type='submit' value='주문 취소'>"
 							+"</th>"
 							+"</tr>"
 							+"</table>"
 						}
-					})()
 					$("#table_section table:nth-child("+table_number+")").append(orderview);
+					})()
+					
 					review_check();
 					$(".review_writing").addClass("on");
 				}
@@ -433,7 +465,8 @@
 	    
 	    $(".orderlist_table").on("click",".review_writing.on", function(){
 	    	let idx = $(".review_writing").index(this);
-            if($(".order_status").get(idx).innerText!="배송중"){
+	    	console.log($(".order_status").get(idx).innerText);
+            if($(".order_status").get(idx).innerText!="배송전"){
             	alert("후기는 배송완료 후 가능");
             	return ;
             }
@@ -460,36 +493,31 @@
 	<!-- 지현 start ============================== -->
 	<script>
 	// 날짜 선택  j쿼리
+    var now = new Date();
+    var nowYear = now.getFullYear();
     $(document).ready(function(){            
-        var now = new Date();
-        var nowYear = now.getFullYear();
-        var nowMonth = (now.getMonth()+1) > 9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);            
-        console.log(now)
-        console.log(nowYear)
-        console.log(nowMonth)
-        
         //년도 selectbox만들기               
         for(var sy = 2018 ; sy <= nowYear ; sy++) {
             $('#fd_year').append('<option value="' + sy + '">' + sy + '년</option>');    
         }
 
-        // 월별 selectbox 만들기            
-        for(var i=1; i <= 12; i++) {
-            var sm = i > 9 ? i : "0"+i ;            
-            $('#fd_month').append('<option value="' + sm + '">' + sm + '월</option>');    
-         }            
+//         // 월별 selectbox 만들기            
+//         for(var i=1; i <= 12; i++) {
+//             var sm = i > 9 ? i : "0"+i ;            
+//             $('#fd_month').append('<option value="' + sm + '">' + sm + '월</option>');    
+//          }            
         
         $("#fd_year>option[value="+nowYear+"]").attr("selected", "true");    
-        $("#fd_month>option[value="+nowMonth+"]").attr("selected", "true");             
-    })
-    
+	})
     
     	//그래프 j쿼리
 	    var ctx = document.getElementById('myChart');
-	    
+   		let cnt = 0 ;
+   		let total_price = 0 ;
+   		let month_sales_cnt = [];
+   		let month_order_cnt	 = [];
+   		let month_total_price = [];
 	    function sales_month(year){
-	    	console.log(year);
-	    	let month_sales_cnt = [];
 		    var xhr = new XMLHttpRequest();
 	        xhr.open("post", "/project/member/rest/monthly_sales");
 	        xhr.setRequestHeader("content-type", "application/json");
@@ -498,94 +526,144 @@
 			xhr.onreadystatechange = function () {
 	            if (xhr.readyState === xhr.LOADING) {
 	                $("#loding").show();
-	            }
+	            };
 	            if (xhr.readyState === xhr.DONE) {
 	                if (xhr.status === 200 || xhr.status === 201) {
-	                	let monthly_sales = JSON.parse(xhr.responseText)
+	                	let monthly_sales = JSON.parse(xhr.responseText);
 	                	console.log("monthly_sales : "+monthly_sales);
 	                	console.log(monthly_sales);
 	                	console.log(monthly_sales.length);
 	                	for (var i = 0; i < monthly_sales.length; i++) { 
 	                		console.log((i+1)+"월 : "+i)
 	                		if(monthly_sales[i].length!=0){
-	               				let cnt = 0 ;
 	                			for (var j = 0; j < monthly_sales[i].length; j++) {
-	                				console.log("구매건의  인덱스j : "+j);
-									console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
-									console.log("order_price : "+monthly_sales[i][j].order_price);
-									cnt+=monthly_sales[i][j].order_product_count
+		                				console.log("구매건의  인덱스j : "+j);
+										console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
+										console.log("order_price : "+monthly_sales[i][j].order_price);
+									cnt += monthly_sales[i][j].order_product_count;
+									total_price += monthly_sales[i][j].order_price;
+										console.log("cnt:"+cnt);
 								}
 								month_sales_cnt.push(cnt);
+								month_order_cnt.push(monthly_sales[i].length);	
+								month_total_price.push(total_price);	
+								cnt = 0;
 	                		}else{
 	                			month_sales_cnt.push(0);
+								month_order_cnt.push(0);
+								month_total_price.push(0);
 	                		} 
-	                			
 						}
-	                	
-	                	
 	                }
-	                
-	                insertChart(month_sales_cnt)
+	                insertChart(month_sales_cnt,year);
+	                month_sales_cnt = [];
+	                month_order_cnt = [];
+	                month_total_price = [];
 	            }
 	        }
 	    }
-	    function insertChart(month_sales_cnt){
-            
-	    var myChart = new Chart(ctx, {
-	        type: 'line',
-	        data: {
-	            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
-	            datasets: [{
-	                label: '#월별 상품 판매량 ', 
-	                data: [ month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5] ,
-	                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
-	                	],    //데이터 배열=> 판매 건수가 들어와야함
-	              	fill:false,
-// 	                backgroundColor: [
-// 	                ],
-	                borderColor: [
-	                    'rgba(80, 195, 195, 1)'
-	                ],
-	                borderWidth: 2    // 차트 테두리 두께
-	            }]
-	        },
-	        options: {
-	            responsive: false,
-	            title: {
-	                display: true,
-	                text: '년 매출 건 수',
-	                // fontColor: "red",
-	                fontSize: 20
-	            },
-	            scales: {
-	                yAxes: [{   //  y축에 관련된 옵션 
-	                    ticks: {
-	                        beginAtZero: true   //데이터 표기를 0부터 표기
-	                    }
-	                }]
-	            },
-	            animation: {
-					duration: 1,
-					onComplete: function () {
-						var chartInstance = this.chart,
-							ctx = chartInstance.ctx;
-						ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-						ctx.fillStyle = 'purple';
-						ctx.textAlign = 'center';
-						ctx.textBaseline = 'bottom';
-
-						this.data.datasets.forEach(function (dataset, i) {
-							var meta = chartInstance.controller.getDatasetMeta(i);
-							meta.data.forEach(function (bar, index) {
-								var data = dataset.data[index];							
-								ctx.fillText(data, bar._model.x, bar._model.y - 5);
-							});
-						});
-					}
-				}
-	        }
+	    
+	    $("#fd_year").on("change",function(){
+	    	let selectedYear = $("#fd_year option:selected").val();
+	    	sales_month(parseInt($("#fd_year option:selected").val()));
+	    	$("#fd_month>option[value="+nowYear+"]").attr("selected", "true"); 
+	    	$("#selected_year").text(selectedYear);
+	    	$("#div_myChart").next().remove()
+	    	
 	    });
-	    }
+	    
+	    function insertChart(month_sales_cnt,year){
+	    	console.log(month_sales_cnt)
+		    var myChart = new Chart(ctx, {
+		        type: 'line',
+		        data: {
+		            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
+		            datasets: [{
+		                label: '#월별 상품 판매 수량 ', 
+		                data: [ 
+			                	month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5],
+			                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
+		                	],    
+		              	fill:false,
+	// 	                backgroundColor: [
+	// 	                ],
+		                borderColor: [
+		                    'rgba(80, 195, 195, 1)'
+		                ],
+		                borderWidth: 2    // 차트 테두리 두께
+		            }]
+		        },
+		        options: {
+		            responsive: false,
+		            title: {
+		                display: true,
+		                text: year+' 년 매출 건 수',
+		                // fontColor: "red",
+		                fontSize: 20
+		            },
+		            scales: {
+		                yAxes: [{   //  y축에 관련된 옵션 
+		                    ticks: {
+		                        beginAtZero: true   //데이터 표기를 0부터 표기
+		                    }
+		                }]
+		            },
+		            animation: {  // 표 위에 데이터 표시 해주는 효과
+						duration: 1,
+						onComplete: function () {
+							var chartInstance = this.chart,
+								ctx = chartInstance.ctx;
+							ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+							ctx.fillStyle = 'purple';
+							ctx.textAlign = 'center';
+							ctx.textBaseline = 'bottom';
+	
+							this.data.datasets.forEach(function (dataset, i) {
+								var meta = chartInstance.controller.getDatasetMeta(i);
+								meta.data.forEach(function (bar, index) {
+									var data = dataset.data[index];							
+									ctx.fillText(data, bar._model.x, bar._model.y - 5);
+								});
+							});
+						}
+					}
+		        }
+		    });
+	    
+	    let chartData = "<div id='id_myChart'>"
+	   		+"<div class='myChart_sub_tit'><span id='selected_year'>"+year+"</span>년 매출 요약</div>"
+	    	+"<table class='table_myChart' border='1'>"
+			+"<tr>"
+			+"<th>월</th>"
+			+"<th>판매건 수 </th>"
+			+"<th>판매 수량</th>"
+			+"<th>매출 액</th>"
+// 			+"<th>배송비</th>"
+			+"<th>취소건 수</th>"
+			+"</tr>"
+// 	    chartData +=
+// 	    (function(){
+	
+	    	for(var y = 0 ; y < 12; y++){
+	    		chartData += "<tr>"
+				+"<td>"+(y+1)+"월</td>"
+				+"<td>"+month_order_cnt[y]+"</td>"
+				+"<td>"+month_sales_cnt[y]+"</td>"
+				+"<td>"+month_total_price[y]+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
+// 				+"<td>2250원</td>"
+				+"<td>1</td>"
+				+"</tr>"
+	    	}
+	    	
+	    	chartData +="<tr>"
+			+"<td colspan='6' class='myChart_total_price'>"
+			+"<span >총 매출액 : 111111222원</span>"
+			+"</td>"
+			+"</tr>"
+	    	+"</table>"
+			+"</div>"
+	    $("#div_myChart").after(chartData)
+		}
 	</script>
 	<!-- 지현 start ============================== -->
 </body>

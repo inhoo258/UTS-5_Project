@@ -155,7 +155,7 @@ public class MemberRestController {
 	
 	//월별 매출 통계
 	@PostMapping("/monthly_sales")
-	public List<List<OrdersVO>> monthly_sales(Authentication authentication, @RequestBody String year){
+	public List<List<OrdersVO>> monthly_sales(Authentication authentication, @RequestBody int year){
 		
 		System.out.println(authentication.getName());
 		System.out.println("year:"+year);
