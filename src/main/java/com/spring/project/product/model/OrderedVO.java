@@ -9,16 +9,6 @@ public class OrderedVO {
 	private String orderer_name;
 	private int order_delivery_price;
 	
-	@Override
-	public String toString() {
-		return "OrderedVO [order_group_number=" + order_group_number + ", order_date=" + order_date + ", ordered_price="
-				+ ordered_price + ", orderer_name=" + orderer_name + ", order_delivery_price=" + order_delivery_price
-				+ ", order_receiver_name=" + order_receiver_name + ", order_receiver_main_address="
-				+ order_receiver_main_address + ", order_receiver_sub_address=" + order_receiver_sub_address
-				+ ", order_receiver_tel=" + order_receiver_tel + ", order_request=" + order_request
-				+ ", seller_bank_account=" + seller_bank_account + ", seller_bank_name=" + seller_bank_name
-				+ ", seller_company_name=" + seller_company_name + "]";
-	}
 
 	public String getOrderer_name() {
 		return orderer_name;
