@@ -135,7 +135,7 @@ body {
 	position: absolute;
 	cursor: pointer;
 	display: inline-block;
-	top: 800px;
+	top:750px;
 	left: 155px;
 	overflow: hidden;
 }
@@ -334,4 +334,11 @@ legend {
 	text-align: center;
 	color: #333;
 	font-size: 18px;
+}
+
+#screen_check{
+	position:absolute;
+	color: white;
+	top:850px;
+	left: 120px;
 }

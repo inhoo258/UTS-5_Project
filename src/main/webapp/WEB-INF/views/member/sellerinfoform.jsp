@@ -74,6 +74,12 @@
 		</td>
 	</tr>
 	<tr>
+		<th>상품 배송비</th>
+		<td>
+			<input type="text" name="product_delivery_price" value="${sellerInfo.product_delivery_price}" placeholder="미입력 시 기본 배송료 0원">
+		</td>
+	</tr>
+	<tr>
 		<th>회사 소개</th>
 		<td>
 			<textarea rows="30" cols="30" name="seller_company_info" id="seller_company_info">
@@ -99,6 +105,7 @@ function sellerInfoOk(form){
 	let seller_company_main_address = form.seller_company_main_address.value;
 	let seller_company_email = form.seller_company_email.value;
 	let seller_company_tel = form.seller_company_tel.value;
+	let product_delivery_price = form.product_delivery_price.value;
 	
 	if(seller_company_name.trim()==""){
 		document.getElementById("span_seller_company_name").innerText="필수항목입니다.";
@@ -151,6 +158,8 @@ function sellerInfoOk(form){
 	}else{
 		document.getElementById("span_seller_company_tel").innerText="";
 		telCheck = true;
+	}if(product_delivery_price.trim()==""){
+		form.product_delivery_price.value=0;
 	}
 	if(nameCheck&&headNameCheck&&mainAddrCheck&&emailCheck&&telCheck)form.submit();
 }

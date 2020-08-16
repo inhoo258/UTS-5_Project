@@ -31,16 +31,15 @@
                       <div id="information_img" title="회원 정보"><a href="/project/member/list"><img src="/project/resources/img/information.png"></a></div>
                   <div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
                </sec:authorize>
-               
                <sec:authorize access="isAnonymous()">
-                         <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
-                         <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
+                     <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
+                     <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
                      <div id="login_img" title="로그인"><a href="/project/login"><img src="/project/resources/img/login.png"></a></div>
                </sec:authorize>
                
                <sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
-                         <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
-                         <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
+ 	                 <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
+                     <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
                      <div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
                </sec:authorize>
                    <div id="header_icon">
@@ -73,55 +72,61 @@
                        <img src="/project/resources/img/sidebar_logo.png">
                    </div>
                         <div id="sidebar_menu_div">
-                     <sec:authorize access="isAuthenticated() and hasRole('ROLE_MASTER')">
+                     <sec:authorize access="hasRole('ROLE_MASTER')">
                         <div>
                            <a href="/project/logout">Logout</a>
-                           <a href="/project/member/list">MemberList</a>
                         </div>
                      </sec:authorize>
                         
-                     <sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
+                     <sec:authorize access="hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
                         <div>
-                           <a href="/project/logout">Logout</a>
-                           <a href="/project/member/info">information</a>
-                           <a href="/project/product/cart">my_cart</a>
+                        	<a href="/project/product/cart">장바구니 보기</a>
+                            <a href="/project/logout">로그아웃</a>
                         </div>
                      </sec:authorize>
                         
                      <sec:authorize access="isAnonymous()">
                         <div>
-                           <a href="/project/login">login</a>
-                           <a href="/project/member/info">information</a>
-                           <a href="/project/product/cart">my_cart</a>
+                           <a href="/project/login">로그인</a>
+                           <a href="/project/member/info">개인 정보 수정</a>
+                           <a href="/project/product/cart">장바구니 보기</a>
                         </div>
                      </sec:authorize>
-                  <div>
-                           <h3>information</h3>
-                           <h3>board</h3>
-                           <h3>customer center</h3>
+                  		<div>
+                  		<sec:authorize access="!hasRole('ROLE_MASTER')">
+                           <h3>내 정보</h3>
+                  		</sec:authorize>
+                  		<sec:authorize access="hasRole('ROLE_MASTER')">
+                           <h3>회원 관리</h3>
+                  		</sec:authorize>
+                  		
+                           <h3>게시판</h3>
+                           <h3>고객 센터</h3>
                        </div>
                        <div>
                            <ul>
+                               <li><a href="/project/product/list">상품 리스트</a></li>
                            <sec:authorize access="isAnonymous()">
                               <li><a href="/project/member/form">회원 가입</a></li>
                            </sec:authorize>
                            <sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
                                <li><a href="/project/member/info">개인 정보 수정</a></li>
-                               <li><a href="#">나의 구매 내역</a></li>
-                     </sec:authorize>
-                     <sec:authorize access="isAuthenticated() and hasRole('ROLE_SELLER')">
-                               <li><a href="#">상품 관리</a></li>
-                               <li><a href="#">주문 관리</a></li>
+                               <li><a href="/project/member/info">나의 구매 내역</a></li>
+	                     </sec:authorize>
+	                     <sec:authorize access="isAuthenticated() and hasRole('ROLE_SELLER')">
+                               <li><a href="/project/member/info">상점 관리</a></li>
                            </sec:authorize>
+                           <sec:authorize access="hasRole('ROLE_MASTER')">
+							   <li><a href="/project/member/list">회원 리스트</a></li>
+	                     </sec:authorize>
                            </ul>
                            <ul>
-                               <li><a href="/project/board/notice/list">공지 사항</a></li>
                                <li><a href="/project/board/event/list">이벤트 게시판</a></li>
                            </ul>
                            <ul>
-                               <li><a href="/project/board/qna/list">자주하는 질문</a></li>
+                               <li><a href="/project/board/notice/list">공지 사항</a></li>
+                               <li><a href="/project/board/notice/list">자주하는 질문</a></li>
                                <li><a href="#">1:1 문의</a></li>
-                               <li><a href="#">이메일 문의</a></li>
                            </ul>
                        </div>
                    </div>
