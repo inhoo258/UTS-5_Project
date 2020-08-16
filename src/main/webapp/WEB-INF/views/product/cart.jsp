@@ -9,12 +9,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/product/cart.css'/>" />
 </head>
 <body>
 <c:set var="member_id">
 	<sec:authentication property="principal.username"/>
 </c:set>
 <jsp:include page="../header&footer/header.jsp"></jsp:include>
+<div id=cart_div>
+<div>
 <table border="1" style="border-collapse:collapse; border-color:red;" id="outerTable">
 	<tr>
 		<th><input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</th>		
@@ -80,7 +83,11 @@
 		</th>
 	</tr>
 </table>
+</div>
+<div>
 <input type="button" value="주문하기" id="orderBtn">
+</div>
+<div>
 <div id="notEmptyList">
 	<span id="totalPriceWithoutDel"></span>
 	<span id="totalDel"></span>
@@ -88,6 +95,8 @@
 </div>
 <div id="emptyList" style="display:none;">
 	<span>장바구니에 등록된 상품이 없습니다.</span>
+</div>
+</div>
 </div>
 <script type="text/javascript">
 	let member_id = '${member_id}';

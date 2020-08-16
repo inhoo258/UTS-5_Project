@@ -112,7 +112,11 @@ public class ProductRestController {
 			return "redirect:/member/info";
 		}
 	
-	
+		@PostMapping("/deleteOrder")
+		public String deleteOrder(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number) {
+			orderService.deleteOrder(order_group_number, member_id);
+			return "redirect:/product/orderlist/"+member_id;
+		}
 	
 //	@PostMapping("/deleteSellerProduct")
 //	public void deleteSellerProduct(@RequestParam("product_ids[]") int[] product_ids) {
