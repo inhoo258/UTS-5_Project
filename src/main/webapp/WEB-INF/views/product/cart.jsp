@@ -18,9 +18,12 @@
 <jsp:include page="../header&footer/header.jsp"></jsp:include>
 <div id=cart_div>
 <div>
-<table border="1" style="border-collapse:collapse; border-color:red;" id="outerTable">
-	<tr>
-		<th><input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</th>		
+<div ID=cart_table_div>
+<h1>장바구니</h1>
+<h5>주문하실 상품명 및 수량을 정확하게 확인해 주세요.</h5>
+<table id="outerTable">
+	<tr id="outerTable_first_tr">
+		<th><label>&nbsp;<input type="checkbox" class="checkAll">&nbsp;&nbsp;전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</label></th>		
 		<th>상품정보</th>
 		<th>수량</th>
 		<th>금액</th>
@@ -28,48 +31,66 @@
 	</tr>
 	<c:forEach var="cartList" items="${cartLists}" varStatus="status">
 	<tr>
-		<td colspan="5">
-			<table class="innerTable" style="border-color:green;"border="1" id="${status.index}">
+		<td colspan="5" id=subTable>
+			<table class="innerTable"  id="${status.index}" >
 				<c:set var="totalPriceForEachCompany" value="0"/>
 				<c:forEach var="cart" items="${cartList}">
 				<tr class="trForEachCompany">
-					<td>
+					<th>
 						<input type="checkbox" class="checkOne">
+					</th>
+					<td>
 						<img src="/project/product/img/${cart.product_id}" width="200px">
 					</td>
 					<td>
-						[${cart.seller_company_name}]${cart.product_name}<br>
-						<span class="productPrice"><fmt:formatNumber value="${cart.product_price}" pattern="#,###"/></span>
+						<span><h4>[${cart.seller_company_name}]${cart.product_name}</h4></span><br>
+						<span class="productPrice"><fmt:formatNumber value="${cart.product_price}" pattern="#,###"/> 원</span>
 					</td>
 					<td>
+						<section id=product_section_css>
 						<input type="button" value="-" class="minusBtn">
 						<input type="text" class="cartProductCount" value="${cart.cart_product_count}">
 						<input type="button" value="+" class="plusBtn">
 						<input type="hidden" value="${status.index}" class="innerTableId">
+						</section>
 					</td>
 					<td>
 						<span class="productTotalPrice">
-							<fmt:formatNumber value="${cart.product_total_price}" pattern="#,###"/>
+							<fmt:formatNumber value="${cart.product_total_price}" pattern="#,###"/> 원
 						</span>
 					</td>
-					<td>
+					<th>
 						<input type="button" value="x" class="deleteOne">
 						<input type="hidden" value="${cart.product_id}" class="product_ids">
-					</td>
+					</th>
 				</tr>
 				<c:set var="totalPriceForEachCompany" value="${totalPriceForEachCompany+cart.product_total_price}"/>
 				</c:forEach>
 				<tr>
-					<td colspan="5">
+					<td colspan="6">
+					<section>
+					<section>
+					<div>
+						<div>
+						총 가격 : &nbsp;
 						<span class="totalPriceForEachCompany">
 							<fmt:formatNumber value="${totalPriceForEachCompany}" pattern="#,###"/>
-						</span>
+						</span>원<br>
+						</div>
+					</div>
+					<div>
+						<div>
+						배송비 : &nbsp;
 						<span class="productDeliveryPrice" style="display:none;">
 							<fmt:formatNumber value="${cartList[0].product_delivery_price}" pattern="#,###"/>
-						</span>
+						</span><span class="freeDeliveryWon" style="display: none;">원</span>
 						<span class="freeDelivery" style="display:none;">
-							무료배송
+							&nbsp;무료배송
 						</span>
+						</div>
+					</div>
+						</section>
+					</section>
 					</td>
 				</tr>
 			</table>
@@ -77,12 +98,14 @@
 	</tr>
 	</c:forEach>
 	<tr>
-		<th colspan="5">
-			<input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)
-			<input type="button" id="deleteSelected" value="선택삭제">
-		</th>
+<!-- 		<th colspan="5"> -->
+<!-- 		</th> -->
 	</tr>
 </table>
+</div>
+<div>
+<label id=select_all_label><input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</label>
+<input type="button" id="deleteSelected" value="선택삭제">
 </div>
 <div>
 <input type="button" value="주문하기" id="orderBtn">
@@ -95,6 +118,7 @@
 </div>
 <div id="emptyList" style="display:none;">
 	<span>장바구니에 등록된 상품이 없습니다.</span>
+</div>
 </div>
 </div>
 </div>
@@ -145,14 +169,17 @@
 				let productDeliveryPrice = parseInt($(".productDeliveryPrice").get(idx).innerText.replace(/,/gi,""));
 			if($(this).text().replace(/,/gi,"")>=50000){
 				$(".productDeliveryPrice").get(idx).style.display="none";
-				$(".freeDelivery").get(idx).style.display="block";
+				$(".freeDelivery").get(idx).style.display="inline-block";
+				$(".freeDeliveryWon").get(idx).style.display="none";
 			}else if(0<$(this).text().replace(/,/gi,"") && $(this).text().replace(/,/gi,"")<50000){
-				$(".productDeliveryPrice").get(idx).style.display="block";
+				$(".productDeliveryPrice").get(idx).style.display="inline-block";
 				$(".freeDelivery").get(idx).style.display="none";
+				$(".freeDeliveryWon").get(idx).style.display="inline-block";
 			//상점당 총액이 0일때
 			}else{
 				$(".productDeliveryPrice").get(idx).style.display="none";
-				$(".freeDelivery").get(idx).style.display="block";
+				$(".freeDelivery").get(idx).style.display="inline-block";
+				$(".freeDeliveryWon").get(idx).style.display="none";
 			}
 		});
 		$(".productDeliveryPrice").each(function(){
@@ -179,7 +206,7 @@
 			cnt++;
 			$(".cartProductCount").get(idx).value=cnt;
 			//상품 개당 총금액 변경
-			$(".productTotalPrice").get(idx).innerText=(productTotalPrice+productPrice).toLocaleString();
+			$(".productTotalPrice").get(idx).innerText=(productTotalPrice+productPrice).toLocaleString()+" 원";
 			//상점 당 금액 변경
 			documentCheck();
 		}
@@ -197,7 +224,7 @@
 			cnt--;
 			$(".cartProductCount").get(idx).value=cnt;
 			//상품 개당 총금액 변경
-			$(".productTotalPrice").get(idx).innerText=(productTotalPrice-productPrice).toLocaleString();
+			$(".productTotalPrice").get(idx).innerText=(productTotalPrice-productPrice).toLocaleString()+" 원";
 			//상점 당 금액 변경
 			documentCheck();
 		}
