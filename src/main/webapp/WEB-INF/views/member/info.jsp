@@ -35,9 +35,11 @@
 					<ul>
 						<li><a>&nbsp;&nbsp;개인 정보 수정</a>>&nbsp;&nbsp;</li>
 						<li><a>&nbsp;&nbsp;나의 구매 목록</a>>&nbsp;&nbsp;</li>
+						<sec:authorize access="hasRole('ROLE_SELLER')">
 						<li><a>&nbsp;&nbsp;상품 총 관리</a>>&nbsp;&nbsp;</li>
 						<li><a>&nbsp;&nbsp;주문 총 관리</a>>&nbsp;&nbsp;</li>
 						<li><a>&nbsp;&nbsp;월별 매출 통계</a>>&nbsp;&nbsp;</li>
+						</sec:authorize>
 					</ul>
 				</section>
 			</div>
@@ -386,11 +388,6 @@
 					member_id:member_id,
 					order_group_number:order_number
 				},success:function(order_list_info){
-					console.log(order_list_info[0][0])
-					console.log(order_list_info[0][1])
-					console.log(order_list_info[1][0])
-					console.log(order_list_info[1][1])
-					console.log(order_list_info[1][0].order_group_number)
 					$("#orderview_details_table").remove()
 					let orderview_details = "";
 					let orderview = "";
@@ -436,10 +433,10 @@
 							+"<th colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</th>"
 							+"<th></th>"
 							+"<th>"
-							+"<form action='/project/product/deleteOrder' method='post' onsubmit='return deleteCheck()'>"
+							+"<form>"
 							+"<input type='hidden' name='order_group_number' value='"+order_list_info[i][0].order_group_number+"'>"
-							+"<input type='hidden' name='member_id' value='${member_id}'>"
-							+"<input id='cancel_btn' type='submit' value='주문 취소'>"
+							+"<input id='cancel_btn' type='button' value='주문 취소' onclick='deleteCheck(this.form)'>"
+							+"<input id='hidden_table_number' value='"+table_number+"' type='hidden'>"
 							+"</form>"
 							+"</th>"
 							+"</tr>"
@@ -488,11 +485,25 @@
             reviewForm.submit();
        	});
 	    
-	    function deleteCheck(){
+	    function deleteCheck(form){
 	 	   let conf = confirm("주문을 취소 하시겠습니까?");
 	 	   if(conf){
-	 		   return false;
-	 	   }else return false;
+	 		   console.log("order_group_number : " + form.order_group_number.value);
+	 		   $.ajax({
+	 			  url:'/project/product/rest/deleteOrder',
+	 			  type:'POST',
+	 			  data:{
+	 				  order_group_number:form.order_group_number.value
+	 			  },success:function(){
+	 				  $("table.orderlist_table")[$("#hidden_table_number").val()-1].remove();
+	 				  //주문 내역이 더이상 없을 경우 뭐 하나 해줘야함!
+	 			  },error:function(e){
+	 				  console.log("error : "+e);
+	 			  }
+	 		   });
+	 	   }else{
+	 		   alert("취소 되었습니다.")
+	 	   }
 	    }
 	    
 	    
@@ -525,7 +536,8 @@
     	//그래프 j쿼리
 	    var ctx = document.getElementById('myChart');
    		let cnt = 0 ;
-   		let MonthlyTotal_price = 0 ;
+   		let monthlyTotal_price = 0 ;
+   		let monthly_canceled_count=0;
    		let month_sales_cnt = [];
    		let month_order_cnt	 = [];
    		let month_total_price = [];
@@ -549,19 +561,19 @@
 	                		console.log((i+1)+"월 : "+i)
 	                		if(monthly_sales[i].length!=0){
 	                			for (var j = 0; j < monthly_sales[i].length; j++) {
-		                				console.log("구매건의  인덱스j : "+j);
-										console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
-										console.log("order_price : "+monthly_sales[i][j].order_price);
+	                				console.log("구매건의  인덱스j : "+j);
+									console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
+									console.log("order_price : "+monthly_sales[i][j].order_price);
 									cnt += monthly_sales[i][j].order_product_count;
-									MonthlyTotal_price += monthly_sales[i][j].order_price * monthly_sales[i][j].order_product_count;
-										console.log("cnt:"+cnt);
-										console.log("MonthlyTotal_price : "+MonthlyTotal_price);
+									monthlyTotal_price += monthly_sales[i][j].order_price * monthly_sales[i][j].order_product_count;
+									console.log("cnt:"+cnt);
+									console.log("monthlyTotal_price : "+monthlyTotal_price);
 								}
 								month_sales_cnt.push(cnt);
 								month_order_cnt.push(monthly_sales[i].length);	
-								month_total_price.push(MonthlyTotal_price);	
+								month_total_price.push(monthlyTotal_price);	
 								cnt = 0;
-								MonthlyTotal_price=0;
+								monthlyTotal_price=0;
 	                		}else{
 	                			month_sales_cnt.push(0);
 								month_order_cnt.push(0);
@@ -569,7 +581,7 @@
 	                		} 
 						}
 	                }
-	                insertChart(month_sales_cnt,year);
+	                insertChart(month_sales_cnt,month_order_cnt,month_total_price,year);
 	                month_sales_cnt = [];
 	                month_order_cnt = [];
 	                month_total_price = [];
@@ -586,7 +598,7 @@
 	    	
 	    });
 	    
-	    function insertChart(month_sales_cnt,year){
+	    function insertChart(month_sales_cnt,month_order_cnt,month_total_price,year){
 	    	console.log(month_sales_cnt)
 		    var myChart = new Chart(ctx, {
 		        type: 'line',
@@ -663,7 +675,7 @@
 				+"<td>"+month_order_cnt[y].toLocaleString()+"</td>"
 				+"<td>"+month_sales_cnt[y].toLocaleString()+"</td>"
 				+"<td>"+month_total_price[y].toLocaleString()+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
-				+"<td>1</td>"
+				+"<td>없음</td>"
 				+"</tr>";
 				totalPrice+=month_total_price[y];
 	    	}

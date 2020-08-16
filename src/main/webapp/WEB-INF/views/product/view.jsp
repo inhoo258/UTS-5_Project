@@ -29,41 +29,37 @@
                 <div class="p_product_desc">
                     <div class="p_product_explain">
                         <div class="p_product_title">
-                            <span id="title"><span id="titletext">[${sellerInfo.seller_company_name}]${product.product_name}</span></span>
+                            <span id="title"><span id="titletext">[${sellerInfo.seller_company_name}] ${product.product_name}</span></span>
                         </div>
-                        <div>
-                            <span id="key"><span id="keytext">상품 가격</span></span>
-                        	<span id="value"><span id="text"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/>원</span></span>
+                        <div id="product_price_tit">
+<!--                             <span class="id_product_price_won">상품 가격</span> -->
+                        	<span class="id_product_price_won"><span id="id_product_price"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span><span>원</span></span>
                         </div>
-                        <div>
+                        <div class="explain_row">
                             <span id="key"><span id="keytext">판매 단위</span></span>
                             <span id="value"><span id="text">KG</span></span>
                         </div>
-                        <div>
+                        <div class="explain_row">
                             <span id="key"><span id="keytext">판매 중량</span></span>
                             <span id="value"><span id="text">${product.product_weight}kg</span></span>
                         </div>
-                        <div>
+                        <div class="explain_row">
                             <span id="key"><span id="keytext">배송구분</span></span>
                             <span id="value"><span id="text">택배배송/퀵서비스</span></span>
                         </div>
-                        <div>
+                        <div class="explain_row">
                             <span id="key"><span id="keytext">원산지</span></span>
                             <span id="value"><span id="text">국산</span></span>
                         </div>
-                        <div>
+                        <div class="explain_row">
                             <span id="key"><span id="keytext">포장타입</span></span>
                             <span id="value"><span id="text">냉동/비닐포장</span></span>
                         </div>
-                        <div>
+                        <div class="explain_row">
                             <span id="key"><span id="keytext">유통기한</span></span>
                             <span id="value"><span id="text">수산물이므로 꼭 하루를 넘기지 마십쇼잉</span></span>
                         </div>
-                        <div>
-                            <span id="explain_key"><span id="keytext">안내사항</span></span>
-                            <span id="explain_value"></span>
-                        </div>
-                        <div>
+                        <div class="explain_row">
                            	<span id="key"><span id="keytext">구매수량</span></span>
                            	<span id="value">
                            		<span id="text">
@@ -73,22 +69,21 @@
 								</span>
 							</span>
                         </div>
-                        <div>
-                        	<span id="key"><span id="keytext">총 상품 금액</span ></span>
-                        	<span id="value">
-	                        	<span id="text">
-	                        		<span id= "p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,### 원"/></span>
-	                        	</span>
-                        	</span>
-                        	<span id="key"><span id="keytext">배송비</span></span>
-                        	<span id="value">
-                        		<span id="text">
-                        			<span id="p_delivery_price"><fmt:formatNumber value="${sellerInfo.product_delivery_price}" pattern="#,### 원"/></span>
-                        			<span id="free_del_condition">5만원 이상 구매 시 무료배송</span>
-                        		</span>
-                        	</span>
+                        <div class="explain_row">
+                            <span id="key"><span id="keytext">배송비</span></span>
+                            <span id="value">
+                            	<span id="text"> 
+	                        			<span id="p_delivery_price"><fmt:formatNumber value="${sellerInfo.product_delivery_price}" pattern="#,### 원"/></span>
+	                        			<span id="free_del_condition">( 5만원 이상 구매 시 무료배송 )</span>
+                            	</span>
+                            </span>
                         </div>
-						<div>
+                        <div id="second_div">
+                        	<span class="total_price_tit">총 상품 금액 : &nbsp;
+	                       		<span id= "p_tprice_value"><fmt:formatNumber value="${product.product_price}" pattern="#,###"/></span>원</span>
+                        		
+                        </div>
+						<div align="right">
 							<form name='myForm'>
 								<input type="hidden" id = "pOrder_product_id" name="product_id" value="${product.product_id}">
 								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
@@ -128,15 +123,40 @@
 			   </ul>
 			    <ul class="panel">
 			         <li>
-		         		${sellerInfo.member_id}<br>
-						${sellerInfo.seller_reg_num}<br>
-						${sellerInfo.seller_company_info}<br>
-						${sellerInfo.seller_company_tel}<br>
-						${sellerInfo.seller_company_main_address}<br>
-						${sellerInfo.seller_company_sub_address }<br>
-						${sellerInfo.seller_company_email }<br>
-						${sellerInfo.seller_company_name}<br>
-						${sellerInfo.seller_company_head_name}<br>
+			         	<div class="sub_title">▶ 업체 정보</div>
+						<table class="table_seller_info" border="1">
+							<tr>
+								<td>사업자 등록 번호</td>
+								<td>${sellerInfo.seller_reg_num}</td>
+							</tr>
+							<tr>
+								<td>사업장명</td>
+								<td>${sellerInfo.seller_company_name}</td>
+							</tr>
+							<tr>
+								<td>대표</td>
+								<td>${sellerInfo.seller_company_head_name}</td>
+							</tr>
+							<tr>
+								<td>회사 안내 사항</td>
+								<td>${sellerInfo.seller_company_info}</td>
+							</tr>
+							<tr>
+								<td>고객 상담 센터</td>
+								<td>${sellerInfo.seller_company_tel}</td>
+							</tr>
+							<tr>
+								<td>이메일 문의</td>
+								<td>${sellerInfo.seller_company_email }</td>
+							</tr>
+							<tr>
+								<td>주소</td>
+								<td>${sellerInfo.seller_company_main_address} ${sellerInfo.seller_company_sub_address }</td>
+							</tr>
+						</table>
+						
+						
+						
 			         </li>
 			    </ul>
 			   <div class="tab_class" id="tab3"></div>
@@ -160,11 +180,12 @@
 			   </script>
 			   <ul class="panel">
 		         <li> 
-	         		<table border="1" style="border-collapse:collapse;">
-	         			<tr>
+		         <div class="sub_title">▶ 고객 후기</div>
+	         		<table class ="table_review">
+	         			<tr class="view_tr">
 	         				<th>번호</th>
 	         				<th>별점</th>
-	         				<th width="400">제목</th>
+	         				<th>제목</th>
 	         				<th>작성자</th>
 	         				<th>작성일</th>
 	         				<th>조회</th>
@@ -172,8 +193,8 @@
 			         	<tbody id="tbody">
 				         	<c:forEach var="review" items="${reviewList}">
 				         		<tr>
-				         			<td>${review.review_number }</td>
-				         			<td>
+				         			<td id="tr_review_number" align="center">${review.review_number }</td>
+				         			<td align="center">
 				         				<input type="hidden" value="${review.review_score}" class="review_score">
 					         			<p class="star_review_score">
 									        <span>★</span>
@@ -195,12 +216,14 @@
 								    </script>
 				         			</td>
 				         			<td class="class_review_tit">${review.review_title}</td>
-				         			<td>${review.member_id }</td>
-				         			<td>${review.review_date }</td>
-				         			<td>${review.review_views }</td>
+				         			<td align="center">${review.member_id }</td>
+				         			<td align="center">
+				         			<fmt:formatDate value="${review.review_date }" pattern="yyyy.MM.dd HH:mm"/>
+				         			</td>
+				         			<td align="center">${review.review_views }</td>
 				         		</tr>
 				         		<tr style="display:none" class="class_review_content">
-				         			<td colspan="6">
+				         			<td colspan="6" align="left" style="padding: 20px;">
 				         				<c:if test="${not empty review.review_img}">
 				         					<img src="<c:url value='/board/review/img?product_id=${product.product_id}&review_number=${review.review_number}'/>" width="100px" height="100px"/>
 				         				</c:if>
@@ -210,18 +233,18 @@
 				         	</c:forEach>
 			         	</tbody>
 			         	<tr>
-			         		<td colspan="6">
+			         		<td colspan="6" align="center">
 			         			<c:if test="${reviewPagingManager.nowPage gt 1 }">
-			         				<a href = '<c:url value="/product/${product.product_id}?reviewPage=1"/>'>처음</a>
+			         				<a class="a_paging" href = '<c:url value="/product/${product.product_id}?reviewPage=1"/>'>처음</a>
 				                </c:if>
 				                <c:if test="${reviewPagingManager.nowBlock gt 1 }">
-			         				<a href = '<c:url value="/product/${product.product_id}?reviewPage=${reviewPagingManager.startPage-1}"/>'>이전</a>
+			         				<a class="a_paging" href = '<c:url value="/product/${product.product_id}?reviewPage=${reviewPagingManager.startPage-1}"/>'>이전</a>
 				                </c:if>
 				                <c:forEach var="i" begin="${reviewPagingManager.startPage}" end="${reviewPagingManager.endPage}">
-			         				<a href = '<c:url value="/product/${product.product_id}?reviewPage=${i}"/>'>${i}</a>
+			         				<a class="a_paging a_num" href = '<c:url value="/product/${product.product_id}?reviewPage=${i}"/>'>${i}</a>
 				                </c:forEach> 
 				                <c:if test="${reviewPagingManager.nowBlock lt reviewPagingManager.totalBlock}">
-			         				<a href = '<c:url value="/product/${product.product_id}?reviewPage=${reviewPagingManager.endPage+1}"/>'>다음</a>
+			         				<a class="a_paging" href = '<c:url value="/product/${product.product_id}?reviewPage=${reviewPagingManager.endPage+1}"/>'>다음</a>
 				                </c:if>
 				                <c:if test="${reviewPagingManager.nowPage lt reviewPagingManager.totalPage}">
 			         				<a href = '<c:url value="/product/${product.product_id}?reviewPage=${reviewPagingManager.totalPage}"/>'>끝</a>
@@ -323,10 +346,10 @@
 			document.getElementById("p_minus_btn").disabled="disabled";
 			}
 		document.getElementById("p_count_num").innerText=p_num;
-		document.getElementById("p_tprice_value").innerText=(originalPrice*p_num).toLocaleString();
+		document.getElementById("p_tprice_value").innerText=(originalPrice*parseInt(p_num)).toLocaleString();
 		if(originalPrice*p_num<50000){
 			document.getElementById("p_delivery_price").innerText=deliveryPrice.toLocaleString()+" 원";
-			document.getElementById("free_del_condition").innerText='5만원 이상 구매 시 무료배송';
+			document.getElementById("free_del_condition").innerText='( 5만원 이상 구매 시 무료배송 )';
 			document.getElementById("pOrder_delivery_price").value=deliveryPrice;
 		}
 		}

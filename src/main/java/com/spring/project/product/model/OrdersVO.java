@@ -25,8 +25,8 @@ public class OrdersVO {
 	private int sales_month;
 	private int sales_year;
 	
-	
 
+	
 	@Override
 	public String toString() {
 		return "OrdersVO [member_id=" + member_id + ", product_name=" + product_name + ", product_id=" + product_id
