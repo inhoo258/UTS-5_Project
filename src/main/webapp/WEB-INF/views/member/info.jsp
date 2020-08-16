@@ -198,33 +198,33 @@
 				                   <td><input type="button" value="발송처리"></td>
 				                   <td><input type="button" value="발송취소"></td>
 									<td>
-				               		order_group_number : ${sellerOrderList.order_group_number }<br>
-				               		order_date : ${sellerOrderList.order_date }<br>
-				               		ordered_price : ${sellerOrderList.ordered_price }<br>
-				               		orderer_name : ${sellerOrderList.orderer_name }<br>
-				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br>
-				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br>
-				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br>
-				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br>
-				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br>
-				               		order_request : ${sellerOrderList.order_request }<br>
-				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br>
-				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br>
-				               		seller_company_name : ${sellerOrderList.seller_company_name }<br>
-				               		member_id : ${sellerOrderList.member_id}<br>
-				               		product_id : ${sellerOrderList.product_id}<br>
-				               		order_date : ${sellerOrderList.order_date}<br>
-				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br>
-				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br>
-				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br>
-				               		order_product_count : ${sellerOrderList.order_product_count}<br>
-				               		order_price : ${sellerOrderList.order_price}<br>
-				               		order_status : ${sellerOrderList.order_status}<br>
-				               		order_number : ${sellerOrderList.order_number}<br>
-				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br>
-				               		order_request : ${sellerOrderList.order_request}<br>
-				               		order_group_number : ${sellerOrderList.order_group_number}<br>
-				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br>
+<%-- 				               		order_group_number : ${sellerOrderList.order_group_number }<br> --%>
+<%-- 				               		order_date : ${sellerOrderList.order_date }<br> --%>
+<%-- 				               		ordered_price : ${sellerOrderList.ordered_price }<br> --%>
+<%-- 				               		orderer_name : ${sellerOrderList.orderer_name }<br> --%>
+<%-- 				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br> --%>
+<%-- 				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br> --%>
+<%-- 				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br> --%>
+<%-- 				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br> --%>
+<%-- 				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br> --%>
+<%-- 				               		order_request : ${sellerOrderList.order_request }<br> --%>
+<%-- 				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br> --%>
+<%-- 				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br> --%>
+<%-- 				               		seller_company_name : ${sellerOrderList.seller_company_name }<br> --%>
+<%-- 				               		member_id : ${sellerOrderList.member_id}<br> --%>
+<%-- 				               		product_id : ${sellerOrderList.product_id}<br> --%>
+<%-- 				               		order_date : ${sellerOrderList.order_date}<br> --%>
+<%-- 				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br> --%>
+<%-- 				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br> --%>
+<%-- 				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br> --%>
+<%-- 				               		order_product_count : ${sellerOrderList.order_product_count}<br> --%>
+<%-- 				               		order_price : ${sellerOrderList.order_price}<br> --%>
+<%-- 				               		order_status : ${sellerOrderList.order_status}<br> --%>
+<%-- 				               		order_number : ${sellerOrderList.order_number}<br> --%>
+<%-- 				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br> --%>
+<%-- 				               		order_request : ${sellerOrderList.order_request}<br> --%>
+<%-- 				               		order_group_number : ${sellerOrderList.order_group_number}<br> --%>
+<%-- 				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br> --%>
 				               </td>
 				               </tr>				               		
 				               		<hr>
@@ -513,7 +513,7 @@
     	//그래프 j쿼리
 	    var ctx = document.getElementById('myChart');
    		let cnt = 0 ;
-   		let total_price = 0 ;
+   		let MonthlyTotal_price = 0 ;
    		let month_sales_cnt = [];
    		let month_order_cnt	 = [];
    		let month_total_price = [];
@@ -541,13 +541,15 @@
 										console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
 										console.log("order_price : "+monthly_sales[i][j].order_price);
 									cnt += monthly_sales[i][j].order_product_count;
-									total_price += monthly_sales[i][j].order_price;
+									MonthlyTotal_price += monthly_sales[i][j].order_price * monthly_sales[i][j].order_product_count;
 										console.log("cnt:"+cnt);
+										console.log("MonthlyTotal_price : "+MonthlyTotal_price);
 								}
 								month_sales_cnt.push(cnt);
 								month_order_cnt.push(monthly_sales[i].length);	
-								month_total_price.push(total_price);	
+								month_total_price.push(MonthlyTotal_price);	
 								cnt = 0;
+								MonthlyTotal_price=0;
 	                		}else{
 	                			month_sales_cnt.push(0);
 								month_order_cnt.push(0);
@@ -638,26 +640,25 @@
 			+"<th>판매건 수 </th>"
 			+"<th>판매 수량</th>"
 			+"<th>매출 액</th>"
-// 			+"<th>배송비</th>"
 			+"<th>취소건 수</th>"
 			+"</tr>"
 // 	    chartData +=
 // 	    (function(){
-	
+		let totalPrice=0;
 	    	for(var y = 0 ; y < 12; y++){
 	    		chartData += "<tr>"
 				+"<td>"+(y+1)+"월</td>"
-				+"<td>"+month_order_cnt[y]+"</td>"
-				+"<td>"+month_sales_cnt[y]+"</td>"
-				+"<td>"+month_total_price[y]+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
-// 				+"<td>2250원</td>"
+				+"<td>"+month_order_cnt[y].toLocaleString()+"</td>"
+				+"<td>"+month_sales_cnt[y].toLocaleString()+"</td>"
+				+"<td>"+month_total_price[y].toLocaleString()+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
 				+"<td>1</td>"
-				+"</tr>"
+				+"</tr>";
+				totalPrice+=month_total_price[y];
 	    	}
 	    	
 	    	chartData +="<tr>"
 			+"<td colspan='6' class='myChart_total_price'>"
-			+"<span >총 매출액 : 111111222원</span>"
+			+"<span >총 매출액 : "+totalPrice.toLocaleString()+"원</span>"
 			+"</td>"
 			+"</tr>"
 	    	+"</table>"

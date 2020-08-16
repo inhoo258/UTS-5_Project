@@ -335,3 +335,9 @@ legend {
 	color: #333;
 	font-size: 18px;
 }
+#screen_check{
+   position:absolute;
+   color: white;
+   top:850px;
+   left: 120px;
+}
