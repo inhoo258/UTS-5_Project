@@ -86,16 +86,18 @@ public interface IOrderRepository {
 	@Select("select nvl(max(order_number),0) from orders")
 	public int getMaxOrderNumber();
 
-	@Select("select order_group_number, order_date, order_product_count * order_price as ordered_price, mem.member_name as orderer_name, sel.seller_bank_account, "
-			+ "sel.seller_bank_name, order_delivery_price, order_receiver_name, order_receiver_main_address, "
-			+ "order_receiver_sub_address, order_receiver_tel, order_request, sel.seller_company_name "
+	@Select("select order_group_number, order_date, order_price * order_product_count as ordered_price, mem.member_name as orderer_name, order_delivery_price "
 			+ "from orders ord "
 			+ "join members mem "
-			+ "on mem.member_id = ord.member_id "
-			+ "join products prd "
-			+ "on prd.product_id = ord.product_id "
-			+ "join seller_info sel "
-			+ "on prd.member_id = sel.member_id "
+			+ "on ord.member_id = mem.member_id "
 			+ "where order_group_number = #{order_group_number}")
 	public List<OrderedVO> getOrderResult(int order_group_number);
+
+	@Select("select o.member_id member_id, o.product_id product_id, o.order_date, ORDER_RECEIVER_MAIN_ADDRESS, ORDER_RECEIVER_NAME, order_receiver_tel, order_product_count, order_price, order_status, order_number, order_receiver_sub_address, order_request, order_group_number,order_delivery_price "
+			+ "from orders o "
+			+ "join PRODUCTS p "
+			+ "on o.product_id = p.product_id "
+			+ "join members m "
+			+ "on p.member_id = #{member_id} ")
+	public List<OrderedVO> getSellerAdminOrderList(String member_id);
 }

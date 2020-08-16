@@ -3,8 +3,11 @@ package com.spring.project.board.model;
 import java.sql.Date;
 
 public class QnAVO {
-	private int qna_rn;
+	private int product_id;
+	private int q_rn;
+	private int q_number;
 	private String member_id;
+	private String member_name;
 	private Date q_date;
 	private String q_title;
 	private String q_category;
@@ -13,12 +16,36 @@ public class QnAVO {
 	private int q_group;
 	private int q_step;
 	
-	public int getQna_rn() {
-		return qna_rn;
+	public int getProduct_id() {
+		return product_id;
 	}
 
-	public void setQna_rn(int qna_rn) {
-		this.qna_rn = qna_rn;
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
+	}
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public int getQ_rn() {
+		return q_rn;
+	}
+
+	public void setQ_rn(int q_rn) {
+		this.q_rn = q_rn;
+	}
+
+	public int getQ_number() {
+		return q_number;
+	}
+
+	public void setQ_number(int q_number) {
+		this.q_number = q_number;
 	}
 
 	public String getMember_id() {

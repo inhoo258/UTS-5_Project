@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
 import com.spring.project.common.PagingManager;
 import com.spring.project.member.service.IMemberService;
@@ -42,7 +43,8 @@ public class ProductController {
 	private JavaMailSender mailSender;
 	@Autowired
 	ReviewService reviewService;
-	
+	@Autowired
+	QnAService qnaService;
 
 	// -------------cart------------
 	// 전체 장바구니 목록(관리자용)
@@ -165,7 +167,6 @@ public class ProductController {
 	}
 
 
-//	// =======================================
 //	// -------------Product------------
 //	// 전체 상품 목록
 	@RequestMapping("/list")
@@ -188,19 +189,31 @@ public class ProductController {
 
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
-	public String getProduct(@PathVariable("product_id") int product_id,@RequestParam(value = "reviewPage", required = false)String reviewPage, Model model) {
+	public String getProduct(
+			@PathVariable("product_id") int product_id,
+			@RequestParam(value = "reviewPage", required = false)String reviewPage, 
+			@RequestParam(value="qnaPage",required=false)String qnaPage,
+			Model model) {
 		System.out.println("reviewPage : "+reviewPage);
 		if(reviewPage!=null) {
 			model.addAttribute("reviewRequest","reviewRequest");
 		}else {
 			reviewPage="1";
 		}
+		if(qnaPage!=null) {
+			model.addAttribute("qnaRequest","qnaRequest");
+		}else {
+			qnaPage="1";
+		}
 		int rPage = Integer.parseInt(reviewPage);
+		int qPage = Integer.parseInt(qnaPage);
 		ProductsVO product = productService.getProduct(product_id);
 		model.addAttribute("product", product);
 		model.addAttribute("sellerInfo",memberService.getSellerInfo(product.getMember_id()));
 		model.addAttribute("reviewList",reviewService.getReviewList(product_id,rPage));
 		model.addAttribute("reviewPagingManager",new PagingManager(reviewService.getTotalCount(product_id), rPage));
+		model.addAttribute("qnaList",qnaService.getQnAList(qPage));
+		model.addAttribute("qnaPagingManager",new PagingManager(qnaService.getTotalCount(product_id),qPage));
 		return "product/view";
 	}
 
@@ -228,39 +241,4 @@ public class ProductController {
 		return "redirect:/member/info";
 	}
 	
-//	//판매자페이지에서의 상품 조회
-//	@GetMapping("/sellerProductList")
-//	public void viewSellerProductList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model, Authentication authentication ){
-//		String member_id = authentication.getName();
-//		model.addAttribute("productList", productService.getSellerProductList(member_id, page));
-//		model.addAttribute("totalCount", productService.getTotalCount(member_id));
-//		PagingManager pagingManager = new PagingManager(productService.getTotalCount(member_id), page);
-//		model.addAttribute("pagingManager",pagingManager); //이전 다음 페이지번호
-//	}
-	
-	
-	
-
-	
-	
-//	// 상품 출고,재고없음
-//	@RequestMapping("")
-//	public String deleteProduct(@PathVariable int product_id) {
-//		productService.deleteProduct(product_id);
-//		return "";
-//	}
-//
-//	// 팔린 만큼 수량 감소
-//	@RequestMapping("")
-//	public String minusProductCount(@PathVariable int minusCount, int product_id) {
-//		productService.minusProductCount(minusCount, product_id);
-//		return "";
-//	}
-//
-//	// 입고 만큼 수량 증가
-//	@RequestMapping("")
-//	public String PlusProductCount(@PathVariable int plusCount, int product_id) {
-//		productService.plusProductCount(plusCount, product_id);
-//		return "";
-//	}
 }

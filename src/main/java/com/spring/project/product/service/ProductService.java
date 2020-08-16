@@ -66,4 +66,5 @@ public class ProductService {
 	public List<ProductsVO> getNewestProducts() {
 		return productRepository.getNewestProducts();
 	}
+
 }
