@@ -167,7 +167,6 @@ public class ProductController {
 	}
 
 
-//	// =======================================
 //	// -------------Product------------
 //	// 전체 상품 목록
 	@RequestMapping("/list")
@@ -242,39 +241,4 @@ public class ProductController {
 		return "redirect:/member/info";
 	}
 	
-//	//판매자페이지에서의 상품 조회
-//	@GetMapping("/sellerProductList")
-//	public void viewSellerProductList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model, Authentication authentication ){
-//		String member_id = authentication.getName();
-//		model.addAttribute("productList", productService.getSellerProductList(member_id, page));
-//		model.addAttribute("totalCount", productService.getTotalCount(member_id));
-//		PagingManager pagingManager = new PagingManager(productService.getTotalCount(member_id), page);
-//		model.addAttribute("pagingManager",pagingManager); //이전 다음 페이지번호
-//	}
-	
-	
-	
-
-	
-	
-//	// 상품 출고,재고없음
-//	@RequestMapping("")
-//	public String deleteProduct(@PathVariable int product_id) {
-//		productService.deleteProduct(product_id);
-//		return "";
-//	}
-//
-//	// 팔린 만큼 수량 감소
-//	@RequestMapping("")
-//	public String minusProductCount(@PathVariable int minusCount, int product_id) {
-//		productService.minusProductCount(minusCount, product_id);
-//		return "";
-//	}
-//
-//	// 입고 만큼 수량 증가
-//	@RequestMapping("")
-//	public String PlusProductCount(@PathVariable int plusCount, int product_id) {
-//		productService.plusProductCount(plusCount, product_id);
-//		return "";
-//	}
 }

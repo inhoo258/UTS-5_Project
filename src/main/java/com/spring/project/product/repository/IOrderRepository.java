@@ -92,4 +92,12 @@ public interface IOrderRepository {
 			+ "on ord.member_id = mem.member_id "
 			+ "where order_group_number = #{order_group_number}")
 	public List<OrderedVO> getOrderResult(int order_group_number);
+
+	@Select("select o.member_id member_id, o.product_id product_id, o.order_date, ORDER_RECEIVER_MAIN_ADDRESS, ORDER_RECEIVER_NAME, order_receiver_tel, order_product_count, order_price, order_status, order_number, order_receiver_sub_address, order_request, order_group_number,order_delivery_price "
+			+ "from orders o "
+			+ "join PRODUCTS p "
+			+ "on o.product_id = p.product_id "
+			+ "join members m "
+			+ "on p.member_id = #{member_id} ")
+	public List<OrderedVO> getSellerAdminOrderList(String member_id);
 }

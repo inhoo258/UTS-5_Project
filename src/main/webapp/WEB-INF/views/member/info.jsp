@@ -125,21 +125,13 @@
                     <form action="/project/product/deleteSellerPoduct" method="post">
 							<table border="1" style="border-collapse: collapse; text-align: center;">
 								<tr>
-									<td>
-									 전체 선택 
-									</td>
+									<td> 전체선택 </td>
 									<td rowspan="2">제품번호</td>
-									<td rowspan="2">
-										제품명
-									</td>
-									<td rowspan="2">
-										상품가격
-									</td>
-									<td rowspan="2">
-										상품재고
-									</td>
+									<td rowspan="2"> 제품명 </td>
+									<td rowspan="2"> 상품가격 </td>
+									<td rowspan="2"> 상품재고 </td>
 									<td>
-									 	상품 등록 : 
+									 	상품 등록 >>
 									</td>
 									<td colspan="2"><input type="button" value="등록" id="btn_upload" onclick="window.open('/project/product/upload','새창','width:800px')"></td>
 								</tr>
@@ -159,7 +151,7 @@
 											<td>
 												<div id="productimgframe"><img src='<c:url value="/product/img/${product.product_id}"/>'> </div>
 			                                <div id="producttextframe">
-			                                    <span>${product.product_name}asdjfklsadjfkljsdklfjlaksjdaklf</span>
+			                                    <span>${product.product_name}</span>
 			                                </div>
 			                                <input type="hidden" value="${product.product_id }" class="hidden_product_id" name="product_ids">
 											</td>
@@ -177,38 +169,69 @@
 						</form>
                 	</div>
                 </div>
-                
-                
                 <div>
                     <h2>주문 관리</h2>
-                    <div id="contents_orderlist_search">
-                    	<table border="1">
-                    		<tr>
-                    			<td>검 색</td>
-                    			<td><input type="text"></td>
-                    			<td>13</td>
-                    			<td>14</td>
-	                    	</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    		<tr>
-                    			<td>21</td>
-                    			<td>22</td>
-                    			<td>23</td>
-                    			<td>24</td>
-                    		</tr>
-                    	</table>
-                    </div>
+				       <div id="order_div_list">
+				           <table border="1">
+				               <tr>
+				                   <td>전체선택</td>
+				                   <td>주문번호</td>
+				                   <td>주문일</td>
+				                   <td>배송추적</td>
+				                   <td>발송일</td>
+				                   <td colspan="2">발송/취소</td>
+<!-- 				                   	발주 완료되고 신규 주문에서 개수 빠지고 배송중 등으로 변경  -->
+				               </tr>
+				               <tr>
+				               		<td><input type="checkbox"></td>
+				               		<td></td>
+				               </tr>
+				               <c:forEach var="sellerOrderList" items="${sellerOrderList }" >
+				               <div>
+				               <tr>
+				                   <td><input type="checkbox"></td>
+<!-- 				                   주문번호를 클릭하면 해당 주문의 상세내역이 나올수 있게 -->
+				                   <td><a href="#">주문번호넣어주세요</a></td>
+				                   <td>주문한날짜넣어주세요</td>
+				                   <td>배송 전 중 후</td>
+				                   <td>발송일</td>
+				                   <td><input type="button" value="발송처리"></td>
+				                   <td><input type="button" value="발송취소"></td>
+									<td>
+				               		order_group_number : ${sellerOrderList.order_group_number }<br>
+				               		order_date : ${sellerOrderList.order_date }<br>
+				               		ordered_price : ${sellerOrderList.ordered_price }<br>
+				               		orderer_name : ${sellerOrderList.orderer_name }<br>
+				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br>
+				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br>
+				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br>
+				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br>
+				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br>
+				               		order_request : ${sellerOrderList.order_request }<br>
+				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br>
+				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br>
+				               		seller_company_name : ${sellerOrderList.seller_company_name }<br>
+				               		member_id : ${sellerOrderList.member_id}<br>
+				               		product_id : ${sellerOrderList.product_id}<br>
+				               		order_date : ${sellerOrderList.order_date}<br>
+				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br>
+				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br>
+				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br>
+				               		order_product_count : ${sellerOrderList.order_product_count}<br>
+				               		order_price : ${sellerOrderList.order_price}<br>
+				               		order_status : ${sellerOrderList.order_status}<br>
+				               		order_number : ${sellerOrderList.order_number}<br>
+				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br>
+				               		order_request : ${sellerOrderList.order_request}<br>
+				               		order_group_number : ${sellerOrderList.order_group_number}<br>
+				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br>
+				               </td>
+				               </tr>				               		
+				               		<hr>
+				               </c:forEach>
+				           </table>
+				    </div>	
+                    
                 </div>
                 <!-- 지현 start ============================== -->
 				<!--  5.월별 매출 통계 -->
@@ -217,9 +240,7 @@
 					<table>
 						<tr>
 							<td>
-								<table width="100%" border="0" align="center" cellpadding="0"
-									cellspacing="0"
-									style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0">
+								<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="BORDER: #dcdcdc 1px solid; padding: 0 0 0 0">
 									<tr height="0">
 										<td width="15%"></td>
 										<td width="*%"></td>
@@ -251,7 +272,6 @@
     <script type="text/javascript">
 		//전체 선택===========================================
 		let checkCnt = 0;
-
 		$("#checkAll").on("click",function(){
 			if($(this).prop("checked")){
 				$("input[name=checkOne]").prop("checked", true);
@@ -327,18 +347,6 @@
 	            }
 	            if(contents_div_index == 2){
 	            	$("#contents_div").css({"overflow" : "auto" , "height" : "100%"})
-	            }else if(contents_div_index == 3){
-					console.log('3번 클릭');	    			
-	            	$.ajax({
-	    				url:'<c:url value="/product/sellerProductList"/>',
-	    				type:'GET',
-	    				success:function(seller_product_list){
-// 	    					alert(seller_product_list);
-// 	    					$('#contents_sellerprdoct_list').append(seller_product_list);
-	    				},error:function(){
-	    					alert('실패');
-	    				}
-	    			}) 
 	            }else if(contents_div_index == 5){
 	            	console.log("매출 통계")
 	            	sales_month(2020);
@@ -504,10 +512,10 @@
 			xhr.onreadystatechange = function () {
 	            if (xhr.readyState === xhr.LOADING) {
 	                $("#loding").show();
-	            }
+	            };
 	            if (xhr.readyState === xhr.DONE) {
 	                if (xhr.status === 200 || xhr.status === 201) {
-	                	let monthly_sales = JSON.parse(xhr.responseText)
+	                	let monthly_sales = JSON.parse(xhr.responseText);
 	                	console.log("monthly_sales : "+monthly_sales);
 	                	console.log(monthly_sales);
 	                	console.log(monthly_sales.length);
@@ -532,7 +540,7 @@
 	                }
 	                
 	                insertChart(month_sales_cnt)
-	            }
+	            };
 	        }
 	    }
 	    function insertChart(month_sales_cnt){
@@ -591,7 +599,7 @@
 				}
 	        }
 	    });
-	    }
+    }
 	</script>
 	<!-- 지현 start ============================== -->
 </body>
