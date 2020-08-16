@@ -114,7 +114,7 @@ public class MemberService implements IMemberService {
 	}
 	
 	@Override
-	public List<List<OrdersVO>> getMonthlySales(String member_id, String year) {
+	public List<List<OrdersVO>> getMonthlySales(String member_id, int year) {
 		List<List<OrdersVO>> list = new ArrayList<List<OrdersVO>>();
 		for(int month = 1 ; month <= 12 ; month++) {
 			List<OrdersVO> innerList = memberRepository.getMonthlySales(member_id ,year, month);

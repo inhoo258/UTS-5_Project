@@ -33,7 +33,7 @@ public interface IMemberRepository {
 			+ "EXTRACT(year FROM order_date) as sales_year ,ord.product_id, ord.order_product_count, ord.order_price from orders ord "
 			+ "join products pro on pro.product_id = ord.product_id where pro.member_id = #{0}) "
 			+ "where sales_year = #{1} and sales_month = #{2}")
-	public List<OrdersVO> getMonthlySales(String member_id, String year, int month);
+	public List<OrdersVO> getMonthlySales(String member_id, int year, int month);
 //지현 end==============================	
 	// 권한 수정========================================================================
 	@Update("update members set member_enabled=#{0} where member_id = #{1}")

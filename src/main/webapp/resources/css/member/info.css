@@ -502,3 +502,40 @@
 #orderview_details_table tr th:nth-child(1) {
 	width: 150px;
 }
+/*=======================================================월별 매출 관리*/
+.div_myChart{
+	padding-top: 30px;
+}
+
+/*표*/
+.myChart_sub_tit{
+	text-align: center;
+	color: #333c43;
+	margin-top: 50px;
+	font-size: 23px;
+	font-weight: 600;
+}
+.table_myChart{
+	border: 1px solid #909090;
+	border-collapse: collapse;
+	width: 900px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.table_myChart tr{
+	height: 40px;
+}
+
+.table_myChart th{
+	background-color: #f3f3f3;
+	
+}
+
+.myChart_total_price{
+		text-align: left;
+		padding-left: 10px;
+}
+
+
