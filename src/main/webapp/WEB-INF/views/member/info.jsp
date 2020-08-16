@@ -476,9 +476,11 @@
     	//그래프 j쿼리
 	    var ctx = document.getElementById('myChart');
    		let cnt = 0 ;
+   		let total_price = 0 ;
    		let month_sales_cnt = [];
+   		let month_order_cnt	 = [];
+   		let month_total_price = [];
 	    function sales_month(year){
-	    	console.log("year : " + year);
 		    var xhr = new XMLHttpRequest();
 	        xhr.open("post", "/project/member/rest/monthly_sales");
 	        xhr.setRequestHeader("content-type", "application/json");
@@ -491,9 +493,6 @@
 	            if (xhr.readyState === xhr.DONE) {
 	                if (xhr.status === 200 || xhr.status === 201) {
 	                	let monthly_sales = JSON.parse(xhr.responseText)
-	                	console.log("monthly_sales : "+monthly_sales);
-	                	console.log(monthly_sales);
-	                	console.log(monthly_sales.length);
 	                	for (var i = 0; i < monthly_sales.length; i++) { 
 	                		console.log((i+1)+"월 : "+i)
 	                		if(monthly_sales[i].length!=0){
@@ -501,26 +500,34 @@
 		                				console.log("구매건의  인덱스j : "+j);
 										console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
 										console.log("order_price : "+monthly_sales[i][j].order_price);
-									cnt += monthly_sales[i][j].order_product_count
+									cnt += monthly_sales[i][j].order_product_count;
+									total_price += monthly_sales[i][j].order_price;
 										console.log("cnt:"+cnt);
 								}
 								month_sales_cnt.push(cnt);
+								month_order_cnt.push(monthly_sales[i].length);	
+								month_total_price.push(total_price);	
 								cnt = 0;
 	                		}else{
 	                			month_sales_cnt.push(0);
+								month_order_cnt.push(0);
+								month_total_price.push(0);
 	                		} 
 						}
 	                }
 	                insertChart(month_sales_cnt);
 	                month_sales_cnt = [];
+	                month_order_cnt = [];
+	                month_total_price = [];
 	            }
 	        }
 	    }
 	    
 	    $("#fd_year").on("change",function(){
-	    	console.log($("#fd_year option:selected").val());
+	    	let selectedYear = $("#fd_year option:selected").val();
 	    	sales_month(parseInt($("#fd_year option:selected").val()));
 	    	$("#fd_month>option[value="+nowYear+"]").attr("selected", "true"); 
+	    	$("#selected_year").text(selectedYear);
 	    	$("#div_myChart").next().remove()
 	    	
 	    });
@@ -532,7 +539,7 @@
 	        data: {
 	            labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월', '8월', '9월', '10월', '11월', '12월'],   // 차트 라벨명=> 날짜가 들어와야함
 	            datasets: [{
-	                label: '#월별 상품 판매량 ', 
+	                label: '#월별 상품 판매 수량 ', 
 	                data: [ 
 		                	month_sales_cnt[0] , month_sales_cnt[1] ,month_sales_cnt[2] ,month_sales_cnt[3] ,month_sales_cnt[4] ,month_sales_cnt[5],
 		                	month_sales_cnt[6] ,month_sales_cnt[7] ,month_sales_cnt[8] ,month_sales_cnt[9] ,month_sales_cnt[10] ,month_sales_cnt[11] 
@@ -583,14 +590,14 @@
 	        }
 	    });
 	    
-	    let chartData = "<div id='id_myChart'><div class='myChart_sub_tit'>2020년 매출 요약</div>"
+	    let chartData = "<div id='id_myChart'><div class='myChart_sub_tit'><span id='selected_year'>2020</span>년 매출 요약</div>"
 	    	+"<table class='table_myChart' border='1'>"
 			+"<tr>"
 			+"<th>월</th>"
 			+"<th>판매건 수 </th>"
 			+"<th>판매 수량</th>"
 			+"<th>매출 액</th>"
-			+"<th>배송비</th>"
+// 			+"<th>배송비</th>"
 			+"<th>취소건 수</th>"
 			+"</tr>"
 // 	    chartData +=
@@ -599,10 +606,10 @@
 	    	for(var y = 0 ; y < 12; y++){
 	    		chartData += "<tr>"
 				+"<td>"+(y+1)+"월</td>"
-				+"<td>3</td>"
+				+"<td>"+month_order_cnt[y]+"</td>"
 				+"<td>"+month_sales_cnt[y]+"</td>"
-				+"<td>2,1111원</td>"
-				+"<td>2250원</td>"
+				+"<td>"+month_total_price[y]+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
+// 				+"<td>2250원</td>"
 				+"<td>1</td>"
 				+"</tr>"
 	    	}
