@@ -66,5 +66,9 @@ public class ProductService {
 	public List<ProductsVO> getNewestProducts() {
 		return productRepository.getNewestProducts();
 	}
+	//메인 페이지 인기상품
+	public  List<ProductsVO> getPopularProductList() {
+		return productRepository.getPopularProductList();
+	}
 
 }

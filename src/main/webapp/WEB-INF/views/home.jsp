@@ -30,6 +30,12 @@
             <span id=next_span5 class="next_span"></span>
             <span id=next_span6 class="next_span"></span>
         </div>
+        <div id=screen_check>
+        	<label>
+        		<input type="checkbox" id=screen_checkbox>
+        		다시 보지 않기
+        	</label>
+        </div>
         <div id="section_commonse0" class="section_commonse">
             <div id=exit class="exit">
                 <span id=exit_span1></span>
@@ -84,23 +90,23 @@
 	        </fieldset>
 	        <div class="product_list_frame">
 		        <div class="div_product_list">
-			        <c:forEach var="product" items="${productList}">
+			        <c:forEach var="newestProduct" items="${newestProductList}">
 				             <div class="productframe">
 				                <div class="imgframe">
-				                    <a href='<c:url value="/product/${product.product_id}"/>'>
-				                   	 	<img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'>
+				                    <a href='<c:url value="/product/${newestProduct.product_id}"/>'>
+				                   	 	<img class="productimg" src='<c:url value="/product/img/${newestProduct.product_id}"/>'>
 				                   	</a>
 				                </div>
 				                <div class="productname">
 				                    <label id="productname">
-					                    <a href='<c:url value="/product/${product.product_id}"/>'>
-					                    	[${product.seller_company_name}]${product.product_name}
+					                    <a href='<c:url value="/product/${newestProduct.product_id}"/>'>
+					                    	[${newestProduct.seller_company_name}]${newestProduct.product_name}
 					                    </a>
 				                    </label>
 				                </div>
 				                <div class="productprice">
 				                    <label id="productprice">
-				                    <fmt:formatNumber value="${product.product_price }" pattern="#,###"/>원
+				                    <fmt:formatNumber value="${newestProduct.product_price }" pattern="#,###"/>원
 				                    </label>
 				                </div>
 				            </div>
@@ -122,23 +128,23 @@
 	        </fieldset>
 	        <div class="product_list_frame">
 		        <div class="div_product_list">
-			        <c:forEach var="product" items="${productList}">
+			        <c:forEach var="popularProduct" items="${popularProductList}">
 				             <div class="productframe">
 				                <div class="imgframe">
-				                    <a href='<c:url value="/product/${product.product_id}"/>'>
-				                   	 	<img class="productimg" src='<c:url value="/product/img/${product.product_id}"/>'>
+				                    <a href='<c:url value="/product/${popularProduct.product_id}"/>'>
+				                   	 	<img class="productimg" src='<c:url value="/product/img/${popularProduct.product_id}"/>'>
 				                   	</a>
 				                </div>
 				                <div class="productname">
 				                    <label id="productname">
-					                    <a href='<c:url value="/product/${product.product_id}"/>'>
-					                    	${product.product_name}
+					                    <a href='<c:url value="/product/${popularProduct.product_id}"/>'>
+					                    	${popularProduct.product_name}
 					                    </a>
 				                    </label>
 				                </div>
 				                <div class="productprice">
 				                    <label id="productprice">
-				                    <fmt:formatNumber value="${product.product_price }" pattern="#,###"/>원
+				                    <fmt:formatNumber value="${popularProduct.product_price }" pattern="#,###"/>원
 				                    </label>
 				                </div>
 				            </div>
@@ -150,14 +156,13 @@
     </section>
 	
 	<script type="text/javascript">
-		if(sessionStorage.getItem("mainCheck") == "true"){
-			$("#main_home").css({"display":"none"});
-			$("header").css({"display" : "inline"});
-            $("#header>div:nth-child(1)").animate({"opacity":"1"},2000);
-            $("body").css({"height" : "2000px"});
-            $("#home_main_section").css({"display" : "flex"});
-            $("#home_main_section").animate({"opacity":"1"},2000);
-		}
+		if(sessionStorage.getItem("mineSession")=="screen_off"){
+	        $("#main_home").css({"display":"none"});
+	        $("#header>div:nth-child(1)").css({"opacity":"1"});
+	        $("header").css({"display" : "inline"});
+	        $("#home_main_section").css({"opacity":"1"});
+	        $("#home_main_section").css({"display" : "flex"});
+	     }
 	</script>
     
 	<script>
@@ -191,7 +196,11 @@
 	            $("body").css({"height" : "2000px"});
 	            $("#home_main_section").css({"display" : "flex"});
 	            $("#home_main_section").animate({"opacity":"1"},2000);
-	            sessionStorage.setitem("mainCheck" , "true");
+	            if($("#screen_checkbox").is(":checked") == true){
+		            if(sessionStorage.length == 0){
+		            sessionStorage.setItem("mineSession", "screen_off");
+		            }
+	            }
 	        },2000);
 	        
 	    })

@@ -35,9 +35,11 @@
 					<ul>
 						<li><a>&nbsp;&nbsp;개인 정보 수정</a>>&nbsp;&nbsp;</li>
 						<li><a>&nbsp;&nbsp;나의 구매 목록</a>>&nbsp;&nbsp;</li>
+						<sec:authorize access="hasRole('ROLE_SELLER')">
 						<li><a>&nbsp;&nbsp;상품 총 관리</a>>&nbsp;&nbsp;</li>
 						<li><a>&nbsp;&nbsp;주문 총 관리</a>>&nbsp;&nbsp;</li>
 						<li><a>&nbsp;&nbsp;월별 매출 통계</a>>&nbsp;&nbsp;</li>
+						</sec:authorize>
 					</ul>
 				</section>
 			</div>
@@ -386,19 +388,14 @@
 					member_id:member_id,
 					order_group_number:order_number
 				},success:function(order_list_info){
-					console.log(order_list_info[0][0])
-					console.log(order_list_info[0][1])
-					console.log(order_list_info[1][0])
-					console.log(order_list_info[1][1])
-					console.log(order_list_info[1][0].order_group_number)
 					$("#orderview_details_table").remove()
 					let orderview_details = "";
 					let orderview = "";
 					(function(){
 						for(var i = 0 ; i < order_list_info.length ; i++){
 							orderview = "<table id='orderview_details_table'>"
-							+"<tr><th>상품이미지</th><th>상품상세정보</th><th>배송상태</th><th>후기/확인/취소</th>"
 							+"<tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
+							+"<tr><th>상품이미지</th><th>상품상세정보</th><th>배송상태</th><th>후기/확인/취소</th>"
 							+(function(){
 								for(var y = 0 ; y < order_list_info[i].length ; y++){
 									var price = numberWithCommas(order_list_info[i][y].order_price);
@@ -416,27 +413,31 @@
 										+"<td>"
 										+"<div class='order_status'>"+order_list_info[i][y].order_status+"</div>"
 										+"</td>"
-										+"<td>"
+										+"<th>"
 										+"<form name='reviewForm'>"
 										+"<input type='hidden' name='member_id' value='"+order_list_info[i][y].member_id+"'>"
 										+"<input type='hidden' name='order_number' value='"+order_list_info[i][y].order_number+"'>"
 								    	+"<input type='hidden' name='table_number_index' value='"+table_number+"'>"
 								    	+"<input type='hidden' name='order_group_number' value='"+order_number+"'>"
-										+"<input type='button' value='상품 평 작성 >' class='review_writing'>"
+										+"<input type='button' value='상품 평 작성' class='review_writing'><br>"
+										+"<input type='button' value='구매 확정'>"
 										+"</form>"
 										+"<input type='hidden' class='review_check' value='"+order_list_info[i][y].review_check+"'>"
 										+"<input type='hidden' value='"+order_list_info[i][y].review_check+"'>"
-										+"</td>"
+										+"</th>"
 										+"</tr>"
 								}
 								return orderview_details
 							})()
 							+"<tr>"
-							+"<td colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</td>"
-							+"<th colspan='2'>"
+							+"<th colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</th>"
+							+"<th></th>"
+							+"<th>"
+							+"<form>"
 							+"<input type='hidden' name='order_group_number' value='"+order_list_info[i][0].order_group_number+"'>"
-							+"<input type='hidden' name='member_id' value='${member_id}'>"
-							+"<input id='cancel_btn' type='submit' value='주문 취소'>"
+							+"<input id='cancel_btn' type='button' value='주문 취소' onclick='deleteCheck(this.form)'>"
+							+"<input id='hidden_table_number' value='"+table_number+"' type='hidden'>"
+							+"</form>"
 							+"</th>"
 							+"</tr>"
 							+"</table>"
@@ -446,6 +447,7 @@
 					
 					review_check();
 					$(".review_writing").addClass("on");
+					$("#cancel_btn").addClass("on");
 				}
 			})
 	    }
@@ -483,6 +485,27 @@
             reviewForm.submit();
        	});
 	    
+	    function deleteCheck(form){
+	 	   let conf = confirm("주문을 취소 하시겠습니까?");
+	 	   if(conf){
+	 		   console.log("order_group_number : " + form.order_group_number.value);
+	 		   $.ajax({
+	 			  url:'/project/product/rest/deleteOrder',
+	 			  type:'POST',
+	 			  data:{
+	 				  order_group_number:form.order_group_number.value
+	 			  },success:function(){
+	 				  $("table.orderlist_table")[$("#hidden_table_number").val()-1].remove();
+	 				  //주문 내역이 더이상 없을 경우 뭐 하나 해줘야함!
+	 			  },error:function(e){
+	 				  console.log("error : "+e);
+	 			  }
+	 		   });
+	 	   }else{
+	 		   alert("취소 되었습니다.")
+	 	   }
+	    }
+	    
 	    
 // 		가격 패턴 함수
 		function numberWithCommas(value) {
@@ -513,7 +536,8 @@
     	//그래프 j쿼리
 	    var ctx = document.getElementById('myChart');
    		let cnt = 0 ;
-   		let total_price = 0 ;
+   		let monthlyTotal_price = 0 ;
+   		let monthly_canceled_count=0;
    		let month_sales_cnt = [];
    		let month_order_cnt	 = [];
    		let month_total_price = [];
@@ -537,17 +561,19 @@
 	                		console.log((i+1)+"월 : "+i)
 	                		if(monthly_sales[i].length!=0){
 	                			for (var j = 0; j < monthly_sales[i].length; j++) {
-		                				console.log("구매건의  인덱스j : "+j);
-										console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
-										console.log("order_price : "+monthly_sales[i][j].order_price);
+	                				console.log("구매건의  인덱스j : "+j);
+									console.log("order_product_count : "+monthly_sales[i][j].order_product_count);
+									console.log("order_price : "+monthly_sales[i][j].order_price);
 									cnt += monthly_sales[i][j].order_product_count;
-									total_price += monthly_sales[i][j].order_price;
-										console.log("cnt:"+cnt);
+									monthlyTotal_price += monthly_sales[i][j].order_price * monthly_sales[i][j].order_product_count;
+									console.log("cnt:"+cnt);
+									console.log("monthlyTotal_price : "+monthlyTotal_price);
 								}
 								month_sales_cnt.push(cnt);
 								month_order_cnt.push(monthly_sales[i].length);	
-								month_total_price.push(total_price);	
+								month_total_price.push(monthlyTotal_price);	
 								cnt = 0;
+								monthlyTotal_price=0;
 	                		}else{
 	                			month_sales_cnt.push(0);
 								month_order_cnt.push(0);
@@ -555,7 +581,7 @@
 	                		} 
 						}
 	                }
-	                insertChart(month_sales_cnt,year);
+	                insertChart(month_sales_cnt,month_order_cnt,month_total_price,year);
 	                month_sales_cnt = [];
 	                month_order_cnt = [];
 	                month_total_price = [];
@@ -572,7 +598,7 @@
 	    	
 	    });
 	    
-	    function insertChart(month_sales_cnt,year){
+	    function insertChart(month_sales_cnt,month_order_cnt,month_total_price,year){
 	    	console.log(month_sales_cnt)
 		    var myChart = new Chart(ctx, {
 		        type: 'line',
@@ -638,26 +664,25 @@
 			+"<th>판매건 수 </th>"
 			+"<th>판매 수량</th>"
 			+"<th>매출 액</th>"
-// 			+"<th>배송비</th>"
 			+"<th>취소건 수</th>"
 			+"</tr>"
 // 	    chartData +=
 // 	    (function(){
-	
+		let totalPrice=0;
 	    	for(var y = 0 ; y < 12; y++){
 	    		chartData += "<tr>"
 				+"<td>"+(y+1)+"월</td>"
-				+"<td>"+month_order_cnt[y]+"</td>"
-				+"<td>"+month_sales_cnt[y]+"</td>"
-				+"<td>"+month_total_price[y]+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
-// 				+"<td>2250원</td>"
-				+"<td>1</td>"
-				+"</tr>"
+				+"<td>"+month_order_cnt[y].toLocaleString()+"</td>"
+				+"<td>"+month_sales_cnt[y].toLocaleString()+"</td>"
+				+"<td>"+month_total_price[y].toLocaleString()+"원</td>"  //이상함 확인해봐야함~~~~~~~~~~
+				+"<td>없음</td>"
+				+"</tr>";
+				totalPrice+=month_total_price[y];
 	    	}
 	    	
 	    	chartData +="<tr>"
 			+"<td colspan='6' class='myChart_total_price'>"
-			+"<span >총 매출액 : 111111222원</span>"
+			+"<span >총 매출액 : "+totalPrice.toLocaleString()+"원</span>"
 			+"</td>"
 			+"</tr>"
 	    	+"</table>"

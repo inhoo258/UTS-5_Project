@@ -282,6 +282,7 @@
 	margin-bottom: 50px;
 	border-left: none;
 	border-right: none;
+	border-bottom:none;
 	margin-top: 50px;
 }
 
@@ -471,36 +472,47 @@
 
 #orderview_details_table{
 	width: 100%;
+	border-collapse: collapse;
 }
 
 #orderview_details_table input[type=button] , input[type=submit]{
-	width: 200px;
-	height: 50px;
-	background-color: azure;
+	margin-top:10px;
+	width: 150px;
+	height: 40px;
+	background-color: #2a365c;
 	border: 1px solid #2a365c;
 	cursor: pointer;
+	color:azure;
 	
 }
 #orderview_details_table input[type=button]:hover , input[type=submit]:hover{
-	background-color: #2a365c;
-	border: 1px solid #2a365c;
-	color: azure;
+	background-color: azure;
+	border: 2px solid #2a365c;
+	color: #2a365c;
+	
 	
 }
 
-#orderview_details_table tr:nth-child(2) {
-	height: 50px;
+#orderview_details_table tr:nth-child(1) div{
+	margin-top: 50px;
 }
-#orderview_details_table tr:nth-child(1) {
-	height: 50px;
-}
-#orderview_details_table tr:nth-child(1) th {
+#orderview_details_table tr:nth-child(1) th{
 	text-align: right;
-	padding-right: 50px;
+	padding-right: 30px;
+}
+#orderview_details_table tr:nth-child(2){
+	height: 100px;	
+}
+#orderview_details_table tr:nth-child(2) th{
+	border-top: 3px solid #2a365c;
 }
 
-#orderview_details_table tr th:nth-child(1) {
-	width: 150px;
+#orderview_details_table tr:last-child th{
+	border-bottom: 3px solid #2a365c;
+}
+
+#orderview_details_table tr:last-child {
+	height: 100px;
 }
 /*=======================================================월별 매출 관리*/
 .div_myChart{
