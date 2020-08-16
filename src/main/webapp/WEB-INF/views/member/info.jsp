@@ -370,8 +370,8 @@
 					(function(){
 						for(var i = 0 ; i < order_list_info.length ; i++){
 							orderview = "<table id='orderview_details_table'>"
-							+"<tr><th>상품이미지</th><th>상품상세정보</th><th>배송상태</th><th>후기/확인/취소</th>"
 							+"<tr><th colspan='4'><div>배송 또는 상품에 문제가 있나용?<a href='#'>1:1 문의하기 ></a></div></th></tr>"
+							+"<tr><th>상품이미지</th><th>상품상세정보</th><th>배송상태</th><th>후기/확인/취소</th>"
 							+(function(){
 								for(var y = 0 ; y < order_list_info[i].length ; y++){
 									var price = numberWithCommas(order_list_info[i][y].order_price);
@@ -389,24 +389,26 @@
 										+"<td>"
 										+"<div class='order_status'>"+order_list_info[i][y].order_status+"</div>"
 										+"</td>"
-										+"<td>"
+										+"<th>"
 										+"<form name='reviewForm'>"
 										+"<input type='hidden' name='member_id' value='"+order_list_info[i][y].member_id+"'>"
 										+"<input type='hidden' name='order_number' value='"+order_list_info[i][y].order_number+"'>"
 								    	+"<input type='hidden' name='table_number_index' value='"+table_number+"'>"
 								    	+"<input type='hidden' name='order_group_number' value='"+order_number+"'>"
-										+"<input type='button' value='상품 평 작성 >' class='review_writing'>"
+										+"<input type='button' value='상품 평 작성' class='review_writing'><br>"
+										+"<input type='button' value='구매 확정'>"
 										+"</form>"
 										+"<input type='hidden' class='review_check' value='"+order_list_info[i][y].review_check+"'>"
 										+"<input type='hidden' value='"+order_list_info[i][y].review_check+"'>"
-										+"</td>"
+										+"</th>"
 										+"</tr>"
 								}
 								return orderview_details
 							})()
 							+"<tr>"
-							+"<td colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</td>"
-							+"<th colspan='2'>"
+							+"<th colspan='2'>배송비 : "+order_list_info[i][0].order_delivery_price+"</th>"
+							+"<th></th>"
+							+"<th>"
 							+"<input type='hidden' name='order_group_number' value='"+order_list_info[i][0].order_group_number+"'>"
 							+"<input type='hidden' name='member_id' value='${member_id}'>"
 							+"<input id='cancel_btn' type='submit' value='주문 취소'>"
