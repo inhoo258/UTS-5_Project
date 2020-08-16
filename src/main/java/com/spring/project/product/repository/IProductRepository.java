@@ -78,6 +78,12 @@ public interface IProductRepository {
 			+ "where rownum <=4 "
 			+ "order by prd.product_sold_count desc")
 	public List<ProductsVO> getPopularProductList();
+	@Update("update products "
+			+ "set product_count=product_count + #{1}, "
+			+ "product_sold_count = product_sold_count - #{1}, "
+			+ "product_canceled_count = product_canceled_count + #{1} "
+			+ "where product_id = #{0}")
+	public void cancelOrder(int product_id, int order_product_count);
 	
 
 
