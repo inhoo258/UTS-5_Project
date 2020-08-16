@@ -453,15 +453,176 @@
 
 
 /*========================================================주문관리*/
-#contents_orderlist_search {
+#order_div_list{
+    width: 100%;
+}
+#order_div_list>div:nth-child(1){
+    padding-top: 27px;
+    padding-left: 20px;
+    height: 50px;
+}
+#order_div_list>div:nth-child(1)>input[type=button]{
+    width: 100px;
+    height: 40px;
+    margin-left: 10px;
+    color: #2a365c;
+    outline: none;
+    background-color: azure;
+    border: 2px solid #2a365c;
+}
+#order_div_list>div:nth-child(1)>input[type=button]:hover{
+    color: white;
+    outline: none;
+    background-color: #2a365c;
+    cursor: pointer;
+}
+#order_div_list table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+#order_div_list tr:nth-child(1){
+    height: 60px;
+    color: white;
+    font-weight: bold;
+    background-color: #2a365c;
+}
+#order_div_list tr:nth-child(n+2){
+    height: 80px;
+    background-color: azure;
+}
+#order_div_list td:nth-child(1){
+	width: 25px;
+}
+#order_div_list td:nth-child(2){
+	width: 100px;
+}
+#order_div_list td:nth-child(3){
+	width: 100px;
+}
+#sellerframe{
+/* 	display:flex; */
+	display:inline-block;
+}
+#sellerproductimgframe{
+	display:inline-block;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+#sellerproductimgframe img{
+    width: 100%;
+    height: 100%;
+}
+#sellerproducttextframe{
+	display:inline-block;
+    overflow: auto;
+    width: 200px;
+    heigh: 40px;
+    margin-bottom: 30px;
+}
+#sellerproducttextframe>span{
+    font-size: 30px;
+}
+#order_div_list td:nth-child(4){
+    width: 100px;
+}
+#order_div_list td:nth-child(5){
+}
+#order_div_list td:nth-child(6){
+    width: 100px;
+}
+#order_div_list td:nth-child(7){
+    width: 100px;
+}
+#order_div_list td:nth-child(8){
+    width: 100px;
+}
+#order_div_list td:nth-child(9){
+    width: 100px;
+}
+#order_div_list input[type=button]{
+    width: 80px;
+    height: 40px;
+    color: #2a365c;
+    outline: none;
+    background-color: azure;
+    border: 2px solid #2a365c;
+}
+#order_div_list input[type=button]:hover{
+    color: white;
+    outline: none;
+    background-color: #2a365c;
+    cursor: pointer;
+}
+/* ==================================================== 주문내역*/
+#orderview_details_table{
 	width: 100%;
-	height: 230px;
-	background-color: yellowgreen;
-	margin-top: 20px;
-	margin-bottom: 40px;
 }
 
-#contents_orderlist_search table {
-	width: 100%;
-	height: 100%;
+#orderview_details_table input[type=button] , input[type=submit]{
+	width: 200px;
+	height: 50px;
+	background-color: azure;
+	border: 1px solid #2a365c;
+	cursor: pointer;
+	
 }
+#orderview_details_table input[type=button]:hover , input[type=submit]:hover{
+	background-color: #2a365c;
+	border: 1px solid #2a365c;
+	color: azure;
+	
+}
+
+#orderview_details_table tr:nth-child(2) {
+	height: 50px;
+}
+#orderview_details_table tr:nth-child(1) {
+	height: 50px;
+}
+#orderview_details_table tr:nth-child(1) th {
+	text-align: right;
+	padding-right: 50px;
+}
+
+#orderview_details_table tr th:nth-child(1) {
+	width: 150px;
+}
+/*=======================================================월별 매출 관리*/
+.div_myChart{
+	padding-top: 30px;
+}
+
+/*표*/
+.myChart_sub_tit{
+	text-align: center;
+	color: #333c43;
+	margin-top: 50px;
+	font-size: 23px;
+	font-weight: 600;
+}
+.table_myChart{
+	border: 1px solid #909090;
+	border-collapse: collapse;
+	width: 900px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.table_myChart tr{
+	height: 40px;
+}
+
+.table_myChart th{
+	background-color: #f3f3f3;
+	
+}
+
+.myChart_total_price{
+		text-align: left;
+		padding-left: 10px;
+}
+
+

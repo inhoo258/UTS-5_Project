@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.project.board.service.QnAService;
 import com.spring.project.board.service.ReviewService;
 import com.spring.project.common.PagingManager;
 import com.spring.project.member.service.IMemberService;
@@ -42,7 +43,8 @@ public class ProductController {
 	private JavaMailSender mailSender;
 	@Autowired
 	ReviewService reviewService;
-	
+	@Autowired
+	QnAService qnaService;
 
 	// -------------cart------------
 	// 전체 장바구니 목록(관리자용)
@@ -187,19 +189,31 @@ public class ProductController {
 
 	// 한개의 상품 정보
 	@RequestMapping("{product_id}")
-	public String getProduct(@PathVariable("product_id") int product_id,@RequestParam(value = "reviewPage", required = false)String reviewPage, Model model) {
+	public String getProduct(
+			@PathVariable("product_id") int product_id,
+			@RequestParam(value = "reviewPage", required = false)String reviewPage, 
+			@RequestParam(value="qnaPage",required=false)String qnaPage,
+			Model model) {
 		System.out.println("reviewPage : "+reviewPage);
 		if(reviewPage!=null) {
 			model.addAttribute("reviewRequest","reviewRequest");
 		}else {
 			reviewPage="1";
 		}
+		if(qnaPage!=null) {
+			model.addAttribute("qnaRequest","qnaRequest");
+		}else {
+			qnaPage="1";
+		}
 		int rPage = Integer.parseInt(reviewPage);
+		int qPage = Integer.parseInt(qnaPage);
 		ProductsVO product = productService.getProduct(product_id);
 		model.addAttribute("product", product);
 		model.addAttribute("sellerInfo",memberService.getSellerInfo(product.getMember_id()));
 		model.addAttribute("reviewList",reviewService.getReviewList(product_id,rPage));
 		model.addAttribute("reviewPagingManager",new PagingManager(reviewService.getTotalCount(product_id), rPage));
+		model.addAttribute("qnaList",qnaService.getQnAList(qPage));
+		model.addAttribute("qnaPagingManager",new PagingManager(qnaService.getTotalCount(product_id),qPage));
 		return "product/view";
 	}
 

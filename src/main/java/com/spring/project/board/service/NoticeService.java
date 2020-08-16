@@ -35,7 +35,6 @@ public class NoticeService {
 	// 공지사항 수정 시 정보 가지고 오기
 	public NoticeVO getNoticeInfo(int notice_rn) {
 		return noticeRepository.getNotice(notice_rn);
-		
 	}
 
 	//공지사항 수정

@@ -20,24 +20,39 @@ public class EventService{
 		return eventRepository.getEventList(start, end);
 	}
 
-	public EventVO getEvent(String event_title) {
-		return eventRepository.getEvent(event_title);
+	public EventVO getEvent(int event_rn) {
+		EventVO event = eventRepository.getEvent(event_rn);
+		eventRepository.updateViews(event.getEvent_number());
+		return event;
+	}
+	
+	public String getTitle(int event_rn) {
+		return eventRepository.getTitle(event_rn);
 	}
 
-	public void insertEvent(String member_id, String event_content, byte[] event_img, int event_group, int event_step,
-			String event_title) {
-		eventRepository.insertEvent(member_id, event_content, event_img, event_group, event_step, event_title);
+	public void updateEvent(EventVO eventVO) {
+		eventRepository.updateEvent(eventVO);
 	}
 
-	public void updateEvent(String evnet_content) {
-		eventRepository.updateEvent(evnet_content);
+	public void deleteView(int event_rn) {
+		eventRepository.deleteView(event_rn);
 	}
-
-	public void updateViews() {
-		eventRepository.updateViews();
-	}
-
+	
 	public int getTotalCount() {
 		return eventRepository.getTotalCount();
+	}
+	
+	public void insertEvent(EventVO eventVO) {
+		eventVO.setEvent_number(eventRepository.getMaxEventNumber()+1);
+		eventRepository.insertEvent(eventVO);
+	}
+
+	public void insertEventWithFile(EventVO eventVO) {
+		eventVO.setEvent_number(eventRepository.getMaxEventNumber()+1);
+		eventRepository.insertEventWithFile(eventVO);
+	}
+	
+	public EventVO getNoticeInfo(int event_rn) {
+		return eventRepository.getEvent(event_rn);
 	}
 }

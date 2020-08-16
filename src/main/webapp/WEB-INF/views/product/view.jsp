@@ -20,6 +20,9 @@
 </head>
 <body>
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
+    <c:set var="member_id">
+    	<sec:authentication property="principal.username"/>
+    </c:set>
      <section id="view_section">
         <div class="p_product_main">
             <div class="p_product_collection">
@@ -89,7 +92,7 @@
 							<form name='myForm'>
 								<input type="hidden" id = "pOrder_product_id" name="product_id" value="${product.product_id}">
 								<input type="hidden" id = "pOrder_count" name="pOrder_count" value="">
-								<input type="hidden" id = "pOrder_member_id" name="member_id" value="<sec:authentication property="principal.username"/>">
+								<input type="hidden" id = "pOrder_member_id" name="member_id" value="${member_id}">
 								<input type="hidden" id="pOrder_delivery_price" name="delivery_price" value="${sellerInfo.product_delivery_price}">
 								<input class="btn" type="button" value ="주문하기" onclick="redirectOrder()"> 
 								<input class="btn" type="button" value ="장바구니담기" onclick="redirectInsertCart()"> 
@@ -146,8 +149,12 @@
 			   <script type="text/javascript">
 			   $(window).on("load",function(){
 					let reviewRequest = '${reviewRequest}';
+					let qnaRequest = '${qnaRequest}';
 					if(reviewRequest=="reviewRequest"){
 						location.href="#tab3";
+					}
+					if(qnaRequest=='qnaRequest'){
+						location.href="#tab4";
 					}
 				});
 			   </script>
@@ -232,13 +239,60 @@
 			      <li><a href="#tab4" class="on">상품 문의()</a></li>
 			   </ul>
 			   <ul class="panel">
-			         <li> 문의 탭 </li>
+			         <li>
+			         	PRODUCT Q&A
+						상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.
+						배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.
+						<table border="1" style="border-collapse:collapse;">
+							<thead>
+			         			<tr>
+			         				<th>번호</th>
+			         				<th>카테고리</th>
+			         				<th width="400">제목</th>
+			         				<th>작성자</th>
+			         				<th>작성일</th>
+			         			</tr>
+		         			</thead>
+				         	<tbody>
+				         		<c:forEach var="qna" items="${qnaList}">
+				         		<tr>
+									<td>${qna.q_rn}</td>
+									<td>${qna.q_category}</td>
+									<td>${qna.q_title}</td>
+									<td>${qna.member_id}</td>
+									<td>${qna.q_date}</td>
+				         		</tr>
+				         		</c:forEach>
+				         		<tr>
+				         			<td><input type="button" onclick="qnaPop()" value="상품문의"></td>
+				         		</tr>
+				         	</tbody>
+				         	<tr>
+				         		<td colspan="6">
+				         			<c:if test="${qnaPagingManager.nowPage gt 1 }">
+				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=1"/>'>처음</a>
+					                </c:if>
+					                <c:if test="${qnaPagingManager.nowBlock gt 1 }">
+				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=${qnaPagingManager.startPage-1}"/>'>이전</a>
+					                </c:if>
+					                <c:forEach var="i" begin="${qnaPagingManager.startPage}" end="${qnaPagingManager.endPage}">
+				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=${i}"/>'>${i}</a>
+					                </c:forEach> 
+					                <c:if test="${qnaPagingManager.nowBlock lt qnaPagingManager.totalBlock}">
+				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=${qnaPagingManager.endPage+1}"/>'>다음</a>
+					                </c:if>
+					                <c:if test="${qnaPagingManager.nowPage lt qnaPagingManager.totalPage}">
+				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=${qnaPagingManager.totalPage}"/>'>끝</a>
+					                </c:if>
+				         		</td>
+				         	</tr>
+		         		</table>
+			         </li>
 			   </ul>
 			</nav>
         </div>
         	
     </section>
-<!--     </div> -->
 <hr>
 </body>
 <script type="text/javascript">
@@ -342,7 +396,9 @@
 			$(this).parent().next().attr("style","display:none");
 		}
 	});
-	
+	function qnaPop(){
+		window.open("/project/board/qna/form/"+product_id,"page", "width=600, height=800, resizable = no, scrollbars = no");  
+	}
 	
 	
 </script>

@@ -105,7 +105,7 @@ public class OrderService{
 		System.out.println("order_group_number : "+order_group_number);
 		return orderRepository.getOrderResult(order_group_number);
 	}
-	public List<OrderedVO> getSellerAdminOrderList(String member_id) {
+	public List<OrdersVO> getSellerAdminOrderList(String member_id) {
 		return orderRepository.getSellerAdminOrderList(member_id);
 	}
 }

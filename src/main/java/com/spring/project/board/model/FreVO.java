@@ -1,7 +1,6 @@
 package com.spring.project.board.model;
 
 public class FreVO {
-	
 	private int fre_number;
 	private String fre_category;
 	private String fre_title;
@@ -31,9 +30,6 @@ public class FreVO {
 	public void setFre_content(String fre_content) {
 		this.fre_content = fre_content;
 	}
-
-	
-	
 	
 }
 	
