@@ -46,7 +46,7 @@
 	              <td><input type="text" id="product_name" name="product_name" class="input_text" value="${product.product_name}"></td>        
 	          </tr>
 	          <tr>
-	              <th>판매가</th>
+	              <th>상품 판매가</th>
 	              <td><input type="text" id="product_price" name="product_price" class="input_text" value="${product.product_price}"></td>        
 	          </tr>
 	          <tr>

@@ -71,6 +71,13 @@ public interface IProductRepository {
 			+ "(product_id, member_id, product_info, product_name, product_img, product_count, product_price, product_weight, product_img_name) "
 			+ "values(#{product_id}, #{member_id}, #{product_info}, #{product_name}, #{product_img}, #{product_count}, #{product_price}, #{product_weight}, #{product_img_name})")
 	public void insertProduct(ProductsVO product);
+	@Select("select prd.product_id, prd.member_id, prd.product_name, prd.product_price, sel.seller_company_name "
+			+ "from products prd "
+			+ "join seller_info sel "
+			+ "on prd.member_id = sel.member_id "
+			+ "where rownum <=4 "
+			+ "order by prd.product_sold_count desc")
+	public List<ProductsVO> getPopularProductList();
 	
 
 
