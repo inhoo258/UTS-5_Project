@@ -178,9 +178,9 @@
 					}
 				});
 			   </script>
-			   <ul class="panel">
+			   <ul class="panel" id=custommer_ul>
 		         <li> 
-		         <div class="sub_title">▶ 고객 후기</div>
+		         <div class="sub_title" >▶ 고객 후기</div>
 	         		<table class ="table_review">
 	         			<tr class="view_tr">
 	         				<th>번호</th>
@@ -234,6 +234,7 @@
 			         	</tbody>
 			         	<tr>
 			         		<td colspan="6" align="center">
+			         		<div>
 			         			<c:if test="${reviewPagingManager.nowPage gt 1 }">
 			         				<a class="a_paging" href = '<c:url value="/product/${product.product_id}?reviewPage=1"/>'>처음</a>
 				                </c:if>
@@ -249,6 +250,7 @@
 				                <c:if test="${reviewPagingManager.nowPage lt reviewPagingManager.totalPage}">
 			         				<a href = '<c:url value="/product/${product.product_id}?reviewPage=${reviewPagingManager.totalPage}"/>'>끝</a>
 				                </c:if>
+				            </div>
 			         		</td>
 			         	</tr>
 	         		</table>
@@ -261,37 +263,34 @@
 			      <li><a href="#tab3">고객 후기(<span id="reviewCounts">${reviewPagingManager.totalCount}</span>)</a></li>
 			      <li><a href="#tab4" class="on">상품 문의()</a></li>
 			   </ul>
-			   <ul class="panel">
+			   <ul class="panel" id=product_Q_N_A>
 			         <li>
-			         	PRODUCT Q&A
-						상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.
-						배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.
-						<table border="1" style="border-collapse:collapse;">
-							<thead>
-			         			<tr>
-			         				<th>번호</th>
-			         				<th>카테고리</th>
-			         				<th width="400">제목</th>
-			         				<th>작성자</th>
-			         				<th>작성일</th>
-			         			</tr>
-		         			</thead>
-				         	<tbody>
-				         		<c:forEach var="qna" items="${qnaList}">
-				         		<tr>
-									<td>${qna.q_rn}</td>
-									<td>${qna.q_category}</td>
-									<td>${qna.q_title}</td>
-									<td>${qna.member_id}</td>
-									<td>${qna.q_date}</td>
-				         		</tr>
-				         		</c:forEach>
-				         		<tr>
-				         			<td><input type="button" onclick="qnaPop()" value="상품문의"></td>
-				         		</tr>
-				         	</tbody>
+			         	<div id=qna_title>
+				         	<h3>PRODUCT Q&A</h3>
+			         	</div>
+						<div id=insert_qna>
+	         				<input type="button" onclick="qnaPop()" value="상품문의">
+						</div>
+						<table>
+		         			<tr>
+		         				<th>번호</th>
+		         				<th>카테고리</th>
+		         				<th width="400">제목</th>
+		         				<th>작성자</th>
+		         				<th>작성일</th>
+		         			</tr>
+			         		<c:forEach var="qna" items="${qnaList}">
+			         		<tr>
+								<td>${qna.q_rn}</td>
+								<td>${qna.q_category}</td>
+								<td>${qna.q_title}</td>
+								<td>${qna.member_id}</td>
+								<td>${qna.q_date}</td>
+			         		</tr>
+			         		</c:forEach>
 				         	<tr>
 				         		<td colspan="6">
+						         	<div>
 				         			<c:if test="${qnaPagingManager.nowPage gt 1 }">
 				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=1"/>'>처음</a>
 					                </c:if>
@@ -307,9 +306,16 @@
 					                <c:if test="${qnaPagingManager.nowPage lt qnaPagingManager.totalPage}">
 				         				<a href = '<c:url value="/product/${product.product_id}?qnaPage=${qnaPagingManager.totalPage}"/>'>끝</a>
 					                </c:if>
+					         		</div>
 				         		</td>
 				         	</tr>
 		         		</table>
+		         		<div id=qna_desc>
+		         			상품에 대한 문의를 남기는 공간입니다.<br>
+		         			 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.<br>
+							배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.
+		         		</div>
+		         		
 			         </li>
 			   </ul>
 			</nav>

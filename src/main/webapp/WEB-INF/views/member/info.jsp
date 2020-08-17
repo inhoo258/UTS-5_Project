@@ -288,6 +288,8 @@
             </div>
         </div>
     </div>
+    </div>
+    <jsp:include page ="../header&footer/footer.jsp"/>
     <script type="text/javascript">
 		//전체 선택===========================================
 		let checkCnt = 0;

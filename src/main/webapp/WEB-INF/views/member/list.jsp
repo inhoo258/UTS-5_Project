@@ -137,6 +137,7 @@
             </div>
         </div>
     </div>
+    <jsp:include page ="../header&footer/footer.jsp"/>
 	<script>
 		$("#memberinfo_div").hide();
 		$("#memberlist_menubar>ul>li a").click(function() {
