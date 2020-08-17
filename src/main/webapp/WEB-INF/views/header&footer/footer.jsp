@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/project/resources/css/footer.css"/>
 </head>
 <body>
-	<footer>
+	<footer id=footer>
         <div id=footer_main_div>
             <section>
                 <img src="/project/resources/img/sidebar_logo.png  ">

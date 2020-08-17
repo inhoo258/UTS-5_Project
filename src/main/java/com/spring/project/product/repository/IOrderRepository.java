@@ -104,6 +104,9 @@ public interface IOrderRepository {
 
 	@Select("select o.order_status from orders o join members m on m.member_id = o.member_id where o.order_number = #{order_num}")
 	public String statusChange(int order_num);
+
+	@Delete("delete orders where member_id = #{member_id}")
+	public void deleteOrderByMemberId(String member_id);
 	
 	
 
