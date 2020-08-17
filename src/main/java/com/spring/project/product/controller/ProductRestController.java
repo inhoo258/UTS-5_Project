@@ -116,13 +116,11 @@ public class ProductRestController {
 		}
 		@PostMapping("/statuschange")
 		public String statuschange(@RequestParam String member_id, @RequestParam String status, @RequestParam int order_num) {
-//			if(status.equals("배송중")) {
-//				System.out.println("배송중 ");
-//				return orderService.statuschange(order_num);
-//			}else if(status.equals("배송준비중"))
-				orderService.updateStatus(order_num, status);
-				return orderService.statuschange(order_num);
-
+			System.out.println("member_id : " + member_id);
+			System.out.println("status : "+ status);
+			System.out.println("order_num : " + order_num);
+			orderService.updateStatus(order_num, status);
+			return orderService.statuschange(order_num);
 		}
 	
 //	@PostMapping("/deleteSellerProduct")

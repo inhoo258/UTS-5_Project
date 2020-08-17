@@ -153,9 +153,9 @@
 	        </div>
 	    </section>
     	</div>
+    <jsp:include page ="header&footer/footer.jsp"/>
     </section>
     
-<%--     <jsp:include page ="header&footer/footer.jsp"/> --%>
 	
 	<script type="text/javascript">
 		if(sessionStorage.getItem("mineSession")=="screen_off"){
@@ -164,8 +164,8 @@
 	        $("header").css({"display" : "inline"});
 	        $("#home_main_section").css({"opacity":"1"});
 	        $("#home_main_section").css({"display" : "flex"});
-	        $("footer").css({"display" : "flex"});
-	        
+	        $("#footer").css({"opacity":"1"});
+	        $("#footer").css({"display" : "flex"});
 	     }
 	</script>
     
@@ -200,6 +200,8 @@
 	            $("body").css({"height" : "2000px"});
 	            $("#home_main_section").css({"display" : "flex"});
 	            $("#home_main_section").animate({"opacity":"1"},2000);
+	            $("#footer").css({"display":"flex"});
+	            $("#footer").animate({"opacity":"1"},2000);
 	            if($("#screen_checkbox").is(":checked") == true){
 		            if(sessionStorage.length == 0){
 		            sessionStorage.setItem("mineSession", "screen_off");

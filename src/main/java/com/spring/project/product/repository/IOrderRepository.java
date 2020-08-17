@@ -101,4 +101,14 @@ public interface IOrderRepository {
 
 	@Select("select product_id, order_product_count from orders where order_group_number=#{order_group_number}")
 	public List<OrdersVO> getOrderByOrderGroupNumber(int order_group_number);
+
+	@Update("update orders set order_status = #{1} where order_number = #{0}")
+	public void updateStatus(int order_num, String status);
+
+	@Select("select o.order_status from orders o join members m on m.member_id = o.member_id where o.order_number = #{order_num}")
+	public String statusChange(int order_num);
+
+	@Delete("delete orders where member_id = #{member_id}")
+	public void deleteOrderByMemberId(String member_id);
+	
 }
