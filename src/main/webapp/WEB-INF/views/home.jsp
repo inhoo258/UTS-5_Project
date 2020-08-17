@@ -155,7 +155,7 @@
     	</div>
     </section>
     
-    <jsp:include page ="header&footer/footer.jsp"/>
+<%--     <jsp:include page ="header&footer/footer.jsp"/> --%>
 	
 	<script type="text/javascript">
 		if(sessionStorage.getItem("mineSession")=="screen_off"){
