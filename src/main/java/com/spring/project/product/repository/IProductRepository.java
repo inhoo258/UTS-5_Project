@@ -84,6 +84,10 @@ public interface IProductRepository {
 			+ "product_canceled_count = product_canceled_count + #{1} "
 			+ "where product_id = #{0}")
 	public void cancelOrder(int product_id, int order_product_count);
+	@Select("select * from products where product_name like '%'||#{search}||'%'")
+	public List<ProductsVO> getProductListBySearch(String search);
+	@Delete("delete products where member_id = #{member_id}")
+	public void deleteProductByMemberId(String member_id);
 	
 
 

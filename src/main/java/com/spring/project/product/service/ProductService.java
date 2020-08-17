@@ -71,4 +71,9 @@ public class ProductService {
 		return productRepository.getPopularProductList();
 	}
 
+	public  List<ProductsVO> getProductListBySearch(String search) {
+		return productRepository.getProductListBySearch(search);
+	}
+
+
 }

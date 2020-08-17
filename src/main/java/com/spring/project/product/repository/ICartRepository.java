@@ -58,4 +58,6 @@ public interface ICartRepository {
 			+ "on m.member_id = p.member_id "
 			+ "where c.member_id=#{member_id}")
 	public List<CartVO> getCartInOrderSheet(String member_id);
+	@Delete("delete cart where member_id=#{member_id}")
+	public void deleteCartByMemberId(String member_id);
 }

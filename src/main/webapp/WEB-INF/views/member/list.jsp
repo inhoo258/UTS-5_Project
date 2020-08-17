@@ -90,7 +90,7 @@
         <div>
             <div id=member_table_div>
                 <div>
-                    <input type="button" value="선택 삭제">
+                    <input type="button" value="선택 삭제" id="deleteSelectedMembers">
                 </div>
                 <div>
                     <table id="list_table">
@@ -137,6 +137,44 @@
             </div>
         </div>
     </div>
+	<script type="text/javascript">
+	//선택삭제 메서드
+	$("#deleteSelectedMembers").on("click",function(){
+		let member_ids = []
+		$(".CheckEach").each(function(){
+			if($(this).prop("checked")){
+				let idx =$(".CheckEach").index(this);
+				member_ids.push($(".CheckEach_member_id").get(idx).value);
+			}
+		});
+// 		console.log(member_ids);//삭제할 멤버 아이디 배열 확인
+		$.ajax({
+			url:'/project/member/rest/deleteSelectedMembers',
+			type:'POST',
+			data:{
+				member_ids:member_ids
+			},success:function(){
+				console.log(save_pagingManager.totalPage)
+				console.log(selectVO.page)
+				
+				console.log($(".CheckEach").length)
+				console.log(member_ids.length)
+            	selectVO.page = save_delete_pagein;
+            	if(save_pagingManager.totalPage == selectVO.page && $(".CheckEach").length==member_ids.length){
+            		selectVO.page = selectVO.page-1
+            		save_page -= 1;
+            	}
+				$("#list_table tr:nth-child(n+2)").remove();
+            	$("#list_table").off();
+            	document.getElementById("Check_All").checked = false;
+            	check_in_out = true;
+				load_list_ajax(selectVO);
+			},error:function(e){
+				alert("error : "+e)
+			}
+		})
+	});
+	</script>
 	<script>
 		$("#memberinfo_div").hide();
 		$("#memberlist_menubar>ul>li a").click(function() {
@@ -290,7 +328,15 @@
 		});
 		
 		let save_page = 1;
+		
 		$("#memberlist_menubar>ul>li:nth-child(1) a").addClass("on");
+		
+		let save_delete_pagein = 1;
+		let save_pagingManager = null;
+		
+		
+		
+		
 		
 		function load_list_ajax(selectVO){
 			var xhr = new XMLHttpRequest();
@@ -318,7 +364,7 @@
 		                        		return "<th>"+
 		                        		"<label class='checkbox member_label'>"+
 		                        		"<input type='checkbox' class='CheckEach'>"+
-		                        		"<span class='member_icon icon'></span>"+
+		                        		"<span class='member_icon icon'><input type='hidden' value='"+result[i].member_id+"' class='CheckEach_member_id'></span>"+
 		                        		"</label>"+
 		                        		"</th>"
 		                        	}
@@ -452,6 +498,7 @@
 	                if (xhr.status === 200 || xhr.status === 201) {
 	                	$("#loding").hide();
 	                	let pagingManager= JSON.parse(xhr.responseText);
+	                	save_pagingManager = pagingManager;
 	                	 let paging =null;
 	                	(function(){
 	                		if(pagingManager.totalPage != 0){
@@ -500,6 +547,7 @@
 	                	
 	                	
 	            	if(pagingManager.totalPage != 0){
+	            		console.log(save_page)
 		            	document.getElementsByClassName("paging_span")[save_page-1].style.backgroundColor = "#2a365c";
 		            	document.getElementsByClassName("paging_span")[save_page-1].style.color = "white";
 	            	}
@@ -520,6 +568,7 @@
                     		select_auth:selectVO.select_auth,
                     		select_enabled:selectVO.select_enabled
                        	}
+                       	save_delete_pagein = selectVO.page
                    		load_list_ajax(selectVO);						
                    	});
 	                
@@ -536,6 +585,7 @@
                     		select_auth:selectVO.select_auth,
                     		select_enabled:selectVO.select_enabled
                         }
+                       	save_delete_pagein = selectVO.page
                    		load_list_ajax(selectVO);						
                    	});
 	                
@@ -552,6 +602,7 @@
                     		select_auth:selectVO.select_auth,
                     		select_enabled:selectVO.select_enabled
 						}
+                       	save_delete_pagein = selectVO.page
                    		load_list_ajax(selectVO);						
                    	});
 	                
@@ -568,6 +619,7 @@
                     		select_auth:selectVO.select_auth,
                     		select_enabled:selectVO.select_enabled
     					}
+                    	save_delete_pagein = selectVO.page
                    		load_list_ajax(selectVO);						
                    	});
 	                
@@ -584,6 +636,7 @@
                     		select_auth:selectVO.select_auth,
                     		select_enabled:selectVO.select_enabled
     					}
+                       	save_delete_pagein = selectVO.page
                    		load_list_ajax(selectVO);						
                    	});
 	                

@@ -103,4 +103,7 @@ public interface IOrderRepository {
 
 	@Select("select product_id, order_product_count from orders where order_group_number=#{order_group_number}")
 	public List<OrdersVO> getOrderByOrderGroupNumber(int order_group_number);
+
+	@Delete("delete orders where member_id=#{member_id}")
+	public void deleteOrderByMemberId(String member_id);
 }

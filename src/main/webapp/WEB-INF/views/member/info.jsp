@@ -83,7 +83,7 @@
 					                        <c:forEach var="order" items="${orderList}">
 					                            <c:set var="totalCost" value="${totalCost + order.order_price}" />
 					                        </c:forEach>
-					                        <table class="orderlist_table" border="1" style="border-collapse: collapse;">
+					                        <table class="orderlist_table" border="1" style="border-collapse: collapse;" id="${table_number.index+1}">
 					                            <tr onclick="pro_info(${orderList[0].order_group_number} , ${table_number.index+1})">
 					                                <td>
 					                                    <span class="order_num">
@@ -442,7 +442,8 @@
 							+"</tr>"
 							+"</table>"
 						}
-					$("#table_section table:nth-child("+table_number+")").append(orderview);
+					console.log($("#table_section table#"+table_number+""));
+					$("#table_section table#"+table_number+"").append(orderview);
 					})()
 					
 					review_check();
@@ -489,13 +490,14 @@
 	 	   let conf = confirm("주문을 취소 하시겠습니까?");
 	 	   if(conf){
 	 		   console.log("order_group_number : " + form.order_group_number.value);
+	 		   console.log("hidden_table_num : "+$("#hidden_table_number").val());
 	 		   $.ajax({
 	 			  url:'/project/product/rest/deleteOrder',
 	 			  type:'POST',
 	 			  data:{
 	 				  order_group_number:form.order_group_number.value
 	 			  },success:function(){
-	 				  $("table.orderlist_table")[$("#hidden_table_number").val()-1].remove();
+	 				 $("#table_section table#"+$("#hidden_table_number").val()+"").remove();
 	 				  //주문 내역이 더이상 없을 경우 뭐 하나 해줘야함!
 	 			  },error:function(e){
 	 				  console.log("error : "+e);
