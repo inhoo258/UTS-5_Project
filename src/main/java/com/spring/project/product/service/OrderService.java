@@ -117,7 +117,6 @@ public class OrderService{
 	}
 	public void updateStatus(int order_num, String status) {
 		orderRepository.updateStatus(order_num, status);
-		
 	}
 	public String statuschange(int order_num) {
 		return orderRepository.statusChange(order_num);

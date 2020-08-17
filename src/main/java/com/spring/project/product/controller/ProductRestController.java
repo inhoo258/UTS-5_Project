@@ -116,9 +116,11 @@ public class ProductRestController {
 		}
 		@PostMapping("/statuschange")
 		public String statuschange(@RequestParam String member_id, @RequestParam String status, @RequestParam int order_num) {
-				orderService.updateStatus(order_num, status);
-				return orderService.statuschange(order_num);
-
+			System.out.println("member_id : " + member_id);
+			System.out.println("status : "+ status);
+			System.out.println("order_num : " + order_num);
+			orderService.updateStatus(order_num, status);
+			return orderService.statuschange(order_num);
 		}
 	
 //	@PostMapping("/deleteSellerProduct")
