@@ -44,7 +44,6 @@ public class BoardRestController {
 			}
 		}
 		reviewService.insertReview(reviewVO, order_number);
-		System.out.println(reviewVO.toString());
 	}
 	@PostMapping("/qna/insert")
 	public void qnaInsert(QnAVO qna) {
@@ -52,7 +51,6 @@ public class BoardRestController {
 	}
 	@RequestMapping(value="/fre_content" , produces = "application/json;charset=UTF-8")
 	public String fre_content(@RequestParam(value="fre_number")int fre_number) {
-		System.out.println("왜안옴 ?");
 		return faqService.getContent(fre_number); 
 	}
 	

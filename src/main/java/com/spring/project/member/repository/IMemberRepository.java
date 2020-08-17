@@ -118,7 +118,7 @@ public interface IMemberRepository {
 			+ "seller_company_main_address=#{seller_company_main_address}, "
 			+ "seller_company_sub_address=#{seller_company_sub_address}, "
 			+ "seller_company_email=#{seller_company_email}, "
-			+ "seller_company_head_name=#{seller_company_head_name} "
+			+ "seller_company_head_name=#{seller_company_head_name}, "
 			+ "product_delivery_price = #{product_delivery_price} "
 			+ "where seller_reg_num=#{seller_reg_num}")
 	public void updateSellerInfo(SellerInfoVO sellerInfo);

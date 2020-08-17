@@ -17,12 +17,12 @@
    <div>
         <div id=header_div>
                <div id="header_img">
-                   <a href="/project/"><img src="/project/resources/img/main_logo.png"></a>
+                   <a href="/project/"><img src="/project/resources/images/main_logo.png"></a>
                </div>
                <span id=header_search_span>
                    <input type="text" id="header_search" placeholder="검색어를 입력해주세요">
                    <div id="header_search_img">
-                       <img src="/project/resources/img/search.png" onclick="headerSearch()">
+                       <img src="/project/resources/images/search.png" onclick="headerSearch()">
                    </div>
                    <script type="text/javascript">
                    function headerSearch(){
@@ -33,19 +33,19 @@
                <!-- 로그인 사용자 -->
                <div id="header_menu_div">
                <sec:authorize access="isAuthenticated() and hasRole('ROLE_MASTER')">
-                      <div id="information_img" title="회원 정보"><a href="/project/member/list"><img src="/project/resources/img/information.png"></a></div>
-                  <div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
+                      <div id="information_img" title="회원 정보"><a href="/project/member/list"><img src="/project/resources/images/information.png"></a></div>
+                  <div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/images/login.png"></a></div>
                </sec:authorize>
                <sec:authorize access="isAnonymous()">
-                     <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
-                     <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
-                     <div id="login_img" title="로그인"><a href="/project/login"><img src="/project/resources/img/login.png"></a></div>
+                     <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/images/information.png"></a></div>
+                     <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/images/cart.png"></a></div>
+                     <div id="login_img" title="로그인"><a href="/project/login"><img src="/project/resources/images/login.png"></a></div>
                </sec:authorize>
                
                <sec:authorize access="isAuthenticated() and hasAnyRole('ROLE_SELLER' , 'ROLE_CUSTOMER')">
- 	                 <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/img/information.png"></a></div>
-                     <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/img/cart.png"></a></div>
-                     <div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/img/login.png"></a></div>
+ 	                 <div id="information_img" title="내 정보"><a href="/project/member/info"><img src="/project/resources/images/information.png"></a></div>
+                     <div id="lastproduct_img" title="장바구니"><a href="/project/product/cart"><img src="/project/resources/images/cart.png"></a></div>
+                     <div id="login_img" title="로그아웃"><a href="/project/logout"><img src="/project/resources/images/login.png"></a></div>
                </sec:authorize>
                    <div id="header_icon">
                        <div>
@@ -61,7 +61,7 @@
            <div id="sidebar_back">
                <div id="sidebar_main">
                    <div id="sidebar_logo">
-                       <img src="/project/resources/img/header_logo.png" alt="">
+                       <img src="/project/resources/images/header_logo.png" alt="">
                    </div>
                </div>
                <div id=sidebar_icon>
@@ -74,7 +74,7 @@
                </div>
                <div id="sidebar">
                    <div id="sidebar_main_logo">
-                       <img src="/project/resources/img/sidebar_logo.png">
+                       <img src="/project/resources/images/sidebar_logo.png">
                    </div>
                         <div id="sidebar_menu_div">
                      <sec:authorize access="hasRole('ROLE_MASTER')">
