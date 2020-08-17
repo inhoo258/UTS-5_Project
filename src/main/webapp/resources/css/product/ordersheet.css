@@ -63,7 +63,10 @@
 	font-weight: 700;
 	color: #512772
 }
-
+table tr:last-child{
+	border-bottom: 1px solid #ddd;
+	
+}
 /*상세보기 버튼 누른 후*/
 #orderGoodsList .detail_table {
 	border-bottom: 1px solid #ddd;

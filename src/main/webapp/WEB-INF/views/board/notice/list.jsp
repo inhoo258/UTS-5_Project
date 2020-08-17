@@ -61,7 +61,7 @@
 				                </c:if> 
 				                <c:forEach var="i" begin="${notice_pagingManager.startPage}" end="${notice_pagingManager.endPage}">
 				                      <a class="a_paging a_num" href='<c:url value="/board/notice/list?notice_page=${i}"/>' onclick="change_color_pagingBtn()">${i}</a>
-				                </c:forEach> 
+				                </c:forEach>       
 				                <c:if test="${notice_pagingManager.nowBlock lt notice_pagingManager.totalBlock}">
 				                     <a class="a_paging" href="<c:url value='/board/notice/list?notice_page=${notice_pagingManager.endPage+1}'/>">다음</a>
 				                </c:if> 

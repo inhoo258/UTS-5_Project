@@ -65,7 +65,7 @@
 	</sec:authorize>
 	</div>
 	
-<%-- 	<jsp:include page="header&footer/footer.jsp"/> --%>
+	<jsp:include page="header&footer/footer.jsp"/>
 </body>
 <script type="text/javascript">
 	//l_id_input,[id] 아이디 name l_pwd_input[pw] 비밀번호 name [loginForm] form id

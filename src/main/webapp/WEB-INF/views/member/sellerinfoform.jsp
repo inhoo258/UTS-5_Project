@@ -92,6 +92,7 @@
 	</tr>
 </table>
 </form>
+<jsp:include page ="../header&footer/footer.jsp"/>
 <script type="text/javascript">
 function sellerInfoOk(form){
 	let nameCheck = false;

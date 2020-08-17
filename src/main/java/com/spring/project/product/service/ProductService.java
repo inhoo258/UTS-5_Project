@@ -71,4 +71,12 @@ public class ProductService {
 		return productRepository.getPopularProductList();
 	}
 
+	public String getSellerCompanyName(int product_id) {
+		return productRepository.getSellerCompanyName(product_id);
+	}
+	public  List<ProductsVO> getProductListBySearch(String search) {
+		return productRepository.getProductListBySearch(search);
+	}
+
+
 }

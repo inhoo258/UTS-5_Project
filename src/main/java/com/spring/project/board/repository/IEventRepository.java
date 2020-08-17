@@ -2,7 +2,10 @@ package com.spring.project.board.repository;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.board.model.EventVO;
@@ -46,5 +49,7 @@ public interface IEventRepository {
 	
 	@Delete("delete event_board where event_number = #{event_number}")
 	public void deleteView(int event_rn);
+	@Delete("delete event_board where member_id=#{member_id}")
+	public void deleteEventByMemberId(String member_id);
 	
 }

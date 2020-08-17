@@ -38,5 +38,8 @@ public interface IQnARepository {
 	public void insertQnA(QnAVO qna);
 	@Select ("select nvl(max(q_number),0) from q_n_a_board")
 	public int getMaxQnaNumber();
+
+	@Delete("delete q_n_a_board where member_id=#{member_id}")
+	public void deleteQnAByMemberId(String member_id);
 	
 }

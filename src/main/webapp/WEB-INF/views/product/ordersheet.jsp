@@ -29,13 +29,9 @@
                 <div class="order_goodslist">
                     <div class="show_tbl">
                         <div class="inner_show">
-                            <div class="name">${productInfo.product_name } 상품을 주문합니다.</div>
-                            <a class="show_btn" href="#none">
-                                <span class="txt" id="show_good_btn" onclick = "showMyGood()">상세보기&nbsp; <i class="fas fa-chevron-down"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div id="orderGoodsList">
+                            <div class="name">[${sellerCompanyName}]${productInfo.product_name } 상품을 주문합니다.</div>
+                            
+                       <div id="orderGoodsList">
                         <table class="detail_table">
                             <tr class="th">
                                 <th style="width: 130px;">상품 이미지</th>
@@ -46,17 +42,25 @@
                             <tr>
                                 <th><img src='<c:url value="/product/img/${productInfo.product_id }"/>' style="width: 100px;"></th>
                                 <th>
-                                	상품이름 : ${productInfo.product_info }
-                                <br>
-                                	상품가격 : <fmt:formatNumber value ="${productInfo.product_price }" pattern="#,###"/> 
+                                	<div>
+	                                	상품이름 : [${sellerCompanyName}]${productInfo.product_info }
+	                                	상품가격 : <fmt:formatNumber value ="${productInfo.product_price }" pattern="#,### 원"/> 
+                                	</div>
                                 </th>
-                                <th>${pOrder_count }</th>
-                                <th><fmt:formatNumber value="${productInfo.product_price * pOrder_count}" pattern="#,###"/></th>
+                                <th><fmt:formatNumber value="${pOrder_count}" pattern="#,### 개"/></th>
+                                <th><fmt:formatNumber value="${productInfo.product_price * pOrder_count}" pattern="#,### 원"/></th>
                             </tr>
                             <tr>
-                            	<td>${delivery_price}</td>
+                            	<td colspan="4"><fmt:formatNumber value = "${delivery_price}" pattern="#,### 원"/></td>
                             </tr>
                         </table>
+                    </div>
+                            
+                            
+                            <a class="show_btn" href="#none">
+                                <span class="txt" id="show_good_btn" onclick = "showMyGood()">상세보기&nbsp; <i class="fas fa-chevron-down"></i></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,10 +74,10 @@
                         <div class="inner_show">
                         	<c:choose>
 	                        	<c:when test = "${(fn:length(cartList)-1) ne 0}">
-	                            	<div class="name">${cartList[0].product_name } 외 ${fn:length(cartList)-1} 상품을 주문합니다.</div>
+	                            	<div class="name">[${cartList[0].seller_company_name}]${cartList[0].product_name } 외 ${fn:length(cartList)-1}개의 상품을 주문합니다.</div>
 	                            </c:when>
 								<c:otherwise>
-	                            	<div class="name">${cartList[0].product_name } 상품을 주문합니다.</div>
+	                            	<div class="name">[${cartList[0].seller_company_name}]${cartList[0].product_name } 상품을 주문합니다.</div>
 								</c:otherwise>                        	
                             </c:choose>
                             <!--상세보기 클릭 시 hidden으로 변경됨-->
@@ -96,16 +100,16 @@
                             	<tr>
                             		<th><img src='<c:url value="/product/img/${cartList.product_id}"/>' style="width: 100px;"></th>
                             		<th>
-                            			상품 이름 : ${cartList.product_name }
+                            			상품 이름 : [${cartList.seller_company_name}]${cartList.product_name }
                             			<br>
-                            			상품 가격 : ${cartList.product_price }
+                            			상품 가격 : <fmt:formatNumber value="${cartList.product_price}" pattern="#,### 원"/>
                             		</th>
-                            		<th>${cartList.cart_product_count }</th>
-                            		<th><fmt:formatNumber value = "${cartList.cart_product_count*cartList.product_price }"/></th>
+                            		<th><fmt:formatNumber value="${cartList.cart_product_count}" pattern="#,### 개"/></th>
+                            		<th><fmt:formatNumber value = "${cartList.cart_product_count*cartList.product_price }" pattern="#,### 원"/></th>
                             	</tr>
                             </c:forEach>
                             <tr>
-                            	<td>${cartList[0].cart_delivery_price}</td>
+                            	<td><fmt:formatNumber value = "${cartList[0].cart_delivery_price}" pattern="#,### 원"/></td>
                             </tr>
                         </table>
                     </div>

@@ -7,18 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.spring.project.board.repository.IEventRepository;
+import com.spring.project.board.repository.IQnARepository;
+import com.spring.project.board.repository.IReviewRepository;
 import com.spring.project.member.model.MemberVO;
 import com.spring.project.member.model.SelectVO;
 import com.spring.project.member.model.SellerInfoVO;
 import com.spring.project.member.repository.IMemberRepository;
 import com.spring.project.product.model.OrdersVO;
+import com.spring.project.product.repository.ICartRepository;
+import com.spring.project.product.repository.IOrderRepository;
+import com.spring.project.product.repository.IProductRepository;
 
 @Service
 public class MemberService implements IMemberService {
 
 	@Autowired
 	IMemberRepository memberRepository;
-
+	@Autowired
+	IReviewRepository reviewRepository;
+	@Autowired
+	IQnARepository qnaRepository;
+	@Autowired
+	IProductRepository productRepository;
+	@Autowired
+	IOrderRepository orderRepository;
+	@Autowired
+	IEventRepository eventRepository;
+	@Autowired
+	ICartRepository cartRepository;
 	@Override
 	public String getMemberPassword(String userId) {
 		return memberRepository.getMemberPassword(userId);
@@ -81,18 +98,15 @@ public class MemberService implements IMemberService {
 	@Override
 	@Transactional(value = "tsManager")
 	public void memberDelete(String member_id) {
+		memberRepository.sellerDelete(member_id);
+		reviewRepository.deleteReviewByMemberId(member_id);
+		qnaRepository.deleteQnAByMemberId(member_id);
+		productRepository.deleteProductByMemberId(member_id);
+		orderRepository.deleteOrderByMemberId(member_id);
+		eventRepository.deleteEventByMemberId(member_id);
+		cartRepository.deleteCartByMemberId(member_id);
 		memberRepository.authDelete(member_id);
 		memberRepository.memberDelete(member_id);
-
-	}
-
-	@Override
-	@Transactional(value = "tsManager")
-	public void membersDelete(String[] member_ids) {
-		for (int i = 0; i < member_ids.length; i++) {
-			memberRepository.authDelete(member_ids[i]);
-			memberRepository.memberDelete(member_ids[i]);
-		}
 
 	}
 
@@ -143,6 +157,21 @@ public class MemberService implements IMemberService {
 	@Override
 	public void updateSellerInfo(SellerInfoVO sellerInfo) {
 		memberRepository.updateSellerInfo(sellerInfo);
+	}
+	@Override
+	@Transactional(value = "tsManager")
+	public void deleteSelectedMembers(String[] member_ids) {
+		for (int i = 0; i < member_ids.length; i++) {
+			memberRepository.sellerDelete(member_ids[i]);
+			reviewRepository.deleteReviewByMemberId(member_ids[i]);
+			qnaRepository.deleteQnAByMemberId(member_ids[i]);
+			productRepository.deleteProductByMemberId(member_ids[i]);
+			orderRepository.deleteOrderByMemberId(member_ids[i]);
+			eventRepository.deleteEventByMemberId(member_ids[i]);
+			cartRepository.deleteCartByMemberId(member_ids[i]);
+			memberRepository.authDelete(member_ids[i]);
+			memberRepository.memberDelete(member_ids[i]);
+		}
 	}
 
 
