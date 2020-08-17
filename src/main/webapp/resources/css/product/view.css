@@ -1,11 +1,11 @@
 @charset "UTF-8";
 #view_section {
-	position:absolute;
-	width: 1520px;
+/* 	position:absolute; */
+/* 	width: 1520px; */
 	height: 3000px;
-	top: 150px;
-	left: 50%;
-	transform: translate(-50%);
+/* 	top: 150px; */
+/* 	left: 50%; */
+/* 	transform: translate(-50%); */
 	background-color: white; 
 }
 
@@ -49,7 +49,7 @@
 /*=======================================이미지 크기 조정시 이부분에서 하세요*/
 .p_pic_setting {
 	width: 400px;
-	height: 500px;
+	height: 600px;
 }
 /*=============================================================*/
 .p_pic_setting>img {
@@ -66,6 +66,7 @@
 .p_product_explain {
 	width: 630px;
 	height: 830px;
+	margin-top: 50px;
 }
 
 .p_product_explain>div {
@@ -80,23 +81,41 @@
 .p_product_explain>div>#title {
 	font-size: 30px;
 	width: 600px;
-	height: 70px;
+	height: 60px;
 	display: inline-block;
 	line-height: 20px;
+}
+
+#product_price_tit {
+	border-bottom: 1px solid #f4f4f4; 
+	margin: 0 20px;
+	padding-bottom: 15px;
 }
 
 .p_product_explain>div>span>#titletext {
 	position: relative;
-	top: 25px;
 	margin-left: 20px; 
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+.explain_row{
+	height: 50px;
+	font-size: 20px;
+    line-height: 20px;
+    color: #666;
+    font-family: noto sans;
+    vertical-align: middle;
+    padding-bottom: 8px;
 }
 
 .p_product_explain>div>#key {
-	font-size: 20px;
-	width: 180px;
-	height: 70px;
+	font-size: 17px;
+	width: 150px;
+	height: 50px;
 	display: inline-block;
 	line-height: 20px;
+	font-weight: 600;
 }
 
 .p_product_explain>div>span>#keytext {
@@ -110,16 +129,42 @@
 	top: 23px;
 }
 
+#id_product_price {
+	font-size: 30px;
+	font-weight: 560;
+/* 	margin-left: 20px; */
+	display: inline-block;
+}
+#id_product_price_won{
+	font-size: 18px;
+	color: #666;
+}
+
 .p_product_explain>div>#value {
 	width: 420px;
-	height: 70px;
-	font-size: 19px;
+	height: 50px;
+	font-size: 17px;
+	padding-top: 12px;
 }
-.p_product_explain>div>#p_tprice_value {
-	width: 420px;
-	height: 70px;
-	font-size: 19px;
+
+.total_price_tit{
+	margin-top: 30px;
+	font-weight: 600;
 }
+
+#p_tprice_value {
+	font-size: 35px;
+	margin-top: 30px;
+}
+
+#order_delivery_price{
+	margin-top: 30px;
+}
+
+#free_del_condition{
+	padding-bottom: 5px;	
+}
+
 .p_product_explain>div>span>#price_text {
 	position: relative;
 	top: 23px;
@@ -149,12 +194,19 @@
 	color: white;
 	border: none;
 	margin-top: 30px;
-	margin-left: 80px;
+	margin-left: 20px;
 	outline: none;
 	font-size: 19px;
 }
 .btn:hover {
 	cursor: pointer;
+}
+
+
+#second_div{
+	margin-top: 18px;
+	border-top: 1px solid #f4f4f4; 
+	text-align: right;
 }
 
 
@@ -214,3 +266,119 @@
 	background: #5da62b;
 	border-top: 2px solid #5da62b;;
 }
+
+/* 업체 정보 css */
+.sub_title{
+	font-weight: 600;
+	font-size: 18px;
+	margin:20px;
+}
+
+.table_seller_info{
+	border-collapse: collapse;
+	border: 1px solid #ededed ;
+	width: 98%;
+	font-size: 16px;
+	margin: 0 auto;
+}
+
+.table_seller_info tr{
+	height: 40px; 
+}
+
+.table_seller_info tr td:nth-child(1){
+	background-color: #fafafa;
+	width: 200px;
+	padding-left: 10px;
+	color: #5f5f5f;
+	font-weight: 600;
+}
+
+.table_seller_info tr td:nth-child(2){
+	padding-left: 10px;
+	color: #5f5f5f;
+}
+
+/*상품 리뷰 css*/
+.table_review{
+	border-top: 3px solid #2a365c;
+	border-bottom: 1px solid #2a365c;
+	width: 98%;
+	margin: 0 auto;
+}
+
+.view_tr{
+	border-bottom: 1px solid #2a365c;
+}
+
+.table_review tr{
+	height: 50px;
+}
+
+.table_review th{
+	text-align: center;	
+}
+	
+.table_review td{
+	border-top: 1px solid #e3e3e3;
+}
+
+
+
+.view_tr th:nth-child(1){
+	width: 100px;
+}	
+
+.view_tr th:nth-child(2){
+	width: 200px;
+}
+
+.view_tr th:nth-child(3){
+}
+
+.view_tr th:nth-child(4){
+	width: 250px;
+}
+
+.view_tr th:nth-child(5){
+	width: 200px;
+}
+
+.view_tr th:nth-child(6){
+	width: 150px;
+}
+
+.view_tr tr td:nth-child(3){
+	text-align: left;
+}
+
+/*페이징 처리 css*/
+
+.a_paging {	
+	width:34px; 
+	height:34px; 
+	display:inline;
+    font-size: 14px;
+    color: #505050;
+    text-align: center;
+    line-height: 34px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-left:none;
+}
+
+.a_paging:hover{
+	background-color: #f7f7f7;
+    color: #5f0080;
+}
+
+.a_num{
+	
+}
+
+
+
+
+
+
+

@@ -162,4 +162,5 @@ public class MemberRestController {
 		return memberSerivce.getMonthlySales(authentication.getName(), year);
 	}
 	
+	
 }

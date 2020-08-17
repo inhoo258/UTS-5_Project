@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import com.spring.project.product.model.OrderedVO;
 import com.spring.project.product.model.OrdersVO;
 import com.spring.project.product.repository.IOrderRepository;
+import com.spring.project.product.repository.IProductRepository;
 
 @Service
 public class OrderService{
 	
 	@Autowired
 	IOrderRepository orderRepository;
+	@Autowired
+	IProductRepository productRepository;
 	
 	//결제완료 된 주문 내역 
 	public List<List<OrdersVO>> getOrderList(String member_id) {
@@ -68,8 +71,12 @@ public class OrderService{
 		return orderRepository.getOrderByOrderNumber(order_number);
 	}
 
-	public void deleteOrder(int order_group_number, String member_id) {
-		orderRepository.deleteOrder(order_group_number, member_id);
+	public void deleteOrder(int order_group_number) {
+		List<OrdersVO> list = orderRepository.getOrderByOrderGroupNumber(order_group_number);
+		for (int i = 0; i < list.size(); i++) {
+			productRepository.cancelOrder(list.get(i).getProduct_id(),list.get(i).getOrder_product_count());
+		}
+		orderRepository.deleteOrder(order_group_number);
 	}
 	public List<List<OrdersVO>> getOrder(String member_id, int order_group_number) {
 		List<OrdersVO> totalList = orderRepository.getOrder(member_id, order_group_number);
