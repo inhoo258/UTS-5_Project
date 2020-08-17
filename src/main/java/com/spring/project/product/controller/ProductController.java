@@ -99,6 +99,7 @@ public class ProductController {
 		if (product_id != 0 && pOrder_count != 0 && product_ids == null && delivery_price!=-1) {
 			System.out.println("product/view 통한 요청처리");
 			ProductsVO product = productService.getProduct(product_id);
+			model.addAttribute("sellerCompanyName",productService.getSellerCompanyName(product_id));
 			model.addAttribute("productInfo", product); // 개인구매상품 정보
 			model.addAttribute("productMemInfo", memberService.getMemberInfo(product.getMember_id())); // 독립상품 구매시 판매자
 			model.addAttribute("pOrder_count", pOrder_count); // 주문 수량 -> payment 로 보내줄 주문수량

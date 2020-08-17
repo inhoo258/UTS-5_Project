@@ -84,6 +84,8 @@ public interface IProductRepository {
 			+ "product_canceled_count = product_canceled_count + #{1} "
 			+ "where product_id = #{0}")
 	public void cancelOrder(int product_id, int order_product_count);
+	@Select("select sel.seller_company_name from products prd join seller_info sel on prd.member_id = sel.member_id where product_id=#{product_id}")
+	public String getSellerCompanyName(int product_id);
 	
 
 
