@@ -34,13 +34,12 @@ public class BoardRestController {
 	
 	@PostMapping("/review/upload")
 	public void reviewInsert(@RequestParam(value = "file", required = false) MultipartFile file, ReviewVO reviewVO, int order_number) {
-		System.out.println("review new in");
 		if (file != null&&!file.isEmpty()) {
 			try {
 				reviewVO.setReview_img(file.getBytes());
 				reviewVO.setReview_img_name(file.getOriginalFilename());
 			} catch (IOException e) {
-				System.out.println("reivew without image");
+				System.out.println("reivew without image, error : "+e.getMessage());
 			}
 		}
 		reviewService.insertReview(reviewVO, order_number);

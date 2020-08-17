@@ -86,10 +86,12 @@ public class MemberService implements IMemberService {
 	}
 
 	@Override
+	@Transactional(value = "tsManager")
 	public void updateMember(MemberVO member) {
 		memberRepository.updateMember(member);
 	}
 	@Override
+	@Transactional(value = "tsManager")
 	public void changePwd(String member_pw, String member_id) {
 		memberRepository.changePwd(member_pw, member_id);
 	}
@@ -102,7 +104,7 @@ public class MemberService implements IMemberService {
 		reviewRepository.deleteReviewByMemberId(member_id);
 		qnaRepository.deleteQnAByMemberId(member_id);
 		productRepository.deleteProductByMemberId(member_id);
-//		orderRepository.deleteOrderByMemberId(member_id);
+		orderRepository.deleteOrderByMemberId(member_id);
 		eventRepository.deleteEventByMemberId(member_id);
 		cartRepository.deleteCartByMemberId(member_id);
 		memberRepository.authDelete(member_id);
@@ -111,17 +113,11 @@ public class MemberService implements IMemberService {
 	}
 
 	@Override
+	@Transactional(value = "tsManager")
 	public void member_enable(int enable , String member_id) {
 		memberRepository.member_enable(enable ,member_id);
 	}
 
-//	@Override
-//	@Transactional(value = "tsManager")
-//	public void permissions(String[] permission_ids) {
-//		for (int i = 0; i < permission_ids.length; i++) {
-//			memberRepository.permission(permission_ids[i]);
-//		}
-//	}
 	@Override
 	public MemberVO getMemberEmail(String member_email) {
 		return memberRepository.getEmail(member_email);
@@ -132,14 +128,13 @@ public class MemberService implements IMemberService {
 		List<List<OrdersVO>> list = new ArrayList<List<OrdersVO>>();
 		for(int month = 1 ; month <= 12 ; month++) {
 			List<OrdersVO> innerList = memberRepository.getMonthlySales(member_id ,year, month);
-			System.out.println("innerList size : "+innerList.size());
 			list.add(innerList);
 		}
 		return list;
 	}
 	
-//------------------ seller_info queries-----------------------------------
 	@Override
+	@Transactional(value = "tsManager")
 	public void insertSellerRegNum(String member_id, String seller_reg_num) {
 		memberRepository.insertSellerRegNum(member_id, seller_reg_num);
 	}
@@ -155,6 +150,7 @@ public class MemberService implements IMemberService {
 		else return false;
 	}
 	@Override
+	@Transactional(value = "tsManager")
 	public void updateSellerInfo(SellerInfoVO sellerInfo) {
 		memberRepository.updateSellerInfo(sellerInfo);
 	}
@@ -166,14 +162,11 @@ public class MemberService implements IMemberService {
 			reviewRepository.deleteReviewByMemberId(member_ids[i]);
 			qnaRepository.deleteQnAByMemberId(member_ids[i]);
 			productRepository.deleteProductByMemberId(member_ids[i]);
-//			orderRepository.deleteOrderByMemberId(member_ids[i]);
+			orderRepository.deleteOrderByMemberId(member_ids[i]);
 			eventRepository.deleteEventByMemberId(member_ids[i]);
 			cartRepository.deleteCartByMemberId(member_ids[i]);
 			memberRepository.authDelete(member_ids[i]);
 			memberRepository.memberDelete(member_ids[i]);
 		}
 	}
-
-
-	
 }

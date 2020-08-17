@@ -33,7 +33,6 @@ public class ProductRestController {
 	@PostMapping("/upload")
 	public void insertProduct(@RequestParam MultipartFile file, ProductsVO product) {
 		try {
-			System.out.println("file.getBytes() : " + file.getBytes());
 			product.setProduct_img(file.getBytes());
 			product.setProduct_img_name(file.getOriginalFilename());
 		} catch (IOException e) {

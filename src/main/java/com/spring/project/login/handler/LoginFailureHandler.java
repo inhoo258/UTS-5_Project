@@ -16,8 +16,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 			AuthenticationException exception) throws IOException, ServletException {
 		request.getSession().setAttribute("message", exception.getMessage());
 		response.sendRedirect("login");
-		System.out.println("판매자 로그인 실패");
-		System.out.println("구매자 로그인 실패");
 	}
 
 }

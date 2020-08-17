@@ -16,9 +16,6 @@ public class RequestInterceptor implements HandlerInterceptor {
 		String contextName = request.getContextPath();
 		String url = request.getRequestURI().replaceFirst(contextName, "");
 		String param = request.getQueryString();
-		System.out.println("url : "+url);
-//		 || !url.contains("/product/img/")
-		System.out.println("param : "+param);
 		if ((!url.contains("login") && !url.contains("logout"))) {
 			session.setAttribute("url", url);
 			session.setAttribute("param", param);

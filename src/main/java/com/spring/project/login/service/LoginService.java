@@ -11,21 +11,8 @@ public class LoginService implements ILoginService{
 	
 	@Autowired
 	IMemberRepository memberRepository;
-
-
 	@Override
 	public MemberVO getMemberInfo(String member_id) {
 		return memberRepository.getMemberInfo(member_id);
 	}
-
-
-//	@Override
-//	public List<MemberVO> getMemberList() {
-//		return memberRepository.getMemberList();
-//	}
-
-
-
-
-
 }
