@@ -43,11 +43,13 @@ public interface ICartRepository {
 	public String getMemberId(String member_id, int product_id);
 
 	//장바구니에서 선택된 상품만 가져가기
-	@Select("select c.member_id as member_id, cart_delivery_price, c.product_id as product_id, cart_product_count, product_info, product_name, product_price, m.member_name as seller_name,m.MEMBER_EMAIL as seller_email,m.MEMBER_ID as seller_id,m.MEMBER_TEL as seller_tel " 
+	@Select("select c.member_id as member_id, cart_delivery_price, c.product_id as product_id, cart_product_count, product_info, product_name, product_price, m.member_name as seller_name,m.MEMBER_EMAIL as seller_email,m.MEMBER_ID as seller_id,m.MEMBER_TEL as seller_tel,sel.seller_company_name " 
 			+ "from cart c join products p "
 			+ "on c.product_id = p.product_id "
 			+ "join members m "
 			+ "on m.member_id = p.member_id "
+			+ "join seller_info sel "
+			+ "on p.member_id = sel.member_id "
 			+ "where c.member_id=#{0} and c.product_id=#{1}")
 	public CartVO getSelectedCart(String member_id, int product_id);
 	

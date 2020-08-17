@@ -29,6 +29,9 @@
 		<th>금액</th>
 		<th></th>
 	</tr>
+	<tr id="emptyList" style="display:none;">
+		<td colspan="6" align="center" id="td_emptyList">장바구니에 등록된 상품이 없습니다.</td>
+	</tr>
 	<c:forEach var="cartList" items="${cartLists}" varStatus="status">
 	<tr>
 		<td colspan="5" id=subTable>
@@ -66,30 +69,38 @@
 				</tr>
 				<c:set var="totalPriceForEachCompany" value="${totalPriceForEachCompany+cart.product_total_price}"/>
 				</c:forEach>
+<!-- 				<tr> -->
+<!-- 					<td colspan="6" style="padding-left: 20px;"> -->
+<!-- 						<label id=select_all_label><input type="checkbox" class="checkAll"> &nbsp;전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</label> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
 				<tr>
 					<td colspan="6">
 					<section>
 					<section>
 					<div>
 						<div>
-						총 가격 : &nbsp;
-						<span class="totalPriceForEachCompany">
-							<fmt:formatNumber value="${totalPriceForEachCompany}" pattern="#,###"/>
-						</span>원<br>
+						상품 가격 : &nbsp;&nbsp;
+							<span class="totalPriceForEachCompany">
+								<fmt:formatNumber value="${totalPriceForEachCompany}" pattern="#,###"/>
+							</span>원<br>
 						</div>
 					</div>
 					<div>
 						<div>
-						배송비 : &nbsp;
-						<span class="productDeliveryPrice" style="display:none;">
-							<fmt:formatNumber value="${cartList[0].product_delivery_price}" pattern="#,###"/>
-						</span><span class="freeDeliveryWon" style="display: none;">원</span>
+						<span id="del_tit">배송비:</span>
+							<span class="productDeliveryPrice" style="display:none;">
+								<fmt:formatNumber value="${cartList[0].product_delivery_price}" pattern="#,###"/>
+							</span><span class="freeDeliveryWon" style="display: none;">원</span>
 						<span class="freeDelivery" style="display:none;">
-							&nbsp;무료배송
+							무료배송
 						</span>
 						</div>
 					</div>
-						</section>
+					<div>
+					
+					</div>
+					</section>
 					</section>
 					</td>
 				</tr>
@@ -97,28 +108,31 @@
 		</td>
 	</tr>
 	</c:forEach>
-	<tr>
-<!-- 		<th colspan="5"> -->
-<!-- 		</th> -->
-	</tr>
 </table>
 </div>
-<div>
-<label id=select_all_label><input type="checkbox" class="checkAll">전체선택(<span class="checkedLength"></span>/<span class="restListLength"></span>)</label>
-<input type="button" id="deleteSelected" value="선택삭제">
+<div id="div_btn">
+	<input type="button" class="cart_btn" id="deleteSelected" value="선택삭제">
 </div>
 <div>
-<input type="button" value="주문하기" id="orderBtn">
-</div>
-<div>
-<div id="notEmptyList">
-	<span id="totalPriceWithoutDel"></span>
-	<span id="totalDel"></span>
-	<span id="totalPriceWithDel"></span>
-</div>
-<div id="emptyList" style="display:none;">
-	<span>장바구니에 등록된 상품이 없습니다.</span>
-</div>
+	<div id="notEmptyList">
+		<table id="total_price_table">
+			<tr>
+				<td> 상품금액</td>
+				<td><span id="totalPriceWithoutDel"></span>원</td>
+			</tr>
+			<tr>
+				<td>+ 배송비</td>
+				<td><span id="totalDel"></span>원</td>
+			</tr>
+			<tr>
+				<td>결제예정금액</td>
+				<td><span id="totalPriceWithDel"></span>원</td>
+			</tr>
+		</table>
+	</div>
+	<div align="center">
+		<input type="button" class="cart_btn" value="주문하기" id="orderBtn">
+	</div>
 </div>
 </div>
 </div>
@@ -139,6 +153,11 @@
 		if($(".checkOne").length==0){
 			$(".checkAll").prop("disabled",true);
 			$("#orderBtn").prop("disabled",true);
+			$("#orderBtn").css("backgroundColor","#ddd");
+			$("#orderBtn").css("border","none");
+			$("#deleteSelected").prop("disabled",true);
+			$("#deleteSelected").css("backgroundColor","#ddd");
+			$("#deleteSelected").css("border","none");
 			$("#notEmptyList").hide();
 			$("#emptyList").show();
 		}
