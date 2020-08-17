@@ -107,8 +107,7 @@ public class MemberController {
 			model.addAttribute("sellerInfo", memberSerivce.getSellerInfo(authentication.getName()));
 			model.addAttribute("totalCount", productService.getTotalCount(authentication.getName())); // 상품 총 등록 갯수
 			model.addAttribute("productList", productService.getSellerProductList(authentication.getName()));
-			model.addAttribute("sellerOrderList", orderService.getSellerAdminOrderList(authentication.getName()));
-			
+			model.addAttribute("sellerOrdersList", orderService.getSellerAdminOrderList(authentication.getName()));
 		}
 	
 		if(!member_id.equals("user")) {
@@ -118,7 +117,12 @@ public class MemberController {
 		}
 		return "member/info";
 	}
-
+	@RequestMapping("/showOrderList")
+	public void getMember() {
+	}
+	
+	
+	
 	@PostMapping("/update")
 	public String update(MemberVO member) {
 		System.out.println("========update=========");

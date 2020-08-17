@@ -8,7 +8,12 @@ public class OrderedVO {
 	private int ordered_price;
 	private String orderer_name;
 	private int order_delivery_price;
-	
+	@Override
+	public String toString() {
+		return "OrderedVO [order_group_number=" + order_group_number + ", order_date=" + order_date + ", ordered_price="
+				+ ordered_price + ", orderer_name=" + orderer_name + ", order_delivery_price=" + order_delivery_price
+				+ "]";
+	}
 
 	public String getOrderer_name() {
 		return orderer_name;
@@ -25,6 +30,8 @@ public class OrderedVO {
 	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
 	}
+
+	
 
 	public int getOrder_group_number() {
 		return order_group_number;

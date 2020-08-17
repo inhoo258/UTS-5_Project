@@ -152,9 +152,9 @@
 											<td>${product.product_id}</td>
 											<td>
 												<div id="productimgframe"><img src='<c:url value="/product/img/${product.product_id}"/>'> </div>
-			                                <div id="producttextframe">
+			                                	<div id="producttextframe">
 			                                    <span>${product.product_name}</span>
-			                                </div>
+			                                	</div>
 			                                <input type="hidden" value="${product.product_id }" class="hidden_product_id" name="product_ids">
 											</td>
 											<td>${product.product_price}</td>
@@ -164,76 +164,53 @@
 											<td><input type="submit" id="btn_delete" value="삭제"></td>
 										</tr>
 									</c:forEach>
-								<tr id="emptyProduct" style="display: none;">
-									<td colspan="7">등록된 상품이 없습니다.</td>
-								</tr>
+<!-- 								<tr id="emptyProduct" style="display: none;"> -->
+<!-- 									<td colspan="7">등록된 상품이 없습니다.</td> -->
+<!-- 								</tr> -->
 							</table>
 						</form>
                 	</div>
                 </div>
                 <div>
                     <h2>주문 관리</h2>
-				       <div id="order_div_list">
-				           <table border="1">
-				               <tr>
-				                   <td>전체선택</td>
-				                   <td>주문번호</td>
-				                   <td>주문일</td>
-				                   <td>배송추적</td>
-				                   <td>발송일</td>
-				                   <td colspan="2">발송/취소</td>
-<!-- 				                   	발주 완료되고 신규 주문에서 개수 빠지고 배송중 등으로 변경  -->
-				               </tr>
-				               <tr>
-				               		<td><input type="checkbox"></td>
-				               		<td></td>
-				               </tr>
-				               <c:forEach var="sellerOrderList" items="${sellerOrderList }" >
-				               <div>
-				               <tr>
-				                   <td><input type="checkbox"></td>
-<!-- 				                   주문번호를 클릭하면 해당 주문의 상세내역이 나올수 있게 -->
-				                   <td><a href="#">주문번호넣어주세요</a></td>
-				                   <td>주문한날짜넣어주세요</td>
-				                   <td>배송 전 중 후</td>
-				                   <td>발송일</td>
-				                   <td><input type="button" value="발송처리"></td>
-				                   <td><input type="button" value="발송취소"></td>
-									<td>
-<%-- 				               		order_group_number : ${sellerOrderList.order_group_number }<br> --%>
-<%-- 				               		order_date : ${sellerOrderList.order_date }<br> --%>
-<%-- 				               		ordered_price : ${sellerOrderList.ordered_price }<br> --%>
-<%-- 				               		orderer_name : ${sellerOrderList.orderer_name }<br> --%>
-<%-- 				               		order_delivery_price : ${sellerOrderList.order_delivery_price }<br> --%>
-<%-- 				               		order_receiver_name : ${sellerOrderList.order_receiver_name }<br> --%>
-<%-- 				               		order_receiver_main_address : ${sellerOrderList.order_receiver_main_address }<br> --%>
-<%-- 				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address }<br> --%>
-<%-- 				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel }<br> --%>
-<%-- 				               		order_request : ${sellerOrderList.order_request }<br> --%>
-<%-- 				               		seller_bank_account : ${sellerOrderList.seller_bank_account }<br> --%>
-<%-- 				               		seller_bank_name : ${sellerOrderList.seller_bank_name }<br> --%>
-<%-- 				               		seller_company_name : ${sellerOrderList.seller_company_name }<br> --%>
-<%-- 				               		member_id : ${sellerOrderList.member_id}<br> --%>
-<%-- 				               		product_id : ${sellerOrderList.product_id}<br> --%>
-<%-- 				               		order_date : ${sellerOrderList.order_date}<br> --%>
-<%-- 				               		ORDER_RECEIVER_MAIN_ADDRESS : ${sellerOrderList.ORDER_RECEIVER_MAIN_ADDRESS}<br> --%>
-<%-- 				               		ORDER_RECEIVER_NAME : ${sellerOrderList.ORDER_RECEIVER_NAME}<br> --%>
-<%-- 				               		order_receiver_tel : ${sellerOrderList.order_receiver_tel}<br> --%>
-<%-- 				               		order_product_count : ${sellerOrderList.order_product_count}<br> --%>
-<%-- 				               		order_price : ${sellerOrderList.order_price}<br> --%>
-<%-- 				               		order_status : ${sellerOrderList.order_status}<br> --%>
-<%-- 				               		order_number : ${sellerOrderList.order_number}<br> --%>
-<%-- 				               		order_receiver_sub_address : ${sellerOrderList.order_receiver_sub_address}<br> --%>
-<%-- 				               		order_request : ${sellerOrderList.order_request}<br> --%>
-<%-- 				               		order_group_number : ${sellerOrderList.order_group_number}<br> --%>
-<%-- 				               		order_delivery_price : ${sellerOrderList.order_delivery_price}<br> --%>
-				               </td>
-				               </tr>				               		
-				               		<hr>
-				               </c:forEach>
-				           </table>
-				    </div>	
-                    
+			           <div id="order_div_list">
+					        <div><input type="button" value="전체선택"><input type="button" value="선택취소"></div>
+					        <table border="1">
+					            <tr>
+					                <td><input type="checkbox"></td>
+					                <td>주문일</td>
+					                <td>주문번호</td>
+					                <td>수령자명</td>
+					                <td>상품정보</td>
+					                <td>배송상태</td>
+					                <td>발송일자</td>
+					                <td colspan="2">발송/취소</td>
+					                <!-- 발주 완료되고 신규 주문에서 개수 빠지고 배송중 등으로 변경  -->
+					            </tr>
+					            <c:forEach var="sellerOrdersList" items="${sellerOrdersList }" >
+					            <tr>
+					                <td><input type="checkbox"></td>
+					                <!-- 주문번호를 클릭하면 해당 주문의 상세내역이 나올수 있게 -->
+					                <!-- <td>2020-08-15</td> -->
+					                <td>${sellerOrdersList.order_date }</td>
+					                <td><a href="#" onclick="window.open('/project/member/showOrderList','새창','width=800px')">${sellerOrdersList.order_number }</a>
+					                </td>
+					                <td>${sellerOrdersList.order_receiver_name}</td>
+					                <td>
+					                	<div id="sellerframe">
+					                    <div id="sellerproductimgframe"><img src="<c:url value='/product/img/${sellerOrdersList.product_id }'/>"></div>
+					                    <div id="sellerproducttextframe"><span>${sellerOrdersList.product_name }</span></div>
+					                    </div>
+					                </td>
+					                <!-- <td>배송 전 중 후 </td> -->
+					                <td>${sellerOrdersList.order_status}</td>
+					                <td>2020-08-16</td>
+					                <td><input type="button" id="sent_out" value="발송처리"></td>
+					                <td><input type="button" id="sent_cancel"value="발송취소"></td>
+					            </tr>
+					            </c:forEach>
+					        </table>
+					    </div>
                 </div>
                 <!-- 지현 start ============================== -->
 				<!--  5.월별 매출 통계 -->
@@ -513,6 +490,19 @@
 		}
 		
     </script>
+    <script type="text/javascript">
+    	
+    
+    
+    
+    
+    </script>
+    
+    
+    
+    
+    
+    
 	<!-- 지현 start ============================== -->
 	<script>
 	// 날짜 선택  j쿼리
