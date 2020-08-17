@@ -160,11 +160,7 @@ public class ProductController {
 		model.addAttribute("orderListsByOrderGroupNumber", orderService.getOrder(member_id, order_group_number));
 		model.addAttribute("order_group_number",order_group_number);
 	}
-	@PostMapping("/deleteOrder")
-	public String deleteOrder(@RequestParam("member_id")String member_id, @RequestParam("order_group_number")int order_group_number) {
-		orderService.deleteOrder(order_group_number, member_id);
-		return "redirect:/product/orderlist/"+member_id;
-	}
+	
 
 
 //	// -------------Product------------

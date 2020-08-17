@@ -1,7 +1,6 @@
 package com.spring.project.product.model;
 
 import java.sql.Date;
-import java.util.Arrays;
 
 public class ProductsVO {
 	private int product_id;
@@ -16,17 +15,24 @@ public class ProductsVO {
 	private Date product_upload_date;
 	private int product_rn;
 	private String seller_company_name;
+	private int product_sold_count;
+	private int product_canceled_count;
 	
 	
-	
-	
-	@Override
-	public String toString() {
-		return "ProductsVO [product_id=" + product_id + ", member_id=" + member_id + ", product_info=" + product_info
-				+ ", product_name=" + product_name + ", product_count=" + product_count + ", product_price="
-				+ product_price + ", product_weight=" + product_weight + ", product_img=" + Arrays.toString(product_img)
-				+ ", product_img_name=" + product_img_name + ", product_upload_date=" + product_upload_date
-				+ ", product_rn=" + product_rn + ", seller_company_name=" + seller_company_name + "]";
+	public int getProduct_sold_count() {
+		return product_sold_count;
+	}
+
+	public void setProduct_sold_count(int product_sold_count) {
+		this.product_sold_count = product_sold_count;
+	}
+
+	public int getProduct_canceled_count() {
+		return product_canceled_count;
+	}
+
+	public void setProduct_canceled_count(int product_canceled_count) {
+		this.product_canceled_count = product_canceled_count;
 	}
 
 	public String getSeller_company_name() {
