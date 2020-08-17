@@ -167,9 +167,14 @@ public class ProductController {
 //	// -------------Product------------
 //	// 전체 상품 목록
 	@RequestMapping("/list")
-	public void getProductList(Model model) {
+	public void getProductList(@RequestParam(value="search", required = false)String search,Model model) {
 		System.out.println("=====product 통과=====");
-		model.addAttribute("productList", productService.getProductList());
+		System.out.println("search : "+search);
+		if(search==null) {
+			model.addAttribute("productList", productService.getProductList());
+		}else {
+			model.addAttribute("productList",productService.getProductListBySearch(search));
+		}
 	}
 
 	@RequestMapping("/img/{product_id}")

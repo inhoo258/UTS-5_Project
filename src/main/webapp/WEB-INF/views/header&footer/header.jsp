@@ -20,10 +20,15 @@
                    <a href="/project/"><img src="/project/resources/img/main_logo.png"></a>
                </div>
                <span id=header_search_span>
-                   <input type="text" id="header_search">
+                   <input type="text" id="header_search" placeholder="검색어를 입력해주세요">
                    <div id="header_search_img">
-                       <img src="/project/resources/img/search.png">
+                       <img src="/project/resources/img/search.png" onclick="headerSearch()">
                    </div>
+                   <script type="text/javascript">
+                   function headerSearch(){
+                	   location.href="/project/product/list?search="+$("#header_search").val();
+                   }
+                   </script>
                </span>
                <!-- 로그인 사용자 -->
                <div id="header_menu_div">

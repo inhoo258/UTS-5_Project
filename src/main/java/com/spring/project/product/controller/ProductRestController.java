@@ -112,7 +112,7 @@ public class ProductRestController {
 		@PostMapping("/deleteOrder")
 		public void deleteOrder(@RequestParam("order_group_number")int order_group_number) {
 			System.out.println("----------------will delete from orders order_group_number ---->"+order_group_number);
-			orderService.deleteOrder(order_group_number);
+//			orderService.deleteOrder(order_group_number);
 		}
 		@PostMapping("/statuschange")
 		public String statuschange(@RequestParam String member_id, @RequestParam String status, @RequestParam int order_num) {

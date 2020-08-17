@@ -14,7 +14,6 @@ public interface IMemberService {
 	public void updateMember(MemberVO member);
 	public List<MemberVO> getMemberList(int memberPage , SelectVO select);
 	public int getMemberCount(SelectVO select);
-	public void membersDelete(String[] member_ids);
 	public void memberDelete(String member_id);
 	public MemberVO getMemberEmail(String member_email);
 	public void changePwd(String member_pw, String member_id);
@@ -29,4 +28,5 @@ public interface IMemberService {
 	public boolean getSellerRegNum(String seller_reg_num);
 	public void updateSellerInfo(SellerInfoVO sellerInfo);
 	public List<List<OrdersVO>> getMonthlySales(String name, int year);
+	public void deleteSelectedMembers(String[] member_ids);
 }
