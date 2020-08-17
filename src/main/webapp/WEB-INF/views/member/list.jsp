@@ -137,6 +137,7 @@
             </div>
         </div>
     </div>
+    <jsp:include page ="../header&footer/footer.jsp"/>
 	<script type="text/javascript">
 	//선택삭제 메서드
 	$("#deleteSelectedMembers").on("click",function(){
@@ -175,6 +176,7 @@
 		})
 	});
 	</script>
+    
 	<script>
 		$("#memberinfo_div").hide();
 		$("#memberlist_menubar>ul>li a").click(function() {

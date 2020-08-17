@@ -262,6 +262,8 @@
             </div>
         </div>
     </div>
+    </div>
+    <jsp:include page ="../header&footer/footer.jsp"/>
   	<script type="text/javascript">
 	    let sent_out = document.getElementsByName("sent_out");
 	    let sent_cancel = document.getElementsByName('sent_cancel');
@@ -327,11 +329,6 @@
 
   	
   	</script>	
-    
-    
-    
-    
-
 
     <script type="text/javascript">
 		//전체 선택===========================================

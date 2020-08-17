@@ -129,8 +129,12 @@
 	            </div>
 	        </div>
         </form>
-<%-- 	</c:if> --%>
         <div>
+        
+        <c:if test="${!empty message}">
+        <jsp:include page ="../header&footer/footer.jsp"/>
+   		</c:if>
+	        
 	<script type="text/javascript">
 	let member = '${member}';
     let id_check=false;

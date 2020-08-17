@@ -136,6 +136,7 @@
 </div>
 </div>
 </div>
+<jsp:include page ="../header&footer/footer.jsp"/>
 <script type="text/javascript">
 	let member_id = '${member_id}';
 	let checkOneLength = $(".checkOne").length;
