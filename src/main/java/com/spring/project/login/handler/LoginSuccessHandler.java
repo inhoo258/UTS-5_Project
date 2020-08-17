@@ -15,23 +15,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		System.out.println("===SuccessHandler===");
-		System.out.println("===성공===");
-		System.out.println("판매자");
 		authentication = SecurityContextHolder.getContext().getAuthentication();
-//		MemberVO member = (MemberVO) authentication.getDetails();
-//		request.getSession().setAttribute("userId", member.getUsername());
 		String url = "/";
 		if(request.getSession().getAttribute("url") != null) {
 			url = (String) request.getSession().getAttribute("url");
 			request.getSession().removeAttribute("url");
 		}
 		response.sendRedirect("/project"+url);
-		
-//		if(request.getSession().getAttribute("param") != null) {
-//			url = (String) request.getSession().getAttribute("param");
-//		}
-		
 	}
 
 }

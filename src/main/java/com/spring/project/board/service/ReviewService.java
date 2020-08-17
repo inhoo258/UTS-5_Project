@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.project.board.model.ReviewVO;
 import com.spring.project.board.repository.IReviewRepository;
@@ -16,10 +17,12 @@ public class ReviewService{
 	IReviewRepository reviewRepository;
 	@Autowired
 	IOrderRepository orderRepository;
+	
+	@Transactional(value = "tsManager")
 	public void deleteReview(String member_id, int product_id) {
 		reviewRepository.deleteReview(member_id, product_id);
 	}
-	
+	@Transactional(value = "tsManager")
 	public void updateReview(String member_id, int product_id) {
 		reviewRepository.updateReview(member_id, product_id);
 	}
@@ -33,7 +36,7 @@ public class ReviewService{
 		int start = end-9;
 		return reviewRepository.getReviewList(product_id, start, end);
 	}
-
+	@Transactional(value = "tsManager")
 	public void insertReview(ReviewVO reviewVO, int order_number) {
 		reviewVO.setReview_number(reviewRepository.getMaxReviewNumber(reviewVO.getProduct_id())+1);
 		if(reviewVO.getReview_img()==null && reviewVO.getReview_img_name()==null) reviewRepository.insertReview(reviewVO);

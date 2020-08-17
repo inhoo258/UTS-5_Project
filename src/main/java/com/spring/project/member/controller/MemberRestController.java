@@ -28,10 +28,8 @@ public class MemberRestController {
 
 	@PostMapping("/memberCheck")
 	public int memberCheck(@RequestParam("member_id") String member_id) {
-		System.out.println("request member_id : " + member_id);
 		MemberVO member = memberSerivce.getMemberInfo(member_id);
-		System.out.println("result member : " + member);
-		if (memberSerivce.getMemberInfo(member_id) == null)
+		if (member == null)
 			return 0;
 		else
 			return 1;
@@ -71,12 +69,10 @@ public class MemberRestController {
 			}
 		} else {
 			if (select.getSelect_option() == null) {
-				select.setSelect_word("(m.member_name like '%" + select.getSelect_word()
-						+ "%' or m.member_tel like '%" + select.getSelect_word()
-						+ "%' or m.member_email like '%" + select.getSelect_word() + "%')");
+				select.setSelect_word("(m.member_name like '%" + select.getSelect_word() + "%' or m.member_tel like '%"
+						+ select.getSelect_word() + "%' or m.member_email like '%" + select.getSelect_word() + "%')");
 			} else {
-				select.setSelect_word(
-						"m." + select.getSelect_option() + " like '%" + select.getSelect_word() + "%'");
+				select.setSelect_word("m." + select.getSelect_option() + " like '%" + select.getSelect_word() + "%'");
 			}
 		}
 		return memberSerivce.getMemberList(select.getPage(), select);
@@ -104,12 +100,10 @@ public class MemberRestController {
 			}
 		} else {
 			if (select.getSelect_option() == null) {
-				select.setSelect_word("(m.member_name like '%" + select.getSelect_word()
-						+ "%' or m.member_tel like '%" + select.getSelect_word()
-						+ "%' or m.member_email like '%" + select.getSelect_word() + "%')");
+				select.setSelect_word("(m.member_name like '%" + select.getSelect_word() + "%' or m.member_tel like '%"
+						+ select.getSelect_word() + "%' or m.member_email like '%" + select.getSelect_word() + "%')");
 			} else {
-				select.setSelect_word(
-						"m." + select.getSelect_option() + " like '%" + select.getSelect_word() + "%'");
+				select.setSelect_word("m." + select.getSelect_option() + " like '%" + select.getSelect_word() + "%'");
 			}
 		}
 
@@ -118,7 +112,6 @@ public class MemberRestController {
 
 	@PostMapping("/choice_delete")
 	public void choice_delete(@RequestBody String member_id) {
-		System.out.println(member_id);
 		memberSerivce.memberDelete(member_id);
 	}
 
@@ -130,44 +123,27 @@ public class MemberRestController {
 			memberSerivce.member_enable(0, member.getMember_id());
 		}
 	}
-	
+
 	@PostMapping("/password_test")
 	public String password_test(@RequestBody MemberVO member) {
-		System.out.println(member.getMember_id());
-		System.out.println(member.getMember_pw());
 		String str = null;
-		if(pwEncoder.matches(member.getMember_pw() , memberSerivce.getMemberPassword(member.getMember_id()))) {
+		if (pwEncoder.matches(member.getMember_pw(), memberSerivce.getMemberPassword(member.getMember_id()))) {
 			str = "true";
-		}else {
+		} else {
 			str = "false";
 		}
-		
+
 		return str;
 	}
-	
-	
-//	//판매자 페이지 등록된 상품 삭제  내일
-//	@PostMapping("/deleteSellerPoduct")
-//	public String deleteSellerProduct(@RequestParam int[] product_ids) {
-//		ProductService.deleteSellerProduct(product_ids);
-//		return "redirect:/product/sellerProductList";
-//	}
-	
-	//월별 매출 통계
+
 	@PostMapping("/monthly_sales")
-	public List<List<OrdersVO>> monthly_sales(Authentication authentication, @RequestBody int year){
-		
-		System.out.println(authentication.getName());
-		System.out.println("year:"+year);
+	public List<List<OrdersVO>> monthly_sales(Authentication authentication, @RequestBody int year) {
 		return memberSerivce.getMonthlySales(authentication.getName(), year);
 	}
+
 	@PostMapping("/deleteSelectedMembers")
-	public void deleteSelectedMembers(@RequestParam("member_ids[]")String[] member_ids) {
-		System.out.println("member_ids : "+member_ids);
-		for (int i = 0; i < member_ids.length; i++) {
-			System.out.println("this.member_id : "+member_ids[i]);
-		}
+	public void deleteSelectedMembers(@RequestParam("member_ids[]") String[] member_ids) {
 		memberSerivce.deleteSelectedMembers(member_ids);
 	}
-	
+
 }

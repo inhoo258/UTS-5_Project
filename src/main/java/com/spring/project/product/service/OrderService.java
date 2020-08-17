@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.project.product.model.OrderedVO;
 import com.spring.project.product.model.OrdersVO;
@@ -19,13 +20,11 @@ public class OrderService{
 	@Autowired
 	IProductRepository productRepository;
 	
-	//결제완료 된 주문 내역 
 	public List<List<OrdersVO>> getOrderList(String member_id) {
 		List<OrdersVO> totalList = orderRepository.getOrderList(member_id);
 		List<OrdersVO> orderListByGroupNum = new ArrayList<OrdersVO>();
 		List<List<OrdersVO>> orderList = new ArrayList<List<OrdersVO>>();
 		for (int i = 0; i < totalList.size(); i++) {
-			System.out.println(totalList.get(i).toString());
 			if(i==0) {
 				orderListByGroupNum.add(totalList.get(i));
 				if(totalList.size()==1)orderList.add(orderListByGroupNum);
@@ -43,34 +42,24 @@ public class OrderService{
 		}
 		return orderList; 
 	}
-//	public List<OrdersVO> getOrderList(String member_id){
-//		return orderRepository.getOrderList(member_id);
-//	}
+	@Transactional(value = "tsManager")	
 	public void paymentInOrder(OrdersVO ordersVO,int[] product_id,int[] order_product_count,int[] order_price, String[] order_requests, String[] order_statuses) {
 		ordersVO.setOrder_group_number(orderRepository.getMaxOrderGroupNumber()+1);
 		for (int i = 0; i < product_id.length; i++) {
-			System.out.println("Start : " + i);
 			ordersVO.setOrder_number(orderRepository.getMaxOrderNumber()+1);
 			ordersVO.setProduct_id(product_id[i]);
 			ordersVO.setOrder_product_count(order_product_count[i]);
 			ordersVO.setOrder_price(order_price[i]);
 			ordersVO.setOrder_request(order_requests[i]);
 			ordersVO.setOrder_status(order_statuses[i]);
-			System.out.println(ordersVO);
 			orderRepository.paymentInOrder(ordersVO);
 		}
 	}
-//	public void deleteOrder(String member_id, int product_id) {
-//		orderRepository.deleteOrder(member_id, product_id);
-//	}
-//	public void deliveryOrder(String member_id, int product_id, String order_status) {
-//		orderRepository.deliveryOrder(member_id, product_id, order_status);
-//	}
 
 	public OrdersVO getOrderByOrderNumber(int order_number) {
 		return orderRepository.getOrderByOrderNumber(order_number);
 	}
-
+	@Transactional(value = "tsManager")
 	public void deleteOrder(int order_group_number) {
 		List<OrdersVO> list = orderRepository.getOrderByOrderGroupNumber(order_group_number);
 		for (int i = 0; i < list.size(); i++) {
@@ -83,7 +72,6 @@ public class OrderService{
 		List<OrdersVO> orderListByCompanyName = new ArrayList<OrdersVO>();
 		List<List<OrdersVO>> orderList = new ArrayList<List<OrdersVO>>();
 		for (int i = 0; i < totalList.size(); i++) {
-			System.out.println(totalList.get(i).toString());
 			if(i==0) {
 				orderListByCompanyName.add(totalList.get(i));
 				if(totalList.size()==1)orderList.add(orderListByCompanyName);
@@ -109,12 +97,12 @@ public class OrderService{
 		return orderRepository.getMyOrderList(member_id);
 	}
 	public List<OrderedVO> getOrderResult(int order_group_number) {
-		System.out.println("order_group_number : "+order_group_number);
 		return orderRepository.getOrderResult(order_group_number);
 	}
 	public List<OrdersVO> getSellerAdminOrderList(String member_id) {
 		return orderRepository.getSellerAdminOrderList(member_id);
 	}
+	@Transactional(value = "tsManager")
 	public void updateStatus(int order_num, String status) {
 		orderRepository.updateStatus(order_num, status);
 	}

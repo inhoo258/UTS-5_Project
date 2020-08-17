@@ -10,16 +10,17 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/login.css'/>" />
 </head>
 <body>
-	 <div id="main_menu">
-    	<jsp:include page="header&footer/header.jsp"></jsp:include>
 		<sec:authorize access="isAnonymous()">
+		<div id="main_menu">
+    	<jsp:include page="header&footer/header.jsp"></jsp:include>
 		<section>
 		<div class = "l_login_all">
 			<div class = "l_login_form">
 				<div class = "l_login_title">
 					<h1 id= "l_login_titlemsg">로 그 인</h1>
 				</div>
-				<form id="loginForm" name="loginForm" action="<c:url value='/loginProcess'/>" method="post" onsubmit="sendit()">
+				<form id="loginForm" name="loginForm" action="<c:url value='/loginProcess'/>" method="post" >
+<!-- 				onsubmit="sendit()" -->
 					<div class="l_collection_btn">
 						<div class="l_login_inputId">
 							<input type="text" id="l_id_input" name="id" placeholder="아이디를 입력해주세요." autofocus="autofocus" autocomplete="off">
@@ -54,16 +55,8 @@
 			</div>
 		</div>
 		</section>
-	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.username" />님 안녕하세요.<br>
-		<a href="<c:url value="/" />">메인페이지</a>
-		<form action='<c:url value="/logout"/>' method="post">
-			<sec:csrfInput />
-			<input type="submit" value="로그아웃">
-		</form>
-	</sec:authorize>
 	</div>
+	</sec:authorize>
 	
 	<jsp:include page="header&footer/footer.jsp"/>
 </body>
@@ -94,23 +87,23 @@
 			}
 		}
 	}
-	function sendit(){
-		var frm = document.loginForm;
-		if(!frm.l_id_input.value){
-			frm.l_id_input.focus();
-			return;
-		}
-		if(!frm.l_pwd_input.value){
-			frm.l_pwd_input.focus();
-		}
-		console.log(document.loginForm.saveid.checked);
-		if(document.loginForm.saveid.checked == true){
-			setCookie("userid",document.loginForm.l_id_input.value, 7);
-		} else {
-			setCookie("userid", document.loginForm.l_id_input.value, 0);
-		}
-		document.loginFrom.submit();
-	}
+// 	function sendit(){
+// 		var frm = document.loginForm;
+// 		if(!frm.l_id_input.value){
+// 			frm.l_id_input.focus();
+// 			return;
+// 		}
+// 		if(!frm.l_pwd_input.value){
+// 			frm.l_pwd_input.focus();
+// 		}
+// 		console.log(document.loginForm.saveid.checked);
+// 		if(document.loginForm.saveid.checked == true){
+// 			setCookie("userid",document.loginForm.l_id_input.value, 7);
+// 		} else {
+// 			setCookie("userid", document.loginForm.l_id_input.value, 0);
+// 		}
+// 		document.loginFrom.submit();
+// 	}
 	
 </script>
 <c:remove var="message" scope="session"/>

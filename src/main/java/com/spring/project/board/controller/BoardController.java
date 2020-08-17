@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +51,7 @@ public class BoardController {
 	ProductService productService;
 	@Autowired
 	IMemberService memberService;
-	//공지사항 게시판
+	
 	@GetMapping("/notice/list")
 	public void noticeList(@RequestParam(value = "notice_page", required = false, defaultValue = "1") int notice_page, 
 			@RequestParam(value = "fre_page", required = false, defaultValue = "1") int fre_page,
@@ -75,11 +76,9 @@ public class BoardController {
 		model.addAttribute("totalCount",totalCount);
 		if(notice_rn!=1)model.addAttribute("preTitle",noticeService.getTitle(notice_rn-1));
 		if(notice_rn!=totalCount)model.addAttribute("postTitle",noticeService.getTitle(notice_rn+1));
-//		System.out.println("totalCount : "+totalCount);
-//		System.out.println("notice_rn : "+notice_rn);
 		return "board/notice/view";
 	}
-
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@GetMapping("/notice/form")
 	public String noticeForm(Model model) {
 		model.addAttribute("msg", "new");
@@ -87,7 +86,7 @@ public class BoardController {
 	}
 	
 	
-	//notice view에서 수정 버튼 클릭 시	
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@GetMapping("/notice/form/{notice_rn}")
 	public String getView(@PathVariable("notice_rn") int notice_rn, Model model) {
 		model.addAttribute("notice", noticeService.getNoticeInfo(notice_rn) );
@@ -95,7 +94,7 @@ public class BoardController {
 		return "board/notice/form";
 	}
 
-	//notice view 수정
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@PostMapping("/notice/update")
 	public String updateView(NoticeVO noticeVo ) {
 		noticeService.updateView(noticeVo);
@@ -103,16 +102,16 @@ public class BoardController {
 	}
 	
 	
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@PostMapping("/notice/new")
 	public String noticeInsert(@ModelAttribute NoticeVO noticeVO,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
 		if (file != null&&!file.isEmpty()) {
 			try {
 				noticeVO.setNotice_file(file.getBytes());
-				System.out.println("getBytes : "+file.getBytes());
 				noticeVO.setNotice_file_name(file.getOriginalFilename());
-				System.out.println("originalFileName : "+file.getOriginalFilename());
 			} catch (IOException e) {
+				System.out.println("notice insert error, error : "+e.getMessage());
 			}
 			noticeService.insertNoticeWithFile(noticeVO);
 		}
@@ -120,14 +119,13 @@ public class BoardController {
 		return "redirect:/board/notice/list";
 	}
 	
-	// notice view 삭제 
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MASTER')")
 	@GetMapping("/notice/delete/{notice_number}")
 	public String deleteView(@PathVariable("notice_number") int notice_number) {
 		noticeService.deleteView(notice_number);
 		return "redirect:/board/notice/list";
 	}
 	
-	//이벤트 게시판========================================================================
 	@GetMapping("/event/list")
 	public void eventList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
 		model.addAttribute("eventList",eventService.getEventList(page));
@@ -142,21 +140,20 @@ public class BoardController {
 		model.addAttribute("totalCount",totalCount);
 		return "board/event/view";
 	}
-	
+	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_SELLER','ROLE_MASTER')")
 	@GetMapping("/event/form")
 	public String eventForm(Model model) {
 		model.addAttribute("msg", "new");
 		return "board/event/form";
 	}
 	
+	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_SELLER','ROLE_MASTER')")
 	@PostMapping("/event/new")
 	public String eventInsert(@ModelAttribute EventVO eventVO, Model model, @RequestParam(value = "file", required = false) MultipartFile file) {
 		if (file != null&&!file.isEmpty()) {
 			try {
 				eventVO.setEvent_img(file.getBytes());
-				System.out.println("getBytes : "+file.getBytes());
 				eventVO.setEvent_img_name(file.getOriginalFilename());
-				System.out.println("originalFileName : "+file.getOriginalFilename());
 			} catch (IOException e) {
 			}
 			eventService.insertEventWithFile(eventVO);
@@ -165,12 +162,14 @@ public class BoardController {
 		return "redirect:/board/event/list";
 	}
 	
+	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_SELLER','ROLE_MASTER')")
 	@GetMapping("/event/delete/{event_number}")
 	public String deleteEventView(@PathVariable("event_number") int event_number) {
 		eventService.deleteView(event_number);
 		return "redirect:/board/event/list";
 	}
 	
+	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_SELLER','ROLE_MASTER')")
 	@GetMapping("/event/form/{event_rn}")
 	public String getEventView(@PathVariable("event_rn") int event_rn, Model model) {
 		model.addAttribute("event", eventService.getNoticeInfo(event_rn) );
@@ -178,20 +177,20 @@ public class BoardController {
 		return "board/event/form";
 	}
 	
+	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_SELLER','ROLE_MASTER')")
 	@PostMapping("/event/update")
 	public String updateEventView(EventVO eventVO ) {
 		eventService.updateEvent(eventVO);
 		return "redirect:/board/event/"+eventVO.getEvent_rn();
 	}
 	
-	//qna 게시판==========================================================
 	@GetMapping("/qna/list")
 	public void qnaList(@RequestParam(value="page", required = false, defaultValue = "1")int page, Model model) {
 		model.addAttribute("eventList",eventService.getEventList(page));
 		PagingManager pagingManager = new PagingManager(eventService.getTotalCount(), page);
 		model.addAttribute("pagingManager",pagingManager);
 	}
-	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/qna/form/{product_id}")
 	public String qnaForm(@PathVariable("product_id")int product_id, Model model) {
 		ProductsVO product = productService.getProduct(product_id);
@@ -200,16 +199,15 @@ public class BoardController {
 		return "board/qna/form";
 	}
 	
-	//review
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/review/form")
 	public void reviewForm(@RequestParam("member_id")String member_id, @RequestParam("order_number")int order_number,
 		@RequestParam("table_number_index") int table_number_index , @RequestParam("order_group_number") int order_group_number, Model model) {
-		System.out.println("table_number : "+table_number_index);
-		System.out.println("order_group_number : "+order_group_number);
 		model.addAttribute("order", orderService.getOrderByOrderNumber(order_number));
 		model.addAttribute("table_number_index" , table_number_index);
 		model.addAttribute("order_group_number" , order_group_number);
 	}
+
 	@RequestMapping("/review/img")
 	public ResponseEntity<byte[]> getImage(@RequestParam("product_id")int product_id, @RequestParam("review_number")int review_number) {
 		ReviewVO reviewVO = reviewService.getReviewImage(product_id, review_number);
@@ -218,7 +216,6 @@ public class BoardController {
 		final HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("image",review_img_type));
 		header.setContentDispositionFormData("attachment", reviewVO.getReview_img_name());
-		System.out.println("review_img_type : ");
 		return new ResponseEntity<byte[]>(review_img, header, HttpStatus.OK);
 	}
 }
