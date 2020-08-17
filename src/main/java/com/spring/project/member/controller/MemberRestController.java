@@ -161,6 +161,13 @@ public class MemberRestController {
 		System.out.println("year:"+year);
 		return memberSerivce.getMonthlySales(authentication.getName(), year);
 	}
-	
+	@PostMapping("/deleteSelectedMembers")
+	public void deleteSelectedMembers(@RequestParam("member_ids[]")String[] member_ids) {
+		System.out.println("member_ids : "+member_ids);
+		for (int i = 0; i < member_ids.length; i++) {
+			System.out.println("this.member_id : "+member_ids[i]);
+		}
+		memberSerivce.deleteSelectedMembers(member_ids);
+	}
 	
 }

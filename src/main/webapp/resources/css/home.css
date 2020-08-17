@@ -16,6 +16,9 @@ body {
 ::-webkit-scrollbar {
 	display: none !important;
 }
+footer{
+	display: none;
+}
 
 #main_home {
 	background-color:#2a365c;

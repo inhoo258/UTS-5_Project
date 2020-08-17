@@ -154,6 +154,8 @@
 	    </section>
     	</div>
     </section>
+    
+    <jsp:include page ="header&footer/footer.jsp"/>
 	
 	<script type="text/javascript">
 		if(sessionStorage.getItem("mineSession")=="screen_off"){
@@ -162,6 +164,8 @@
 	        $("header").css({"display" : "inline"});
 	        $("#home_main_section").css({"opacity":"1"});
 	        $("#home_main_section").css({"display" : "flex"});
+	        $("footer").css({"display" : "flex"});
+	        
 	     }
 	</script>
     

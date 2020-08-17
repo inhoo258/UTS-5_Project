@@ -37,6 +37,7 @@
 	            </div>
 	        </div>
 	    </section>
+	    <jsp:include page ="../header&footer/footer.jsp"/>
     <script type="text/javascript">	
     let choice = "${choice}";
     let title = document.getElementById('findsendtitlemsg');

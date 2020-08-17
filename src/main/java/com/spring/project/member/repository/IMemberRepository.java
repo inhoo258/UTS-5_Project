@@ -122,5 +122,8 @@ public interface IMemberRepository {
 			+ "product_delivery_price = #{product_delivery_price} "
 			+ "where seller_reg_num=#{seller_reg_num}")
 	public void updateSellerInfo(SellerInfoVO sellerInfo);
+	
+	@Delete("delete seller_info where member_id=#{member_id}")
+	public void sellerDelete(String member_id);
 
 }

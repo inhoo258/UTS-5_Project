@@ -37,4 +37,6 @@ public interface IReviewRepository {
 	
 	@Select("select review_img, review_img_name from review_board where product_id=#{0} and review_number=#{1}")
 	public ReviewVO getReviewImage(int product_id, int review_number);
+	@Delete("delete review_board where member_id=#{member_id}")
+	public void deleteReviewByMemberId(String member_id);
 }

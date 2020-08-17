@@ -2,7 +2,7 @@
 #view_section {
 /* 	position:absolute; */
 /* 	width: 1520px; */
-	height: 3000px;
+/* 	height: 3000px; */
 /* 	top: 150px; */
 /* 	left: 50%; */
 /* 	transform: translate(-50%); */
@@ -354,31 +354,105 @@
 
 /*페이징 처리 css*/
 
-.a_paging {	
-	width:34px; 
-	height:34px; 
-	display:inline;
-    font-size: 14px;
-    color: #505050;
+
+#custommer_ul table tr:last-child div{
+	display:flex;
+	justify-content:center;
+	width: 100%;
+}
+
+#custommer_ul table tr:last-child a{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2a365c;
+    margin: 5px;
+    color: black;
+    cursor: pointer;
+    font-size: 15px;
+}
+#custommer_ul table tr:last-child a:hover{
+	background-color: #2a365c;
+	color: azure;
+}
+
+
+#product_Q_N_A table{
+	width: 100%;
+	border-collapse:collapse;
+	border-top: 3px solid #2a365c;
+    border-bottom: 1px solid #2a365c;
     text-align: center;
-    line-height: 34px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-left:none;
 }
 
-.a_paging:hover{
-	background-color: #f7f7f7;
-    color: #5f0080;
+#product_Q_N_A table tr{
+	height: 50px;
 }
 
-.a_num{
+#product_Q_N_A table th:nth-child(1) {
+    width: 100px;
+}
+
+
+#product_Q_N_A table tr:last-child div{
+	display:flex;
+	justify-content:center;
+	width: 100%;
+}
+
+#product_Q_N_A table tr:last-child a{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2a365c;
+    margin: 5px;
+    color: black;
+    cursor: pointer;
+    font-size: 15px;
+}
+#product_Q_N_A table tr:last-child a:hover{
+	background-color: #2a365c;
+	color: azure;
+}
+
+#product_Q_N_A input[type=button]{
+	width: 150px;
+	height: 40px;
+	border: 2px solid #2a365c;
+	background: none;
+	cursor: pointer;
+}
+
+#product_Q_N_A input[type=button]:hover{
+	background: #2a365c;
+	color:white;
 	
 }
 
+#qna_title{
+	font-size: 20px;
+	text-align: center;
+	margin-top: 20px;		
+}
 
+	
+#qna_desc{
+	margin-top:10px;
+	text-align: right;
+}
 
+#insert_qna{
+	display:flex;
+	justify-content:flex-end;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
 
-
-
+#product_Q_N_A table td {
+    border-top: 1px solid #e3e3e3;
+}
 

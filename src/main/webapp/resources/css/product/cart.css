@@ -34,14 +34,9 @@
 	border-collapse: collapse;
 }
 
-#outerTable_first_tr {
-	border-top: 4px solid #2a365c;
-}
-
 .innerTable {
 	width: 100%;
 	height: 100%;
-	border-top: 2px solid #ddd;
 }
 
 #subTable{
@@ -50,6 +45,8 @@
 
 #outerTable_first_tr{
 	height: 100px;
+	border-top: 4px solid #2a365c;
+	border-bottom: 2px solid #ddd;
 }
 .trForEachCompany{
 	height: 250px;
@@ -101,6 +98,10 @@
 	font-size: 20px;
 }
 
+#del_tit{
+	letter-spacing: 12px;	
+}
+
 #cart_table_div input[type=button] {
 	width: 34px;
 	height: 34px;
@@ -121,40 +122,79 @@
 	border-bottom: 2px solid #ddd;
 }
 
-#deleteSelected{
-	clear: both;
-	width: 100px;
-	height: 30px;
-}
-
 .innerTable tr:last-child {
 	height: 100px;
 	font-size: 20px;
 }
 
 .innerTable tr:last-child td>section{
-	display:flex;
-	width: 100%;
-	justify-content: flex-end;
+/* 	display:flex; */
+/* 	width: 100%; */
+/* 	justify-content: flex-end; */
+	border-bottom: 2px solid #ddd;
 }
 .innerTable tr:last-child td>section>section{
-	width: 30%;
-	border-top: 2px solid #ddd;
+	margin:0 60px 20px 80px;
+	background-color: #f5f5f5;
+	padding: 20px;
+/* 	width: 30%; */
+/* 	border-top: 2px solid #ddd; */
 }
 
 .innerTable tr:last-child td>section>section div:nth-child(1) {
-	display: flex;
-	justify-content: center;
+/* 	display: flex; */
+/* 	justify-content: center; */
 	margin-top: 5px;	
 }
 /* .innerTable tr:last-child td>section>section div:nth-child(2){ */
 /* 	margin: 20px; */
 /* } */
 
+#td_emptyList{
+	padding: 50px 0; 
+	border-bottom: 2px solid #ddd;
+}
+
+#div_btn{
+	margin: 0 0 50px 80px;
+}
 
 
+.cart_btn{
+	width: 150px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #2a365c;
+    border: 1px solid #5f0080;
+    color: #fff;
+    font-size: 15px;
+    margin: 20px 10px;
+    font-size: 13px;
+}
 
+#total_price_table{
+	background-color: #f5f5f5;
+	margin: 0 auto;
+	width: 50%;
+	margin-bottom: 20px;
+}
 
+#total_price_table tr{
+	height: 35px;
+}
+
+#total_price_table td{
+	padding: 0 30px;
+}
+
+#total_price_table td:nth-child(1){
+	width: 150px;
+	font-weight: 600;
+}
+
+#total_price_table tr:nth-child(3){
+	border-top: 1px solid #2a365c ;
+}
 
 
 

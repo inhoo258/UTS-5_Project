@@ -40,7 +40,7 @@
             </div>
         </div>
     </section>
-    
+    <jsp:include page ="../header&footer/footer.jsp"/>
     <script type="text/javascript">
 		let whatpage = "${chocie}";
    		let radioFindId = document.getElementById("id");
