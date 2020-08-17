@@ -25,9 +25,6 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		System.out.println("==provvider===");
-		System.out.println("인증 ID : " + authentication.getPrincipal());
-		System.out.println("인증 PW : " + authentication.getCredentials());
 		String userId = (String) authentication.getPrincipal();
 		String password = (String) authentication.getCredentials();
 		String dbpw = memberService.getMemberPassword(userId);

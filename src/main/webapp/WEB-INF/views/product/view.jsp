@@ -20,9 +20,11 @@
 </head>
 <body>
     <jsp:include page="../header&footer/header.jsp"></jsp:include>
-    <c:set var="member_id">
-    	<sec:authentication property="principal.username"/>
-    </c:set>
+    <sec:authorize access="isAuthenticated()">
+	    <c:set var="member_id">
+	    	<sec:authentication property="principal.username"/>
+	    </c:set>
+    </sec:authorize>
      <section id="view_section">
         <div class="p_product_main">
             <div class="p_product_collection">

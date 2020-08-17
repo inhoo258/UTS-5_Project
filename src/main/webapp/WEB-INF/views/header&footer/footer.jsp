@@ -11,7 +11,7 @@
 	<footer id=footer>
         <div id=footer_main_div>
             <section>
-                <img src="/project/resources/img/sidebar_logo.png  ">
+                <img src="/project/resources/images/sidebar_logo.png  ">
             </section>
             <section>
                 <h2>Under The Sea</h2>

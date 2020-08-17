@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div id="main_home">
-    	<img src=/project/resources/img/sidebar_logo.png>
+    	<img src=/project/resources/images/sidebar_logo.png>
 		<ul>
         	<li><a href="#" class="main_explain">회사소개</a></li>
             <li><a href="#" class="main_explain">인사말</a></li>
@@ -73,11 +73,11 @@
     <section id=home_main_section>
     	<div id=home_div_one>
 	    	<div>
-	    		<img src="/project/resources/img/main_img5.png">
-	    		<img src="/project/resources/img/main_img4.png">
-	    		<img src="/project/resources/img/main_img1.png">
-	    		<img src="/project/resources/img/main_img2.png">
-	    		<img src="/project/resources/img/main_img3.png">
+	    		<img src="/project/resources/images/main_img5.png">
+	    		<img src="/project/resources/images/main_img4.png">
+	    		<img src="/project/resources/images/main_img1.png">
+	    		<img src="/project/resources/images/main_img2.png">
+	    		<img src="/project/resources/images/main_img3.png">
 	    	</div>
     	</div>
     	
@@ -94,7 +94,7 @@
 				             <div class="productframe">
 				                <div class="imgframe">
 				                    <a href='<c:url value="/product/${newestProduct.product_id}"/>'>
-				                   	 	<img class="productimg" src='<c:url value="/product/img/${newestProduct.product_id}"/>'>
+				                   	 	<img class="productimg" src='/project/product/img/${newestProduct.product_id}'>
 				                   	</a>
 				                </div>
 				                <div class="productname">
@@ -117,7 +117,7 @@
     	</div>
     	
 	    <div>
-	    	<img src="/project/resources/img/main2.png" style="width: 100%; margin-bottom: 120px;">
+	    	<img src="/project/resources/images/main2.png" style="width: 100%; margin-bottom: 120px;">
 	    </div>
     	
     	<div id=home_div_three>
