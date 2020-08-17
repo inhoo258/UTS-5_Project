@@ -63,9 +63,9 @@ public class OrderService{
 //	public void deleteOrder(String member_id, int product_id) {
 //		orderRepository.deleteOrder(member_id, product_id);
 //	}
-	public void deliveryOrder(String member_id, int product_id, String order_status) {
-		orderRepository.deliveryOrder(member_id, product_id, order_status);
-	}
+//	public void deliveryOrder(String member_id, int product_id, String order_status) {
+//		orderRepository.deliveryOrder(member_id, product_id, order_status);
+//	}
 
 	public OrdersVO getOrderByOrderNumber(int order_number) {
 		return orderRepository.getOrderByOrderNumber(order_number);
@@ -114,5 +114,12 @@ public class OrderService{
 	}
 	public List<OrdersVO> getSellerAdminOrderList(String member_id) {
 		return orderRepository.getSellerAdminOrderList(member_id);
+	}
+	public void updateStatus(int order_num, String status) {
+		orderRepository.updateStatus(order_num, status);
+		
+	}
+	public String statuschange(int order_num) {
+		return orderRepository.statusChange(order_num);
 	}
 }

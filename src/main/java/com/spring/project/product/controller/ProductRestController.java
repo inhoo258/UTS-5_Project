@@ -114,6 +114,16 @@ public class ProductRestController {
 			System.out.println("----------------will delete from orders order_group_number ---->"+order_group_number);
 			orderService.deleteOrder(order_group_number);
 		}
+		@PostMapping("/statuschange")
+		public String statuschange(@RequestParam String member_id, @RequestParam String status, @RequestParam int order_num) {
+//			if(status.equals("배송중")) {
+//				System.out.println("배송중 ");
+//				return orderService.statuschange(order_num);
+//			}else if(status.equals("배송준비중"))
+				orderService.updateStatus(order_num, status);
+				return orderService.statuschange(order_num);
+
+		}
 	
 //	@PostMapping("/deleteSellerProduct")
 //	public void deleteSellerProduct(@RequestParam("product_ids[]") int[] product_ids) {

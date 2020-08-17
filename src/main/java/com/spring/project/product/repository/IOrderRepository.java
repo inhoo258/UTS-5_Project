@@ -47,9 +47,6 @@ public interface IOrderRepository {
 //	@Delete("delete from orders where member_id=#{member_id} and product_id=#{product_id}")
 //	public void deleteOrder(String member_id, int product_id);
 	
-	//배송전/중/완료 수정
-	@Update("update orders set order_status=#{order_status}")
-	public void deliveryOrder(String member_id, int product_id, String order_status);
 	
 	@Select("select ord.member_id member_id, order_date, ord.product_id product_id, prd.product_name product_name, order_product_count, order_number, product_weight "
 			+ "from orders ord "
@@ -76,7 +73,7 @@ public interface IOrderRepository {
 	public List<OrdersVO> getOrder(String member_id, int order_group_number);
 
 	@Select("select count(*) from orders where member_id = #{member_id}")
-	public int getTotalCount(String member_id);
+	public int getTotalCount(String member_id); 
 
 	@Select("select * from orders where member_id = #{member_id}")
 	public List<OrdersVO> getMyOrderList(String member_id);
@@ -101,4 +98,16 @@ public interface IOrderRepository {
 
 	@Select("select product_id, order_product_count from orders where order_group_number=#{order_group_number}")
 	public List<OrdersVO> getOrderByOrderGroupNumber(int order_group_number);
+
+	@Update("update orders set order_status = #{1} where order_number = #{0}")
+	public void updateStatus(int order_num, String status);
+
+	@Select("select o.order_status from orders o join members m on m.member_id = o.member_id where o.order_number = #{order_num}")
+	public String statusChange(int order_num);
+	
+	
+
+
 }
+
+
