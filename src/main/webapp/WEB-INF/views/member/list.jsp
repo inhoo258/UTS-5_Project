@@ -439,7 +439,7 @@
                     		var xhr = new XMLHttpRequest();
                 	        xhr.open("post", "/project/member/rest/member_enable");
                 	        xhr.setRequestHeader("content-type", "application/json");
-//                 	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
+                	        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
                 			xhr.send(JSON.stringify(member));
                 			xhr.onreadystatechange = function () {
                                 if (xhr.readyState === xhr.LOADING) {
