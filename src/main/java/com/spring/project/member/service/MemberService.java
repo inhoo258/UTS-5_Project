@@ -102,7 +102,7 @@ public class MemberService implements IMemberService {
 		reviewRepository.deleteReviewByMemberId(member_id);
 		qnaRepository.deleteQnAByMemberId(member_id);
 		productRepository.deleteProductByMemberId(member_id);
-		orderRepository.deleteOrderByMemberId(member_id);
+//		orderRepository.deleteOrderByMemberId(member_id);
 		eventRepository.deleteEventByMemberId(member_id);
 		cartRepository.deleteCartByMemberId(member_id);
 		memberRepository.authDelete(member_id);
@@ -166,7 +166,7 @@ public class MemberService implements IMemberService {
 			reviewRepository.deleteReviewByMemberId(member_ids[i]);
 			qnaRepository.deleteQnAByMemberId(member_ids[i]);
 			productRepository.deleteProductByMemberId(member_ids[i]);
-			orderRepository.deleteOrderByMemberId(member_ids[i]);
+//			orderRepository.deleteOrderByMemberId(member_ids[i]);
 			eventRepository.deleteEventByMemberId(member_ids[i]);
 			cartRepository.deleteCartByMemberId(member_ids[i]);
 			memberRepository.authDelete(member_ids[i]);
