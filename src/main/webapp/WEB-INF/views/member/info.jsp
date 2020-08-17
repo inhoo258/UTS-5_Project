@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -174,10 +172,8 @@
                 <div>
                     <h2>주문 관리</h2>
 			           <div id="order_div_list">
-					        <div><input type="button" value="전체선택"><input type="button" value="선택취소"></div>
 					        <table border="1">
 					            <tr>
-					                <td><input type="checkbox"></td>
 					                <td>주문일</td>
 					                <td>주문번호</td>
 					                <td>수령자명</td>
@@ -189,11 +185,11 @@
 					            </tr>
 					            <c:forEach var="sellerOrdersList" items="${sellerOrdersList }" >
 					            <tr>
-					                <td><input type="checkbox"></td>
 					                <!-- 주문번호를 클릭하면 해당 주문의 상세내역이 나올수 있게 -->
 					                <!-- <td>2020-08-15</td> -->
 					                <td>${sellerOrdersList.order_date }</td>
-					                <td><a href="#" onclick="window.open('/project/member/showOrderList','새창','width=800px')">${sellerOrdersList.order_number }</a>
+					                <td><a href="#" onclick="window.open('/project/member/showOrderList','새창','width=800px')"><span class="order_number">${sellerOrdersList.order_number }</span>
+					                <input class="member_id" type="hidden" id="member_id" value="${sellerOrdersList.member_id }"/></a>
 					                </td>
 					                <td>${sellerOrdersList.order_receiver_name}</td>
 					                <td>
@@ -203,10 +199,11 @@
 					                    </div>
 					                </td>
 					                <!-- <td>배송 전 중 후 </td> -->
-					                <td>${sellerOrdersList.order_status}</td>
+					                <td><span class="status">${sellerOrdersList.order_status}</span></td>
 					                <td>2020-08-16</td>
-					                <td><input type="button" id="sent_out" value="발송처리"></td>
-					                <td><input type="button" id="sent_cancel"value="발송취소"></td>
+					                
+					                <td><input type="button" id="sent_out" name = "sent_out" value="발송처리"></td>
+					                <td><input type="button" id="sent_cancel" name ="sent_cancel" value="발송취소"></td>
 					            </tr>
 					            </c:forEach>
 					        </table>
@@ -265,6 +262,77 @@
             </div>
         </div>
     </div>
+  	<script type="text/javascript">
+	    let sent_out = document.getElementsByName("sent_out");
+	    let sent_cancel = document.getElementsByName('sent_cancel');
+	    let orders_number = document.getElementsByClassName('order_number');
+	    let status = document.getElementsByClassName('status');
+	    let member_id = document.getElementsByClassName('member_id');
+	    
+// 	    console.log(order_number[1].innerHTML);
+	    
+	    for (var j = 0; j < sent_out.length; j++) {
+		    (function (i){
+		    	sent_out[j].addEventListener('click', function(){
+		    	alert("click")
+		    	console.log("i : " + i)
+		    	console.log(orders_number[i].innerHTML)
+		    	console.log(status[i].innerHTML)
+		    	console.log(member_id[i].value)
+		    	var result = confirm('정말 발송 처리 하시겠습니까?');
+		        if(result){
+			        $.ajax({
+			        	url:'/project/product/rest/statuschange',
+			            type : 'post',
+			            data : {
+			            	'status' : status[i].innerHTML,
+			            	'member_id' : member_id[i].value,
+			            	order_num : parseInt(orders_number[i].innerHTML.trim())
+			            },
+			            success : function(statusCall){
+			                alert('성공 : ' + statusCall)
+	            			status[i].innerText = statusCall;
+			            }, error : function(e){
+			                alert(e)
+			            }
+			        })
+	
+		        }
+		    	
+		    	})
+		    	
+		    	
+		    })(j);
+			
+		}
+// 	    sent_cancel.addEventListener('click', function(){
+// 	    	var result = confirm('정말 발송 취소 처리 하시겠습니까?');
+// 	        if(result){
+// 	           alert('sent_cancel')
+// 	           $.ajax({
+// 	               url : '/product/rest/statuschange',
+// 	               method : 'post',
+// 	               data : {
+// 		            	'textmessage' : "배송준비중",
+// 	               },
+// 	               success : function(statusmessage){
+// 	                   alert('성공')
+// // 			           status.innerText = '배송준비중';
+// 	               }, error : function(){
+// 	                   alert('실패')
+// 	               }
+// 	           })
+// 	        }
+// 	    });
+
+  	
+  	</script>	
+    
+    
+    
+    
+
+
     <script type="text/javascript">
 		//전체 선택===========================================
 		let checkCnt = 0;
@@ -308,7 +376,7 @@
 // 		        xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
 			let member = {
 				member_id:"${member.member_id}",
-				member_pw:document.getElementsByName("member_pw")[0].value
+				member_pw:document.getElementsByName("member_pw")[0].valcue
 			}
 			xhr.send(JSON.stringify(member));
 			xhr.onreadystatechange = function () {
@@ -490,13 +558,7 @@
 		}
 		
     </script>
-    <script type="text/javascript">
-    	
-    
-    
-    
-    
-    </script>
+  
     
     
     
