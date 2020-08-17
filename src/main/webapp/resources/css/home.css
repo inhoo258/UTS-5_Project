@@ -16,8 +16,10 @@ body {
 ::-webkit-scrollbar {
 	display: none !important;
 }
-footer{
+
+#footer{
 	display: none;
+	opacity:0;
 }
 
 #main_home {
